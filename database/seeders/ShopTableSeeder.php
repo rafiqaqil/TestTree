@@ -14,29 +14,9 @@ class ShopTableSeeder extends Seeder
     public function run()
     {
         $shops = [
-            [
-                'category_name' => 'amirul',
-                    'children' => [
-                        [    
-                            'category_name' => 'saidkin',
-                            'children' => [
-                                    ['category_name' => 'nabil'],
-                                    ['category_name' => 'najib'],
-                                    ['category_name' => 'amir'],
-                            ],
-                        ],
-                        [    
-                            'category_name' => 'senah',
-                                'children' => [
-                                    ['category_name' => 'ali'],
-                                    ['category_name' => 'abu'],
-                                    ['category_name' => 'ahmad'],
-                            ],
-                        ],
-                    ],
-                ],
-                [
-                    'category_name' => 'rafiq',
+          
+                
+                    ['category_name' => 'rafiq',
                         'children' => [
                         [
                             'category_name' => 'mohamad',
@@ -54,7 +34,7 @@ class ShopTableSeeder extends Seeder
                             ],
                         ],
                     ],
-                ],
+              ]  
         ];
         foreach($shops as $shop)
         {

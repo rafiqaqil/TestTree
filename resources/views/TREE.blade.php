@@ -30,8 +30,8 @@ var treeData =  <?php echo $jsondata ?>;
 
 // Set the dimensions and margins of the diagram
 var margin = {top: 20, right: 90, bottom: 30, left: 90},
-    width = 960 - margin.left - margin.right,
-    height = 500 - margin.top - margin.bottom;
+    width = 1920 - margin.left - margin.right,
+    height = 1080 - margin.top - margin.bottom;
 
 // append the svg object to the body of the page
 // appends a 'group' element to 'svg'

@@ -28,5 +28,8 @@ Route::get('/New', [ShopController::class , 'index']);
 use App\Http\Controllers\newContol;
 
 Route::get('/NewC', [newContol::class , 'index']);
+Route::get('/sponsor', [newContol::class , 'index2']);
+Route::get('/{parent}/BuatAnak/', [newContol::class , 'buatanak']);
+Route::get('/{aku}/AtokKu/', [newContol::class , 'SiapaAtok']);
 
 //Route::get('/New', 'ShopController@index');
