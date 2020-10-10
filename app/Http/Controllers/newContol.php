@@ -8,6 +8,9 @@ class newContol extends Controller
 {
     public function index()
     {
+        
+       
+
         $shops = Shop::get()->toTree();
 
         $jsondata = json_encode($shops);
@@ -16,8 +19,10 @@ class newContol extends Controller
 
         $jsondata = trim($jsondata, '[]');
 
-        //dd( $jsondata);
+        dd( $jsondata);
         return view('TREE', compact('shops','jsondata'));
     }
+    
+    
 
 }
