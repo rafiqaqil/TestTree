@@ -51,7 +51,6 @@ class newContol extends Controller
         $jsondata = json_encode($shops);
 
         $jsondata = trim($jsondata, '[]');
-
         //dd( $jsondata);
         return view('TREE', compact('shops','jsondata'));
     }
