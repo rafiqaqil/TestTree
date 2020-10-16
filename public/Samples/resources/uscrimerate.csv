@@ -1,0 +1,51 @@
+state,population,unemployment_rate,violent_rate,property_rate,region
+Alabama,4887871,3.93,524.2,2957.3,South
+Alaska,737438,6.59,829,3542.1,West
+Arizona,7171646,4.83,508,2914.9,West
+Arkansas,3013825,3.7,554.9,3078.6,South
+California,39557045,4.2,449.3,2496.7,West
+Colorado,5695564,3.28,368.1,2701.6,West
+Connecticut,3572665,4.11,228,1769.9,Northeast
+Delaware,967171,3.76,453.4,2440.6,South
+Florida,21299325,3.57,408,2512.4,South
+Georgia,10519475,3.94,357.2,2860.2,South
+Hawaii,1420491,2.45,250.6,2829.5,West
+Idaho,1754208,2.84,226.4,1635.4,West
+Illinois,12741080,4.3,438.8,2011.4,Midwest
+Indiana,6691878,3.43,399,2416.9,Midwest
+Iowa,3156145,2.52,293.4,2125.3,Midwest
+Kansas,2911505,3.36,413,2800.9,Midwest
+Kentucky,4468402,4.33,225.8,2129.1,South
+Louisiana,4659978,4.88,557,3366.8,South
+Maine,1338404,3.37,121,1507.1,Northeast
+Maryland,6042718,3.92,500.2,2222.3,South
+Massachusetts,6902149,3.34,358,1437,Northeast
+Michigan,9995915,4.15,450,1800,Midwest
+Minnesota,5611179,2.91,238.3,2191.5,Midwest
+Mississippi,2986530,4.76,285.7,2733.9,South
+Missouri,6126452,3.2,530.3,2833.9,Midwest
+Montana,1062305,3.72,377.1,2591.6,West
+Nebraska,1929268,2.79,305.9,2274,Midwest
+Nevada,3034392,4.56,555.9,2612.4,West
+New Hampshire,1356458,2.53,198.7,1381.8,Northeast
+New Jersey,8908520,4.15,228.8,1555.5,Northeast
+New Mexico,2095428,4.95,783.5,3941.7,West
+New York,19542209,4.11,356.7,1514.2,Northeast
+North Carolina,10383620,3.9,363.7,2545.3,South
+North Dakota,760077,2.61,281.3,2197.8,Midwest
+Ohio,11689442,4.58,297.5,2419.1,Midwest
+Oklahoma,3943079,3.39,456.2,2879.4,South
+Oregon,4190713,4.15,281.8,2986.5,West
+Pennsylvania,12807060,4.29,313.3,1649.4,Northeast
+Rhode Island,1057315,04.07,232.2,1751.6,Northeast
+South Carolina,5084127,3.42,506.2,3195.9,South
+South Dakota,882235,03.02,433.6,1876.2,Midwest
+Tennessee,6770010,3.49,651.5,2940.6,South
+Texas,28701845,3.86,438.9,2562.6,South
+Utah,3161105,3.12,238.9,2780.2,West
+Vermont,626299,2.67,165.8,1436.7,Northeast
+Virginia,8517685,2.97,208.2,1792.9,South
+Washington,7535591,4.5,304.5,3173.6,West
+West Virginia,1805832,5.26,350.7,1852,South
+Wisconsin,5813568,3,319.9,1808.3,Midwest
+Wyoming,577737,04.06,237.5,1830.4,West

@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Exam List Calendar Chart | JSCharting</title>
+    <meta http-equiv="content-type" content="text-html; charset=utf-8" />
+
+    <script type="text/javascript" src="../jsc/jscharting.js"></script>
+
+    <script type="text/javascript" src="../jsc/modules/types.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="css/default.css" />
+    <style type="text/css">
+      /*CSS*/
+    </style>
+  </head>
+  <body>
+    <div id="chartDiv" style="max-width: 470px;height: 430px;margin: 0px auto;"></div>
+
+    <script type="text/javascript">
+      /*
+Calendar chart with events marked by a custom SVG path.
+Learn how to:
+
+  - Draw custom SVG paths inside label text.
+*/
+      // JS
+      var chart,
+        csvData,
+        palette = JSC.getPalette(0),
+        chartConfig = {
+          debug: true,
+          type: 'calendar month solid',
+          title: {
+            label_text: 'Exam Schedule January 2018',
+            position: 'center',
+            label_style_fontSize: 22
+          },
+          legend: {
+            position: 'bottom',
+            template: '%icon %name'
+          },
+          defaultSeries: {
+            // Remove spacing between calendar cells.
+            shape_innerPadding: 0,
+            mouseTracking_enabled: false,
+            legendEntry_visible: false
+          },
+          defaultPoint: {
+            label: {
+              text: '<b>%name</b><br>%events',
+              align: 'center',
+              verticalAlign: 'top',
+              style_fontSize: 20
+            },
+            // Add an events attributes to all points.
+            attributes_events: ''
+          },
+          toolbar_visible: false,
+          yAxis_visible: false
+        };
+
+      JSC.fetch('./resources/examSchedule.csv')
+        .then(function(response) {
+          if (response.ok) {
+            response.text().then(function(text) {
+              var parsedData = JSC.parseCsv(text);
+              renderChart((csvData = parsedData.data));
+            });
+          }
+        })
+        .catch(function(err) {
+          console.error(err);
+        });
+
+      function renderChart(data) {
+        chart = JSC.chart('chartDiv', makeChartConfig(data));
+      }
+
+      function makeChartConfig(rows) {
+        var config = chartConfig,
+          entries = [],
+          points = [];
+
+        // Generate a custom legend entry for each data row
+        config.legend.customEntries = rows.map(function(row, i) {
+          return { name: row[2], icon_color: palette[i] };
+        });
+
+        // Generate a point for each data row
+        config.series = [
+          {
+            points: rows.map(function(row, i) {
+              return {
+                date: [row[0], row[1]],
+                attributes: {
+                  subject: row[2],
+                  // When attribute strings are wrapped inside an array, they will merge with other point strings
+                  // that bind to the same date cell.
+                  events: ['<icon path="M0 0L80 0 L80 6L0 6 z" width="55" height="8" color=' + palette[i] + '><br>']
+                }
+              };
+            })
+          }
+        ];
+        return config;
+      }
+    </script>
+  </body>
+</html>

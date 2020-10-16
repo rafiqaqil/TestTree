@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Multi Y Axes | JSCharting</title>
+    <meta http-equiv="content-type" content="text-html; charset=utf-8" />
+
+    <script type="text/javascript" src="../jsc/jscharting.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="css/default.css" />
+    <style type="text/css"></style>
+  </head>
+  <body>
+    <div id="chartDiv" style="max-width: 740px;height: 400px;margin: 0px auto;"></div>
+
+    <script type="text/javascript">
+      /*
+Demonstrates using multiple Y axes associated with different series.
+Learn how to:
+
+  - Use multiple axes.
+  - Associate multiple data series with specific axes.
+*/
+      // JS
+
+      var colors = JSC.getPalette(0);
+      var chart = JSC.chart('chartDiv', {
+        debug: true,
+        type: 'column',
+        xAxis: { label_text: 'Quarter', line_width: 0 },
+        title_label_text: 'Acme Tool Sales',
+        defaultAxis: { line_width: 2 },
+        yAxis: [
+          {
+            id: 'leftAxis',
+            defaultTick_label_color: colors[0],
+            line_color: colors[0],
+            label_text: 'Revenue',
+            formatString: 'c0'
+          },
+          {
+            id: 'rightAxis',
+            defaultTick_label_color: colors[3],
+            line_color: colors[3],
+            label_text: 'Volume',
+            orientation: 'right'
+          }
+        ],
+
+        series: [
+          {
+            name: 'Revenue',
+            id: 's1',
+            yAxis: 'leftAxis',
+            defaultPoint: {
+              color: colors[0],
+              label: { visible: true, color: 'blue' }
+            },
+            points: [{ x: 'Q1', y: 530 }, { x: 'Q2', y: 740 }, { x: 'Q3', y: 667 }, { x: 'Q4', y: 838 }]
+          },
+          {
+            name: 'Volume',
+            yAxis: 'rightAxis',
+            color: colors[3],
+            points: [{ x: 'Q1', y: 325 }, { x: 'Q2', y: 367 }, { x: 'Q3', y: 382 }, { x: 'Q4', y: 371 }]
+          }
+        ]
+      });
+    </script>
+  </body>
+</html>

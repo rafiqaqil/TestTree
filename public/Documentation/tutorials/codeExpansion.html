@@ -1,0 +1,52 @@
+﻿<!-- This tutorial explains how chart settings can be written more efficiently by
+using shortcuts.<br />
+<br />-->
+<p>JS configuration settings used by the chart follow an object oriented
+    API to define settings that span a hierarchy of logical chart objects. For
+    example an axis tick label can be set by using the following:</p>
+<span class="codeText">{
+		yAxis:{
+		defaultTick:{
+		label:{
+		text:&#39;%value&#39;
+		}
+		}
+		}
+		}</span>
+<p>This setting is defined deep within the hierarchy and is a fairly standard
+    approach in such a scenario. JSCharting however provides a mechanism
+    that makes applying such settings simpler. This is achieved by using
+    a single property setting that concatenates all subsequent properties into one name and is used at the root level like so:</p>
+<span class="codeText">{
+		yAxis_defaultTick_label_text:&#39;%value&#39;
+		}</span>
+<p>This setting will be evaluated by the chart into the fully expanded code
+    shown above.</p>
+
+<h3>Caveats</h3>
+<p>Due to this approach, it is possible to define the same property
+    multiple times. For example the following code specifies the same
+    setting twice:</p>
+<span class="codeText">{
+		label:{text:&#39;textA&#39;},
+		label_text:&#39;textB&#39;
+		}</span>
+<p>In this instance, the more expanded property takes precedence and
+    overwrites the aliased version. Running this configuration through the chart will
+    result in the following setting:</p>
+<span class="codeText">{
+		label:{text:&#39;textA&#39;}
+		}</span>
+<p>When label_text is expanded into label.text, and this value is already
+    defined, it will be ignored.</p>
+<span class="docsNote">When defining chart options to be used as a
+		chart template. The chart expands both the chart configuration and 
+		template before the settings are merged. Therefore, this precedence does 
+		not influence use of templates.</span>
+<span class="docsCaution">This feature is not recommended for use with typescript.</span>
+<span class="docsCaution">Some properties such as xAxis and yAxis can be
+		set with an axis object, or with an array of axis objects. If an array 
+		of axes is used and an aliased axis property is set, it may cause 
+		problems as it will not be expanded into one of the axis objects in the 
+		array but as a property of the array. </span>
+

@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Linear Gauge Axis Guides | JSCharting</title>
+    <meta http-equiv="content-type" content="text-html; charset=utf-8" />
+
+    <script type="text/javascript" src="../jsc/jscharting.js"></script>
+
+    <script type="text/javascript" src="../jsc/modules/types.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="css/default.css" />
+    <style type="text/css">
+      /*CSS*/
+    </style>
+  </head>
+  <body>
+    <div id="chartDiv" style="max-width: 740px;height: 400px;margin: 0px auto;"></div>
+
+    <script type="text/javascript">
+      /*
+Examples of visual guides for linear gauge columns.
+Learn how to:
+
+  - Show linear column guides.
+*/
+      // JS
+      var chart = JSC.chart('chartDiv', {
+        debug: true,
+        title: {
+          label_text: 'Linear Column Guides',
+          position: 'center'
+        },
+        legend_visible: false,
+        yAxis: [
+          { line_visible: true, scale_range: [0, 100] },
+          { id: 'y2', line_width: 0, scale_range: [0, 100] },
+          { id: 'y3', line_width: 0, scale_range: [0, 100] },
+          {
+            id: 'y4',
+            line_width: 0,
+            defaultTick_gridLine_width: 1,
+            scale_range: [0, 100]
+          }
+        ],
+        xAxis: [
+          {
+            defaultTick_gridLine_width: 0,
+
+            /*Reduces column size to pad against axis line.*/
+            spacingPercentage: 0.15
+          },
+          {
+            id: 'x2',
+            defaultTick_gridLine: { onTop: true, width: 3, dashStyle: 'dot' },
+            spacingPercentage: 0.15
+          },
+          {
+            id: 'x3',
+            defaultTick_gridLine_width: 'column',
+            spacingPercentage: 0.15
+          }
+        ],
+        defaultSeries: {
+          type: 'gauge linear column roundCaps',
+          shape: { label: [{ text: '%name' }] }
+        },
+        series: [
+          { name: 'Axis Line', points: [['value', 25]] },
+          {
+            name: 'Dashed Grid onTop',
+            yAxis: 'y2',
+            xAxis: 'x2',
+            points: [['value', 75]]
+          },
+          {
+            name: 'Column Width Grid',
+            yAxis: 'y3',
+            xAxis: 'x3',
+            points: [['value', 49]]
+          },
+          {
+            name: 'Y Grid Lines',
+            yAxis: 'y4',
+            points: [['value', 29]]
+          }
+        ]
+      });
+    </script>
+  </body>
+</html>

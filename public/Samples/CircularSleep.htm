@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Circular Sleep Tracking Gauges | JSCharting</title>
+    <meta http-equiv="content-type" content="text-html; charset=utf-8" />
+
+    <script type="text/javascript" src="../jsc/jscharting.js"></script>
+
+    <script type="text/javascript" src="../jsc/modules/types.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="css/default.css" />
+    <style type="text/css">
+      /*CSS*/
+    </style>
+  </head>
+  <body>
+    <div id="chartDiv" style="max-width: 740px;height: 240px;margin: 0px auto;"></div>
+
+    <script type="text/javascript">
+      /*
+Circular bars that span axis origin.
+Learn how to:
+
+  - Column range data that spans axis origin.
+*/
+      // JS
+      var chart = JSC.chart('chartDiv', {
+        debug: true,
+        legend_visible: false,
+        xAxis: {
+          defaultTick: {
+            gridLine: { width: 'column', color: '#ddddde' }
+          },
+          spacingPercentage: 0
+        },
+        yAxis: {
+          onTop: true,
+          defaultTick: {
+            padding: 5,
+            line: { width: 3, length: 4, color: 'white' },
+            placement: 'inside',
+            label_style_fontSize: 12
+          },
+          defaultMinorTick: {
+            line: { width: 2, length: 5, color: 'white' }
+          },
+          line_width: 0,
+          scale: { range: [0, 12], interval: 3, minorInterval: 1 }
+        },
+        defaultSeries: {
+          angle: { sweep: 360, orientation: 90 },
+          type: 'gauge column roundCaps',
+          shape: {
+            innerSize: '60%',
+            label: [{ text: '%name', style: { fontSize: 20 } }, { align: 'center', verticalAlign: 'middle' }]
+          }
+        },
+        series: [
+          {
+            palette: ['#5277dc'],
+            name: 'Monday',
+            shape_label: [{}, { text: 'Slept<br/>5hr 30min' }],
+            points: [{ name: 'Sleep', y: [1, 6.5] }]
+          },
+          {
+            palette: ['#5277dc'],
+            name: 'Tuesday',
+            shape_label: [{}, { text: 'Slept<br/>8hr 15min' }],
+            points: [{ name: 'Sleep', y: [10.25, 6.5] }]
+          },
+          {
+            palette: ['#5277dc'],
+            name: 'Wednesday',
+            shape_label: [{}, { text: 'Slept<br/>7hr 30min' }],
+            points: [{ name: 'Sleep', y: [11, 6.5] }]
+          },
+          {
+            palette: ['#5277dc'],
+            name: 'Thursday',
+            shape_label: [{}, { text: 'Slept<br/>7hr 30min' }],
+            points: [{ name: 'Sleep', y: [11, 6.5] }]
+          }
+        ]
+      });
+    </script>
+  </body>
+</html>

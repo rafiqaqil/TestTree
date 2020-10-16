@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Negative Values Bar Mekko Chart | JSCharting</title>
+    <meta http-equiv="content-type" content="text-html; charset=utf-8" />
+
+    <script type="text/javascript" src="../jsc/jscharting.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="css/default.css" />
+    <style type="text/css"></style>
+  </head>
+  <body>
+    <div id="chartDiv" style="max-width: 740px;height: 400px;margin: 0px auto;"></div>
+
+    <script type="text/javascript">
+      /*
+Variwide bar mekko column chart  with negative y values.
+Learn how to:
+
+  - Draw variwide chart with negative values.
+*/
+      // JS
+      var chart = JSC.chart('chartDiv', {
+        debug: true,
+        type: 'variwide',
+        toolbar_visible: false,
+        yAxis: {
+          alternateGridFill: 'none',
+          label_text: 'Operating profit per unit sold',
+          defaultTick: { line_visible: false, gridLine_visible: false },
+          formatString: 'c0',
+          scale_range: [-50, 200]
+        },
+        xAxis: {
+          label_text: 'Units sold',
+          defaultTick_enabled: false
+        },
+        legend_visible: false,
+        title_label_text: 'Profit per phone x phones sold by brand Q4 2015',
+        defaultPoint: {
+          tooltip: '<b>%name</b><br>%yAxisLabel: %yValue<br>%xAxisLabel: {%zValue:n1}M',
+          outline_width: 0,
+          label_text: '%name'
+        },
+        series: [
+          {
+            palette: 'default',
+            points: [
+              { name: 'Apple', z: 78.25, y: 184.1 },
+              { name: 'Samsung', z: 81.5, y: 23.29 },
+              { name: 'LG', z: 15.3, y: -3.36 },
+              { name: 'Sony', z: 7.6, y: 26.17 },
+              { name: 'HTC', z: 3.4, y: -37.65 },
+              { name: 'Microsoft Mobile', z: 4.5, y: -36.11 }
+            ]
+          }
+        ]
+      });
+    </script>
+  </body>
+</html>

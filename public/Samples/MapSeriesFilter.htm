@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Map Series Filter | JSCharting</title>
+    <meta http-equiv="content-type" content="text-html; charset=utf-8" />
+
+    <script type="text/javascript" src="../jsc/jscharting.js"></script>
+
+    <script type="text/javascript" src="../jsc/modules/maps.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="css/default.css" />
+    <style type="text/css">
+      /*CSS*/
+    </style>
+  </head>
+  <body>
+    <div id="chartDiv" style="max-width: 740px;height: 400px;margin: 0px auto;"></div>
+
+    <script type="text/javascript">
+      /*
+Map points specifying specific map features with a background.
+Learn how to:
+
+  - Map points from mapCodes.
+  - Mapping base layers from mapCodes.
+  - Style Map points.
+*/
+      // JS
+      var chart = JSC.chart('chartDiv', {
+        debug: true,
+        chartArea_fill: '#b6d9ff',
+        title_label_text: 'Four corner states',
+        type: 'map',
+        legend_visible: false,
+        mapping_base_layers: 'US',
+        series: [
+          {
+            name: 'Four corner states',
+            defaultPoint_outline: { color: 'white', width: 2 },
+            points: [{ map: 'US.UT' }, { map: 'US.CO' }, { map: 'US.AZ' }, { map: 'US.NM' }]
+          }
+        ]
+      });
+    </script>
+  </body>
+</html>

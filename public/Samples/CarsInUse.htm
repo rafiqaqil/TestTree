@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Microchart Tooltip Chart | JSCharting</title>
+    <meta http-equiv="content-type" content="text-html; charset=utf-8" />
+
+    <script type="text/javascript" src="../jsc/jscharting.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="css/default.css" />
+    <style type="text/css"></style>
+  </head>
+  <body>
+    <div id="chartDiv" style="max-width: 740px;height: 400px;margin: 0px auto;"></div>
+
+    <script type="text/javascript">
+      /*
+Use microcharts inside tooltips.
+Learn how to:
+
+  - Use combined tooltip with microcharts.
+*/
+      // JS
+
+      var tooltipText =
+        '<b>%name</b><br>Population: <b>{%population:n}</b><br>Motorization Rate: <b>%rate</b>' +
+        '<br><span style="font-size:10px">(vehicles per 1k inhabitants)</span>' +
+        '<hr>Fuel types (<b><span style="color:#5692F1">petrol</span>, <span style="color:#FA583B">diesel</span>, <span style="color:#DFD047">other</span></b>): ' +
+        '<br><chart size=190x20 type=barfull margin=5 data=%petrol,%diesel,%other>';
+
+      var chart = JSC.chart('chartDiv', {
+        type: 'column',
+        yAxis_visible: false,
+        legend_visible: false,
+        title: {
+          label: {
+            text: 'Passenger cars in use in 2015',
+            style_fontSize: 20
+          },
+          position: 'center'
+        },
+        annotations: [{ label_text: 'Hover a column for details.', position: 'inside top right' }],
+        defaultPoint: {
+          label_visible: true,
+          tooltip: tooltipText
+        },
+
+        series: [
+          {
+            color: '#21d340',
+            points: [
+              {
+                x: 'Germany',
+                y: 45071209,
+                attributes: { rate: 610, population: 82521653, petrol: 66.2, diesel: 32.3, other: 1.5 }
+              },
+              {
+                x: 'Italy',
+                y: 37351233,
+                attributes: { rate: 707, population: 60795612, petrol: 51.8, diesel: 42.8, other: 5.4 }
+              },
+              {
+                x: 'UK',
+                y: 33542448,
+                attributes: { rate: 544, population: 63395574, petrol: 61.7, diesel: 37.2, other: 1.1 }
+              },
+              {
+                x: 'France',
+                y: 31915493,
+                attributes: { rate: 590, population: 64859773, petrol: 34.5, diesel: 64.2, other: 1.3 }
+              },
+              {
+                x: 'Spain',
+                y: 22355549,
+                attributes: { rate: 611, population: 46468102, petrol: 40.1, diesel: 59.7, other: 0.2 }
+              },
+              {
+                x: 'Czech Republic',
+                y: 5115316,
+                attributes: { rate: 570, population: 10538275, petrol: 65.1, diesel: 34.2, other: 0.7 }
+              }
+            ]
+          }
+        ]
+      });
+    </script>
+  </body>
+</html>

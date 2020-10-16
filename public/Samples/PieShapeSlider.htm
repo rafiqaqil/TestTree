@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Adjustable Shape Donut Chart | JSCharting</title>
+    <meta http-equiv="content-type" content="text-html; charset=utf-8" />
+
+    <script type="text/javascript" src="../jsc/jscharting.js"></script>
+
+    <script type="text/javascript" src="../jsc/modules/types.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="css/default.css" />
+    <style type="text/css"></style>
+  </head>
+  <body>
+    <div id="chartDiv" style="max-width: 470px;height: 420px;margin: 0px auto;"></div>
+
+    <script type="text/javascript">
+      /*
+Adjust pie shape elements using a slider UI item.
+Learn how to:
+
+  - Draw a pie chart.
+*/
+      // JS
+      var chartConfig = {
+        animation: false,
+        title_position: 'center',
+        legend: {
+          template: '%value {%percentOfTotal:n1}% %icon %name',
+          position: 'inside bottom'
+        },
+        defaultSeries: {
+          type: 'pie donut',
+          pointSelection: true,
+          shape_innerSize: 60
+        },
+        defaultPoint_label_text: '<b>%name</b>',
+        annotations: [
+          {
+            position: 'inside top left',
+            label_text: 'Rotation'
+          },
+          {
+            position: 'inside top right',
+            label_text: 'Inner Size'
+          }
+        ],
+        title_label_text: 'Countries GDP',
+        yAxis: { label_text: 'GDP', formatString: 'n' },
+        series: [
+          {
+            name: 'Countries',
+            points: [
+              { name: 'United States', y: 5452500 },
+              { name: 'Canada', y: 786052 },
+              { name: 'United Kingdom', y: 477338 },
+              { name: 'Mexico', y: 155313 }
+            ]
+          }
+        ]
+      };
+      chartConfig.toolbar = {
+        items: {
+          export_position: 'inside bottom right',
+          angle: {
+            type: 'range',
+            margin: 15,
+            position: 'inside left top',
+            value: 0,
+            min: 0,
+            max: 360,
+            width: 200,
+            events_change: function(value) {
+              var series = chart.series(0);
+              series && series.options({ angle: value });
+            }
+          },
+          innerSize: {
+            type: 'range',
+            margin: 15,
+            position: 'inside right top',
+            value: 10,
+            min: 0,
+            max: 95,
+            width: 200,
+            events_change: function(value) {
+              var series = chart.series(0);
+              series && series.options({ shape_innerSize: value + '%' });
+            }
+          }
+        }
+      };
+      var chart = JSC.chart('chartDiv', chartConfig);
+    </script>
+  </body>
+</html>

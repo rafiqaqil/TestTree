@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Event List Calendar Chart | JSCharting</title>
+    <meta http-equiv="content-type" content="text-html; charset=utf-8" />
+
+    <script type="text/javascript" src="../jsc/jscharting.js"></script>
+
+    <script type="text/javascript" src="../jsc/modules/types.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="css/default.css" />
+    <style type="text/css">
+      /*CSS*/
+    </style>
+  </head>
+  <body>
+    <div id="chartDiv" style="max-width: 780px;height: 600px;margin: 0px auto;"></div>
+
+    <script type="text/javascript">
+      /*
+An events calendar based on CSV data.
+Learn how to:
+
+  - Get CSV calendar events.
+  - Bind CSV data with calendar cells.
+*/
+      // JS
+      var chart,
+        chartConfig = {
+          debug: true,
+          type: 'calendar month solid',
+          title: {
+            margin_bottom: 15,
+            label: {
+              text: 'July 2018',
+              style: {
+                fontSize: 20,
+                fontFamily: 'Arial',
+                fontWeight: 'bold',
+                color: '#0b7285'
+              }
+            }
+          },
+          yAxis_visible: false,
+          legend_visible: false,
+          calendar: {
+            range: ['7/1/2018', '7/31/2018'],
+            defaultEdgePoint: { color: 'white', label_color: '#83b2b7', mouseTracking: false }
+          },
+          defaultSeries: {
+            shape_innerPadding: 0,
+            mouseTracking_enabled: false,
+            defaultPoint: {
+              tooltip_enabled: false,
+              states_hover: { color: '#e3fafc' },
+              label: {
+                text: '<span style="align:right; font-size:14px;"><b>%name</b></span><br>%events',
+                align: 'left',
+                verticalAlign: 'top',
+                padding: 3,
+                style: {
+                  fontWeight: 'bold',
+                  color: '#1098ad',
+                  fontFamily: 'Arial'
+                }
+              },
+              attributes_events: ''
+            }
+          }
+        };
+
+      loadData(makeChart);
+
+      function loadData(cb) {
+        JSC.fetch('./resources/events_data.csv')
+          .then(function(response) {
+            return response.text();
+          })
+          .then(function(text) {
+            var parsed = JSC.parseCsv(text);
+            cb(parsed.data);
+          })
+          .catch(function(err) {
+            console.error(err);
+          });
+      }
+
+      function makeChart(data) {
+        //Format csv data into points that will bind the calendar cells.
+        chartConfig.series = [
+          {
+            points: data.map(function(row) {
+              var labelText =
+                '<br><span style="color:#78909c;font-size:12px; font-weight:normal">' +
+                row[2] +
+                '</span>' +
+                " <br><span  style='font-size:9px; font-weight:normal; color:#9da9af;'>" +
+                JSC.formatDate(new Date(row[0]), 't') +
+                ' - ' +
+                JSC.formatDate(new Date(row[1]), 't') +
+                '</span>';
+              return {
+                date: [row[0], row[1]],
+                attributes: { events: [labelText] }
+              };
+            })
+          }
+        ];
+        chart = JSC.chart('chartDiv', chartConfig);
+      }
+    </script>
+  </body>
+</html>

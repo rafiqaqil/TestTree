@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Marker Types List Chart | JSCharting</title>
+    <meta http-equiv="content-type" content="text-html; charset=utf-8" />
+
+    <script type="text/javascript" src="../jsc/jscharting.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="css/default.css" />
+    <style type="text/css"></style>
+  </head>
+  <body>
+    <div id="chartDiv" style="max-width: 740px;height: 400px;margin: 0px auto;"></div>
+
+    <script type="text/javascript">
+      /*
+A demonstration of different marker types.
+Learn how to:
+
+  - Draw a different marker types.
+*/
+      // JS
+      var chart = JSC.chart('chartDiv', {
+        debug: true,
+        defaultSeries: {
+          type: 'marker',
+          defaultPoint: {
+            color: 'white',
+            outline_color: 'gray',
+            marker_size: 20,
+            states_hover_fill: 'red',
+            tooltip: '%name'
+          }
+        },
+        toolbar_visible: false,
+        legend_visible: false,
+        title_label_text: 'Marker Types',
+        xAxis: {
+          markers: [
+            {
+              value: [-0.5, 6.5],
+              label_text: 'General Shapes',
+              color: ['red', 0.5]
+            },
+            {
+              value: [6.5, 10.5],
+              label_text: 'Star Shapes',
+              color: ['blue', 0.5]
+            },
+            {
+              value: [10.5, 15.5],
+              label_text: 'Finance Shapes',
+              color: ['green', 0.5]
+            }
+          ]
+        },
+        series: [
+          {
+            points: [
+              {
+                name: 'square',
+                y: 18653,
+                marker_type: 'square'
+              },
+              {
+                name: 'diamond',
+                y: 32165,
+                marker_type: 'diamond'
+              },
+              {
+                name: 'circle',
+                y: 28651,
+                marker_type: 'circle'
+              },
+              {
+                name: 'triangle',
+                y: 26543,
+                marker_type: 'triangle'
+              },
+              {
+                name: 'triangle-down',
+                y: 26543,
+                marker_type: 'triangle-down'
+              },
+              {
+                name: 'arrow-down',
+                y: 18563,
+                marker_type: 'arrow-down'
+              },
+              {
+                name: 'arrow-up',
+                y: 35698,
+                marker_type: 'arrow-up'
+              },
+              {
+                name: 'four-point-star',
+                y: 28684,
+                marker_type: 'four-point-star'
+              },
+              {
+                name: 'five-point-star',
+                y: 27659,
+                marker_type: 'five-point-star'
+              },
+              {
+                name: 'six-point-star',
+                y: 13364,
+                marker_type: 'six-point-star'
+              },
+              {
+                name: 'seven-point-star',
+                y: 23564,
+                marker_type: 'seven-point-star'
+              },
+              {
+                name: 'spinoff',
+                y: 8653,
+                marker_type: 'spinoff'
+              },
+              { name: 'split', y: 18653, marker_type: 'split' },
+              {
+                name: 'merger',
+                y: 25684,
+                marker_type: 'merger'
+              },
+              {
+                name: 'split-reverse',
+                y: 38654,
+                marker_type: 'split-reverse'
+              }
+            ]
+          }
+        ]
+      });
+    </script>
+  </body>
+</html>

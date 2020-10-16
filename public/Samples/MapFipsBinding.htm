@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Map Fips Binding | JSCharting</title>
+    <meta http-equiv="content-type" content="text-html; charset=utf-8" />
+
+    <script type="text/javascript" src="../jsc/jscharting.js"></script>
+
+    <script type="text/javascript" src="../jsc/modules/toolbar.js"></script>
+    <script type="text/javascript" src="../jsc/modules/maps.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="css/default.css" />
+    <style type="text/css">
+      /*CSS*/
+    </style>
+  </head>
+  <body>
+    <div id="chartDiv" style="max-width: 740px;height: 400px;margin: 0px auto;"></div>
+
+    <script type="text/javascript">
+      /*
+Map points bound to specific map features using propertyFilters.
+Learn how to:
+
+  - Map points from propertyFilters.
+  - Map Base layers from mapCodes.
+*/
+      // JS
+      var chart = JSC.chart('chartDiv', {
+        debug: true,
+        chartArea_fill: '#b6d9ff',
+        type: 'map',
+        legend_position: 'inside top left',
+        /* The background map layer for context*/
+        mapping_base_layers: 'us',
+        series: [
+          {
+            name: 'Four corner states',
+            color: '#34FE35',
+            /* Note: If US was not loaded through baseLayers, 'us.fips:US49' syntax would be required */
+            points: [{ map: 'fips:US49' }, { map: 'fips:US08' }, { map: 'fips:US04' }, { map: 'fips:US35' }],
+            defaultPoint: { tooltip: '', label_visible: true }
+          }
+        ],
+        toolbar_items_resetZoom_visible: false
+      });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,267 @@
+<h2>Examples</h2>
+
+<h3>A simple button</h3>
+<span class="tutorialImage">
+<img src="tutorials/images/uiItems/button.png"/>
+<em>Figure 1.</em><section></section>
+</span>
+<p>A button is the simplest kind of uiItem. It only requires a click event handler. The item's name automatically
+    populates the label text. This can add rich functionality with very little effort:</p>
+
+<span class="codeText">
+JSC.Chart({
+	toolbar_items: {
+		'Change Data': {
+			events_click: function(v,item) {
+					item.chart.series(0).options(getData());
+
+			}
+		}
+	}
+});
+</span>
+
+<h3>A checkbox item</h3>
+<span class="tutorialImage">
+<img src="tutorials/images/uiItems/checkbox.png"/>
+<em>Figure 2.</em><section></section>
+</span>
+<p>First lets look at the fundamental way to define a checkbox item:</p>
+
+<span class="codeText">
+JSC.Chart({
+	toolbar_items:{'Checkbox':{
+		type:'option',
+			label_text:'Checkbox',
+			icon:'system/default/checkbox-blank',
+			states_select_icon:'system/default/checkbox',
+			events_change:function(val){alert(val);}
+		}
+	}
+	});
+</span>
+
+<p>As you can see, the checkbox icon name must be specified as well as the icon name used when the item value is true.
+    This can be simplified using shortcut type:</p>
+<span class="codeText">
+JSC.Chart({
+	toolbar_items:{'Checkbox':{
+			type:'checkbox',
+			events_change:function(val){alert(val);}}
+		}
+
+	});
+</span>
+
+<span class="docsNote">
+Notice how the first checkbox code snippet requires label text, but the second does not. This is because the item name will be used as the label when no icon or label text is defined.
+</span>
+<p></p>
+
+
+
+<h3>Classic dropdown</h3>
+
+<span class="tutorialImage">
+<img src="tutorials/images/uiItems/dropdown_classic.png"/>
+<em>Figure 3.</em><section></section>
+</span>
+<p>This simple dropdown sample was used in the overview, but it was not wired up to any to any events. The snippet below
+    shows a fully functional dropdown.
+</p>
+
+<span class="codeText">
+JSC.Chart({
+	toolbar:{
+	items:{
+	'simple dropdown':{
+			type:'select',
+			value:'optionB', //Sets the initial value
+			items:{
+				'optionA':{	},'optionB':{	},'optionC':{
+				events_change:function(val){
+					//This function runs only when optionC is selected or deselected and the argument passed is a Boolean representing the items select state.
+					alert('optionC has changed to: ' + val);
+	}
+	}
+			},
+			//This event is fired when the value of the dropdown changes.
+			events_change:function(val){
+				//The val argument is a string name of the selected item.
+				alert('The selection has changed to: ' + val);
+			}
+		}
+	}
+	}
+	});
+</span>
+
+
+<h3>Dropdown with multiple item selection</h3>
+<span class="tutorialImage">
+<img src="tutorials/images/uiItems/dropdown_multiple.png"/>
+<em>Figure 4.</em><section></section>
+</span>
+<span class="codeText">
+JSC.Chart({
+	toolbar:{
+	items:{
+		'simple dropdown':{
+			type:'selectMultiple',
+			value:'optionA,optionB', //Sets the initial value
+			items:
+				['optionA','optionB','optionC']
+			,
+			events_change:function(val){
+				//The val argument is a comma delimited list of the selected items.
+				alert('Selected options are: ' + val);
+			}
+		}
+	}
+	}
+	});
+</span>
+
+
+<h3>A non-interactive indicator</h3>
+
+<span class="tutorialImage">
+<img src="tutorials/images/uiItems/indicator.png"/>
+<em>Figure 5.</em><section></section>
+</span>
+<p>This uiItem would normally behave as a button where the value is only true when the button is depressed, however,
+	when the type is set to 'option' explicitly, it means the item will toggle the value on click.
+	By returning false in the click event, the item state will not toggle and hence is not an interactive item. </p>
+<span class="codeText">
+var chart = JSC.Chart({
+	toolbar:{
+	items:{
+	'DataCurrent':{
+			type:'option',
+			value:true, //Sets the initial value
+			icon:'system/default/checkbox_blank',
+			label_text:'Up to date',
+			states_select_icon:'system/default/checkbox',
+			events_click:function(){
+				//By returning false, the default click action of an option type (toggling state) is disabled
+				return false;
+			}
+		}
+	}
+	}
+	});
+</span>
+<!--	//Set data out of date
+	chart.uiItems('DataCurrent').value(false);-->
+
+
+<h3>A file item</h3>
+<span class="tutorialImage">
+<img src="tutorials/images/uiItems/file.png"/>
+<em>Figure 6.</em><section></section>
+</span>
+</span>
+<span class="codeText">
+	JSC.Chart({
+		toolbar: {
+			items: {
+				'CSV files': {
+					type: 'file',
+					position: 'top left',
+					accept: '.csv',
+					events_change: function (files) {
+						processSelectedFiles(files);
+					}
+				}
+			}
+		}
+	});
+</span>
+
+<h3>A radio item</h3>
+<span class="tutorialImage">
+<img src="tutorials/images/uiItems/radio.png"/>
+<em>Figure 7.</em><section></section>
+</span>
+</span>
+<span class="codeText">
+	JSC.Chart({
+		toolbar: {
+			items: {
+				'radioOptions': {
+					type: 'select',
+					position: 'top left',
+					label_text: '',
+					itemsBox_visible: true,
+					// Each child item type being set to 'radio' causes selection to be mutually exclusive.
+					defaultItem_type: 'radio',
+					items: 'optionA,optionB'
+				}
+			}
+		}
+	});
+</span>
+
+<h3>A range item</h3>
+<span class="tutorialImage">
+<img src="tutorials/images/uiItems/range.png"/>
+<em>Figure 8.</em><section></section>
+</span>
+</span>
+<span class="codeText">
+	JSC.Chart({
+		toolbar: {
+			items: {
+				'range bottom': {
+					type: 'range',
+					// Initial slider value
+					value: 0.5,
+					// Width of the slider
+					width: 200,
+					// Size of the handles
+					height: 20,
+					events_change: function(range) {
+						console.log(range);
+					}
+				},
+				'multiple range bottom': {
+					type: 'range',
+					//Two value slider
+					value: [0.2, 0.8],
+					// Value range
+					min:0, max:1,
+					// Width of the slider
+					width: 200,
+					// Size of the handles
+					height: 20,
+					disabled: true,
+					events_change: function(range) {
+						console.log(range);
+					}
+				}
+			}
+		}
+	});
+</span>
+
+<h3>A toggle item</h3>
+<span class="tutorialImage">
+<img src="tutorials/images/uiItems/toogle.png"/>
+<em>Figure 9.</em><section></section>
+</span>
+</span>
+<span class="codeText">
+	JSC.Chart({
+		toolbar: {
+			items: {
+				'toggle item': {
+					type: 'toggle',
+					value: true,
+					events_change: function(val) {
+					}
+				}
+			}
+		}
+	});
+</span>
+

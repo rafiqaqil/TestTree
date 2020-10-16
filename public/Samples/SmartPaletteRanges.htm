@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Smart Palette Ranges | JSCharting</title>
+    <meta http-equiv="content-type" content="text-html; charset=utf-8" />
+
+    <script type="text/javascript" src="../jsc/jscharting.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="css/default.css" />
+    <style type="text/css">
+      /*CSS*/
+    </style>
+  </head>
+  <body>
+    <div id="chartDiv" style="max-width: 740px;height: 400px;margin: 0px auto;"></div>
+
+    <script type="text/javascript">
+      /*
+Use a smart palette with solid color ranges.
+Learn how to:
+
+  - Apply a smart palette with solid color ranges.
+*/
+      // JS
+
+      var chart = JSC.chart('chartDiv', {
+        debug: true,
+        type: 'marker',
+        title_label_text: 'SmartPalette Ranges',
+        palette: {
+          pointValue: '%yValue',
+          defaultRange: { legendEntry: { value: '{%min:n0}–{%max:n0}' } },
+          colors: ['green', 'yellow', 'red'],
+          ranges: { min: 0, max: 200, interval: 50 }
+        },
+        series: [{ points: generatePointArray(50, 200) }]
+      });
+
+      function generatePointArray(pCount, maxY) {
+        var startVal = 10;
+        var curY = startVal;
+        var step = (maxY - startVal) / pCount;
+        var result = [];
+        for (var i = 0; i < pCount; i++) {
+          result[i] = [i + 5, Math.random() * 200];
+          curY += step;
+        }
+        return result;
+      }
+    </script>
+  </body>
+</html>

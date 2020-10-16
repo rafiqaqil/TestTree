@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Nest Point Rollup | JSCharting</title>
+    <meta http-equiv="content-type" content="text-html; charset=utf-8" />
+
+    <script type="text/javascript" src="../jsc/jscharting.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="css/default.css" />
+    <style type="text/css">
+      /*CSS*/
+    </style>
+  </head>
+  <body>
+    <div id="chartDiv" style="max-width: 740px; height: 250px; margin: 0px auto;"></div>
+
+    <script type="text/javascript">
+      /*
+Custom pointRollup() call that maps point x, y, and z.
+Learn how to:
+
+  - Use data nesting with a custom pointRollup.
+*/
+      // JS
+      // Custom pointRollup() call that maps point x, y, and z
+      var data = [
+        { product: 'Hammer', units: 24, total: 289.23 },
+        { product: 'Ladder', units: 12, total: 329.73 },
+        { product: 'Saw', units: 18, total: 159.85 },
+        { product: 'Drill', units: 34, total: 489.43 },
+        { product: 'Nails', units: 56, total: 645.56 },
+        { product: 'Sander', units: 8, total: 326.45 }
+      ];
+
+      var series = JSC.nest()
+        // X Values
+        .key('product')
+        // Custom point configuration
+        .pointRollup(function(key, vals) {
+          return {
+            x: key,
+            // Sum the usints and total properties of items associated with this key.
+            y: JSC.sum(vals, 'units'),
+            z: JSC.sum(vals, 'total')
+          };
+        })
+        .series(data);
+
+      var chart = JSC.chart('chartDiv', {
+        type: 'bubble',
+        debug: true,
+        legend_visible: false,
+        toolbar_visible: false,
+        xAxis_label_text: 'Products',
+        yAxis_label_text: 'Units',
+        zAxis: { label_text: 'Total', formatString: 'c' },
+        series: series
+      });
+    </script>
+  </body>
+</html>

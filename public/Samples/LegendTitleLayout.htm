@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Legend Title Layout | JSCharting</title>
+    <meta http-equiv="content-type" content="text-html; charset=utf-8" />
+
+    <script type="text/javascript" src="../jsc/jscharting.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="css/default.css" />
+    <style type="text/css"></style>
+  </head>
+  <body>
+    <div id="chartDiv" style="max-width: 740px;height: 350px;margin: 0px auto;"></div>
+
+    <script type="text/javascript">
+      /*
+Demonstrates positioning the legendbox next to the chart title box automatically.
+Learn how to:
+
+  - Positioning the legend next to the title box.
+  - Set fill title width layout.
+*/
+      // JS
+      var chart = JSC.chart('chartDiv', {
+        debug: true,
+        title_position: 'full',
+        defaultAnnotation: {
+          label_style: { fontWeight: 'bold', fontSize: 15 }
+        },
+        annotations: [{ label_text: 'Acme Tool Sales', position: 'top left' }],
+        legend: {
+          template: '%icon %name',
+          margin: 0,
+          position: 'top right'
+        },
+        yAxis: {
+          alternateGridFill: 'none',
+          label_text: 'Units Sold'
+        },
+        xAxis: {
+          label_text: 'Quarters',
+          defaultTick_gridLine_width: 0
+        },
+        defaultPoint_marker: {
+          type: 'circle',
+          size: 12,
+          outline: { color: 'white', width: 2 }
+        },
+        series: [
+          {
+            name: 'Saw',
+            id: 's1',
+            points: [['Q1', 230], ['Q2', 240], ['Q3', 267], ['Q4', 238]]
+          },
+          {
+            name: 'Hammer',
+            points: [['Q1', 325], ['Q2', 347], ['Q3', 392], ['Q4', 371]]
+          },
+          {
+            name: 'Grinder',
+            points: [['Q1', 285], ['Q2', 292], ['Q3', 327], ['Q4', 158]]
+          },
+          {
+            name: 'Drill',
+            points: [['Q1', 185], ['Q2', 192], ['Q3', 198], ['Q4', 318]]
+          }
+        ]
+      });
+    </script>
+  </body>
+</html>

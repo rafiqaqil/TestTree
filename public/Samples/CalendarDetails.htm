@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Master Detail Calendar Chart | JSCharting</title>
+    <meta http-equiv="content-type" content="text-html; charset=utf-8" />
+
+    <script type="text/javascript" src="../jsc/jscharting.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="css/default.css" />
+    <style type="text/css">
+      #monthLabel {
+        font-size: 20px;
+        font-family: arial;
+        max-width: 710px;
+        margin: 0px auto;
+        background-color: #0288d1;
+        color: white;
+        font-weight: bold;
+        padding: 10px;
+        text-align: center;
+      }
+    </style>
+  </head>
+  <body>
+    <div style="max-width: 740px;margin: 0px auto;">
+      <p>Select a month below. Click multiple days (Holding CTRL) to compare them.</p>
+    </div>
+
+    <div id="monthLabel">January 2020</div>
+    <div id="chartDiv" style="max-width: 740px;height: 680px;margin: 0px auto;"></div>
+    <div id="selectedDaysChart" style="width: 740px; height: 400px;margin: 0px auto;"></div>
+
+    <script type="text/javascript">
+      /*
+Calendar heatmap with microcharts and details chart based on CSV data.
+Learn how to:
+
+  - Load CSV heatmap data into a calendar chart.
+*/
+      // JS
+      var chart,
+        selectedDaysChart = initCharts([]),
+        chartConfig = {
+          type: 'calendar month solid',
+          calendar: {
+            defaultEdgePoint: { mouseTracking: false, fill: 'none' },
+            defaultEmptyPoint_legendEntry_visible: false
+          },
+          highlights: [
+            {
+              pattern: { weekday: [0, 6] },
+              fill: '#f8fdff',
+              outline_width: 0
+            }
+          ],
+          defaultBox_boxVisible: false,
+          defaultCultureName: 'en',
+          legend: {
+            template: '%name',
+            position: 'top',
+            margin_bottom: 20,
+            horizontalSpacing: 29,
+            defaultEntry: {
+              states_hidden_style: { color: '#78909C' },
+              style: {
+                fontSize: 14,
+                fontFamily: 'Arial',
+                color: '#0288d1'
+              },
+              events_click: function(series) {
+                document.getElementById('monthLabel').innerText = series.replaceTokens('{%date:MMMM}') + ' 2020';
+              }
+            }
+          },
+          palette_colorBar_visible: false,
+          defaultSeries: {
+            pointSelection: true,
+            shape_innerPadding: 0,
+            defaultPoint_states_select_fill: '#cedeff'
+          },
+          toolbar_visible: false,
+          yAxis_visible: false,
+          xAxis: {
+            defaultTick_label: {
+              style: {
+                fontFamily: 'Arial',
+                fontSize: '13px',
+                fontWeight: 'bold',
+                fill: '#78909C'
+              }
+            }
+          },
+          defaultTooltip_enabled: false,
+          defaultPoint: {
+            color: 'white',
+            focusGlow_width: 0,
+            outline_color: '#D1E9F3',
+            states_hover_color: '#e3f2fd',
+            events_click: pointClick,
+            label: {
+              text:
+                '<b>%name</b><br><chart width=94 height=68 align=center verticalAlign=bottom type=sparkline data=%subvalueList axisMarker=30 colors=#039be5 min=24 max=38>',
+              align: 'right',
+              verticalAlign: 'top',
+              padding: [6, 8, 4, 6],
+              autoHide: false
+            }
+          }
+        };
+
+      JSC.fetch('./resources/electricLoad_2016.csv')
+        .then(function(response) {
+          return response.text();
+        })
+        .then(function(text) {
+          var parsedData = JSC.csv2Json(text);
+          makeChart(parsedData);
+        })
+        .catch(function(err) {
+          console.error(err);
+        });
+
+      function makeChart(data) {
+        chartConfig.data = data;
+        chart = JSC.chart('chartDiv', chartConfig);
+      }
+
+      function initCharts(series) {
+        var result = JSC.chart('selectedDaysChart', {
+          type: 'line spline',
+          palette: [
+            '#039be5',
+            '#f4511e',
+            '#f9a825',
+            '#00c853',
+            '#8e24aa',
+            '#eeff41',
+            '#f06292',
+            '#bf360c',
+            '#2e7d32',
+            '#1a237e'
+          ],
+          defaultBox_boxVisible: false,
+
+          axisToZoom: 'x',
+          legend: {
+            template: '%icon, %name',
+            position: 'top',
+            legendEntry_padding: 10,
+            layout: 'horizontal'
+          },
+
+          xAxis: {
+            scale_type: 'time',
+            crosshair_enabled: true,
+            formatString: 't',
+            line_color: '#cfd8dc',
+            defaultTick: {
+              line_color: '#cfd8dc',
+              gridLine_color: '#cfd8dc',
+              label: { color: '#78909C' }
+            }
+          },
+          yAxis: {
+            alternateGridFill: 'none',
+            formatString: 'n',
+            line_color: '#cfd8dc',
+            label_text: 'Killowatts',
+            defaultTick: {
+              line_color: '#cfd8dc',
+              gridLine_color: '#cfd8dc',
+              label: { color: '#78909C' }
+            },
+            markers: [
+              {
+                value: 30,
+                line_width: 2,
+                legendEntry_visible: false
+              }
+            ]
+          },
+          defaultTooltip_label_text: '%points',
+          defaultPoint: {
+            marker: { type: 'circle', color: 'none', outline_width: 0 },
+            tooltip: '%icon  <span style="width:80px;"> %seriesName</span> <b>{%yValueK:n1}kW</b>'
+          },
+
+          defaultSeries: { states_hover_line_width: 2 },
+          series: series
+        });
+        return result;
+      }
+
+      function pointClick(chartRef) {
+        var c = chart || chartRef;
+        setTimeout(function() {
+          var series = [];
+          var dates = [];
+          var data = [];
+          c.series()
+            .points({ selected: true })
+            .each(function(point) {
+              var str = JSC.formatDate(point.tokenValue('%date'), 'm');
+              var pointData = point.tokenValue('%subvalueList');
+              dates.push(str);
+              data.push(pointData);
+            });
+          for (var i = 0; i < data.length; i++) {
+            var points = {
+              mapTo: 'x,y',
+              data: changeData(data[i])
+            };
+            series.push({ name: dates[i], points: points });
+          }
+          selectedDaysChart.options({ series: series });
+        }, 100);
+      }
+      function changeData(data) {
+        if (!data) {
+          return null;
+        } else {
+          var lines = data.split(',');
+          var time = [];
+          var result = [];
+          for (var i = 0; i < lines.length; i++) {
+            time.push(new Date(2020, 0, 1, i, 0, 0, 0).getTime());
+            result.push(time[i] + ',' + lines[i]);
+          }
+          data = result.join('\n');
+          return data;
+        }
+      }
+    </script>
+  </body>
+</html>

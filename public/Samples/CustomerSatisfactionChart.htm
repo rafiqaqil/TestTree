@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Illustration Line Chart | JSCharting</title>
+    <meta http-equiv="content-type" content="text-html; charset=utf-8" />
+
+    <script type="text/javascript" src="../jsc/jscharting.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="css/default.css" />
+    <style type="text/css">
+      /*CSS*/
+    </style>
+  </head>
+  <body>
+    <div id="chartDiv" style="max-width: 440px;height: 400px;margin: 0px auto;"></div>
+
+    <script type="text/javascript">
+      /*
+A line chart used to illustrate a concept.
+Learn how to:
+
+  - Draw a chart as an illustration.
+*/
+      // JS
+      var chart = JSC.chart('chartDiv', {
+        debug: true,
+        type: 'spline',
+        legend_visible: false,
+        toolbar_visible: false,
+        defaultAxis: {
+          line_visible: true,
+          defaultTick: { enabled: false },
+          line: {
+            color: 'black',
+            caps: { start: { type: 'none' }, end: { type: 'arrow', size: '800%' } }
+          },
+          alternateGridFill: 'none'
+        },
+        yAxis: {
+          scale_range: [0, 10],
+          customTicks: [
+            { value: 0, label_text: 'Low', gridLine_visible: false, line_visible: false },
+            { value: 10, label_text: 'High', gridLine_visible: false, line_visible: false }
+          ],
+          label_text: 'Customer Satisfaction'
+        },
+        xAxis: {
+          scale_range: [0, 10.5],
+          customTicks: [
+            { value: 0, label_text: 'Absent', gridLine_visible: false, line_visible: false },
+            { value: 10, label_text: 'Fully<br>Implemented', gridLine_visible: false, line_visible: false }
+          ],
+          label_text: 'Product Function'
+        },
+        defaultSeries: {
+          mouseTracking_enabled: false,
+          line_width: 3,
+          defaultPoint_marker_visible: false,
+          lastPoint_label_text: '%seriesName'
+        },
+        palette: ['#4eace2', '#83b82d', '#2360a0'],
+        series: [
+          {
+            name: 'Excitement<br>Attributes',
+            points: [{ x: 1, y: 5.6 }, { x: 3.9, y: 6.9 }, { x: 5.3, y: 9.5 }]
+          },
+          {
+            name: 'Performance<br>Attributes',
+            points: [{ x: 1.5, y: 1.6 }, { x: 8.2, y: 8.9 }]
+          },
+          {
+            name: 'Threshold<br>Attributes',
+            points: [{ x: 2.5, y: 0.6 }, { x: 5.9, y: 3.3 }, { x: 10, y: 4.2 }]
+          }
+        ]
+      });
+    </script>
+  </body>
+</html>

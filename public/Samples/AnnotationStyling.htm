@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Annotation Styling | JSCharting</title>
+    <meta http-equiv="content-type" content="text-html; charset=utf-8" />
+
+    <script type="text/javascript" src="../jsc/jscharting.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="css/default.css" />
+    <style type="text/css"></style>
+  </head>
+  <body>
+    <div id="chartDiv" style="max-width: 740px;height: 400px;margin: 0px auto;"></div>
+
+    <script type="text/javascript">
+      /*
+Applies colors and other styling to an annotation.
+Learn how to:
+
+  - Apply styling to annotations and labels.
+  - Position annotations relative to the chartArea.
+  - Specify annotation layout and size.
+*/
+      // JS
+      var chart = JSC.chart('chartDiv', {
+        debug: true,
+        type: 'column',
+        annotations: [
+          {
+            width: 290,
+            padding: 7,
+            margin: 10,
+            position: 'inside top left',
+            radius: 12,
+            corners: ['cut', 'square', 'round', 'square'],
+            fill: '#e7ebfd',
+            opacity: 0.8,
+            outline: { color: '#2e75fe', width: 2 },
+            label: {
+              text: 'Annotation Text',
+              style: {
+                color: '#13316b',
+                fontSize: '12pt',
+                fontFamily: 'Arial, Helvetica, sans-serif',
+                fontStyle: 'italic',
+                fontWeight: 'bold'
+              },
+              align: 'center',
+              verticalAlign: 'middle'
+            }
+          }
+        ],
+        yAxis: { label_text: 'Units Sold' },
+        xAxis: { label_text: 'Quarter' },
+        title_label_text: 'Acme Tool Sales',
+        series: [
+          {
+            name: 'Saw',
+            id: 's1',
+            points: [['Q1', 230], ['Q2', 240], ['Q3', 267], ['Q4', 238]]
+          },
+          {
+            name: 'Hammer',
+            points: [['Q1', 325], ['Q2', 347], ['Q3', 392], ['Q4', 371]]
+          },
+          {
+            name: 'Grinder',
+            points: [['Q1', 285], ['Q2', 292], ['Q3', 327], ['Q4', 158]]
+          },
+          {
+            name: 'Drill',
+            points: [['Q1', 185], ['Q2', 192], ['Q3', 198], ['Q4', 318]]
+          }
+        ]
+      });
+    </script>
+  </body>
+</html>

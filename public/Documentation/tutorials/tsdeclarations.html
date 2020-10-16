@@ -1,0 +1,38 @@
+<h2>Introduction</h2>
+
+<p>The typescript/ folder contains samples in typescript that utilize the jscharting declarations file located in the JSC/ folder.</p>
+
+<p>A tsconfig.json file in the typescript folder specifies details to enable some IDEs and the command line compiler to generate the js files. This is required before these samples will run in the browser.</p>
+
+<p>To compile without an IDE, use the command prompt with the following commands:</p>
+<span class="output">
+    cd typescript
+</span>
+<span class="output">
+    tsc
+</span>
+
+
+
+
+<p>If editing sample ts code, this command will continually compile changes as you make them:</p>
+<span class="output">
+    tsc --watch
+</span>
+
+<p>A triple dash reference at the top of sample ts files is used to point to the JSCharting declarations file which enables validation of chart configuration properties.</p>
+
+<span class="docsNote">
+The <a href="Tutorials.codeExpansion">code expansion</a> feature is not compatible with typescript, therefore only fully expanded property names can be used.
+</span>
+
+
+<h2>Docs API mapping and usage</h2>
+
+<p>Configuration object names such as 'axis' are prefixed with 'JSC', and postfix 'Config' resulting in 'JSCAxisConfig'.</p>
+
+<p>Other objects are only prefixed with JSC.</p>
+
+<p>It is recommended that config objects are marked with types as follows:</p>
+
+<span class="codeText">let yAxis = {/*y axis properties*/} as JSCAxisConfig;</span>

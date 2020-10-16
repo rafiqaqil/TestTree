@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Range Tick Layout | JSCharting</title>
+    <meta http-equiv="content-type" content="text-html; charset=utf-8" />
+
+    <script type="text/javascript" src="../jsc/jscharting.js"></script>
+
+    <script type="text/javascript" src="../jsc/modules/toolbar.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="css/default.css" />
+    <style type="text/css">
+      /*CSS*/
+    </style>
+  </head>
+  <body>
+    <div id="chartDiv" style="max-width: 740px;height: 430px;margin: 0px auto;"></div>
+
+    <script type="text/javascript">
+      /*
+Custom range ticks with multiple and offset axes.
+Learn how to:
+
+  - Custom Axis Ticks.
+  - Axis Range Ticks offset from chartArea.
+*/
+      // JS
+      var chart, data;
+
+      JSC.fetch('./resources/financialAnalysis.csv')
+        .then(function(response) {
+          return response.text();
+        })
+        .then(function(text) {
+          data = JSC.csv2Json(text);
+          renderChart();
+        });
+
+      function renderChart() {
+        var series = [
+          {
+            name: 'Сommercial paper',
+            points: JSC.nest()
+              .key('quarter')
+              .rollup('commercial paper')
+              .points(data)
+          },
+          {
+            name: 'Accumulated buybacks',
+            points: JSC.nest()
+              .key('quarter')
+              .rollup('accumulated buybacks')
+              .points(data)
+          },
+          {
+            name: 'Accumulated dividends',
+            points: JSC.nest()
+              .key('quarter')
+              .rollup('accumulated dividends')
+              .points(data)
+          },
+          {
+            name: 'Long term debt',
+            points: JSC.nest()
+              .key('quarter')
+              .rollup('long term debt')
+              .points(data)
+          },
+          {
+            name: 'Long-term marketable securities',
+            points: JSC.nest()
+              .key('quarter')
+              .rollup('long-term marketable securities')
+              .points(data)
+          },
+          {
+            name: 'Short-term marketable securities',
+            points: JSC.nest()
+              .key('quarter')
+              .rollup('short-term marketable securities')
+              .points(data)
+          },
+          {
+            name: 'Cash and cash equivalent',
+            points: JSC.nest()
+              .key('quarter')
+              .rollup('cash and cash equivalent')
+              .points(data)
+          },
+          {
+            name: 'Cash net of all debt',
+            type: 'line',
+            defaultPoint_marker_type: 'circle',
+            points: JSC.nest()
+              .key('quarter')
+              .pointRollup(function(key, val) {
+                let values = val[0];
+                return {
+                  x: key,
+                  y:
+                    values['cash and cash equivalent'] +
+                    values['long-term marketable securities'] +
+                    values['short-term marketable securities'] +
+                    values['long term debt'] +
+                    values['commercial paper']
+                };
+              })
+              .points(data)
+          },
+          {
+            name: 'Generated cash',
+            type: 'line',
+            defaultPoint_marker_type: 'circle',
+            points: JSC.nest()
+              .key('quarter')
+              .pointRollup(function(key, val) {
+                let values = val[0];
+                return {
+                  x: key,
+                  y:
+                    values['accumulated buybacks'] +
+                    values['accumulated dividends'] +
+                    values['cash and cash equivalent'] +
+                    values['long-term marketable securities'] +
+                    values['short-term marketable securities'] +
+                    values['long term debt'] +
+                    values['commercial paper']
+                };
+              })
+              .points(data)
+          }
+        ];
+        chart = JSC.chart('chartDiv', {
+          type: 'column solid',
+          debug: true,
+          legend: {
+            position: 'top',
+            template: '%icon %name'
+          },
+          palette: ['#42a5f5', '#f48fb1', '#ec407a', '#90caf9', '#ffee58', '#ff7043', '#66bb6a', '#c2185b', '#5c6bc0'],
+
+          xAxis: {
+            defaultTick: {
+              gridLine_visible: false,
+              line_visible: false,
+              label_rotate: 90
+            }
+          },
+          yAxis: [
+            {
+              id: 'mainY',
+              line_visible: false,
+              defaultTick_line_visible: false,
+              alternateGridFill: 'none',
+              formatString: 'c0',
+              scale: {
+                range_padding: 0.1,
+                type: 'stacked'
+              },
+              label_text: 'Billions'
+            },
+            {
+              scale_syncWith: 'mainY',
+              line_visible: false,
+              orientation: 'opposite',
+              defaultTick: {
+                enabled: false,
+                rangeMode: 'measure',
+                gridLine_visible: false
+              },
+              customTicks: [
+                { value: [-126.7, 0], label_text: 'Debt' },
+                { value: [245.04, 566.75], label_text: 'Capital Returned' },
+                { value: [245.04, 322.87], label_text: 'Dividends Paid', label_placement: 'outside' },
+                { value: [322.87, 566.75], label_text: 'Share Buybacks' }
+              ]
+            },
+            {
+              caOffset: 0,
+              scale_syncWith: 'mainY',
+              line_visible: false,
+              orientation: 'opposite',
+              defaultTick: {
+                enabled: false,
+                gridLine_visible: false,
+                line: {
+                  length: 60,
+                  color: '#cfd2cd',
+                  dashStyle: 'dash',
+                  caps_end: { type: 'arrow', size: 5 }
+                }
+              },
+              customTicks: [
+                { value: 118.34, label_text: 'Cash Net of all Debt' },
+                { value: 245.04, label_text: 'Cash on hand' },
+                { value: 440.05, label_text: 'Generated Cash' }
+              ]
+            }
+          ],
+          defaultPoint_tooltip: '%name<br>%seriesName: <b>{%value:c2}B</b>',
+          series: series
+        });
+      }
+    </script>
+  </body>
+</html>

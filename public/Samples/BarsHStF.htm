@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Full Stacked Bar Chart | JSCharting</title>
+    <meta http-equiv="content-type" content="text-html; charset=utf-8" />
+
+    <script type="text/javascript" src="../jsc/jscharting.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="css/default.css" />
+    <style type="text/css"></style>
+  </head>
+  <body>
+    <div id="chartDiv" style="max-width: 740px;height: 400px;margin: 0px auto;"></div>
+
+    <script type="text/javascript">
+      /*
+Horizontal full stacked bar chart.
+Learn how to:
+
+  - Draw horizontal full stacked bar series.
+*/
+      // JS
+      var chart = JSC.chart('chartDiv', {
+        debug: true,
+        type: 'horizontal column',
+        palette: 'fiveColor9',
+        yAxis: {
+          scale_type: 'stackedFull',
+          defaultTick_label_text: '%value%',
+          formatString: 'n0',
+          label_text: 'Units Sold'
+        },
+        title_label_text: 'Acme Tool Sales',
+        xAxis_label_text: 'Quarter',
+        series: [
+          {
+            name: 'Saw',
+            id: 's1',
+            points: [{ x: 'Q1', y: 230 }, { x: 'Q2', y: 240 }, { x: 'Q3', y: 267 }, { x: 'Q4', y: 238 }]
+          },
+          {
+            name: 'Hammer',
+            points: [{ x: 'Q1', y: 325 }, { x: 'Q2', y: 367 }, { x: 'Q3', y: 382 }, { x: 'Q4', y: 371 }]
+          },
+          {
+            name: 'Grinder',
+            points: [{ x: 'Q1', y: 285 }, { x: 'Q2', y: 292 }, { x: 'Q3', y: 267 }, { x: 'Q4', y: 218 }]
+          },
+          {
+            name: 'Drill',
+            points: [{ x: 'Q1', y: 185 }, { x: 'Q2', y: 192 }, { x: 'Q3', y: 198 }, { x: 'Q4', y: 248 }]
+          }
+        ]
+      });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Map Bubble Dynamic | JSCharting</title>
+    <meta http-equiv="content-type" content="text-html; charset=utf-8" />
+
+    <script type="text/javascript" src="../jsc/jscharting.js"></script>
+
+    <script type="text/javascript" src="../jsc/modules/toolbar.js"></script>
+    <script type="text/javascript" src="../jsc/modules/maps.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="css/default.css" />
+    <style type="text/css">
+      /*CSS*/
+    </style>
+  </head>
+  <body>
+    <div id="chartDiv" style="max-width: 740px;height: 400px;margin: 0px auto;"></div>
+
+    <script type="text/javascript">
+      /*
+A bubble map series dynamically updated in real-time.
+Learn how to:
+
+  - Make thematic maps.
+  - Map points from mapCodes.
+  - Show a SmartPalette in the legend.
+  - Set Default Map Padding.
+  - Standard bubble series on maps.
+  - Map points from mapFiles.
+  - Update bubble map points in real-time.
+*/
+      // JS
+      var capitalNames = [
+        'Montpelier',
+        'Dover',
+        'Annapolis',
+        'Carson City',
+        'Little Rock',
+        'Jefferson City',
+        'Hartford',
+        'Providence',
+        'Springfield',
+        'Frankfort',
+        'Madison',
+        'Trenton',
+        'Lansing',
+        'Lincoln',
+        'Concord',
+        'Columbus',
+        'Albany',
+        'Harrisburg',
+        'Olympia',
+        'Salem',
+        'Topeka',
+        'Baton Rouge',
+        'Austin',
+        'Montgomery',
+        'Tallahassee',
+        'Columbia',
+        'Indianapolis',
+        'Richmond',
+        'Charleston',
+        'Augusta',
+        'Helena',
+        'Bismarck',
+        'Boise',
+        'Sacramento',
+        'Santa Fe',
+        'Salt Lake City',
+        'Cheyenne',
+        'Des Moines',
+        'Oklahoma City',
+        'Pierre',
+        'Jackson',
+        'Raleigh',
+        'Nashville',
+        'Phoenix',
+        'Boston',
+        'Denver',
+        'Atlanta'
+      ];
+
+      var chartConfig = {
+        debug: true,
+        type: 'map',
+        /* Disable zooming */
+        axisToZoom: '',
+        title_label_text: 'State Capitals & Populations',
+
+        defaultSeries_shape_padding: 0.25,
+        mapping: {
+          referenceLayers: 'resources/UsCapitals.json.txt',
+          base: { layers: 'us' }
+        },
+        legend_visible: false,
+        series: [
+          {
+            id: 'bubbleSer',
+            name: 'Capitals',
+            type: 'bubble',
+            size_max: 60,
+            opacity: 0.6,
+            palette: {
+              pointValue: '{%zValue}',
+              invert: true,
+              colors: ['#8b0000', '#ff0000', '#ffa500', '#fefe20', '#00e700']
+            }
+          }
+        ],
+
+        toolbar: {
+          position: 'inside bottom right',
+          items: {
+            'Live Data': {
+              type: 'toggle',
+              value: true,
+              events_change: toggleUpdate
+            }
+          }
+        }
+      };
+
+      chartConfig.series[0].points = getPoints();
+      var chart = JSC.chart('chartDiv', chartConfig, function() {
+        toggleUpdate(true);
+      });
+
+      var sid;
+      function toggleUpdate(onOff) {
+        if (!sid) {
+          startBubbleUpdate();
+        } else {
+          stopBubbleUpdate();
+        }
+        function startBubbleUpdate() {
+          sid = setInterval(function() {
+            chart && updateBubblePoints();
+          }, 3000);
+        }
+        function stopBubbleUpdate() {
+          clearInterval(sid);
+          sid = undefined;
+        }
+      }
+
+      function updateBubblePoints() {
+        var bubSer = chart.series('bubbleSer');
+        bubSer && bubSer.options({ points: getPoints() }, { animation: { duration: 1000 } });
+      }
+
+      function getPoints() {
+        return capitalNames.map(function(n) {
+          var mapId = 'UsCapitals.' + n;
+          return {
+            map: mapId,
+            /* Including an ID lets the series animate the update of existing points with the same ID. */
+            id: mapId,
+            z: Math.random() * 1000
+          };
+        });
+      }
+    </script>
+  </body>
+</html>

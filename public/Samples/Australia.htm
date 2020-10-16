@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Austraia Infographic | JSCharting</title>
+    <meta http-equiv="content-type" content="text-html; charset=utf-8" />
+
+    <script type="text/javascript" src="../jsc/jscharting.js"></script>
+
+    <script type="text/javascript" src="../jsc/modules/types.js"></script>
+    <script type="text/javascript" src="../jsc/icons/weather/all.js"></script>
+    <script type="text/javascript" src="../jsc/modules/maps.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="css/default.css" />
+    <style type="text/css">
+      .mainWrapper {
+        width: 890px;
+        height: 1600px;
+        background: url('images/Australia.png');
+        background-size: cover;
+        background-repeat: no-repeat;
+        margin-left: auto;
+        margin-right: auto;
+        position: relative;
+        left: -25px;
+      }
+      #cc1 {
+        position: absolute;
+        margin-top: 70px;
+        margin-left: 0px;
+        width: 890px;
+        height: 490px;
+      }
+      #cc2 {
+        position: absolute;
+        margin-top: 760px;
+        margin-left: 30px;
+        width: 280px;
+        height: 260px;
+      }
+      #cc3 {
+        position: absolute;
+        margin-top: 760px;
+        margin-left: 310px;
+        width: 280px;
+        height: 260px;
+      }
+      #cc4 {
+        position: absolute;
+        margin-top: 760px;
+        margin-left: 586px;
+        width: 280px;
+        height: 260px;
+      }
+      #cc5 {
+        position: absolute;
+        margin-top: 1130px;
+        margin-left: 30px;
+        width: 380px;
+        height: 300px;
+      }
+      #cc6 {
+        position: absolute;
+        margin-top: 1160px;
+        margin-left: 490px;
+        width: 300px;
+        height: 260px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="mainWrapper">
+      <div id="cc1"></div>
+      <div id="cc2"></div>
+      <div id="cc3"></div>
+      <div id="cc4"></div>
+      <div id="cc5"></div>
+      <div id="cc6"></div>
+    </div>
+
+    <script type="text/javascript">
+      /*
+Australia travel infographic using JavaScript charts.
+Learn how to:
+
+  - Create infographics with overlaying charts.
+  - Use template for charts on the same page.
+*/
+      // JS
+      var template = {
+        box_fill: 'none',
+        chartArea: { fill: 'none', outline_color: 'none' },
+        legend_visible: false,
+        defaultPoint_label_text_fontFamily: 'Arial',
+        xAxis: {
+          defaultTick: {
+            gridLine_color: 'none',
+            label_style: { fontSize: 10, fontFamily: 'Arial' }
+          },
+          alternateGridFill: 'none'
+        },
+        yAxis: [
+          {
+            formatString: 'n0',
+            defaultTick: {
+              label: {
+                text: '%Value',
+                style: {
+                  fontSize: 10,
+                  fontFamily: 'Arial'
+                }
+              },
+              gridLine_color: 'none'
+            },
+            alternateGridFill: 'none'
+          },
+          {
+            formatString: 'n0',
+            defaultTick: {
+              label: {
+                text: '%Value',
+                style: {
+                  fontSize: 10,
+                  fontFamily: 'Arial'
+                }
+              },
+              gridLine_color: 'none'
+            },
+            alternateGridFill: 'none'
+          }
+        ],
+        toolbar_visible: false
+      };
+
+      var chart = new JSC.Chart('cc1', {
+        debug: true,
+        template: template,
+        type: 'map',
+        legend_visible: false,
+        mapping_zoomLimit: 3,
+        series: [
+          {
+            palette: ['#fff59d', '#ffee58', '#f9a825', '#fbc02d', '#fff176', '#f57f17', '#fdd835', '#fff9c4'],
+            map: 'au'
+          },
+          {
+            name: 'Sights',
+            type: 'marker',
+            defaultPoint: {
+              marker: {
+                color: '#e65100',
+                size: 30,
+                outline_width: 0
+              },
+              tooltip: '%location',
+              label_text: '%location'
+            },
+            points: [
+              {
+                marker_type: 'weather/variable-fullmoon',
+                x: 147,
+                y: -18,
+                attributes: { location: 'Great Barrier Reef' },
+                tooltip: '<b>%location</b><br>30°C Cloudy Night'
+              },
+              {
+                marker_type: 'weather/storm',
+                x: 151,
+                y: -34,
+                attributes: { location: 'Sydney Harbour Bridge' },
+                tooltip: '<b>%location</b><br>28°C Storm'
+              },
+              {
+                marker_type: 'weather/rain-sun',
+                x: 144,
+                y: -38.3,
+                attributes: { location: 'Great Ocean Road' },
+                tooltip: '<b>%location</b><br>26°C Partly Cloudy'
+              },
+              {
+                marker_type: 'weather/rain',
+                x: 131,
+                y: -25,
+                attributes: { location: 'Uluru' },
+                tooltip: '<b>%location</b><br>34°C Rain'
+              },
+              {
+                marker_type: 'weather/cloud',
+                x: 132,
+                y: -13,
+                attributes: { location: 'Kakadu National Park' },
+                tooltip: '<b>%location</b><br>27°C Cloudy'
+              },
+              {
+                marker_type: 'weather/sun',
+                x: 152.7,
+                y: -25,
+                attributes: { location: 'Fraser Island' },
+                tooltip: '<b>%location</b><br>30°C Sunny'
+              },
+              {
+                marker_type: 'weather/variable-sun',
+                x: 118,
+                y: -23,
+                attributes: { location: 'Karijini National Park' },
+                tooltip: '<b>%location</b><br>31°C Partly Cloudy'
+              },
+              {
+                marker_type: 'weather/sun',
+                x: 148,
+                y: -42,
+                attributes: { location: 'Freycinet National Park' },
+                tooltip: '<b>%location</b><br>28°C Sunny'
+              }
+            ]
+          }
+        ]
+      });
+
+      var chart2 = new JSC.Chart('cc2', {
+        debug: true,
+        type: 'line',
+        template: template,
+        yAxis: [
+          {
+            id: 'Fahrenheit',
+            defaultTick_label_text: '%value°F'
+          },
+          {
+            scale_syncWith: 'Fahrenheit',
+            orientation: 'right',
+            formatString: 'n2',
+            defaultTick_label_text: '{(%Value-32)*5/9:n1}°C'
+          }
+        ],
+        defaultPoint_tooltip: '<b>%xValue</b><br/>%seriesName: %yValue°F  ({(%yValue-32)*5/9:n1}°C)',
+        series: [
+          {
+            name: 'Average High',
+            line_color: '#f9a825',
+            defaultPoint_color: '#f9a825',
+            points: [
+              { name: 'Jan', y: 80 },
+              { name: 'Feb', y: 79 },
+              { name: 'Mar', y: 77 },
+              { name: 'Apr', y: 73 },
+              { name: 'May', y: 68 },
+              { name: 'Jun', y: 64 },
+              { name: 'Jul', y: 63 },
+              { name: 'Aug', y: 65 },
+              { name: 'Sep', y: 69 },
+              { name: 'Oct', y: 73 },
+              { name: 'Nov', y: 75 },
+              { name: 'Dec', y: 78 }
+            ]
+          },
+          {
+            name: 'Average Low',
+            line_color: '#1e88e5',
+            defaultPoint_color: '#1e88e5',
+            points: [
+              { name: 'Jan', y: 66 },
+              { name: 'Feb', y: 66 },
+              { name: 'Mar', y: 64 },
+              { name: 'Apr', y: 57 },
+              { name: 'May', y: 52 },
+              { name: 'Jun', y: 47 },
+              { name: 'Jul', y: 45 },
+              { name: 'Aug', y: 47 },
+              { name: 'Sep', y: 51 },
+              { name: 'Oct', y: 56 },
+              { name: 'Nov', y: 60 },
+              { name: 'Dec', y: 64 }
+            ]
+          }
+        ]
+      });
+
+      var chart3 = new JSC.Chart('cc3', {
+        debug: true,
+        type: 'line',
+        template: template,
+        yAxis: [
+          {
+            id: 'Fahrenheit',
+            defaultTick_label_text: '%value°F'
+          },
+          {
+            scale_syncWith: 'Fahrenheit',
+            orientation: 'right',
+            formatString: 'n2',
+            defaultTick_label_text: '{(%Value-32)*5/9:n1}°C'
+          }
+        ],
+        defaultPoint_tooltip: '<b>%xValue</b><br/>%seriesName: %yValue°F  ({(%yValue-32)*5/9:n1}°C)',
+        series: [
+          {
+            name: 'Average High',
+            line_color: '#f9a825',
+            defaultPoint_color: '#f9a825',
+            points: [
+              { name: 'Jan', y: 79 },
+              { name: 'Feb', y: 78 },
+              { name: 'Mar', y: 75 },
+              { name: 'Apr', y: 69 },
+              { name: 'May', y: 62 },
+              { name: 'Jun', y: 57 },
+              { name: 'Jul', y: 56 },
+              { name: 'Aug', y: 59 },
+              { name: 'Sep', y: 69 },
+              { name: 'Oct', y: 73 },
+              { name: 'Nov', y: 75 },
+              { name: 'Dec', y: 76 }
+            ]
+          },
+          {
+            name: 'Average Low',
+            line_color: '#1e88e5',
+            defaultPoint_color: '#1e88e5',
+            points: [
+              { name: 'Jan', y: 58 },
+              { name: 'Feb', y: 58 },
+              { name: 'Mar', y: 56 },
+              { name: 'Apr', y: 51 },
+              { name: 'May', y: 47 },
+              { name: 'Jun', y: 44 },
+              { name: 'Jul', y: 43 },
+              { name: 'Aug', y: 44 },
+              { name: 'Sep', y: 51 },
+              { name: 'Oct', y: 56 },
+              { name: 'Nov', y: 60 },
+              { name: 'Dec', y: 55 }
+            ]
+          }
+        ]
+      });
+
+      var chart4 = new JSC.Chart('cc4', {
+        debug: true,
+        type: 'line',
+        template: template,
+        yAxis: [
+          {
+            id: 'Fahrenheit',
+            defaultTick_label_text: '%value°F'
+          },
+          {
+            scale_syncWith: 'Fahrenheit',
+            orientation: 'right',
+            formatString: 'n2',
+            defaultTick_label_text: '{(%Value-32)*5/9:n1}°C'
+          }
+        ],
+        defaultPoint_tooltip: '<b>%xValue</b><br/>%seriesName: %yValue°F  ({(%yValue-32)*5/9:n1}°C)',
+        series: [
+          {
+            name: 'Average High',
+            line_color: '#f9a825',
+            defaultPoint_color: '#f9a825',
+            points: [
+              { name: 'Jan', y: 82 },
+              { name: 'Feb', y: 81 },
+              { name: 'Mar', y: 76 },
+              { name: 'Apr', y: 68 },
+              { name: 'May', y: 60 },
+              { name: 'Jun', y: 54 },
+              { name: 'Jul', y: 53 },
+              { name: 'Aug', y: 55 },
+              { name: 'Sep', y: 61 },
+              { name: 'Oct', y: 67 },
+              { name: 'Nov', y: 73 },
+              { name: 'Dec', y: 79 }
+            ]
+          },
+          {
+            name: 'Average Low',
+            line_color: '#1e88e5',
+            defaultPoint_color: '#1e88e5',
+            points: [
+              { name: 'Jan', y: 56 },
+              { name: 'Feb', y: 56 },
+              { name: 'Mar', y: 51 },
+              { name: 'Apr', y: 44 },
+              { name: 'May', y: 38 },
+              { name: 'Jun', y: 34 },
+              { name: 'Jul', y: 32 },
+              { name: 'Aug', y: 34 },
+              { name: 'Sep', y: 38 },
+              { name: 'Oct', y: 43 },
+              { name: 'Nov', y: 48 },
+              { name: 'Dec', y: 53 }
+            ]
+          }
+        ]
+      });
+
+      var chart5 = new JSC.Chart('cc5', {
+        debug: true,
+        type: 'pie',
+        template: template,
+        defaultPoint_tooltip: '<b>%name-speaking people</b> - %value',
+        legend: {
+          visible: true,
+          template: '%icon, %name',
+          position: 'right',
+          boxVisible: false,
+          legendEntry_padding: 10
+        },
+        palette: ['#f9a825', '#fdd835', '#fff176', '#64b5f6', '#1e88e5', '#1565c0'],
+        series: [
+          {
+            shape_size: 200,
+            points: [
+              { name: 'English', y: 17020417 },
+              { name: 'Mandarin', y: 596711 },
+              { name: 'Arabic', y: 321728 },
+              { name: 'Cantonese', y: 280943 },
+              { name: 'Vietnamese', y: 277400 },
+              { name: 'Other languages', y: 942150 }
+            ]
+          }
+        ]
+      });
+
+      var chart6 = new JSC.Chart('cc6', {
+        debug: true,
+        type: 'horizontalColumn',
+        template: template,
+        xAxis_defaultTick_label_text: '%name',
+        yAxis: { scale_range: [0, 100], formatString: 'n' },
+        defaultPoint: {
+          tooltip: '<b>%fullName</b> - %value',
+          label_text: '%fullName'
+        },
+        series: [
+          {
+            palette: ['#1e88e5', '#f9a825'],
+            points: [
+              { name: 'NSW', attributes: { fullName: 'New South Wales' }, y: 87.2 },
+              { name: 'VIC', attributes: { fullName: ' Victoria' }, y: 89.3 },
+              { name: 'QLD', attributes: { fullName: 'Queensland' }, y: 88.2 },
+              { name: 'SA', attributes: { fullName: 'South Australia' }, y: 90.9 },
+              { name: 'WA', attributes: { fullName: 'Western Australia' }, y: 90.2 },
+              { name: 'TAS', attributes: { fullName: 'Tasmania' }, y: 91.9 },
+              { name: 'NT', attributes: { fullName: 'Northern Territory' }, y: 84.8 },
+              { name: 'ACT', attributes: { fullName: 'Australian Capital Territory' }, y: 96 }
+            ]
+          }
+        ]
+      });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>CSV Calendar Heatmap Chart | JSCharting</title>
+    <meta http-equiv="content-type" content="text-html; charset=utf-8" />
+
+    <script type="text/javascript" src="../jsc/jscharting.js"></script>
+
+    <script type="text/javascript" src="../jsc/modules/types.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="css/default.css" />
+    <style type="text/css">
+      /*CSS*/
+    </style>
+  </head>
+  <body>
+    <div id="chartDiv" style="max-width: 740px;height: 180px;margin: 0px auto;"></div>
+
+    <script type="text/javascript">
+      /*
+Calendar chart from CSV data file.
+Learn how to:
+
+  - Load CSV heatmap data into a calendar chart.
+*/
+      // JS
+      var chart = JSC.chart('chartDiv', {
+        debug: true,
+        type: 'calendar year solid',
+        data: './resources/CarSales_2017.csv',
+        title_label_text: 'Automobile Unit Sales 2017',
+        defaultSeries_legendEntry_value: 'Total: %zSum',
+        defaultPoint: {
+          tooltip: '<b>{%date:date D}</b><br> %zValue cars sold'
+        },
+        palette: { colorBar_axis_scale_interval: 5 },
+        toolbar_visible: false
+      });
+    </script>
+  </body>
+</html>

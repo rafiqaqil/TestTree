@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Gridless Gridlines | JSCharting</title>
+    <meta http-equiv="content-type" content="text-html; charset=utf-8" />
+
+    <script type="text/javascript" src="../jsc/jscharting.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="css/default.css" />
+    <style type="text/css"></style>
+  </head>
+  <body>
+    <div id="chartDiv" style="max-width: 600px;height: 400px;margin: 0px auto;"></div>
+
+    <script type="text/javascript">
+      /*
+Grid lines on top of series that blend into background.
+Learn how to:
+
+  - Axis styling to modify grid lines zIndex in real-time.
+*/
+      // JS
+      var chart = JSC.chart('chartDiv', {
+        type: 'column',
+        legend_visible: false,
+        yAxis: {
+          defaultTick: { line_visible: false },
+          alternateGridFill: 'none',
+          onTop: false,
+          scale: { interval: 40, range: [0, 200] }
+        },
+        toolbar_items: {
+          export_visible: false,
+          'Grid lines on top': {
+            position: 'ca:topRight',
+            type: 'checkbox',
+            label_style_fontSize: 13,
+            margin: 10,
+            events_change: changeOnTop
+          }
+        },
+        series: [
+          {
+            name: 'Purchases',
+            points: [
+              ['January', 169],
+              ['February', 191],
+              ['March', 126],
+              ['April', 129],
+              ['May', 72],
+              ['June', 115],
+              ['July', 140],
+              ['August', 145]
+            ]
+          }
+        ]
+      });
+
+      function changeOnTop(val) {
+        chart.axes('y').options({
+          onTop: val,
+          defaultTick_gridLine: { color: val ? 'white' : '#e2e2e2' }
+        });
+      }
+    </script>
+  </body>
+</html>

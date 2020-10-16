@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Column Highlight | JSCharting</title>
+    <meta http-equiv="content-type" content="text-html; charset=utf-8" />
+
+    <script type="text/javascript" src="../jsc/jscharting.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="css/default.css" />
+    <style type="text/css"></style>
+  </head>
+  <body>
+    <div id="chartDiv" style="max-width: 740px;height: 400px;margin: 0px auto;"></div>
+
+    <script type="text/javascript">
+      /*
+Draws a marker on a single column data point.
+Learn how to:
+
+  - Draw a marker on a column.
+*/
+      // JS
+      var chart = JSC.chart('chartDiv', {
+        debug: true,
+        defaultSeries_type: 'column',
+        legend_visible: false,
+        defaultPoint_label_visible: true,
+        yAxis_visible: false,
+        xAxis_defaultTick: {
+          placement: 'inside',
+          label_style: { color: '#fff', fontWeight: 'bold' }
+        },
+        series: [
+          {
+            name: 'Team',
+            palette: 'default',
+            points: [
+              { name: 'Julian', y: 15 },
+              { name: 'Jeremiah', y: 118 },
+              {
+                name: 'Eli',
+                marker: {
+                  visible: true,
+                  size: 38,
+                  type: 'five-point-star',
+                  fill: 'red',
+                  outline: { color: 'white', width: 4 }
+                },
+                y: 136
+              },
+              { name: 'Tyler', y: 130 },
+              { name: 'Ryan', y: 123 }
+            ]
+          }
+        ]
+      });
+    </script>
+  </body>
+</html>

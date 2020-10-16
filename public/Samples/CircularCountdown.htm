@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Circular Countdown Chart | JSCharting</title>
+    <meta http-equiv="content-type" content="text-html; charset=utf-8" />
+
+    <script type="text/javascript" src="../jsc/jscharting.js"></script>
+
+    <script type="text/javascript" src="../jsc/modules/toolbar.js"></script>
+    <script type="text/javascript" src="../jsc/modules/types.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="css/default.css" />
+    <style type="text/css">
+      /*CSS*/
+    </style>
+  </head>
+  <body>
+    <div id="chartDiv" style="max-width: 380px;height: 380px;margin: 0px auto;"></div>
+
+    <script type="text/javascript">
+      /*
+A countdown timer using circular columns.
+Learn how to:
+
+  - Make a countdown timer with animations.
+*/
+      // JS
+      var counter,
+        countStart = 15,
+        colors = ['#dce9ff', '#ff596b'],
+        chart = JSC.chart('chartDiv', {
+          debug: true,
+          type: 'gauge',
+          legend_visible: false,
+          chartArea_boxVisible: false,
+          yAxis: {
+            line_width: 0,
+            defaultTick: {
+              label_visible: false,
+              gridLine: { width: 1, dashStyle: 'dash', color: '#c0c0c3' }
+            },
+            scale: { range: [0, 10], interval: 2.5 }
+          },
+          defaultSeries: {
+            type: 'column',
+            angle: { start: -90, sweep: 360 }
+          },
+          defaultTooltip_enabled: false,
+          series: [
+            {
+              color: colors[0],
+              shape_label: {
+                text: countStart.toString(),
+                verticalAlign: 'middle',
+                style: { fontSize: 75 }
+              },
+              points: [{ id: 'full', y: 10 }, { id: 'sec', y: 10 }]
+            }
+          ],
+          toolbar: {
+            items: {
+              Stop: {
+                type: 'option',
+                value: true,
+                icon_name: 'system/default/pause',
+                boxVisible: true,
+                label_text: 'Pause',
+                events: { change: playPause },
+                states_select_label_text: 'Start',
+                states_select_icon_name: 'system/default/play'
+              }
+            }
+          }
+        });
+
+      function playPause(val) {
+        if (val === true) {
+          clearInterval(INTERVAL_ID);
+        } else {
+          startCountdown();
+        }
+      }
+
+      function startCountdown() {
+        var startTime;
+        counter = countStart;
+        var noAnim = { animation: false };
+        //Reset timer
+        chart
+          .series(0)
+          .options(
+            {
+              shape_label: { text: counter.toString(), color: 'black' },
+              points: [{ id: 'full', y: 10 }, { id: 'sec', y: 10 }]
+            },
+            noAnim
+          );
+
+        INTERVAL_ID = setInterval(function() {
+          if (counter < 0) {
+            //Stop
+            chart.uiItems('Stop').options({ value: true });
+            chart.series(0).options({ shape_label_text: 'Done' }, noAnim);
+            playPause(true);
+          } else {
+            //Next tick reset
+            chart
+              .series(0)
+              .options(
+                { shape_label: { text: (counter + 1).toString(), color: counter < 5 ? colors[1] : 'black' } },
+                noAnim
+              );
+            var color = counter < 5 ? colors[1] : colors[0];
+            chart
+              .series(0)
+              .points('sec')
+              .options({ y: 10, color: color }, noAnim);
+
+            //Next tick animation
+            chart.series(0).options({ points: getToPoints() }, { animation: { duration: 980, easing: 'none' } });
+            counter--;
+          }
+        }, 1000);
+
+        //Start countdown
+        chart.series(0).options(
+          { shape_label_text: counter.toString(), points: getToPoints() },
+          {
+            animation: { duration: 970, easing: 'none' }
+          }
+        );
+        counter -= 2;
+      }
+
+      function getToPoints() {
+        return [{ id: 'full', y: (counter * 10) / countStart }, { id: 'sec', y: 0, color: undefined }];
+      }
+    </script>
+  </body>
+</html>

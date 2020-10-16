@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Simple Heatmap Chart | JSCharting</title>
+    <meta http-equiv="content-type" content="text-html; charset=utf-8" />
+
+    <script type="text/javascript" src="../jsc/jscharting.js"></script>
+
+    <script type="text/javascript" src="../jsc/modules/types.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="css/default.css" />
+    <style type="text/css">
+      /*CSS*/
+    </style>
+  </head>
+  <body>
+    <div id="chartDiv" style="max-width: 740px;height: 400px;margin: 0px auto;"></div>
+
+    <script type="text/javascript">
+      /*
+Using a smartPalette with an interactive legend colorBar on a heatMap.
+Learn how to:
+
+  - Draw a heatmap chart with a smartPalette.
+*/
+      // JS
+      var chart = JSC.chart('chartDiv', {
+        debug: true,
+        type: 'heatmap',
+        toolbar_visible: false,
+        title_label_text: 'Call Response Time (Minutes)',
+        legend_title_label_text: 'Minutes',
+        palette: {
+          colors: ['green', 'yellow', 'red'],
+          pointValue: '{%zValue}'
+        },
+        defaultPoint: {
+          tooltip: '<b>%xValue</b> %yValue<br/>Response time: %zValuemin',
+          label_text: '%zValue',
+          outline_width: 0
+        },
+        series: [
+          {
+            name: 'Call Response Time.',
+            points: [
+              { x: 'Josh', y: 'Monday', z: 1 },
+              { x: 'Josh', y: 'Tuesday', z: 6 },
+              { x: 'Josh', y: 'Wednesday', z: 3 },
+              { x: 'Josh', y: 'Thursday', z: 2 },
+              { x: 'Josh', y: 'Friday', z: 5 },
+              { x: 'Josh', y: 'Saturday', z: 1 },
+              { x: 'Greg', y: 'Monday', z: 4 },
+              { x: 'Greg', y: 'Tuesday', z: 6 },
+              { x: 'Greg', y: 'Wednesday', z: 1 },
+              { x: 'Greg', y: 'Thursday', z: 8 },
+              { x: 'Greg', y: 'Friday', z: 6 },
+              { x: 'Greg', y: 'Saturday', z: 1 },
+              { x: 'Molly', y: 'Monday', z: 2 },
+              { x: 'Molly', y: 'Tuesday', z: 2 },
+              { x: 'Molly', y: 'Wednesday', z: 3 },
+              { x: 'Molly', y: 'Thursday', z: 1 },
+              { x: 'Molly', y: 'Friday', z: 2 },
+              { x: 'Molly', y: 'Saturday', z: 2 }
+            ]
+          }
+        ]
+      });
+    </script>
+  </body>
+</html>

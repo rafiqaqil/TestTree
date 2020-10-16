@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Line Rank Trends | JSCharting</title>
+    <meta http-equiv="content-type" content="text-html; charset=utf-8" />
+
+    <script type="text/javascript" src="../jsc/jscharting.js"></script>
+
+    <script type="text/javascript" src="../jsc/modules/toolbar.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="css/default.css" />
+    <style type="text/css"></style>
+  </head>
+  <body>
+    <div id="chartDiv" style="width: 840px;height: 320px; margin-top:13px;"></div>
+
+    <script type="text/javascript">
+      /*
+JavaScript code editor ranking over time.
+Learn how to:
+
+  - Draw a ranking over time chart.
+*/
+      // JS
+      var dt17 = {
+        items: [
+          { id: 'visual_studio_code', count: 7983 },
+          { id: 'atom', count: 4677 },
+          { id: 'sublime_text', count: 3906 },
+          { id: 'webstorm', count: 3647 },
+          { id: 'vim', count: 1789 },
+
+          { id: 'emacs', count: 390 },
+          { id: 'notepadpp', count: 367 },
+          { id: 'brackets', count: 204 },
+          { id: 'intellij', count: 183 },
+          { id: 'phpstorm', count: 128 },
+          { id: 'coda', count: 41 },
+          { id: 'netbeans', count: 36 }
+        ]
+      };
+      var dt18 = {
+        items: [
+          {
+            id: 'visual_studio_code',
+            count: 14492
+          },
+          { id: 'sublime_text', count: 4478 },
+          { id: 'vim', count: 4467 },
+          { id: 'webstorm', count: 4304 },
+          { id: 'atom', count: 3354 },
+          { id: 'emacs', count: 610 },
+          { id: 'intellij', count: 304 },
+          { id: 'php', count: 192 },
+          { id: 'phpstorm', count: 182 },
+          { id: 'notepadpp', count: 167 },
+          { id: 'brackets', count: 77 },
+          { id: 'nano', count: 76 },
+          { id: 'pycharm', count: 36 }
+        ]
+      };
+      var dt19 = {
+        items: [
+          {
+            id: 'visual_studio_code',
+            count: 16318
+          },
+          { id: 'webstorm', count: 3925 },
+          { id: 'vim', count: 3757 },
+          { id: 'sublime_text', count: 2858 },
+          { id: 'atom', count: 1584 },
+          { id: 'emacs', count: 390 },
+          { id: 'intellij', count: 304 },
+          { id: 'phpstorm', count: 197 },
+          { id: 'notepad++', count: 159 },
+          { id: 'visual_studio', count: 115 },
+          { id: 'nano', count: 95 },
+
+          { id: 'brackets', count: 41 },
+          { id: 'pycharm', count: 30 },
+          { id: 'textmate', count: 25 },
+          { id: 'bbedit', count: 21 },
+          { id: 'coda', count: 21 },
+          { id: 'eclipse', count: 17 }
+        ]
+      };
+      var scaled = false;
+
+      var colors = ['#3E7ADF', '#E84614', '#D1C32D', '#19A023', '#BF4BA2'];
+      var chart = JSC.Chart('chartDiv', {
+        type: 'line spline',
+        palette: colors,
+        legend_visible: false,
+        annotations: [
+          {
+            label: {
+              text: 'Best JavaScript code editors',
+              style_fontSize: '18px'
+            },
+
+            position: 'top left'
+          }
+        ],
+        defaultAxis_defaultTick_label_style: { fontWeight: 'bold', fontSize: '13px' },
+        yAxis: [
+          {
+            id: 'y1',
+            defaultTick: { line_visible: false, gridLine_visible: false, enabled: false },
+            scale: { invert: true, range_padding: 0.15 }
+          },
+          {
+            id: 'y2',
+            defaultTick: { line_visible: false, gridLine_visible: false, enabled: false },
+            orientation: 'opposite',
+            scale: { syncWith: 'y1' }
+          }
+        ],
+        xAxis: [
+          {
+            id: 'x1',
+            scale: { interval: 1, range_padding: 0.08 }
+          },
+          {
+            orientation: 'opposite',
+            scale: { syncWith: 'x1', interval: 1 }
+          }
+        ],
+        defaultSeries: {
+          line_width: 3,
+          line_tension: 0.5,
+          firstPoint: {
+            yAxisTick: {
+              axisId: 'y1',
+              label_text: '<span color=%color><b>%seriesname</b></span>'
+            }
+          },
+          lastPoint: {
+            yAxisTick: {
+              axisId: 'y2',
+              label_text: '<span color=%color><b>%seriesname</b></span>'
+            }
+          },
+          states: { hover_line: { width: 8 } },
+          defaultPoint: {
+            marker: {
+              type: 'circle',
+              size: 34,
+              outline: { width: 3 },
+              fill: 'white'
+            },
+            label: {
+              color: '#555',
+              autoHide: false,
+              text: '<b>{%perc*100:n0}%</b>',
+              align: 'center',
+              verticalAlign: 'middle',
+              style_fontSize: '11px'
+            },
+            tooltip: '<b>#%rank</b> for  %xValue:<br><b>%seriesName</b><br> With {%perc*100:n0}% of votes'
+          }
+        },
+        series: getSeries(),
+        toolbar_items: {
+          Scaled: {
+            type: 'toggle',
+            position: 'top right',
+            value: false,
+            events_change: function(val) {
+              scaled = val;
+              chart.options({
+                defaultPoint: {
+                  marker_size: val ? 10 : 34,
+                  label_visible: val ? false : true
+                },
+                series: getSeries(),
+                yAxis_scale_invert: !val
+              });
+              console.log(this);
+            }
+          },
+          export_visible: false
+        }
+      });
+
+      function getSeries() {
+        var years = [processYearItems(dt17), processYearItems(dt18), processYearItems(dt19)];
+        var selectiveLabeling = {
+          visual_studio_code: { name: 'Visual Studio Code', side: '' },
+          webstorm: { name: 'WebStorm', side: 'r' },
+          vim: { name: 'Vim', side: 'l' },
+          sublime_text: { name: 'SublimeText', side: 'l' },
+          atom: { name: 'Atom', side: 'r' }
+        };
+        var series = [];
+
+        Object.keys(selectiveLabeling).forEach(function(key) {
+          series.push(getSeriesById(key));
+        });
+        return series;
+
+        function getSeriesById(serId) {
+          var result = {
+            name: selectiveLabeling[serId].name,
+            points: pointsById(serId, years)
+          };
+          if (scaled) {
+            var emptyTick = { yAxisTick_label_text: '', enabled: false };
+            var labelSide = selectiveLabeling[serId].side;
+            if (labelSide === 'r') {
+              result.firstPoint = emptyTick;
+            } else if (labelSide === 'l') {
+              result.lastPoint = emptyTick;
+            }
+          }
+          return result;
+        }
+      }
+
+      function processYearItems(year) {
+        var items = year.items;
+        var sum = JSC.sum(items, 'count');
+        items.forEach(function(item, i) {
+          item.percent = item.count / sum;
+          item.rank = i + 1;
+        });
+        return year;
+      }
+
+      function pointsById(id, years) {
+        var yearNumbers = [2017, 2018, 2019];
+
+        var perYear = [
+          years[0].items.find(function(entry) {
+            return entry.id == id;
+          }),
+          years[1].items.find(function(entry) {
+            return entry.id == id;
+          }),
+          years[2].items.find(function(entry) {
+            return entry.id == id;
+          })
+        ];
+
+        return [indexToPoint(0), indexToPoint(1), indexToPoint(2)];
+
+        function indexToPoint(i) {
+          return {
+            id: yearNumbers[i] + id,
+            y: scaled ? perYear[i].percent : perYear[i].rank,
+            x: yearNumbers[i],
+            attributes: { perc: perYear[i].percent, rank: perYear[i].rank }
+          };
+        }
+      }
+    </script>
+  </body>
+</html>

@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Bar Mekko Clusters Chart | JSCharting</title>
+    <meta http-equiv="content-type" content="text-html; charset=utf-8" />
+
+    <script type="text/javascript" src="../jsc/jscharting.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="css/default.css" />
+    <style type="text/css"></style>
+  </head>
+  <body>
+    <div id="chartDiv" style="max-width: 740px;height: 400px;margin: 0px auto;"></div>
+
+    <script type="text/javascript">
+      /*
+Variwide chart using z point values with crosshair and combined tooltip.
+Learn how to:
+
+  - Draw  variwide chart.
+*/
+      // JS
+      var combinedTT =
+        '<span style="width:50px">Quarter</span><span style="width:50px">Units</span><span style="width:40px">Share</span><hr>%points';
+
+      var chart = JSC.chart('chartDiv', {
+        debug: true,
+        type: 'variwide',
+        yAxis: { label_text: 'Thousands of Units Sold' },
+        xAxis: {
+          crosshair: { enabled: true, gridLine: { width: 'column', opacity: 0.3 } },
+          label_text: 'Vendors'
+        },
+
+        title_label_text: 'Worldwide Smartphone Sales to End Users by Vendor',
+        defaultTooltip_label_text: combinedTT,
+        defaultPoint_tooltip:
+          '<span style="width:50px; color:%color;">%seriesName</span><span style="width:50px"> %yValue</span><span style="width:40px">%zValue%</span>',
+
+        series: [
+          {
+            name: '4Q14',
+            points: [
+              { name: 'Samsung', y: 73031, z: 19.9 },
+              { name: 'Apple', y: 74831, z: 20.4 },
+              { name: 'Huawei', y: 21038, z: 5.7 },
+              { name: 'Xiaomi', y: 18581, z: 5.1 }
+            ]
+          },
+          {
+            name: '4Q15',
+            points: [
+              { name: 'Samsung', y: 83437, z: 20.7 },
+              { name: 'Apple', y: 71525, z: 17.7 },
+              { name: 'Huawei', y: 32116, z: 8 },
+              { name: 'Xiaomi', y: 18216, z: 4.5 }
+            ]
+          },
+          {
+            name: '4Q16',
+            points: [
+              { name: 'Samsung', y: 76782, z: 17.8 },
+              { name: 'Apple', y: 77038, z: 17.8 },
+              { name: 'Huawei', y: 40803, z: 9.4 },
+              { name: 'Xiaomi', y: 15751, z: 3.6 }
+            ]
+          },
+          {
+            name: '4Q17',
+            points: [
+              { name: 'Samsung', y: 74026, z: 18.2 },
+              { name: 'Apple', y: 73175, z: 17.9 },
+              { name: 'Huawei', y: 43887, z: 10.8 },
+              { name: 'Xiaomi', y: 28187, z: 6.9 }
+            ]
+          }
+        ]
+      });
+    </script>
+  </body>
+</html>

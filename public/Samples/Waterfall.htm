@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Waterfall Chart | JSCharting</title>
+    <meta http-equiv="content-type" content="text-html; charset=utf-8" />
+
+    <script type="text/javascript" src="../jsc/jscharting.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="css/default.css" />
+    <style type="text/css">
+      /*CSS*/
+    </style>
+  </head>
+  <body>
+    <div id="chartDiv" style="max-width:640px;height: 300px;margin: 0px auto;"></div>
+
+    <script type="text/javascript">
+      /*
+A waterfall chart to analyze the cumulative effect of a sequence of positive and negative values.
+Learn how to:
+
+  - Generate a waterfall chart.
+*/
+      // JS
+      var styles = {
+        positive: { color: '#404040' },
+        negative: { color: '#fE4C14' },
+        total: { color: '#4285F4', label: { text: '%accum', style_fontSize: '15px' } }
+      };
+      var chart = JSC.chart('chartDiv', {
+        debug: true,
+        type: 'column',
+        legend: {
+          position: 'top left',
+          template: '%icon %name',
+
+          customEntries: [
+            { name: 'Increase', icon_color: styles.positive.color },
+            { name: 'Decrease', icon_color: styles.negative.color },
+            { name: 'Sum', icon_color: styles.total.color }
+          ]
+        },
+        defaultPoint: {
+          label: { text: '{%High-%Low}', align: 'center' },
+          tooltip: '%name %accum<br><b>{%High-%Low}</b>'
+        },
+        series: [
+          {
+            legendEntry_visible: false,
+            points: waterfallData([
+              { x: 'Start', y: 50 },
+              { x: 'B', y: 30 },
+              { x: 'C', y: 20 },
+              { x: 'Middle' },
+              { x: 'E', y: 10 },
+              { x: 'F', y: 20 },
+              { x: 'G', y: -50 },
+              { x: 'Total' }
+            ])
+          }
+        ]
+      });
+
+      /**
+       * Returns data modified into waterfall points and applies
+       * conditional styling to specific points based on their values.
+       * @param points Original data points
+       */
+      function waterfallData(points) {
+        var last = 0;
+        var def = function(v) {
+          return v !== undefined;
+        };
+        points.forEach(function(p, i) {
+          var y, stl;
+          if (def(p.y)) {
+            y = [last, (last = last + p.y)];
+            stl = i ? (p.y >= 0 ? styles.positive : styles.negative) : styles.total;
+          } else {
+            y = [0, last];
+            stl = styles.total;
+          }
+          JSC.merge(p, { y: y, attributes_accum: last }, stl);
+        });
+        return points;
+      }
+    </script>
+  </body>
+</html>

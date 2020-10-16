@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>CSV Data Month Calendar Chart | JSCharting</title>
+    <meta http-equiv="content-type" content="text-html; charset=utf-8" />
+
+    <script type="text/javascript" src="../jsc/jscharting.js"></script>
+
+    <script type="text/javascript" src="../jsc/modules/types.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="css/default.css" />
+    <style type="text/css">
+      /*CSS*/
+    </style>
+  </head>
+  <body>
+    <div id="chartDiv" style="max-width: 250px;height: 250px;margin: 0px auto;"></div>
+
+    <script type="text/javascript">
+      /*
+Calendar with blackout dates loaded from a CSV file.
+Learn how to:
+
+  - Use CSV data with calendars.
+*/
+      // JS
+      var chart,
+        chartConfig = {
+          debug: true,
+          //Without data, a view must be specified.
+          type: 'calendar month solid',
+          title_label_text: 'January Room Availability',
+          yAxis_visible: false,
+          legend: {
+            //Add custom entries
+            template: '%icon %name',
+            position: 'bottom',
+            customEntries: [
+              { name: 'Available', icon_color: '#cbf2b7' },
+              {
+                name: 'Booked',
+                icon: {
+                  hatch: {
+                    style: 'light-upward-diagonal',
+                    color: '#a2a2a2'
+                  }
+                }
+              }
+            ]
+          },
+          calendar: {
+            range: ['1/1/2018', '1/31/2018'],
+            defaultEdgePoint: { mouseTracking: false, label_visible: false }
+          },
+          defaultSeries: {
+            opacity: 0.6,
+            legendEntry_visible: false,
+            defaultPoint: {
+              outline_width: 0,
+              label_text: '<b>%name</b>'
+            }
+          },
+          toolbar_visible: false
+        };
+
+      loadData(makeChart);
+
+      function loadData(cb) {
+        JSC.fetch('./resources/bookingData.csv')
+          .then(function(response) {
+            return response.text();
+          })
+          .then(function(csv) {
+            cb(JSC.parseCsv(csv).data);
+          })
+          .catch(function(ex) {
+            console.error(ex);
+          });
+      }
+
+      function makeChart(data) {
+        chartConfig.series = [
+          {
+            points: data.map(function(row) {
+              var isAvailable = row[1] === 'a';
+              return isAvailable
+                ? {
+                    date: row[0],
+                    color: '#cbf2b7',
+                    tooltip: '{%date:date d}<hr><b>Available</b>'
+                  }
+                : {
+                    date: row[0],
+                    tooltip: '{%date:date d}<hr><b>Booked</b>',
+                    hatch: {
+                      style: 'light-upward-diagonal',
+                      color: '#a2a2a2'
+                    }
+                  };
+            })
+          }
+        ];
+        chart = JSC.chart('chartDiv', chartConfig);
+      }
+    </script>
+  </body>
+</html>

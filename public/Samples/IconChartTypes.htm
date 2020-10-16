@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Icon Chart Types | JSCharting</title>
+    <meta http-equiv="content-type" content="text-html; charset=utf-8" />
+
+    <script type="text/javascript" src="../jsc/jscharting.js"></script>
+
+    <script type="text/javascript" src="../jsc/modules/types.js"></script>
+    <script type="text/javascript" src="linear/ecommerce/graph-column"></script>
+    <script type="text/javascript" src="material/editor/show-chart"></script>
+
+    <link rel="stylesheet" type="text/css" href="css/default.css" />
+    <style type="text/css"></style>
+  </head>
+  <body>
+    <div id="chartDiv" style="max-width: 740px;height: 300px;margin: 0px auto;"></div>
+
+    <script type="text/javascript">
+      /*
+UI dropdown control with morphing SVG icons.
+Learn how to:
+
+  - Use interactive uiItem controls.
+*/
+      // JS
+
+      var types = ['column', 'line'];
+      var icons = ['linear/ecommerce/graph-column', 'material/editor/show-chart'];
+      var chart = JSC.chart('chartDiv', {
+        type: 'column',
+        legend_visible: false,
+        yAxis_label_text: 'Applicants',
+        series: [
+          {
+            name: 'All Applicants',
+            points: [
+              { name: 'June', y: 126 },
+              { name: 'July', y: 170 },
+              { name: 'August', y: 136 },
+              { name: 'September', y: 80 },
+              { name: 'October', y: 51 }
+            ]
+          }
+        ],
+        toolbar_items: {
+          'change chart type': {
+            type: 'select',
+            position: 'inside top left',
+            value: '<icon name=' + icons[0] + ' color=#333 animation={} size=40>',
+            icon_visible: false,
+            width: 72,
+            height: 54,
+            label_align: 'center',
+            outline_width: 0,
+            fill: 'lightgray',
+            itemsBox_outline_width: 0,
+            states_hover: { fill: '#c7c7c7', outline_width: 0 },
+            defaultItem: {
+              height: 54,
+              width: 72,
+              icon_visible: false,
+              label_align: 'center',
+              states_select: { fill: 'lightgray' }
+            },
+            items: icons.map(function(ic) {
+              return '<icon name=' + ic + ' color=#333 animation={} size=40>';
+            }),
+            events_change: setChartType
+          }
+        }
+      });
+
+      function setChartType(path) {
+        for (var i = 0; i < types.length; i++) {
+          if (path.indexOf(icons[i]) != -1) {
+            chart.options({ defaultSeries: { type: types[i] } });
+          }
+        }
+      }
+    </script>
+  </body>
+</html>

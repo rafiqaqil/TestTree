@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Interpolated Line Polar Chart | JSCharting</title>
+    <meta http-equiv="content-type" content="text-html; charset=utf-8" />
+
+    <script type="text/javascript" src="../jsc/jscharting.js"></script>
+
+    <script type="text/javascript" src="../jsc/modules/types.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="css/default.css" />
+    <style type="text/css">
+      /*CSS*/
+    </style>
+  </head>
+  <body>
+    <div id="chartDiv" style="max-width: 440px;height: 400px;margin: 0px auto;"></div>
+
+    <script type="text/javascript">
+      /*
+Polar radars interpolate line series.
+Learn how to:
+
+  - Use automatic line interpolation on polar radars.
+*/
+      // JS
+      var chart = JSC.chart('chartDiv', {
+        debug: true,
+        type: 'radar polar line',
+        legend_visible: false,
+        yAxis: {
+          markers: [{ value: [23, 34], color: 'red', opacity: 0.4 }],
+          defaultTick_gridLine_color: '#e4e4e4',
+          alternateGridFill: '#f5f5f5'
+        },
+        series: [
+          {
+            name: 'Michael',
+            defaultPoint_tooltip: '%yvalue',
+            points: [
+              { name: 'Jan', y: 5 },
+              { name: 'Feb', y: 30 },
+              { name: 'Mar', y: 10 },
+              { name: 'Apr', y: 40 },
+              { name: 'May', y: 20 }
+            ]
+          }
+        ]
+      });
+    </script>
+  </body>
+</html>

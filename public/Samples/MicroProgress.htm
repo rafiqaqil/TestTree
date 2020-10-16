@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Animated Label Progress Microchart | JSCharting</title>
+    <meta http-equiv="content-type" content="text-html; charset=utf-8" />
+
+    <script type="text/javascript" src="../jsc/jscharting.js"></script>
+
+    <script type="text/javascript" src="../jsc/modules/types.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="css/default.css" />
+    <style type="text/css"></style>
+  </head>
+  <body>
+    <div id="labelDiv1" style="max-width: 320px;height: 60px;margin: 0px auto;"></div>
+    <div id="labelDiv2" style="max-width: 320px;height: 60px;margin: 0px auto;"></div>
+    <div id="labelDiv3" style="max-width: 320px;height: 60px;margin: 0px auto;"></div>
+    <div id="finalLabel" style="max-width: 320px;height: 60px;margin: 0px auto;"></div>
+
+    <script type="text/javascript">
+      /*
+Demonstrate using JSC.label() with microcharts.
+Learn how to:
+
+  - Customize area line microchart options.
+*/
+      // JS
+      var step = Math.floor(Math.random() * 10);
+      var stepNext = 0;
+      var progress = step + stepNext;
+
+      showProgress(document.getElementById('labelDiv1'), function() {
+        showProgress(document.getElementById('labelDiv2'), function() {
+          showProgress(document.getElementById('labelDiv3'), function() {
+            JSC.label(
+              document.getElementById('finalLabel'),
+              '<span style="font-weight:bold; font-size:20px">The installation was successful!</span><br>'
+            );
+          });
+        });
+      });
+
+      function showProgress(id, cb) {
+        var interval = setInterval(function() {
+          stepNext = Math.floor(Math.random() * 50);
+          progress = progress + stepNext;
+          step = stepNext;
+          updateLabel(id, progress, 2000);
+          if (progress >= 2000) {
+            clearInterval(interval);
+            progress = 0;
+            step = Math.floor(Math.random() * 50);
+            stepNext = 0;
+            doneLabel(id);
+            cb();
+          }
+        }, Math.floor(50 + Math.random() * 10));
+      }
+
+      function updateLabel(div, progress, goal) {
+        JSC.label(
+          div,
+          '<span style="font-weight:bold; font-size:18px">' +
+            ((progress * 100) / goal).toFixed(2) +
+            '%' +
+            '</span><br>' +
+            '<chart width=200 type=progress data=' +
+            progress +
+            ' max=' +
+            goal +
+            ' color=#00e676><br>' +
+            '<span style="font-size:14px">' +
+            progress +
+            ' of ' +
+            goal +
+            '</span>'
+        );
+      }
+
+      function doneLabel(div) {
+        JSC.label(
+          div,
+          '<span style="font-weight:bold; font-size:18px">100%</span><br>' +
+            '<chart width=200 type=progress data=100 max=100 color=#00e676>' +
+            '<span style="font-size:14px"> Done </span><icon name=material/navigation/check size=16 fill=green>'
+        );
+      }
+    </script>
+  </body>
+</html>

@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Simple World Regions Map Chart | JSCharting</title>
+    <meta http-equiv="content-type" content="text-html; charset=utf-8" />
+
+    <script type="text/javascript" src="../jsc/jscharting.js"></script>
+
+    <script type="text/javascript" src="../jsc/modules/maps.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="css/default.css" />
+    <style type="text/css">
+      /*CSS*/
+    </style>
+  </head>
+  <body>
+    <div id="chartDiv" style="max-width: 740px;height: 400px;margin: 0px auto;"></div>
+
+    <script type="text/javascript">
+      /*
+A simple world map.
+Learn how to:
+
+  - Draw a simple world map.
+*/
+      // JS
+      var chart = JSC.chart('chartDiv', {
+        debug: true,
+        type: 'map',
+        legend_visible: false,
+        chartArea: { outline_color: '#bbbbbb', fill: 'white' },
+        /* Disable zooming */
+        axisToZoom: '',
+        mapping: {
+          projection: false
+          /*
+           * A world map layer can be specified here to use the map with resolution optimized for showing all world countries.
+           * It can also be omitted as long as any series specifies it with syntax like 'world.region:africa'
+           *
+           * referenceLayers:'world'
+           * */
+        },
+
+        palette: 'oceanMidtones',
+        series: [
+          {
+            /* A map propertyFilter that will create a series of country points that where each point is a country in africa */
+            map: 'world.region:africa'
+          },
+          { map: 'region:europe' },
+          { map: 'region:asia' },
+          { map: 'region:americas' }
+        ]
+      });
+    </script>
+  </body>
+</html>

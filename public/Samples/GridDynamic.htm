@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Grid Dynamic | JSCharting</title>
+    <meta http-equiv="content-type" content="text-html; charset=utf-8" />
+
+    <script type="text/javascript" src="../jsc/jscharting.js"></script>
+
+    <script type="text/javascript" src="../jsc/modules/datagrid.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="css/default.css" />
+    <style type="text/css">
+      /*CSS*/
+      #controls {
+        text-align: center;
+        margin: 10px 0;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="chartDiv" style="max-width: 800px;height: 400px;margin: 0px auto;"></div>
+    <div id="controls">
+      <input id="dayBtn" type="button" value="Daily" />
+      <input id="weekBtn" type="button" value="Week" />
+      <input id="monthBtn" type="button" value="Month" />
+      <input id="weekdayBtn" type="button" value="Weekday" />
+      <select id="calculationDD">
+        <option>sum</option>
+        <option>mean</option>
+        <option>min</option>
+        <option>max</option>
+      </select>
+    </div>
+    <div id="container" style="max-width: 430px; height: 450px; margin: 0px auto;"></div>
+
+    <script type="text/javascript">
+      /*
+Datagrid and chart combination displaying step data.
+Learn how to:
+
+  - Show dynamic data in grid and chart.
+*/
+      // JS
+      var grid = undefined,
+        chart = undefined;
+      var nest,
+        stepData,
+        year = 2017,
+        calcFn = 'sum',
+        groupingBy = 'month',
+        dateFormatters = { month: 'date MMM', week: 'date d', day: 'date d', weekday: 'n' },
+        maxValues = { month: 200000, week: 100000, day: 20000, weekday: 350000 },
+        firstColHeaders = { month: 'Month', week: 'Week', day: 'Day', weekday: 'Weekday' },
+        secondColHeaders = { sum: 'Sum', min: 'Min', max: 'Max', mean: 'Mean' };
+
+      weekdays = 'Sunday,Monday,Tuesday,Wednesday,Thursday,Friday,Saturday'.split(',');
+
+      function defaultChartConfig() {
+        return {
+          xAxis_label_text: 'Date',
+          yAxis_label_text: 'Steps',
+          xAxis_scale_interval: { unit: 'month' },
+          legend_visible: false,
+          defaultPoint_marker_type: 'none'
+        };
+      }
+
+      function viewToOptions(view, calc) {
+        var max = calc === 'sum' ? maxValues[view] : 20000;
+        return {
+          columns: [
+            { header: firstColHeaders[view], value: '{%xValue:' + dateFormatters[view] + '}' },
+            { header: secondColHeaders[calc], value: '{%yValue:n0}' },
+            {
+              header: '<chart scale data=0,' + max + 'K color=white>',
+              value: '<chart bar colors=#0277bd,,#ddd data=%yValue max=' + max + '>',
+              align: 'center'
+            },
+            { header: 'Daily', value: '<chart sparkline data=%list>', align: 'center' }
+          ]
+        };
+      }
+
+      JSC.fetch('./resources/stepData17-18.csv')
+        .then(function(response) {
+          return response.text();
+        })
+        .then(function(text) {
+          setCsv(text);
+          setDataView(groupingBy);
+          var chartOptions = defaultChartConfig();
+
+          chartOptions.series = nest.series(stepData);
+          chart = new JSC.Chart('chartDiv', chartOptions, function(c) {
+            c.toGrid('container', viewToOptions(groupingBy, 'sum')).then(function(g) {
+              grid = g;
+            });
+          });
+        });
+
+      function setCsv(text) {
+        stepData = JSC.csv2Json(text);
+      }
+
+      function setDataView(groupBy, calculation) {
+        groupingBy = groupBy;
+        calcFn = calculation || calcFn;
+        nest = JSC.nest()
+          .key({ key: 'Date', pattern: groupBy, range: ['1/1/2017', '12/31/2017'] })
+          .rollup('Actual')
+          .pointRollup(rollupFn);
+
+        function rollupFn(key, values) {
+          if (groupingBy === 'weekday') {
+            return {
+              x: weekdays[key],
+              y: JSC[calcFn](values),
+              attributes: { list: values.join(',') }
+            };
+          }
+          return {
+            x: key,
+            y: JSC[calcFn](values),
+            attributes: { list: values.join(',') }
+          };
+        }
+      }
+
+      function redraw(groupBy) {
+        var calEl = document.getElementById('calculationDD');
+        var calc = calEl.options[calEl.selectedIndex].text;
+        setDataView(groupBy, calc);
+
+        grid && grid.options(viewToOptions(groupBy, calc), false);
+        chart.series(0).options({ points: nest.points(stepData) });
+      }
+
+      (function attachEvents() {
+        document.getElementById('dayBtn').addEventListener('click', function() {
+          redraw('day');
+        });
+        document.getElementById('weekBtn').addEventListener('click', function() {
+          redraw('week');
+        });
+        document.getElementById('monthBtn').addEventListener('click', function() {
+          redraw('month');
+        });
+        document.getElementById('weekdayBtn').addEventListener('click', function() {
+          redraw('weekday');
+        });
+        document.getElementById('calculationDD').addEventListener('change', function() {
+          redraw(groupingBy);
+        });
+      })();
+    </script>
+  </body>
+</html>

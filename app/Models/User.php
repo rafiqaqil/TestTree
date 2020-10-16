@@ -20,6 +20,7 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+         'username',
     ];
 
     /**
@@ -40,4 +41,25 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+    
+    
+    //CREATE PROFILES AFTER USER IS CREATED
+     protected static function boot()
+    {
+        parent::boot();
+
+        static::created(function ($user) {
+            $user->profile()->create([
+                'title' => $user->username,
+            ]);
+
+            Mail::to($user->email)->send(new NewUserWelcomeMail());
+        });
+    }
+    
+    
+      public function profile()
+    {
+        return $this->hasOne(Profile::class);
+    }
 }

@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Multi Pie Chart | JSCharting</title>
+    <meta http-equiv="content-type" content="text-html; charset=utf-8" />
+
+    <script type="text/javascript" src="../jsc/jscharting.js"></script>
+
+    <script type="text/javascript" src="../jsc/modules/types.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="css/default.css" />
+    <style type="text/css"></style>
+  </head>
+  <body>
+    <div id="chartDiv" style="max-width: 740px;height: 380px;margin: 0px auto;"></div>
+
+    <script type="text/javascript">
+      /*
+Multiple pie series with labels.
+Learn how to:
+
+  - Draw multiple pie series.
+*/
+      // JS
+      var chart = JSC.chart('chartDiv', {
+        debug: true,
+        legend: {
+          template: '%icon %name',
+          position: 'inside center'
+        },
+        title: {
+          label: { text: 'Apple Product Sales', style_fontSize: 16 },
+          position: 'center'
+        },
+        defaultSeries: { type: 'pie', palette: 'fiveColor36' },
+        defaultAnnotation_label_style_fontSize: 16,
+        annotations: [
+          {
+            label_text: '<b>2011</b>',
+            position: 'inside top left',
+            margin_left: 130
+          },
+          {
+            label: { text: '121.42M units sold', style_fontSize: 12 },
+            position: 'inside bottom left',
+            margin_left: 95
+          },
+          {
+            label_text: '<b>2018</b>',
+            position: 'inside top right',
+            margin_right: 130
+          },
+          {
+            label: { text: '279.48M units sold', style_fontSize: 12 },
+            position: 'inside bottom right',
+            margin_right: 100
+          }
+        ],
+        defaultPoint: {
+          tooltip: '<b>%name</b><br/><b>%yValueM</b> units sold in %seriesName',
+          label: {
+            text: '<b>{%percentOfSeries:n1}%</b>',
+            placement: 'inside'
+          }
+        },
+        series: [
+          {
+            name: '2011',
+            points: [{ x: 'iPhone', y: 72.3 }, { x: 'Mac', y: 16.73 }, { x: 'iPad', y: 32.39 }],
+            shape: { center: '22%,50%' }
+          },
+          {
+            name: '2018',
+            points: [{ x: 'iPhone', y: 217.74 }, { x: 'Mac', y: 18.21 }, { x: 'iPad', y: 43.53 }],
+            defaultPoint_legendEntry_visible: false,
+            legendEntry_visible: false,
+            shape: { center: '78%,50%' }
+          }
+        ],
+        toolbar_visible: false
+      });
+    </script>
+  </body>
+</html>

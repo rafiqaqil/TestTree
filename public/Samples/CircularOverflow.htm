@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Circular Column Overflow | JSCharting</title>
+    <meta http-equiv="content-type" content="text-html; charset=utf-8" />
+
+    <script type="text/javascript" src="../jsc/jscharting.js"></script>
+
+    <script type="text/javascript" src="../jsc/modules/toolbar.js"></script>
+    <script type="text/javascript" src="../jsc/modules/types.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="css/default.css" />
+    <style type="text/css">
+      /*CSS*/
+    </style>
+  </head>
+  <body>
+    <div id="chartDiv" style="max-width: 410px;height: 400px;margin: 0px auto;"></div>
+
+    <script type="text/javascript">
+      /*
+Circular activity ring showing color change when value exceeds axis scale.
+Learn how to:
+
+  - Circular column with overflow.
+*/
+      // JS
+      var INTERVAL_ID,
+        chart = JSC.chart('chartDiv', {
+          debug: true,
+          type: 'gauge ',
+          legend_visible: false,
+          yAxis: {
+            line_visible: false,
+            defaultTick_label_text: '%value%',
+            scale_range: [0, 100]
+          },
+          defaultSeries: {
+            type: 'column roundCaps',
+            angle: { sweep: 360, start: -90 },
+            shape: {
+              innerSize: '70%',
+              padding: 0.1,
+              label: {
+                text: 'Notice exceeding activity<br/>goals at a glance',
+                verticalAlign: 'middle'
+              }
+            }
+          },
+          defaultTooltip_enabled: false,
+          series: [
+            {
+              palette: ['#E10715', '#3FDC00', '#3EBAE1'],
+              defaultPoint: { label_text: '%yValue%' },
+              points: [['value', 15]]
+            }
+          ],
+          toolbar: {
+            defaultItem: { position: 'top' },
+            items: {
+              '50%': { events_click: getValSetter(50) },
+              '100%': { events_click: getValSetter(100) },
+              '200%': { events_click: getValSetter(200) },
+              '300%': { events_click: getValSetter(300) }
+            }
+          }
+        });
+
+      function getValSetter(val) {
+        return function() {
+          clearInterval(INTERVAL_ID);
+          chart
+            .series()
+            .points(0)
+            .options({ y: val });
+        };
+      }
+
+      var animDir = true;
+      INTERVAL_ID = setInterval(function() {
+        var val = animDir ? 300 : 50;
+        animDir = !animDir;
+        chart
+          .series()
+          .points(0)
+          .options({ y: val }, { animation: { duration: 3000, easing: 'none' } });
+      }, 3500);
+    </script>
+  </body>
+</html>

@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Scale Breaks Auto | JSCharting</title>
+    <meta http-equiv="content-type" content="text-html; charset=utf-8" />
+
+    <script type="text/javascript" src="../jsc/jscharting.js"></script>
+
+    <script type="text/javascript" src="../jsc/modules/toolbar.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="css/default.css" />
+    <style type="text/css">
+      /*CSS*/
+    </style>
+  </head>
+  <body>
+    <div id="chartDiv" style="max-width: 740px;height: 400px;margin: 0px auto;"></div>
+
+    <script type="text/javascript">
+      /*
+Automatic scale breaks by specifying a limit.
+Learn how to:
+
+  - Use smart axis scale breaks.
+*/
+      // JS
+      var chart = JSC.chart('chartDiv', {
+        debug: true,
+        chartArea_shadow: true,
+        yAxis: {
+          label_text: 'Sales (USD)',
+          formatString: 'c',
+          scale_breaks_limit: 2
+        },
+        title_label_text: 'Sales By Representative',
+        series: [
+          {
+            type: 'area',
+            name: 'William',
+            points: [
+              { name: 'Jan', y: 1196 },
+              { name: 'Feb', y: 178 },
+              { name: 'Mar', y: 169 },
+              { name: 'Apr', y: 166 },
+              { name: 'May', y: 172 },
+              { name: 'Jun', y: 162 },
+              { name: 'Jul', y: 155 },
+              { name: 'Aug', y: 156 },
+              { name: 'Sep', y: 167 },
+              { name: 'Oct', y: 182 },
+              { name: 'Nov', y: 188 },
+              { name: 'Dec', y: 197 }
+            ]
+          },
+          {
+            name: 'Elliot',
+            points: [
+              { name: 'Jan', y: 286 },
+              { name: 'Feb', y: 4278 },
+              { name: 'Mar', y: 286 },
+              { name: 'Apr', y: 271 },
+              { name: 'May', y: 280 },
+              { name: 'Jun', y: 266 },
+              { name: 'Jul', y: 256 },
+              { name: 'Aug', y: 256 }
+            ]
+          }
+        ],
+        toolbar_items: {
+          export_visible: false,
+          'Breaks Limit': {
+            margin: 5,
+            label_text: 'Breaks Limit',
+            tooltip: 'The chart can automatically determine if and where a scale break should be added.',
+            boxVisible: false,
+            type: 'select',
+            itemsBox: {
+              width: 240,
+              visible: true,
+              boxVisible: true,
+              outline_width: 0,
+              layout: 'horizontal'
+            },
+            defaultItem: {
+              outline_width: 0,
+              states_select: { fill: '#eff8ff' }
+            },
+            value: '2',
+            items: '0,1,2',
+            events_change: function(val) {
+              chart.axes('y').options({ scale_breaks_limit: parseInt(val) });
+            }
+          },
+          info: {
+            position: 'inside top right',
+            boxVisible: false,
+            icon: {
+              name: 'system/default/info',
+              width: 25,
+              height: 25
+            },
+            items: {
+              label: {
+                boxVisible: false,
+                label_text:
+                  'By specifying the number of scale breaks the chart is allowed to create, it will automatically determine if and where a scale break should be added. '
+              }
+            }
+          }
+        }
+      });
+    </script>
+  </body>
+</html>

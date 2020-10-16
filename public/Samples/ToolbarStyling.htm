@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Toolbar Styling | JSCharting</title>
+    <meta http-equiv="content-type" content="text-html; charset=utf-8" />
+
+    <script type="text/javascript" src="../jsc/jscharting.js"></script>
+
+    <script type="text/javascript" src="../jsc/modules/toolbar.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="css/default.css" />
+    <style type="text/css"></style>
+  </head>
+  <body>
+    <div id="chartDiv" style="max-width: 740px;height: 400px;margin: 0px auto;"></div>
+
+    <script type="text/javascript">
+      /*
+Styles the export toolbar buttons.
+Learn how to:
+
+  - Style export toolbar buttons.
+  - Specify export toolbar layout.
+*/
+      // JS
+      var chart = JSC.chart('chartDiv', {
+        debug: true,
+        defaultSeries: { type: 'column' },
+        toolbar: {
+          items: {
+            export: {
+              position: 'inside top left',
+              margin_top: 15,
+              width: 54,
+              height: 33,
+              outline: { color: 'rgb(123,123,123)' },
+              fill: 'rgb(220,220,220)',
+              radius: 3,
+              icon: {
+                padding: 0,
+                outline: { color: 'rgb(123,123,123)' },
+                fill: 'rgb(255,255,255)',
+                path:
+                  'm5 27h4.9v-6.9h10.3v6.9h6.8v-22h-4.9v10h-12.2v-10h-4.9zm4.9-12h12.3v-10h-12.3zm0 12h10.3v-6.9h-10.3zm4.1-5.3v2.5zm18.4-16v20.4m4-14.2h12.3l-6.1 8.3z'
+              },
+              states: {
+                hover: {
+                  fill: 'rgb(220,220,220)',
+                  icon: {
+                    outerShape: 'none',
+                    outline: { color: 'rgb(98,98,149)' }
+                  }
+                },
+                select: {
+                  fill: 'rgb(220,220,220)',
+                  icon: {
+                    outerShape: 'none',
+                    outline: { color: 'rgb(98,98,149)' }
+                  }
+                }
+              },
+              items: {
+                print_visible: false,
+                svg_visible: false,
+                png: { label_text: 'Save as PNG' },
+                jpg: { label_text: 'Save as JPG' },
+                pdf: { label_text: 'Save as PDF' }
+              },
+              defaultItem: {
+                margin: [-0.5, 0.5, 0.5, -0.5],
+                icon: 'none',
+                padding: [2, 2, 2, 10],
+                fill: 'rgb(255,255,255)',
+                outline: { color: 'none' },
+                opacity: 1,
+                label: { color: 'rgb(0,0,0)' },
+                states: {
+                  hover: {
+                    opacity: 1,
+                    fill: 'rgb(144,144,144)',
+                    label: { color: 'rgb(255,255,255)' }
+                  }
+                }
+              },
+              itemsBox: {
+                width: 100,
+                layout: 'vertical',
+                margin: 0,
+                fill: 'rgb(255,255,255)',
+                outline: { color: 'rgb(123,123,123)' }
+              }
+            },
+            print: {
+              margin_top: 15,
+              margin_left: 5,
+              width: 33,
+              height: 33,
+              outline: { color: 'rgb(123,123,123)' },
+              fill: 'rgb(220,220,220)',
+              radius: 3,
+              icon: {
+                padding: 0,
+                outline: { color: 'rgb(123,123,123)' },
+                fill: 'rgb(255,255,255)',
+                path:
+                  'm27 21.5-2.2 5.5h-17.6l-2.2-5.5v-5.5h3.3v2.2h15.4v-2.2h3.3zm-18.7-3.3v-13.2h8.8v6.6h6.6v6.6zm8.8-13.2v6.6h6.6zm-5.5 6.6h2.2m-2.2-3.3h2.2m-2.2 6.6h8.8'
+              },
+              states: {
+                hover: {
+                  icon: {
+                    outerShape: 'none',
+                    outline: { color: 'rgb(98,98,149)' }
+                  }
+                }
+              },
+              events: { click: 'print' }
+            }
+          }
+        },
+        yAxis: { label_text: 'Units Sold' },
+        xAxis: { label_text: 'Quarter' },
+        title_label_text: 'Acme Tool Sales',
+        series: [
+          {
+            name: 'Saw',
+            id: 's1',
+            points: [['Q1', 230], ['Q2', 240], ['Q3', 267], ['Q4', 238]]
+          },
+          {
+            name: 'Hammer',
+            points: [['Q1', 325], ['Q2', 347], ['Q3', 392], ['Q4', 371]]
+          },
+          {
+            name: 'Grinder',
+            points: [['Q1', 285], ['Q2', 292], ['Q3', 327], ['Q4', 158]]
+          },
+          {
+            name: 'Drill',
+            points: [['Q1', 185], ['Q2', 192], ['Q3', 198], ['Q4', 318]]
+          }
+        ]
+      });
+    </script>
+  </body>
+</html>

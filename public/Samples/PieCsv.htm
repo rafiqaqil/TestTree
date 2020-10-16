@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>CSV Data Pie Chart | JSCharting</title>
+    <meta http-equiv="content-type" content="text-html; charset=utf-8" />
+
+    <script type="text/javascript" src="../jsc/jscharting.js"></script>
+
+    <script type="text/javascript" src="../jsc/modules/types.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="css/default.css" />
+    <style type="text/css">
+      /*CSS*/
+    </style>
+  </head>
+  <body>
+    <div id="chartDiv" style="max-width: 560px;height: 319px;margin: 0px auto;"></div>
+
+    <script type="text/javascript">
+      /*
+Pie chart from CSV.
+Learn how to:
+
+  - Create a pie chart using CSV data.
+*/
+      // JS
+      var chart;
+
+      JSC.fetch('./resources/population195.csv')
+        .then(function(response) {
+          return response.text();
+        })
+        .then(function(text) {
+          var data = JSC.csv2Json(text);
+          chart = renderChart(makeSeries(data));
+        });
+
+      function renderChart(series) {
+        return JSC.chart('chartDiv', {
+          palette: 'midTones',
+          /* Each series is a pie */
+          defaultSeries_type: 'pie',
+          defaultPoint: {
+            tooltip:
+              '<b>%name</b><br>Population: <b>%value</b> (<b>%percentOfTotal%</b> of total population)<br><span style="width:300px;">Countries: %countries</span>',
+            label: { text: '%name', placement: 'outside' }
+          },
+          legend_visible: false,
+          series: series
+        });
+      }
+
+      function makeSeries(data) {
+        return JSC.nest()
+          .key('region')
+          .pointRollup(function(key, val) {
+            var countries = val.map(function(a) {
+              return a.country;
+            });
+            return {
+              x: key,
+              y: JSC.sum(val, 'population'),
+              attributes_countries: countries.join(', ')
+            };
+          })
+          .series(data);
+      }
+    </script>
+  </body>
+</html>

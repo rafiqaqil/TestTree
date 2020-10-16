@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Baby Names Top | JSCharting</title>
+    <meta http-equiv="content-type" content="text-html; charset=utf-8" />
+
+    <script type="text/javascript" src="../jsc/jscharting.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="css/default.css" />
+    <style type="text/css"></style>
+  </head>
+  <body>
+    <div id="wrapper" style="display:flex;width:100%;flex-wrap:wrap;justify-content:center">
+      <div id="chartDiv1" style="width: 420px;height: 460px; margin-top:13px;"></div>
+      <div id="chartDiv2" style="width: 420px;height: 460px; margin-top:13px;"></div>
+    </div>
+
+    <script type="text/javascript">
+      /*
+Boy and girl baby name rankings over time.
+Learn how to:
+
+  - Draw a ranking over time chart.
+*/
+      // JS
+      var chart1,
+        chart2,
+        chartConfig = {
+          defaultPoint: {
+            marker: {
+              type: 'circle',
+              size: 10,
+              outline_width: 0
+            }
+          },
+          toolbar_visible: false,
+          palette: 'mutedRainbow',
+          yAxis: {
+            scale: { range: [0, 20.4], invert: true },
+            orientation: 'opposite',
+            defaultTick: {
+              enabled: false,
+              gridLine_visible: false,
+              line_visible: false
+            },
+            alternateGridFill: 'none'
+          },
+          xAxis: {
+            formatString: 'd',
+            defaultTick: {
+              line_visible: false,
+              gridLine_visible: false
+            }
+          },
+          legend_visible: false
+        };
+
+      JSC.fetch('./resources/babyNamesUS.csv')
+        .then(function(response) {
+          return response.text();
+        })
+        .then(function(text) {
+          var data = JSC.csv2Json(text);
+          chart1 = renderChart1(makeMaleSeries(data));
+          chart2 = renderChart2(makeFemaleSeries(data));
+        });
+
+      function renderChart1(series) {
+        return JSC.chart(
+          'chartDiv1',
+          JSC.merge(
+            {
+              title_label_text: 'Most Popular <b>Boy</b> Baby Names in the US',
+              defaultSeries: {
+                lastPoint_yAxisTick_label_text: '<b>%yValue</b> %icon %male',
+                states_hover: { line_width: 5 }
+              },
+              series: series
+            },
+            chartConfig
+          )
+        );
+      }
+
+      function renderChart2(series) {
+        return JSC.chart(
+          'chartDiv2',
+          JSC.merge(
+            {
+              title_label_text: 'Most Popular <b>Girl</b> Baby Names in the US',
+              defaultSeries: {
+                lastPoint_yAxisTick_label_text: '<b>%yValue</b> %icon %female',
+                states_hover: { line_width: 5 }
+              },
+              series: series
+            },
+            chartConfig
+          )
+        );
+      }
+
+      function makeMaleSeries(data) {
+        return JSC.nest()
+          .key('male_name')
+          .key('year')
+          .pointRollup(function(key, val) {
+            var values = val[0];
+            return {
+              x: values.year,
+              y: values.rank,
+              attributes_male: values.male_name,
+              tooltip: '%icon <b>%yValue</b> %male'
+            };
+          })
+          .series(data);
+      }
+
+      function makeFemaleSeries(data) {
+        return JSC.nest()
+          .key('female_name')
+          .key('year')
+          .pointRollup(function(key, val) {
+            var values = val[0];
+            return {
+              x: values.year,
+              y: values.rank,
+              attributes_female: values.female_name,
+              tooltip: '%icon <b>%yValue</b> %female'
+            };
+          })
+          .series(data);
+      }
+    </script>
+  </body>
+</html>

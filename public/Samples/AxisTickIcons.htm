@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Axis Tick Icons | JSCharting</title>
+    <meta http-equiv="content-type" content="text-html; charset=utf-8" />
+
+    <script type="text/javascript" src="../jsc/jscharting.js"></script>
+
+    <script type="text/javascript" src="../jsc/icons/material/social/all.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="css/default.css" />
+    <style type="text/css">
+      /*CSS*/
+    </style>
+  </head>
+  <body>
+    <div id="chartDiv" style="max-width: 740px;height: 400px;margin: 0px auto;"></div>
+
+    <script type="text/javascript">
+      /*
+Custom smartPalette color bar axis ticks with icons.
+Learn how to:
+
+  - Custom Axis Ticks with Icons.
+*/
+      // JS
+      var chart = JSC.chart('chartDiv', {
+        debug: true,
+        type: 'column',
+        title: {
+          label: {
+            text: 'Level of happiness by country',
+            style_fontSize: 16
+          },
+          position: 'center'
+        },
+        palette: {
+          colors: ['#0d47a1', '#1976d2', '#42a5f5', '#d4e157', '#fdd835'],
+          pointValue: '%value',
+          colorBar_axis: {
+            defaultTick_enabled: false,
+            customTicks: [
+              {
+                value: 3.5,
+                label_text: '<icon name=material/social/sentiment-very-dissatisfied size=22 fill=#0d47a1>'
+              },
+              {
+                value: 4.5,
+                label_text: '<icon name=material/social/sentiment-dissatisfied size=22 fill=#1976d2>'
+              },
+              {
+                value: 5.5,
+                label_text: '<icon name=material/social/sentiment-neutral size=22 fill=#42a5f5>'
+              },
+              {
+                value: 6.5,
+                label_text: '<icon name=material/social/sentiment-satisfied size=22 fill=#d4e157>'
+              },
+              {
+                value: 7.5,
+                label_text: '<icon name=material/social/sentiment-very-satisfied size=22 fill=#fdd835>'
+              }
+            ]
+          }
+        },
+        legend_position: 'right',
+        yAxis: { visible: false, scale_range: [0, 8] },
+        xAxis: { defaultTick: { label_style_fontSize: 14 } },
+        defaultPoint: {
+          tooltip: '%fullname %xValue<br><b>%yValue</b>',
+          label_text: '%seriesName'
+        },
+        series: [
+          {
+            name: 'US',
+            defaultPoint_attributes_fullname: 'United States',
+            points: [{ x: '2014', y: 7.082 }, { x: '2015', y: 7.119 }, { x: '2016', y: 7.104 }, { x: '2017', y: 6.993 }]
+          },
+          {
+            name: 'GB',
+            defaultPoint_attributes_fullname: 'Great Britain',
+            points: [{ x: '2014', y: 6.883 }, { x: '2015', y: 6.867 }, { x: '2016', y: 6.725 }, { x: '2017', y: 6.714 }]
+          },
+          {
+            name: 'CN',
+            defaultPoint_attributes_fullname: 'China',
+            points: [{ x: '2014', y: 4.978 }, { x: '2015', y: 5.14 }, { x: '2016', y: 5.245 }, { x: '2017', y: 5.273 }]
+          },
+          {
+            name: 'PL',
+            defaultPoint_attributes_fullname: 'Poland',
+            points: [{ x: '2014', y: 3.981 }, { x: '2015', y: 4.218 }, { x: '2016', y: 4.217 }, { x: '2017', y: 4.717 }]
+          }
+        ]
+      });
+    </script>
+  </body>
+</html>

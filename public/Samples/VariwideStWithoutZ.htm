@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Y Value Stacked Bar Mekko Chart | JSCharting</title>
+    <meta http-equiv="content-type" content="text-html; charset=utf-8" />
+
+    <script type="text/javascript" src="../jsc/jscharting.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="css/default.css" />
+    <style type="text/css"></style>
+  </head>
+  <body>
+    <div id="chartDiv" style="max-width: 740px;height: 400px;margin: 0px auto;"></div>
+
+    <script type="text/javascript">
+      /*
+Variwide stacked chart without point z values. Y values are used.
+Learn how to:
+
+  - Draw variwide stacked chart without point z values.
+*/
+      // JS
+      var chart = JSC.chart('chartDiv', {
+        debug: true,
+        type: 'variwide',
+        yAxis: {
+          label_text: 'USD',
+          scale_type: 'stacked',
+          formatString: 'c'
+        },
+        legend_position: 'inside top left',
+        title_label_text: 'Sales by quarter',
+        series: [
+          {
+            name: 'Gross Sales',
+            points: [
+              { name: 'Q1', y: 20120 },
+              { name: 'Q2', y: 53465 },
+              { name: 'Q3', y: 66165 },
+              { name: 'Q4', y: 52156 }
+            ]
+          },
+          {
+            name: 'Net Sales',
+            points: [
+              { name: 'Q1', y: 12654 },
+              { name: 'Q2', y: 25645 },
+              { name: 'Q3', y: 52651 },
+              { name: 'Q4', y: 30153 }
+            ]
+          }
+        ]
+      });
+    </script>
+  </body>
+</html>

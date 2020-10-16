@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Accessible Line | JSCharting</title>
+    <meta http-equiv="content-type" content="text-html; charset=utf-8" />
+
+    <script type="text/javascript" src="../jsc/jscharting.js"></script>
+
+    <script type="text/javascript" src="../jsc/modules/accessibility.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="css/default.css" />
+    <style type="text/css">
+      /*CSS*/
+    </style>
+  </head>
+  <body>
+    <div style="max-width: 740px;height: 450px;margin: 0px auto;">
+      Use the tab key to iterate chart item groups. Use arrow keys to iterate items of the group such as export menu
+      items or series points.
+      <div id="chartDiv" style="max-width: 740px;height: 400px;margin: 0px auto;"></div>
+    </div>
+
+    <script type="text/javascript">
+      /*
+Accessible line chart with default offset error bars and a grid view.
+Learn how to:
+
+  - Use accessibility options with line charts.
+*/
+      // JS
+      var chart = JSC.chart('chartDiv', {
+        type: 'line',
+        description: 'Line series with default offset error bars',
+        grid: {
+          enabled: true,
+          exportFile: true,
+          headerCol: true,
+          description: 'chart or grid switch',
+          buttons: {
+            chart: { description: 'chart button' },
+            grid: { description: 'grid button' },
+            export: { description: 'download CSV' }
+          }
+        },
+        toolbar_items_export_description: 'export menu',
+        title: {
+          label_text: 'Projected Sales [2016]',
+          description: 'Projected Sales [2016]'
+        },
+        legend_visible: false,
+        annotations: [
+          {
+            label_text: 'Data Accuracy: +/- 5',
+            position: 'inside top left',
+            margin: 5,
+            description: 'Data Accuracy: +/- 5'
+          }
+        ],
+        defaultPoint_description: '%xValue %percentOfSeries% of %seriesName',
+        series: [
+          {
+            line_color: '#cbcbcb',
+            defaultPoint_subvalue_offset: 5,
+            palette: 'colorVision1',
+            name: 'Projected Sales',
+            points: [
+              { name: 'Jan', y: 84 },
+              { name: 'Feb', y: 97 },
+              { name: 'Mar', y: 98 },
+              { name: 'Apr', y: 114 },
+              { name: 'May', y: 101 },
+              { name: 'Jun', y: 99 },
+              { name: 'Jul', y: 117 },
+              { name: 'Aug', y: 114 },
+              { name: 'Sep', y: 106 },
+              { name: 'Oct', y: 89 },
+              { name: 'Nov', y: 95 },
+              { name: 'Dec', y: 81 }
+            ]
+          }
+        ]
+      });
+    </script>
+  </body>
+</html>

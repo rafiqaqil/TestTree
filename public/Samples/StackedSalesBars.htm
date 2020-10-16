@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>CSV Stacked Sales Bar Chart | JSCharting</title>
+    <meta http-equiv="content-type" content="text-html; charset=utf-8" />
+
+    <script type="text/javascript" src="../jsc/jscharting.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="css/default.css" />
+    <style type="text/css"></style>
+  </head>
+  <body>
+    <div id="chartDiv" style="width: 700px;height: 400px;margin: 0px auto;"></div>
+
+    <script type="text/javascript">
+      /*
+A stacked bar chart with firstPoint labels.
+Learn how to:
+
+  - Create a bar chart from csv data.
+*/
+      // JS
+      var chart;
+
+      JSC.fetch('./resources/PCSales.csv')
+        .then(function(response) {
+          return response.text();
+        })
+        .then(function(text) {
+          var data = JSC.csv2Json(text);
+          chart = renderChart(data);
+        });
+
+      function renderChart(data) {
+        return JSC.chart('chartDiv', {
+          type: 'horizontal column',
+          title_label_text: 'Worldwide PC Vendor Unit Shipment (Thousands of Units)',
+          legend_visible: false,
+          palette: ['#9fa8da', '#f48fb1', '#ffab91', '#ffe082', '#c5e1a5', '#80cbc4', '#81d4fa'],
+          defaultPoint_tooltip: '%seriesname %name<br><b>%value (%percentOfGroup%)</b>',
+          defaultSeries_firstPoint: { label_text: '%seriesName' },
+          yAxis: {
+            scale_type: 'stacked',
+            alternateGridFill: 'none'
+          },
+          series: JSC.nest()
+            .key('vendor')
+            .key('date')
+            .rollup('sales')
+            .series(data)
+            .reverse()
+        });
+      }
+    </script>
+  </body>
+</html>

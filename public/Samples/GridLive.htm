@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Grid Live | JSCharting</title>
+    <meta http-equiv="content-type" content="text-html; charset=utf-8" />
+
+    <script type="text/javascript" src="../jsc/jscharting.js"></script>
+
+    <script type="text/javascript" src="../jsc/modules/datagrid.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="css/default.css" />
+    <style type="text/css">
+      .jscGrid table tbody tr:nth-child(2n + 1) {
+        background: white;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="sample" style="max-width: 360px;margin: 0px auto;">
+      <div id="gridDiv" style="max-width: 360px;margin: 0px auto;"></div>
+      <input id="ssButton" type="button" value="Stop" style="margin:5px" />
+    </div>
+
+    <script type="text/javascript">
+      /*
+Simulated live data updates of data grid.
+Learn how to:
+
+  - Update data grid with live data.
+*/
+      // JS
+
+      var serInterval,
+        isRunning,
+        pollInterval,
+        pollServerMS = 200,
+        gridRef,
+        button = document.getElementById('ssButton'),
+        fauxServerData = { A: 50, B: 60, C: 50, D: 55 };
+      startServerDataEmulator();
+
+      JSC.Grid('gridDiv', {
+        data: getFauxDataFromServer(),
+        columns: [
+          { value: '%machine' },
+          { value: '%temp' },
+          { header: ' ', width: '190px', value: '<chart bar data=%temp min=0 max=100 width=190px>' }
+        ]
+      }).then(startPollingServer);
+
+      function startPollingServer(grid) {
+        gridRef = grid || gridRef;
+        pollInterval = setInterval(function() {
+          gridRef.options({ data: getFauxDataFromServer() });
+        }, pollServerMS);
+        isRunning = true;
+      }
+
+      /* Emulate getting server data */
+      function getFauxDataFromServer() {
+        var data = JSC.merge({}, fauxServerData);
+        var result = [];
+        for (var i in data) {
+          result.push({ machine: i, temp: fauxServerData[i] });
+        }
+        return result;
+      }
+
+      /* Emulate changing data on server */
+      function startServerDataEmulator() {
+        serInterval = setInterval(function() {
+          for (var i in fauxServerData) {
+            fauxServerData[i] = Math.round(100 * (fauxServerData[i] + valDelta())) / 100;
+          }
+        }, 20);
+        function valDelta() {
+          return Math.random() * 0.2 - 0.1;
+        }
+      }
+      function ssClick() {
+        if (isRunning) {
+          stop();
+          button.value = 'Start';
+        } else {
+          start();
+          button.value = 'Stop';
+        }
+      }
+      function start() {
+        startServerDataEmulator();
+        startPollingServer();
+      }
+      function stop() {
+        clearInterval(serInterval);
+        clearInterval(pollInterval);
+        isRunning = false;
+      }
+
+      (function attachEvents() {
+        document.getElementById('ssButton').addEventListener('click', function() {
+          return ssClick();
+        });
+      })();
+    </script>
+  </body>
+</html>

@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Multi Pyramid Chart | JSCharting</title>
+    <meta http-equiv="content-type" content="text-html; charset=utf-8" />
+
+    <script type="text/javascript" src="../jsc/jscharting.js"></script>
+
+    <script type="text/javascript" src="../jsc/modules/types.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="css/default.css" />
+    <style type="text/css">
+      /*CSS*/
+    </style>
+  </head>
+  <body>
+    <div id="chartDiv" style="max-width: 740px;height: 300px;margin: 0px auto;"></div>
+
+    <script type="text/javascript">
+      /*
+Multiple pyramids.
+Learn how to:
+
+  - Draw multiple pyramids.
+*/
+      // JS
+      var chart = JSC.chart('chartDiv', {
+        debug: true,
+        legend_visible: false,
+        annotations: [
+          {
+            margin_top: 5,
+            position: 'inside top',
+            label: {
+              text: 'Cost of Operation 2020 - 2021',
+              style_fontSize: 15
+            }
+          }
+        ],
+
+        /*These y axis settings  describe the point y values.*/
+        yAxis: { label_text: 'Cost', formatString: 'c' },
+        defaultSeries: {
+          type: 'pyramid',
+          shape: { innerPadding: 4, padding: 0.4 },
+          defaultPoint: {
+            label: {
+              text: '%name (%percentOfSeries%)',
+              placement: 'outside'
+            }
+          }
+        },
+        series: [
+          {
+            name: '2020',
+            points: [
+              { name: 'R&D', y: 203 },
+              { name: 'Shipping', y: 90 },
+              { name: 'Marketing', y: 56 },
+              { name: 'Manufacturing', y: 50 },
+              { name: 'Retail', y: 40 }
+            ]
+          },
+          {
+            name: '2021',
+            points: [
+              { name: 'R&D', y: 183 },
+              { name: 'Shipping', y: 140 },
+              { name: 'Marketing', y: 136 },
+              { name: 'Manufacturing', y: 80 },
+              { name: 'Retail', y: 50 }
+            ]
+          }
+        ]
+      });
+    </script>
+  </body>
+</html>

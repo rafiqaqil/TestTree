@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Axis Array Ticks | JSCharting</title>
+    <meta http-equiv="content-type" content="text-html; charset=utf-8" />
+
+    <script type="text/javascript" src="../jsc/jscharting.js"></script>
+
+    <script type="text/javascript" src="../jsc/icons/weather/all.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="css/default.css" />
+    <style type="text/css">
+      /*CSS*/
+    </style>
+  </head>
+  <body>
+    <div id="chartDiv" style="max-width: 740px;height: 400px;margin: 0px auto;"></div>
+
+    <script type="text/javascript">
+      /*
+Default axis ticks replaced with custom ticks.
+Learn how to:
+
+  - Dynamic Axis Ticks.
+  - Hidden Axis Ticks.
+  - Axis Ticks as Array.
+*/
+      // JS
+      var chart = JSC.chart('chartDiv', {
+        debug: true,
+        title_label_text: 'Average High Temperatures',
+        legend_visible: false,
+        defaultSeries_color: '#42a5f5',
+        yAxis: {
+          customTicks: [32, 45, 55, 72, 85],
+          orientation: 'opposite',
+          defaultTick: {
+            enabled: false,
+            includeInScale: true,
+            label: {
+              text: tickValue,
+              style_fontSize: '13px',
+              verticalAlign: 'middle',
+              color: '#78909c'
+            },
+            line_visible: false,
+            gridLine: { color: '#90a4ae' }
+          }
+        },
+        defaultPoint: {
+          tooltip: '%value°F',
+          marker: { fill: 'white', outline: { width: 2 } }
+        },
+        xAxis: {
+          scale_interval: { unit: 'month' },
+          formatString: 'MMM',
+          crosshair_enabled: true,
+          scale_type: 'time'
+        },
+        series: [
+          {
+            name: 'Average High Temps',
+            points: [
+              { x: '1/1/2018', y: 30 },
+              { x: '2/1/2018', y: 34 },
+              { x: '3/1/2018', y: 46 },
+              { x: '4/1/2018', y: 59 },
+              { x: '5/1/2018', y: 70 },
+              { x: '6/1/2018', y: 81 },
+              { x: '7/1/2018', y: 84 },
+              { x: '8/1/2018', y: 82 },
+              { x: '9/1/2018', y: 75 },
+              { x: '10/1/2018', y: 63 },
+              { x: '11/1/2018', y: 48 },
+              { x: '12/1/2018', y: 36 }
+            ]
+          }
+        ]
+      });
+
+      function tickValue(v) {
+        var iconSettings = 'size=26 verticalAlign=center margin_right=6 color=#bbdefb';
+        var ticks = {
+          32: "<icon name='weather/snow' " + iconSettings + '> Stay Inside',
+          45: "<icon name='weather/sleet' " + iconSettings + '> Jacket',
+          55: "<icon name='weather/mistyrain' " + iconSettings + '> Hoodie',
+          72: "<icon name='weather/variable-sun' " + iconSettings + '> T-Shirt',
+          85: "<icon name='weather/sun' " + iconSettings + '> Stay Inside'
+        };
+        return (ticks[v] || '') + ' (' + v + '°F)';
+      }
+    </script>
+  </body>
+</html>

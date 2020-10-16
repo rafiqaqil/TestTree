@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Accessible Pie | JSCharting</title>
+    <meta http-equiv="content-type" content="text-html; charset=utf-8" />
+
+    <script type="text/javascript" src="../jsc/jscharting.js"></script>
+
+    <script type="text/javascript" src="../jsc/modules/types.js"></script>
+    <script type="text/javascript" src="../jsc/modules/accessibility.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="css/default.css" />
+    <style type="text/css"></style>
+  </head>
+  <body>
+    <div id="chartDiv" style="max-width: 420px;height: 380px;margin: 0px auto;"></div>
+
+    <script type="text/javascript">
+      /*
+Accessible pie chart with labels.
+Learn how to:
+
+  - Use accessibility options with pie charts.
+*/
+      // JS
+      var chart = JSC.chart('chartDiv', {
+        toolbar_items_export_description: 'export menu',
+        description: 'Accessible %type chart with legend',
+        title: {
+          description: '%type chart with title %title',
+          position: 'center'
+        },
+        legend: {
+          description: 'legend with %pointcount entries',
+          template: '{%percentOfTotal:n1}% %icon %name',
+          position: 'inside bottom',
+          defaultEntry: { description: '%name' }
+        },
+        defaultSeries: {
+          type: 'pie',
+          pointSelection: true,
+          palette: 'colorVision3'
+        },
+        defaultPoint: {
+          label_text: '<b>%name</b>',
+          description: '%name {%percentOfTotal:n1}%'
+        },
+        title_label_text: 'Countries GDP',
+        yAxis: { label_text: 'GDP', formatString: 'n' },
+        series: [
+          {
+            name: 'Countries',
+            points: [
+              { name: 'United States', y: 5452500 },
+              { name: 'Canada', y: 786052 },
+              { name: 'United Kingdom', y: 477338 },
+              { name: 'Mexico', y: 155313 }
+            ]
+          }
+        ]
+      });
+    </script>
+  </body>
+</html>

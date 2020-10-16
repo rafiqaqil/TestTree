@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Weather Sparkline Calendar Chart | JSCharting</title>
+    <meta http-equiv="content-type" content="text-html; charset=utf-8" />
+
+    <script type="text/javascript" src="../jsc/jscharting.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="css/default.css" />
+    <style type="text/css">
+      /*CSS*/
+    </style>
+  </head>
+  <body>
+    <div id="chartDiv" style="max-width: 740px;height: 600px;margin: 0px auto;"></div>
+
+    <script type="text/javascript">
+      /*
+Calendar heatmap with charts based on CSV data.
+Learn how to:
+
+  - Load CSV heatmap data into a calendar chart.
+*/
+      // JS
+      var chart,
+        chartConfig = {
+          type: 'calendar month solid',
+          calendar_calculation: 'average',
+          legend: {
+            visible: true,
+            template: '%name',
+            position: 'bottom',
+            defaultEntry: { style_fontSize: 14 }
+          },
+          palette: {
+            colors: [
+              '#0000E3',
+              '#0047FF',
+              '#00ABFF',
+              '#0FFFEF',
+              '#43FFBB',
+              '#73FF8B',
+              '#A7FF57',
+              '#FFEF00',
+              '#FF8B00',
+              '#FF5700',
+              '#FF2300',
+              '#ED0000',
+              '#830000'
+            ],
+            colorBar_axis_defaultTick_label_text: '{%value:n1}ºF'
+          },
+          title: {
+            label_text: 'Temperature Jan-Apr 2018',
+            position: 'center',
+            style_fontSize: 16
+          },
+          defaultTooltip_enabled: false,
+          yAxis_visible: false,
+          xAxis_line_visible: false,
+          defaultSeries: {
+            defaultPoint: {
+              label: {
+                text:
+                  '<b>{%date:date dd}</b><br><br><chart width=87 height=45 align=center verticalAlign=middle type=sparkline data=%subvalueList colors=white,none,none,green min=21.215 max=71.416>',
+                autoHide: false
+              }
+            }
+          },
+          toolbar_visible: false
+        };
+
+      loadData(makeChart);
+
+      function loadData(cb) {
+        JSC.fetch('./resources/BaselTemp_1.1.2018-4.30.2018.csv')
+          .then(function(response) {
+            return response.text();
+          })
+          .then(function(csv) {
+            cb(JSC.parseCsv(csv).data);
+          })
+          .catch(function(ex) {
+            console.error(ex);
+          });
+      }
+
+      function makeChart(data) {
+        chartConfig.data = data;
+        chart = JSC.chart('chartDiv', chartConfig);
+      }
+    </script>
+  </body>
+</html>

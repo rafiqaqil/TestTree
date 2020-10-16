@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Time Span Expressions | JSCharting</title>
+    <meta http-equiv="content-type" content="text-html; charset=utf-8" />
+
+    <script type="text/javascript" src="../jsc/jscharting.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="css/default.css" />
+    <style type="text/css">
+      .expr {
+        font-weight: bold;
+      }
+      .codePart {
+        background-color: #f1f1f1;
+        padding: 8px;
+      }
+    </style>
+  </head>
+  <body>
+    <div style="max-width: 750px;margin: 0px auto;">
+      <p>
+        The chart data contains the date membership started. <br />
+        The point labels use that date to calculate the duration of the membership and average usage per year. <br />
+        All this is accomplished by setting the point label string as follows:<br />
+      </p>
+
+      <div class="codePart">
+        &#39;Member &lt;br&gt;<br /><span class="expr">{years(&#39; + Date.now() + &#39;-%since):number n1}</span>
+        <br />Years &lt;br&gt;<br /><span class="expr">{%value/years(&#39; + Date.now() + &#39;-%since):number n1}</span
+        ><br />
+        / Year&#39;
+      </div>
+      <p></p>
+      <div id="chartDiv" style="max-width: 740px;height: 400px;margin: 0px auto;"></div>
+    </div>
+
+    <script type="text/javascript">
+      /*
+Demonstrates using token expressions to calculate time spans.
+Learn how to:
+
+  - Use token expressions in labels to calculate date time spans.
+  - Format label token expressions result.
+*/
+      // JS
+      var chart = JSC.chart('chartDiv', {
+        debug: true,
+        type: 'column',
+        yAxis_label_text: 'Usage Count',
+        xAxis_label_text: 'User',
+        defaultPoint_label_text:
+          'Member <br/>{years(' +
+          Date.now() +
+          '-%since):number n1} Years <br/>{%value/years(' +
+          Date.now() +
+          '-%since):number n1} / Year',
+        toolbar_visible: false,
+        legend_visible: false,
+        title_label_text: 'Member Stats',
+        series: [
+          {
+            name: 'Members',
+            points: [
+              {
+                name: 'Xavier',
+                y: 113,
+                attributes: { since: new Date(2000, 2, 4) }
+              },
+              {
+                name: 'Connor',
+                y: 82,
+                attributes: { since: new Date(2003, 5, 8) }
+              },
+              {
+                name: 'Jacob',
+                y: 92,
+                attributes: { since: new Date(2001, 2, 14) }
+              },
+              {
+                name: 'Camden',
+                y: 121,
+                attributes: { since: new Date(2006, 7, 20) }
+              }
+            ]
+          }
+        ]
+      });
+    </script>
+  </body>
+</html>

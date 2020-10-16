@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Interactive World Map Projections | JSCharting</title>
+    <meta http-equiv="content-type" content="text-html; charset=utf-8" />
+
+    <script type="text/javascript" src="../jsc/jscharting.js"></script>
+
+    <script type="text/javascript" src="../jsc/modules/toolbar.js"></script>
+    <script type="text/javascript" src="../jsc/modules/maps.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="css/default.css" />
+    <style type="text/css">
+      /*CSS*/
+    </style>
+  </head>
+  <body>
+    <div id="chartDiv" style="width: 740px; height: 400px;margin: 0px auto;"></div>
+
+    <script type="text/javascript">
+      /*
+World regions shown with and without projection.
+Learn how to:
+
+  - Projection.
+*/
+      // JS
+      var chart = JSC.chart('chartDiv', {
+        debug: true,
+        type: 'map',
+        legend_visible: false,
+
+        title: {
+          position: 'full',
+          label_text: 'World Regions Projections'
+        },
+
+        mapping_projection: false,
+
+        series: [
+          {
+            /*
+             * The world must be specified in order to load the correct map. This however only needs to be specified once.
+             * Alternatively, setting mappingReferenceLayer to world also works.
+             * */
+            map: 'world.region:africa'
+          },
+          { map: 'region:europe' },
+          { map: 'region:asia' },
+          { map: 'region:americas' }
+        ],
+        toolbar: {
+          items: {
+            resetZoom_position: 'inside bottom left',
+            Projection: {
+              type: 'select',
+              value: 'none',
+              items: {
+                none: {},
+                mercator: {},
+                lambertConformalConic: {}
+              },
+              events_change: projectionChanged
+            }
+          }
+        }
+      });
+
+      function projectionChanged(val) {
+        chart.options({
+          mapping_projection: { type: val, parallels: [11.5, 0] }
+        });
+      }
+
+      function setProjection(val) {
+        chart.options({ mapping_projection_type: val });
+      }
+    </script>
+  </body>
+</html>

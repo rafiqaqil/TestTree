@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Legend Entry Groups | JSCharting</title>
+    <meta http-equiv="content-type" content="text-html; charset=utf-8" />
+
+    <script type="text/javascript" src="../jsc/jscharting.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="css/default.css" />
+    <style type="text/css"></style>
+  </head>
+  <body>
+    <div id="chartDiv" style="max-width: 740px;height: 400px;margin: 0px auto;"></div>
+
+    <script type="text/javascript">
+      /*
+Custom legend entries used to group series in the legend.
+Learn how to:
+
+  - Add custom legend entries grouping series by type.
+*/
+      // JS
+      var chart = JSC.chart('chartDiv', {
+        debug: true,
+
+        /*The position of series and group entries is set with the sortOrder property.*/
+        defaultSeries: { type: 'line', legendEntry_sortOrder: 2 },
+        legend: {
+          customEntries: [
+            {
+              value: 'Manual',
+              sortOrder: 1,
+              icon: 'none',
+              name: '',
+              style_fontWeight: 'bold'
+            },
+            {
+              value: 'Electric',
+              sortOrder: 3,
+              icon: 'none',
+              name: '',
+              style_fontWeight: 'bold'
+            }
+          ]
+        },
+        series: [
+          {
+            name: 'Saw',
+            id: 's1',
+            points: [['Q1', 230], ['Q2', 240], ['Q3', 267], ['Q4', 238]]
+          },
+          {
+            name: 'Hammer',
+            points: [['Q1', 325], ['Q2', 347], ['Q3', 392], ['Q4', 371]]
+          },
+          {
+            legendEntry_sortOrder: 4,
+            name: 'Grinder',
+            points: [['Q1', 285], ['Q2', 292], ['Q3', 327], ['Q4', 158]]
+          },
+          {
+            legendEntry_sortOrder: 4,
+            name: 'Drill',
+            points: [['Q1', 185], ['Q2', 192], ['Q3', 198], ['Q4', 318]]
+          }
+        ],
+        yAxis: { label_text: 'Units Sold' },
+        xAxis: { label_text: 'Quarter' },
+        title_label_text: 'Acme Tool Sales'
+      });
+    </script>
+  </body>
+</html>

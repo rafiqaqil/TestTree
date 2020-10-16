@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Bar Hover State | JSCharting</title>
+    <meta http-equiv="content-type" content="text-html; charset=utf-8" />
+
+    <script type="text/javascript" src="../jsc/jscharting.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="css/default.css" />
+    <style type="text/css"></style>
+  </head>
+  <body>
+    <div id="chartDiv" style="max-width: 740px;height: 400px;margin: 0px auto;"></div>
+
+    <script type="text/javascript">
+      /*
+Column series type hover and select states.
+Learn how to:
+
+  - Modify a bar data point appearance on hover and select states.
+*/
+      // JS
+      var chart = JSC.chart('chartDiv', {
+        debug: true,
+        type: 'columnSolid',
+        title_label_text: 'Sales by Representative',
+        legend_visible: false,
+        toolbar_visible: false,
+        xAxis_defaultTick_gridLine_width: 0,
+        yAxis: { formatString: 'c', label_text: 'Sales' },
+        annotations: [
+          {
+            position: 'inside top left',
+            margin: 5,
+            label_text:
+              'Hover bars to see style change. Click to select.<br/>Notice the select state only applies outline width.<br/>But hover state settings persist.'
+          }
+        ],
+        defaultSeries_pointSelection: true,
+        defaultPoint_states: {
+          hover: {
+            outline: { width: 4, color: '#ff5c14' },
+            fill: 'complement'
+          },
+          select: { outline_width: 6 }
+        },
+        series: [
+          {
+            name: 'Representatives',
+            points: [
+              { name: 'Angie', y: 32165 },
+              { name: 'Chris', y: 28651 },
+              { name: 'Arthur', y: 18563 },
+              { name: 'David', y: 35698 },
+              { name: 'Mike', y: 27659 },
+              { name: 'Laura', y: 28684 },
+              { name: 'Michelle', y: 25684 },
+              { name: 'Joseph', y: 38654 }
+            ]
+          }
+        ]
+      });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Dynamic Data | JSCharting</title>
+    <meta http-equiv="content-type" content="text-html; charset=utf-8" />
+
+    <script type="text/javascript" src="../jsc/jscharting.js"></script>
+
+    <script type="text/javascript" src="../jsc/modules/types.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="css/default.css" />
+    <style type="text/css"></style>
+  </head>
+  <body>
+    <table style="width: 640px">
+      <tr>
+        <td colspan="2" style="height: 400px">
+          <div id="chartDiv" style="width: 635px; height: 400px"></div>
+        </td>
+      </tr>
+      <tr>
+        <td style="width: 400px">
+          <div id="chartDiv2" style="width: 395px; height: 320px"></div>
+        </td>
+        <td valign="top">
+          <br /><br /><br />
+          <div id="grid"></div>
+        </td>
+      </tr>
+    </table>
+
+    <script type="text/javascript">
+      /*
+Generates a chart based on data calculations from a different chart.
+Learn how to:
+
+  - Populate chart data based on calculations from another chart.
+  - Queries a chart data point to populate a template with tokens.
+*/
+      // JS
+
+      var chart2,
+        json2 = {
+          legend_visible: false,
+          defaultSeries: { type: 'pie', shape_size: '50%' },
+          title_label_text: 'Dynamic sums',
+          yAxis_formatString: 'c',
+          defaultPoint: {
+            label_text: '<b>%name</b> <br/>%yValue - {%percentOfTotal:n1}%',
+            tooltip: tooltipFormatter,
+            events_mouseOver: hoverEvent
+          },
+
+          annotations: [
+            {
+              position: 'inside top left',
+              margin: 1,
+              label_text: 'Generated automatically from above data. Hover a pie slice to get details from above chart.'
+            }
+          ]
+        },
+        // Generate the chart and when finished generate the sum chart.
+        chart = JSC.chart(
+          'chartDiv',
+          {
+            debug: true,
+            type: 'column',
+            xAxis_label_text: 'Quarter',
+            legend_visible: false,
+            yAxis_formatString: 'c',
+            title_label_text: 'Original hardcoded data.',
+            series: [
+              {
+                name: 'Z1 Saw',
+                id: 's1',
+                points: [{ name: 'Q1', y: 230 }, { name: 'Q2', y: 240 }, { name: 'Q3', y: 267 }, { name: 'Q4', y: 238 }]
+              },
+              {
+                name: 'Z1 Hammer',
+                points: [{ name: 'Q1', y: 325 }, { name: 'Q2', y: 367 }, { name: 'Q3', y: 382 }, { name: 'Q4', y: 371 }]
+              },
+              {
+                name: 'Z1 Grinder',
+                points: [{ name: 'Q1', y: 285 }, { name: 'Q2', y: 292 }, { name: 'Q3', y: 267 }, { name: 'Q4', y: 218 }]
+              },
+              {
+                name: 'Z1 Drill',
+                points: [{ name: 'Q1', y: 185 }, { name: 'Q2', y: 192 }, { name: 'Q3', y: 198 }, { name: 'Q4', y: 248 }]
+              }
+            ]
+          },
+          function() {
+            // Generate the new chart.
+            makeSecondChart(this);
+          }
+        );
+
+      function makeSecondChart(sourceChart) {
+        chart2 = JSC.chart('chartDiv2', json2);
+        var points = [];
+        sourceChart.series().each(function(ser, i) {
+          /* Add series sums as a new series. Also, include the original series ID as attributes for each point so it can be used to build the table on hover.*/
+          points.push({ name: ser.name, y: ser.tokenValue('%sum'), attributes: { parentID: ser.id } });
+        });
+        //Add data to the second chart.
+        chart2.series.add({ points: points });
+      }
+
+      var entryTemplate = '<tr><td style="width: 77px">%name</td><td>%yValue</td></tr>',
+        tableTemplate =
+          '	<table style="width: 100%"><tr><td style="width: 77px; background-color: #E9E9E9"><strong>Quarter</strong></td><td style="background-color: #E9E9E9"><strong>Value</strong></td></tr>%entries%</table>';
+
+      function hoverEvent(ev) {
+        var i,
+          parentId = this.options('attributes.parentID'),
+          tmpHtm = chart
+            .series(parentId)
+            .points()
+            .map(function(point) {
+              return point.replaceTokens(entryTemplate);
+            })
+            .join('');
+
+        var gridElement = document.getElementById('grid');
+        gridElement.innerHTML = tableTemplate.replace('%entries%', tmpHtm);
+      }
+
+      function tooltipFormatter(point) {
+        var txt = '%name <b>%yValue</b><br/>%percentOfTotal% of Total<br/>Per Quarter:<br/>',
+          parentId = point.options('attributes.parentID');
+
+        txt += chart
+          .series(parentId)
+          .points()
+          .map(function(p) {
+            return p.replaceTokens('<b>%name</b> %yValue<br/>');
+          })
+          .join('');
+
+        return txt;
+      }
+    </script>
+  </body>
+</html>

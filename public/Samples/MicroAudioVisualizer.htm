@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Microchart Audio Visualizer Chart | JSCharting</title>
+    <meta http-equiv="content-type" content="text-html; charset=utf-8" />
+
+    <script type="text/javascript" src="../jsc/jscharting.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="css/default.css" />
+    <style type="text/css">
+      #chartContent {
+        width: 800px;
+        margin: 0 auto;
+      }
+
+      #chartDiv {
+        padding: 10px;
+        height: 300px;
+        width: 100%;
+        box-sizing: border-box;
+        display: table;
+      }
+
+      #chartDiv > div {
+        display: table-cell;
+        vertical-align: middle;
+        text-align: center;
+      }
+
+      #audioControl {
+        width: 100%;
+      }
+
+      #fileUpload {
+        display: none;
+      }
+
+      #customFileIpload {
+        display: inline-block;
+        padding: 3px 6px;
+        cursor: pointer;
+        float: right;
+      }
+
+      #customFileIpload img {
+        width: 16px;
+        height: 16px;
+      }
+
+      #click-handler {
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        top: 0;
+      }
+
+      #audio-wrapper {
+        position: relative;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="chartContent">
+      <select id="typeControl">
+        <option selected value="column">Column</option>
+        <option value="sparkline">Sparkline</option>
+        <option value="arealine">Arealine</option>
+        <option value="pie">Pie</option>
+        <option value="bar">Bar</option>
+        <option value="barFull">BarFull</option>
+        <option value="scale">Scale</option>
+        <option value="progress">Progress</option>
+        <option value="heatmap">Heatmap</option>
+      </select>
+      <label for="fileUpload" id="customFileIpload">
+        <img
+          src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAYAAAAeP4ixAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAALJSURBVGhD7dnLy01RGMfx7RoJSTEQRVFCuTOQqVAidwZyv06RgYGUgVCKATJQBmYGDNwTI5col4koA3+BUHL9PrtztN7Vb62z9tau02n96jN4d88552mftc5aa79FTk5OTk5OTk5OTk5Ozv9nLp7gQ4L3uIjB6Lo8wp+KNqPrchOq2ZiV6LqMx2XcTXAHR9APOU1mLCYlmIwhaDq1+tmHX1BzQfmEcWgqB/Ab6rOVjxiD4mXrQhV70VReQ31mzE4Up50LKb5jFprKWajPDbF+ZqDoj+XYlWg6moz1swLqs5Vp6K0MxR4cTrQYfmzLYndH1ccsgJ9hsDmo6pVFKHMFauyF/MRCuDkPVduJjW9/qF6Fqg2xfmy/WDxrXahiN9zch6pLsQFunkPVxWxDsRpfWhdS2M/jaLhZhs9Q9TFPMQJu1uErVL3yCqNQZhDsjxShfVaV92gLxeacqld6b99ni4ntbG1spjiFAXAzBbeg6kNsbh6Hf0dn4h7Ua5R//TyEGnsx/gS9AVWXYinc1DnorUFx27mQyiakm+tQdSmWwM0DqLqYVSgm4hr8Q1TICfhDawLs91/VxxyFP7Rsa16ln2PovQlv64I6uCgDoWI/hao+xEaC/822k9pPn/fYih9QY0+xR0LlQcbJeth2Q9XHvMFIuLGzRZV+3qHs50XrQhX+FuUxVF0K/xfQVmpVF7MdxTnnQgrbpM2Dm5NQtZ3YtzgVbi5A1YZYP3NQjnm7K2qL7DsEtfW2w9BaqNeEHIQ6aVo/m6Be47N+5qO3Yhs0uwP+EVKxJxzqDtiG0Sa8ek2IvZdtR/zY453UfvajPItYLkGNvRA1R85A1Xai5og99VS1IdbPbNQ6WNnR2E2d/VrbRrip83hqB8on61XWAPv3gr+O2OHsG1R9zFv468gWVOmnz7o2HGrlVEIruz00UPUhsZW9Yj9F8RernLNcFp/UqAAAAABJRU5ErkJggg=="
+        />
+        Upload Audio
+      </label>
+      <input type="file" id="fileUpload" accept="audio/*" />
+      <div id="chartDiv"></div>
+      <div id="audio-wrapper">
+        <audio preload="auto" id="audioControl" controls></audio>
+        <div id="click-handler"></div>
+      </div>
+    </div>
+
+    <script type="text/javascript">
+      /*
+Microcharts audio mp3 visualization using JSC.label().
+Learn how to:
+
+  - Use microcharts to render data at 60fps.
+*/
+      // JS
+
+      var types = {
+        column: {
+          config: { type: 'column', data: [], size: '675x275' },
+          dataHandler: function(data) {
+            return data.slice(0, 83);
+          }
+        },
+        sparkline: {
+          config: { type: 'sparkline', data: [], size: '675x275' },
+          dataHandler: function(data) {
+            return data.slice(0, 83);
+          }
+        },
+        arealine: {
+          config: { type: 'arealine', data: [], size: '675x275' },
+          dataHandler: function(data) {
+            return data.slice(0, 83);
+          }
+        },
+        pie: {
+          config: { type: 'pie', data: [], size: '675x275' },
+          dataHandler: function(data) {
+            return data.slice(0, 24, 2);
+          }
+        },
+        bar: {
+          config: { type: 'bar', max: 256, data: [], size: '675x275' },
+          dataHandler: function(data) {
+            return [data[10]];
+          }
+        },
+        scale: {
+          config: { type: 'scale', max: 256, data: [], size: '675x275' },
+          dataHandler: function(data) {
+            return data.slice(0, 15, 10);
+          }
+        },
+        barFull: {
+          config: { type: 'barfull', max: 256, data: [], size: '675x275' },
+          dataHandler: function(data) {
+            return data.slice(0, 24, 2);
+          }
+        },
+        progress: {
+          config: { type: 'progress', max: 256, data: [], size: '675x275' },
+          dataHandler: function(data) {
+            return [data[10]];
+          }
+        },
+        heatmap: {
+          config: { type: 'heatmap', cells: '10x8', data: [], size: '675x275' },
+          dataHandler: function(data) {
+            return data;
+          }
+        }
+      };
+
+      function configTostring(config) {
+        var result = '<chart';
+        Object.keys(config).forEach(function(key) {
+          result += ' ' + key + '=' + config[key];
+        });
+        return result + '>';
+      }
+
+      function throttle(func, ms) {
+        var isThrottled = false,
+          savedArgs,
+          savedThis;
+
+        var wrapper = function() {
+          if (isThrottled) {
+            savedArgs = arguments;
+            savedThis = this;
+            return;
+          }
+
+          func.apply(this, arguments);
+          isThrottled = true;
+
+          setTimeout(function() {
+            isThrottled = false;
+            if (savedArgs) {
+              wrapper.apply(savedThis, savedArgs);
+              savedArgs = savedThis = null;
+            }
+          }, ms);
+        };
+
+        return wrapper;
+      }
+
+      var throttledLabel = throttle(JSC.label, 30);
+
+      var currentType = 'column';
+
+      var chartDiv = document.getElementById('chartDiv');
+      var file = document.getElementById('fileUpload');
+      var type = document.getElementById('typeControl');
+      var clickHandler = document.getElementById('click-handler');
+
+      typeChange('column');
+
+      type.onchange = function() {
+        typeChange(this.options[this.selectedIndex].value);
+      };
+
+      var audio = document.getElementById('audioControl');
+
+      clickHandler.onclick = function() {
+        audio.crossOrigin = 'anonymous';
+        audio.src = './resources/audio.mp3';
+
+        var context = new (window.AudioContext || window.webkitAudioContext)();
+        var analyser = context.createAnalyser();
+        var bufferLength = analyser.frequencyBinCount;
+        var dataArray = new Uint8Array(bufferLength);
+
+        try {
+          var source = context.createMediaElementSource(audio);
+          source.connect(analyser);
+          analyser.connect(context.destination);
+        } catch (e) {
+          console.log(e.toString());
+        }
+
+        function renderFrame() {
+          analyser.getByteFrequencyData(dataArray);
+
+          var config = types[currentType].config;
+          config.data = types[currentType].dataHandler(dataArray);
+          throttledLabel('chartDiv', configTostring(config));
+          requestAnimationFrame(renderFrame);
+        }
+        requestAnimationFrame(renderFrame);
+
+        clickHandler.style.display = 'none';
+        audio.play();
+      };
+
+      file.onchange = function() {
+        var files = this.files;
+        audio.src = URL.createObjectURL(files[0]);
+        audio.load();
+      };
+
+      function typeChange(type) {
+        currentType = type;
+      }
+    </script>
+  </body>
+</html>

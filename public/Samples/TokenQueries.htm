@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Token Queries | JSCharting</title>
+    <meta http-equiv="content-type" content="text-html; charset=utf-8" />
+
+    <script type="text/javascript" src="../jsc/jscharting.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="css/default.css" />
+    <style type="text/css"></style>
+  </head>
+  <body>
+    <div id="chartDiv" style="max-width: 740px;height: 400px;margin: 0px auto;"></div>
+    <div style="width:500px;margin: 0px auto;">
+      <p>
+        The buttons below query the chart for data.
+      </p>
+      <input id="btn1" type="button" value="Get All Data sum: %sum Average: %average" /><br />
+      <input id="btn2" type="button" value="Get Series 1 sum: %sum Average: %average" /><br />
+      <input id="btn3" type="button" value="Get Series1[Point1] Name: %name Percent Of %seriesName: %percentOfSeries" />
+      <div id="info"></div>
+      <textarea id="status" rows="4" cols="75"></textarea>
+    </div>
+
+    <script type="text/javascript">
+      /*
+Queries the chart for info by passing a string with tokens to get relevant reports.
+Learn how to:
+
+  - Get chart data info and calculations in real-time.
+  - Query the to chart replace tokens in a string template with chart data info and calculations.
+*/
+      // JS
+      var chart = JSC.chart('chartDiv', {
+        debug: true,
+        type: 'column',
+        yAxis_label_text: 'USD',
+        title_label_text: 'Sales by quarter',
+        yAxis_formatString: 'c',
+        series: [
+          {
+            name: 'Gross Sales',
+            points: [
+              { name: 'Q1', y: 50120 },
+              { name: 'Q2', y: 53465 },
+              { name: 'Q3', y: 62165 },
+              { name: 'Q4', y: 52156 }
+            ]
+          },
+          {
+            name: 'Net Sales',
+            points: [
+              { name: 'Q1', y: 32654 },
+              { name: 'Q2', y: 35645 },
+              { name: 'Q3', y: 42651 },
+              { name: 'Q4', y: 30153 }
+            ]
+          }
+        ]
+      });
+      function replaceChartTokens(option) {
+        var result;
+        if (chart) {
+          switch (option) {
+            case 1:
+              // Processes tokens of (SeriesCollection) type for all data in the chart.
+              result = chart.replaceTokens('All Data sum: %sum Average: %average');
+              break;
+            case 2:
+              // By passing a specific series ID, it processes tokens of (Series) type for all data in the chart.
+              result = chart.series('Gross Sales').replaceTokens('%name sum: %sum Average: %average');
+              break;
+            case 3:
+              // By passing a specific point ID, it processes tokens of (Point) type for all data in the chart.
+              result = chart
+                .series('Gross Sales')
+                .points('Q1')
+                .replaceTokens('%seriesName-%name Percent Of %seriesName: %percentOfSeries%');
+              break;
+          }
+          document.getElementById('status').value = result;
+        }
+      }
+
+      (function attachEvents() {
+        document.getElementById('btn1').addEventListener('click', function() {
+          return replaceChartTokens(1);
+        });
+        document.getElementById('btn2').addEventListener('click', function() {
+          return replaceChartTokens(2);
+        });
+        document.getElementById('btn3').addEventListener('click', function() {
+          return replaceChartTokens(3);
+        });
+      })();
+    </script>
+  </body>
+</html>

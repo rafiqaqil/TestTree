@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Line Calendar and Heatmap Dashboard | JSCharting</title>
+    <meta http-equiv="content-type" content="text-html; charset=utf-8" />
+
+    <script type="text/javascript" src="../jsc/jscharting.js"></script>
+
+    <script type="text/javascript" src="../jsc/modules/types.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="css/default.css" />
+    <style type="text/css">
+      /*CSS*/
+      .header {
+        font-family: sans-serif;
+        font-size: 18px;
+        margin-left: 20px;
+        background-color: #eaeaea;
+        padding: 5px;
+        width: 732px;
+      }
+    </style>
+  </head>
+  <body>
+    <table style="width:780px">
+      <tr>
+        <td colspan="2">
+          <div id="chartDiv" style="max-width: 780px;height: 430px;margin: 0px auto;"></div>
+        </td>
+      </tr>
+      <tr>
+        <td colspan="2">
+          <div id="bottomSectionHeader" class="header"></div>
+        </td>
+      </tr>
+      <tr>
+        <td style="width:340px;">
+          <div id="chartDiv2" style="max-width: 340px;height: 250px;margin: 0px auto;"></div>
+        </td>
+        <td style="width:440px;">
+          <div id="chartDivL" style="max-width: 440px;height: 250px;margin: 0px auto;"></div>
+        </td>
+      </tr>
+    </table>
+
+    <script type="text/javascript">
+      /*
+Calendar based dashboard using JavaScript charts.
+Learn how to:
+
+  - Create a dashboard with calendar charts.
+  - Use template for charts on the same page.
+*/
+      // JS
+
+      var initialDate = '1/1/2009';
+      var chart = undefined,
+        chart2 = undefined,
+        chartL = undefined,
+        data,
+        parsedData,
+        dataBySet = { waveHeight: [], peakPeriod: [], upcrossPeriod: [], seaTemps: [] },
+        viewMode = 'month';
+
+      loadData(function(rows) {
+        var dateRange = monthRange(initialDate);
+        data = rows;
+        dataBySet.waveHeight = rows.map(function(row) {
+          return [row[0], row[4]];
+        });
+        dataBySet.seaTemps = rows.map(function(row) {
+          return [row[0], row[5]];
+        });
+        dataBySet.upcrossPeriod = rows.map(function(row) {
+          return [row[0], row[3]];
+        });
+        dataBySet.peakPeriod = rows.map(function(row) {
+          return [row[0], row[1]];
+        });
+
+        renderChart(function() {
+          renderWaveChart(dateRange);
+          renderLineChart(dateRange);
+        });
+
+        updateBottomHeader(dateRange);
+      });
+
+      function addOneDay(date) {
+        var d = toDate(date);
+        return new Date(d.getFullYear(), d.getMonth(), d.getDate() + 1).getTime();
+      }
+      function toDate(d) {
+        return new Date(d);
+      }
+      function isInRange(range, val) {
+        return val >= range[0] && val < range[1];
+      }
+      function monthRange(date) {
+        var start = toDate(date);
+        start = new Date(start.getFullYear(), start.getMonth(), 1);
+        var end = new Date(start.getFullYear(), start.getMonth() + 1, 1).getTime() - 1;
+        return [start.getTime(), end];
+      }
+      function dayRange(date) {
+        var start = toDate(date);
+        return [start.getTime(), addOneDay(date) - 1];
+      }
+
+      function highlightDay(date) {
+        if (viewMode === 'day') {
+          var pattern = chart.highlights('cphl');
+
+          if (!pattern) {
+            chart.highlights.add({
+              id: 'cphl',
+              pattern: { date: date },
+              outline: { width: 2, color: '#5c5c5c', dashStyle: 'dash' }
+            });
+          } else {
+            pattern.options({ pattern: { date: date } });
+          }
+        }
+      }
+      function highlightHour(date) {
+        var xAx = chartL.axes('x');
+        var marker = xAx.markers('hl');
+        if (!marker) {
+          xAx.markers.add({ id: 'hl', value: date, legendEntry_visible: false });
+        } else {
+          marker.options({ value: date });
+        }
+      }
+      function updateBottomHeader(dateRange) {
+        var el = document.getElementById('bottomSectionHeader');
+        el.innerText =
+          'Wave height and Peak/Upcross periods for ' + JSC.formatDate(dateRange[0], viewMode === 'day' ? 'd' : 'Y');
+      }
+
+      function getTemplateConfig() {
+        return {
+          title_label_style: { fontSize: 14 },
+          animation: { duration: 0 },
+          yAxis_alternateGridFill: 'none',
+          toolbar_visible: false
+        };
+      }
+      function renderChart(cb) {
+        var cfg = getChartConfig();
+        cfg.data = dataBySet.seaTemps;
+        chart = new JSC.chart('chartDiv', cfg, cb);
+
+        function getChartConfig() {
+          var title = 'Sea Temperature (Celcius)';
+          return {
+            debug: true,
+            type: 'calendar month solid',
+            title_label_text: title + ' ' + JSC.formatDate('1/1/2009', 'Y'),
+            template: getTemplateConfig(),
+            annotations: [
+              {
+                label_text: 'Click cells below for details.',
+                position: 'inside top left'
+              },
+              { label_text: 'Source: https://data.gov.ie/publisher/marine-institute', position: 'bottom left' }
+            ],
+
+            palette: {
+              colors: [
+                '#0000E3',
+                '#0047FF',
+                '#00ABFF',
+                '#0FFFEF',
+                '#43FFBB',
+                '#73FF8B',
+                '#A7FF57',
+                '#FFEF00',
+                '#FF8B00',
+                '#FF5700',
+                '#FF2300',
+                '#ED0000',
+                '#830000'
+              ]
+            },
+            calendar: {
+              range: ['1/1/2009', '12/31/2009'],
+              defaultEmptyPoint_label_text: '',
+              calculation: 'average',
+              defaultEdgePoint: { mouseTracking: false }
+            },
+            yAxis_visible: false,
+            legend: {
+              title_label_text: 'Celcius (Average)<br>Click to select',
+              defaultEntry: {
+                events_click: function() {
+                  if (!this.target.tokenValue) {
+                    return;
+                  }
+
+                  var dateRange = monthRange(this.target.tokenValue('%date'));
+                  viewMode = 'month';
+                  this.chart.options({ title_label_text: title + ' ' + JSC.formatDate(dateRange[0], 'Y') });
+                  updateBottomHeader(dateRange);
+                  renderLineChart(dateRange);
+                  renderWaveChart(dateRange);
+                }
+              }
+            },
+            defaultPoint: {
+              events_click: pointClick,
+              label: {
+                //visible:false,
+                autoHide: false,
+
+                verticalAlign: 'top'
+              }
+            }
+          };
+        }
+        function pointClick(p) {
+          var pointDate = new Date(this.tokenValue('%date')),
+            dateRange = dayRange(pointDate);
+          viewMode = 'day';
+
+          updateBottomHeader(dateRange);
+          highlightDay(pointDate);
+
+          renderWaveChart(dateRange);
+          renderLineChart(dateRange);
+        }
+      }
+      function renderWaveChart(dateRange) {
+        var cfg = getChartConfig2();
+        var title = 'Significant Wave Height (cm)';
+        var type = viewMode === 'month' ? 'calendar month solid' : 'calendar day30min solid';
+
+        setTimeout(execUpdate, 5);
+
+        function execUpdate() {
+          var data = cullData('waveHeight', dateRange);
+          var viewIsDay = viewMode === 'day';
+          if (!chart2) {
+            cfg.title_label_text = title;
+            cfg.type = type;
+            cfg.data = data;
+            chart2 = new JSC.chart('chartDiv2', cfg);
+          } else {
+            chart2.options({
+              type: type,
+              data: data,
+
+              title_label_text: title,
+              defaultPoint_label_visible: viewIsDay ? false : true
+            });
+          }
+        }
+
+        function pointHover() {
+          var point = this;
+          highlightHour(point.tokenValue('%date'));
+        }
+
+        function getChartConfig2() {
+          return {
+            debug: true,
+            type: 'calendar  solid',
+            template: getTemplateConfig(),
+            legend: {},
+            palette: {
+              colorsValueRange: [0, 405],
+              colors: [
+                '#0000E3',
+                '#0047FF',
+                '#00ABFF',
+                '#0FFFEF',
+                '#43FFBB',
+                '#73FF8B',
+                '#A7FF57',
+                '#FFEF00',
+                '#FF8B00',
+                '#FF5700',
+                '#FF2300',
+                '#ED0000',
+                '#830000'
+              ]
+            },
+            calendar: {
+              defaultEmptyPoint_label_text: '',
+              calculation: 'average'
+            },
+            defaultSeries: { legendEntry_visible: false },
+
+            defaultPoint: {
+              events_mouseOver: pointHover,
+              label: {
+                autoHide: false,
+                verticalAlign: 'top'
+              }
+            },
+            toolbar_visible: false
+          };
+        }
+      }
+      function renderLineChart(dateRange) {
+        var cfg;
+
+        //Allow other charts to render first
+        setTimeout(execUpdate, 15);
+
+        function execUpdate() {
+          if (!chartL) {
+            cfg = getLineChartConfig(dateRange);
+            chartL = new JSC.chart('chartDivL', cfg);
+          } else {
+            if (viewMode === 'day') {
+              chartL.axes('x').zoom(dateRange[0], dateRange[1]);
+            } else {
+              cfg = getLineChartConfig(dateRange);
+              var series = cfg.series;
+              chartL.axes('x').zoom(dateRange[0], dateRange[1], false);
+              chartL.series(series[0].name).options({ points: series[0].points }, false);
+              chartL.series(series[1].name).options({ points: series[1].points }, true);
+            }
+          }
+        }
+
+        function getLineChartConfig(dateRange) {
+          return {
+            debug: true,
+            type: 'line',
+            legend: { position: 'top', template: '%icon %name' },
+            template: getTemplateConfig(),
+            xAxis: {
+              crosshair_enabled: true,
+              scale: { type: 'time', zoomLimit: 1000 * 60 }
+            },
+            yAxis_label_text: 'Seconds',
+            defaultPoint: { marker_visible: false, tooltip: '%seriesName: <b>%yValue</b>' },
+            defaultSeries: { states: { hover: { line_width: 1 } } },
+            series: genLineSeries()
+          };
+
+          function genLineSeries() {
+            var columns = 'Peak Period,Upcross Period'.split(',');
+            var series = columns.map(function(colName) {
+              return { name: colName, points: [] };
+            });
+            series[0].points = cullData('peakPeriod', dateRange);
+            series[1].points = cullData('upcrossPeriod', dateRange);
+
+            return series;
+
+            function toPoints(rows) {
+              return rows.map(function(row) {
+                return { x: row[0], y: row[1] };
+              });
+            }
+          }
+        }
+      }
+
+      function cullData(setName, dateRange) {
+        dateRange = dateRange.map(toDate);
+        var set = dataBySet[setName],
+          ret = [];
+        for (var i = 0; i < set.length; i++) {
+          var row = set[i];
+          if (isInRange(dateRange, row[0])) {
+            ret.push(row); /* If row is past*/
+          } else if (ret.length) {
+            break;
+          }
+        }
+        return ret;
+      }
+
+      function loadData(cb) {
+        JSC.fetch('./resources/WaveBuoyNetwork.csv')
+          .then(function(response) {
+            return response.text();
+          })
+          .then(function(csv) {
+            parsedData = JSC.parseCsv(csv);
+            cb(parsedData.data);
+          })
+          .catch(function(ex) {
+            console.error(ex);
+          });
+      }
+    </script>
+  </body>
+</html>

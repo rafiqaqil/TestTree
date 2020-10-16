@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Negative Slice Lengths Donut Chart | JSCharting</title>
+    <meta http-equiv="content-type" content="text-html; charset=utf-8" />
+
+    <script type="text/javascript" src="../jsc/jscharting.js"></script>
+
+    <script type="text/javascript" src="../jsc/modules/types.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="css/default.css" />
+    <style type="text/css">
+      /*CSS*/
+    </style>
+  </head>
+  <body>
+    <div id="chartDiv" style="max-width: 630px;height: 423px;margin: 0px auto;"></div>
+
+    <script type="text/javascript">
+      /*
+Donut chart with only negative z values which control the slice lengths.
+Learn how to:
+
+  - Draw donut chart with varying negative slice lengths.
+*/
+      // JS
+      var chart = JSC.chart('chartDiv', {
+        debug: true,
+        type: 'pie',
+        title: {
+          position: 'center',
+          label: {
+            text: 'Most Negative Migration<br>Population vs. Net Migration Rate',
+            align: 'center'
+          }
+        },
+        legend_visible: false,
+        defaultPoint: {
+          label_text: '%name <b>%yValue</b> %percentOfTotal%',
+          tooltip:
+            '%name <b>%yValue</b><br/><b>%zValue</b> migrants / 1000 population<br/>Expected: <b>{%yValue/1000*%zValue}</b>'
+        },
+        series: [
+          {
+            name: 'Countries',
+            angle_orientation: 30,
+            points: [
+              { name: 'Syria', y: 22457336, z: -113.51 },
+              { name: 'American Samoa', y: 54719, z: -21.64 },
+              { name: 'Tonga', y: 106322, z: -17.85 },
+              { name: 'Nauru', y: 9434, z: -14.12 },
+              { name: 'Maldives', y: 393988, z: -12.67 },
+              { name: 'Samoa', y: 195476, z: -10.12 },
+              { name: 'Moldova', y: 3619925, z: -9.8 },
+              { name: 'Guyana', y: 739903, z: -9.67 },
+              { name: 'Saint Vincent', y: 103220, z: -9.6 },
+              { name: 'Somalia', y: 10251568, z: -9.51 }
+            ]
+          }
+        ]
+      });
+    </script>
+  </body>
+</html>

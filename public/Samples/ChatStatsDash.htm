@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Column Grid and KPI Dashboard | JSCharting</title>
+    <meta http-equiv="content-type" content="text-html; charset=utf-8" />
+
+    <script type="text/javascript" src="../jsc/jscharting.js"></script>
+
+    <script type="text/javascript" src="../jsc/modules/datagrid.js"></script>
+    <script type="text/javascript" src="../jsc/icons/material/social/person.js"></script>
+    <script type="text/javascript" src="../jsc/icons/material/communication/chat-bubble.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="css/default.css" />
+    <style type="text/css">
+      @media (max-width: 500px) {
+        #gridDiv,
+        #chartDiv1,
+        #chartDiv2 {
+          width: 100% !important;
+        }
+        #labelsWrapper {
+          height: 310px !important;
+        }
+        #labelDiv1,
+        #labelDiv2,
+        #labelDiv3 {
+          width: 100% !important;
+        }
+        #mainWrapper {
+          height: 1315px !important;
+        }
+      }
+      @media (max-width: 800px) and (min-width: 501px) {
+        #gridDiv,
+        #chartDiv1,
+        #chartDiv2 {
+          width: 100% !important;
+        }
+        #labelsWrapper {
+          width: 100% !important;
+          height: 205px !important;
+        }
+        #labelDiv3 {
+          width: 100% !important;
+        }
+        #labelDiv1,
+        #labelDiv2 {
+          width: 49% !important;
+        }
+        #mainWrapper {
+          height: 1210px !important;
+        }
+      }
+      @media (max-width: 840px) and (min-width: 801px) {
+        #chartDiv1,
+        #chartDiv2 {
+          width: 49% !important;
+        }
+        #gridDiv {
+          width: 100% !important;
+        }
+        #mainWrapper {
+          height: 780px !important;
+        }
+      }
+      @media (min-width: 841px) {
+        #mainWrapper {
+          width: 840px !important;
+          margin: auto;
+        }
+      }
+      #mainWrapper {
+        width: 100%;
+        height: 440px;
+        display: flex;
+        display: -webkit-box;
+        display: -moz-box;
+        display: -ms-flexbox;
+        display: -webkit-flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        align-content: space-between;
+        font-family: 'Montserrat', sans-serif;
+      }
+      #labelsWrapper {
+        width: 100%;
+        height: 100px;
+        display: flex;
+        display: -webkit-box;
+        display: -moz-box;
+        display: -ms-flexbox;
+        display: -webkit-flex;
+        flex-wrap: wrap;
+        text-align: center;
+        justify-content: space-around;
+        align-content: space-between;
+      }
+      #labelDiv1 {
+        width: 26%;
+        height: 100px;
+      }
+      #textDiv1 svg {
+        width: 50px;
+      }
+      #labelDiv2 {
+        width: 26%;
+        height: 100px;
+      }
+      #labelDiv3 {
+        width: 44%;
+        height: 100px;
+      }
+      #textDiv3,
+      #textDiv4,
+      #textDiv5 {
+        display: inline-block;
+        height: 50px;
+      }
+      #gridDiv {
+        width: 33%;
+      }
+      #chartDiv1 {
+        width: 32%;
+        height: 330px;
+      }
+      #chartDiv2 {
+        width: 32%;
+        height: 330px;
+      }
+      #labelDiv1 div,
+      #labelDiv2 div {
+        display: inline-block;
+      }
+      .jscGrid .dataTable thead th {
+        background-color: white;
+        color: #7e57c2;
+        text-align: left;
+        font-size: 16px;
+        font-weight: 500;
+        border-bottom: 1px solid #f5f5f5;
+        font-family: 'Montserrat', sans-serif !important;
+      }
+      .jscGrid .dataTable tr {
+        background-color: white !important;
+      }
+      .jscGrid .dataTable td {
+        font-size: 14px;
+        border-bottom: 1px solid #f5f5f5;
+        font-family: 'Montserrat', sans-serif !important;
+        font-weight: 300;
+      }
+
+      #gridHeader {
+        width: 100%;
+        text-align: center;
+        font-weight: bold;
+        font-size: 20px;
+        margin-bottom: 6px;
+      }
+    </style>
+  </head>
+  <body>
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:300,400,600&display=swap" rel="stylesheet" />
+    <div id="mainWrapper">
+      <div id="labelsWrapper">
+        <div id="labelDiv1">
+          <div id="iconDiv1"></div>
+          <div id="textDiv1"></div>
+        </div>
+        <div id="labelDiv2">
+          <div id="iconDiv2"></div>
+          <div id="textDiv2"></div>
+        </div>
+        <div id="labelDiv3">
+          <div id="textDiv3"></div>
+          <div id="textDiv4"></div>
+          <div id="textDiv5"></div>
+          <div id="microChartDiv"></div>
+        </div>
+      </div>
+      <div id="gridDiv">
+        <div id="gridHeader">Users list</div>
+      </div>
+      <div id="chartDiv1"></div>
+      <div id="chartDiv2"></div>
+    </div>
+
+    <script type="text/javascript">
+      /*
+Chat app statistics dashboard using charts and data grids.
+Learn how to:
+
+  - Create a dashboard with KPIs, charts, and data grids.
+*/
+      // JS
+
+      JSC.ready(document).then(function(result) {
+        JSC.fontsReady('Montserrat').then(function(result) {
+          console.log('Fonts loaded: ' + result.ok);
+          makeCharts();
+        });
+      });
+
+      function makeCharts() {
+        var template = {
+          type: 'column solid',
+          legend_visible: false,
+          title: {
+            position: 'center',
+            label_style: {
+              fontSize: 20,
+              fontFamily: 'Montserrat, sans-serif',
+              fontWeight: 600
+            }
+          },
+          defaultTooltip_label_style: { fontFamily: 'Montserrat, sans-serif' },
+          toolbar_visible: false,
+          defaultSeries: {
+            opacity: 1,
+            defaultPoint: { focusGlow_width: 0 }
+          },
+          xAxis_defaultTick_label_style: {
+            fontFamily: 'Montserrat, sans-serif',
+            fontSize: 10
+          },
+          yAxis: {
+            alternateGridFill: 'none',
+            line_visible: false,
+            defaultTick: {
+              line_visible: false,
+              label_style: {
+                fontFamily: 'Montserrat, sans-serif',
+                fontSize: 10
+              }
+            }
+          }
+        };
+        JSC.label(
+          'iconDiv1',
+          '<icon name=material/social/person size=52 color=none outline_width=3 outline_color=#f06292 margin=8>'
+        );
+        JSC.label(
+          'textDiv1',
+          '<span style="font-family:Montserrat, sans-serif;">' +
+            '<span style="font-weight:500;font-size:36px;">16</span><br>' +
+            '<span style="font-weight:300;font-size:18px;">Users</span></span>'
+        );
+
+        JSC.label(
+          'iconDiv2',
+          '<icon name=material/communication/chat-bubble size=52 color=none outline_width=3 outline_color=#66bb6a margin=8>'
+        );
+        JSC.label(
+          'textDiv2',
+          '<span style="font-family:Montserrat, sans-serif;">' +
+            '<span style="font-weight:500;font-size:36px;">10,266</span><br>' +
+            '<span style="font-weight:300;font-size:18px;">Messages</span></span>'
+        );
+
+        JSC.label(
+          'textDiv3',
+          '<span style="font-family:Montserrat, sans-serif;">' +
+            '<span style="width:90px;font-weight:500;font-size:20px; color:#7e57c2">82.5%</span><br>' +
+            '<span style="font-weight:300;width:100px;font-size:12px;">Text messages</span></span>'
+        );
+        JSC.label(
+          'textDiv4',
+          '<span style="font-family:Montserrat, sans-serif;">' +
+            '<span style="width:60px;font-weight:500;font-size:20px; color:#f06292">11%</span><br>' +
+            '<span style="font-weight:300;font-size:12px;">Images</span></span>'
+        );
+        JSC.label(
+          'textDiv5',
+          '<span style="font-family:Montserrat, sans-serif;">' +
+            '<span style="width:60px;font-weight:500;font-size:20px; color:#66bb6a">6.5%</span><br>' +
+            '<span style="font-weight:300;font-size:12px;">Audio</span></span>'
+        );
+        JSC.label(
+          'microChartDiv',
+          '<chart type=barfull data=8461,1143,662 size=300x15 colors=",#9575cd,#f48fb1,#81c784">'
+        );
+
+        new JSC.Grid('gridDiv', {
+          className: 'dataTable',
+          exportFile: false,
+          data: [
+            ['Charles Adams', 2708, '19 hours ago'],
+            ['Michael Crawford', 1124, '6 hours ago'],
+            ['Holly Perkins', 836, '3 hours ago'],
+            ['Amberly Johns', 775, '3 hours ago'],
+            ['Meagan Freeman', 689, '5 hours ago'],
+            ['Peter George', 681, '2 hours ago'],
+            ['Cynthia Parrish', 618, '3 hours ago'],
+            ['Gilbert McKenzie', 604, '3 hours ago'],
+            ['Thomas Hunt', 567, '3 hours ago'],
+            ['Susan Curtis', 467, '3 hours ago'],
+            ['Catherine Henry', 426, '3 hours ago'],
+            ['Franklin Green', 394, '2 hours ago'],
+            ['John Norris', 318, '3 hours ago'],
+            ['Charles Parsons', 235, '1 hour ago'],
+            ['Alice Parsons', 230, '2 days ago'],
+            ['Joseph Smith', 212, '4 hours ago']
+          ],
+          height: '300px',
+          columns: [{ header: 'User name' }, { header: 'Messages' }, { header: 'Last message' }]
+        });
+
+        new JSC.Chart('chartDiv1', {
+          template: template,
+          title_label_text: 'Active days',
+          defaultPoint_tooltip: '<b>%name</b><br>%value messages',
+          series: [
+            {
+              palette: ['#f48fb1'],
+              points: [
+                { x: 'Sun', y: 1392 },
+                { x: 'Mon', y: 1569 },
+                { x: 'Tue', y: 1653 },
+                { x: 'Wed', y: 1988 },
+                { x: 'Thu', y: 1552 },
+                { x: 'Fri', y: 1305 },
+                { x: 'Sat', y: 807 }
+              ]
+            }
+          ]
+        });
+
+        new JSC.Chart('chartDiv2', {
+          template: template,
+          title_label_text: 'Active hours',
+          defaultPoint_tooltip: '<b>%name:00</b><br>%value messages',
+          xAxis_autoRotate: -90,
+          series: [
+            {
+              palette: ['#81c784'],
+              points: [
+                { x: '0', y: 543 },
+                { x: '1', y: 600 },
+                { x: '2', y: 119 },
+                { x: '3', y: 129 },
+                { x: '4', y: 15 },
+                { x: '5', y: 75 },
+                { x: '6', y: 61 },
+                { x: '7', y: 99 },
+                { x: '8', y: 218 },
+                { x: '9', y: 520 },
+                { x: '10', y: 518 },
+                { x: '11', y: 445 },
+                { x: '12', y: 450 },
+                { x: '13', y: 537 },
+                { x: '14', y: 726 },
+                { x: '15', y: 412 },
+                { x: '16', y: 521 },
+                { x: '17', y: 756 },
+                { x: '18', y: 601 },
+                { x: '19', y: 454 },
+                { x: '20', y: 377 },
+                { x: '21', y: 600 },
+                { x: '22', y: 784 },
+                { x: '23', y: 706 }
+              ]
+            }
+          ]
+        });
+      }
+    </script>
+  </body>
+</html>

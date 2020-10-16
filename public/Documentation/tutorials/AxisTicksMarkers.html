@@ -1,0 +1,95 @@
+<h2>Default tick</h2>
+<p>The axis defaultTick can be populated with options that all axis ticks inherit except for minor ticks. Options for minor ticks can be set under the <a href="Types.axis.defaultMinorTick">DefaultMinorTick</a> property.
+</p>
+<p></p>
+<p></p>
+<h2>Major/minor ticks
+</h2>
+<p>By default, only major ticks are drawn on charts except for some time scale scenarios where minor ticks can activate automatically when necessary.
+</p>
+<p>Minor ticks are generally less prominent and don't use a label in some default cases. Tick intervals can be specified explicitly or determined automatically. Minor ticks can be enabled by setting the <a href="Types.axis.scale.minorInterval">minorInterval</a> to 'auto', a numeric value, or timeSpan configuration.
+    Tick values can also be set with a token string like '%average'. This tick will be dynamic and refresh whenever chart data updates.
+</p>
+<p></p>
+<h2>Custom tick</h2>
+<p>The axis can include custom ticks at any arbitrary position along the axis scale. They are specified under the <a href="Types.axis.customTicks">customTicks</a> property. The items set for the <a href="Types.axis.customTicks">customTicks</a> property can
+    be populated with <a hre="Types.axisTick">axisTick</a> objects  that include unique tick labels and styling or simply with a list of numeric values.
+    When an array of numeric values is provided as shown below, the resulting ticks inherit styling from the axis default tick settings.
+</p>
+<span class="codeText">
+{customTicks:[5,10,15]
+	}</span>
+
+
+<p>By default, custom ticks are added in addition to the automatically generated ticks. Setting <a href="Types.axisTick.visible">axis.defaultTick.visible</a> = false
+    causes the automatic ticks to be removed. Even though custom ticks inherit <a href="Types.axis.defaultTick">default tick</a> options, the visibility property is not inherited.
+</p>
+<p>Custom ticks can be used to replace existing ticks as well. This happens when a custom tick value matches the value of an existing tick. Only one tick is used for any specific position on the axis.</p>
+<h2>Tick label (smart) behavior</h2>
+<p>It is often not possible to show all axis tick labels without some overlaps. The chart includes logic to determine if a different labeling more allows more labels to be shown.
+    If standard labeling is not an option, the ticks may be drawn angled at 45 degrees which will usually fit more.
+    However, in the end the only option may be to remove some ticks.
+    The logic for removing ticks attempts to decide which ticks are more important than others and removes the less important ones first.
+    Custom ticks are the most important so they are the last to be removed, but it is possible they get removed as well.
+</p>
+<p></p>
+<p></p>
+<h2>Axis markers</h2>
+<p>Axis markers can be used to highlight parts of a chart area along an axis. They can highlight a single value position, or a low, high value range.
+    In general, the marker color property is applied to all marker visuals like label/line/fill.
+    However, a single value line can be styled further through the marker <a href="Types.axisMarker.line">line</a> property, and a range marker fill can be customized using the <a href="Types.axisMarker.fill">fill</a> property.
+</p>
+<p>Axis markers include a label that is drawn near the marker in order to identify it. Specifying the label <a href="Types.label.align">align</a> and <a href="Types.label.verticalAlign">verticalAlign</a> properties can help position the label where it can be seen.
+    If necessary,  setting the <a href="Types.axisMarker.onTop">onTop</a> property will render the axis markers on top of dataPoints.</p>
+<p></p>
+<p></p>
+<h2>Tick/Marker Values</h2>
+<p>Axis markers can have a single value indicating a specific point on an axis similar to ticks, or two values indicating a range. </p>
+<p>Single Value</p>
+<span class="codeText">
+{markers:[{value:5}]
+	}</span>
+<p>Range Value</p>
+<span class="codeText"> {markers:[{value:[5,10]}]}</span>
+<p></p>
+<p></p>
+<h2>Category Scales</h2>
+<p>On category scales (when point names are used rather than a quantitative x value), tick and marker values refer to the index of the category where 0 is the first and length-1 is the last. Decimal point values are allowed such that .5 would render the tick or marker between the first and second category positions.
+</p>
+<span class="docsNote">
+ If custom ticks are used on a category axis, the axis.centerTickMarks setting is ignored and ticks will be centered.
+</span>
+<h2>Time Scales</h2>
+<p>When time scales are used, tick and marker values can be specified as numbers, strings (parsed by Date.parse()) or JS Date objects.</p>
+<p></p>
+<p></p>
+<h2>Token Values</h2>
+<p>Values can also be specified using token calculations such as %average, %min, %max and so on. The series collection set of tokens is supported by the value (y) axis.
+</p>
+
+<span class="codeText">
+{markers:[{value:'%average'}]
+	}</span>
+
+<span class="docsReference">
+    Samples.axisAnalysisTicks
+</span>
+<p>For a list of available tokens, see the <a href="Tutorials.tokenReference">token reference</a>.
+</p>
+
+<p></p>
+<p></p>
+<h2>IncludeInScale</h2>
+<p>When an axis marker or tick is not within the axis range, they will not be rendered by default.
+    However, if the tick or marker is important to the chart, the <a href="Types.axisMarker.includeInScale">includeInScale</a> option can be set to true.
+    This will force the axis to expand its range to encompass the data and this tick or marker so that they are visible on the axis.
+    Custom axis ticks also support the <a href="Types.axisTick.includeInScale">includeInScale</a> option.</p>
+<span class="docsNote">
+Please note that ticks and markers with includeInScale=true will defeat axis scale range settings. In this scenario, axis scale padding is ignored.
+</span>
+
+<span class="docsReference">
+    Samples.AxisMarkerGoal
+</span>
+<p></p>
+<p></p>

@@ -1,0 +1,112 @@
+<h2>Introduction</h2>
+<p>Charts are relatively simple libraries. But initializing charts and updating them often uses different API that is limiting and more complicated.
+</p>
+<p>With JSC, initializing charts is as simple as updating them in real-time. A common functional programming API makes selecting and modifying a set of chart items as simple as using jquery to work with HTML. </p>
+<p></p>
+
+<h3>Examples</h3>
+<h2>Setting chart data</h2>
+<span class="codeText">
+chart.options({
+	series:[{
+		name:'Purchases',
+		points:[{
+			x:'Jan',
+			y:10
+	}
+	]
+	}
+	]});
+</span>
+
+<h2>Add more series</h2>
+<span class="codeText">
+chart.series.add({
+		name:'Purchases',
+		points:[{
+			x:'Jan',
+			y:10
+	}
+	]
+	});
+</span>
+
+<h2>Add more points to first series.</h2>
+<span class="codeText">
+chart.series(0).points.add({x:'Feb',y:12});
+</span>
+
+
+<h2>Get series/points</h2>
+<h3>By index</h3>
+<p>When passing numeric argument to this collection function, it returns the actual series object.</p>
+<span class="codeText">
+chart.series(0)
+</span>
+<h3>By id or name</h3>
+<p>When passing a string argument to this collection function, it also returns the actual series object.</p>
+<span class="codeText">
+chart.series(IdOrName)
+</span>
+
+
+
+<h2>All points on a chart.</h2>
+<p>Returns point collection.</p>
+<span class="codeText">
+chart.series().points()
+</span>
+
+<h2>All series with point y value sum > 500</h2>
+<p>Returns a collection of series for which the function returns true.</p>
+<span class="codeText">
+chart.series( series => series.tokenValue('%sum') > 500 )
+</span>
+
+
+<h2>Make all points > 100 red</h2>
+<span class="codeText">
+chart.series()
+	.points( point => point.tokenValue('%yValue') > 100)
+	.options({color:'red'})
+
+</span>
+
+
+
+
+<h2>Make series with highest y value sum red</h2>
+<p>The <span class="example">&#39;%maxSeriesName&#39;</span> token returns the series name, and when a name is passed to the series collection, it finds the series with that name.</p>
+<span class="codeText">
+chart.series(chart.tokenValue('%maxSeriesName'))
+.options({color:'red'})
+</span>
+
+
+
+
+<h2>Get X Axis</h2>
+<span class="codeText">
+chart.axes({prefix:'x'}); // returns a collection
+chart.axes('x'); // returns the (or the first) x axis.
+
+</span>
+
+
+
+
+<h2>Add AxisMarker to the x axis</h2>
+<span class="codeText">
+chart.axes('x').markers.add({value:5,color:'blue'})
+
+</span>
+
+
+
+<h2>Remove all axis markers from all axes</h2>
+<span class="codeText">
+chart.axes().markers().each(m => m.dispose());
+</span>
+
+
+

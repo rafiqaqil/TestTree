@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Circular Tick Placement | JSCharting</title>
+    <meta http-equiv="content-type" content="text-html; charset=utf-8" />
+
+    <script type="text/javascript" src="../jsc/jscharting.js"></script>
+
+    <script type="text/javascript" src="../jsc/modules/types.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="css/default.css" />
+    <style type="text/css">
+      /*CSS*/
+    </style>
+  </head>
+  <body>
+    <div id="chartDiv" style="max-width: 680px;height: 230px;margin: 0px auto;"></div>
+
+    <script type="text/javascript">
+      /*
+Circular axis tick placement options.
+Learn how to:
+
+  - Position axis ticks inside or outside of gauge.
+*/
+      // JS
+      var chart = JSC.chart('chartDiv', {
+        debug: true,
+        title: {
+          label_text: 'Tick Placement',
+          position: 'center'
+        },
+        legend_visible: false,
+        defaultAxis: {
+          line_visible: true,
+          defaultTick_line_color: '#aaa'
+        },
+        yAxis: [
+          {
+            onTop: true,
+            defaultTick: {
+              placement: 'inside',
+              line: { width: 2, length: 7 }
+            },
+            scale_range: [0, 100]
+          },
+          {
+            id: 'y2',
+            onTop: true,
+            defaultTick: {
+              placement: 'outside',
+              line: { width: 2, length: 7 }
+            },
+            scale_range: [0, 100]
+          },
+          {
+            id: 'y3',
+            onTop: true,
+            defaultTick: {
+              placement: 'outside',
+              line: { width: 2, length: 7 }
+            },
+            defaultMinorTick: {
+              placement: 'inside',
+              label_text: '%value',
+              line_color: '#aaa'
+            },
+            scale: {
+              range: [0, 100],
+              interval: 20,
+              minorInterval: 10
+            }
+          }
+        ],
+        xAxis: {
+          defaultTick_gridLine_width: 0,
+
+          /*Reduces column size to pad against axis line.*/
+          spacingPercentage: 0.15
+        },
+        defaultSeries: { type: 'gauge column roundCaps' },
+        series: [
+          { name: 'Inside', points: [['value', 65]] },
+          {
+            name: 'Outside',
+            yAxis: 'y2',
+            points: [['value', 75]]
+          },
+          {
+            name: 'Mixed',
+            yAxis: 'y3',
+            points: [['value', 69]]
+          }
+        ]
+      });
+    </script>
+  </body>
+</html>

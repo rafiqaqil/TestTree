@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Legend Icons Column Chart | JSCharting</title>
+    <meta http-equiv="content-type" content="text-html; charset=utf-8" />
+
+    <script type="text/javascript" src="../jsc/jscharting.js"></script>
+
+    <script type="text/javascript" src="../jsc/icons/material/hardware/all.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="css/default.css" />
+    <style type="text/css"></style>
+  </head>
+  <body>
+    <div id="chartDiv" style="max-width: 740px;height: 400px;margin: 0px auto;"></div>
+
+    <script type="text/javascript">
+      /*
+Columns with icon markers also shown in the legend.
+Learn how to:
+
+  - Use icons with column data points and in legend entries.
+*/
+      // JS
+      var chart = JSC.chart('chartDiv', {
+        debug: true,
+        type: 'column',
+        title_label_text: 'Device Availability And Personal Use',
+        legend: {
+          position: 'inside top',
+          horizontalSpacing: 20,
+          defaultEntry_value: '%yValue%',
+          defaultEntry_icon: { fill: 'white', outline_color: '#ababab' }
+        },
+        yAxis_defaultTick_label_text: '%value%',
+        series: [
+          {
+            defaultPoint: {
+              tooltip: '<b>%yValue%</b> of users have<br>access to <b>%name</b>',
+              marker: {
+                visible: true,
+                outline_color: 'darkenMore',
+                size: 40,
+                fill: 'white'
+              }
+            },
+            name: 'Users with access',
+            palette: 'pastel',
+            points: [
+              {
+                name: 'Smartphone',
+                y: 78,
+                marker: {
+                  type: 'material/hardware/smartphone',
+                  size: 30
+                },
+                legendEntry_icon: {
+                  name: 'material/hardware/smartphone',
+                  size: 15
+                }
+              },
+              {
+                name: 'Tablet',
+                y: 39,
+                marker_type: 'material/hardware/tablet',
+                legendEntry_icon_name: 'material/hardware/tablet'
+              },
+              {
+                name: 'Laptop',
+                y: 49,
+                marker_type: 'material/hardware/laptop',
+                legendEntry_icon_name: 'material/hardware/laptop'
+              },
+              {
+                name: 'Desktop',
+                y: 61,
+                marker_type: 'material/hardware/desktop-windows',
+                legendEntry_icon_name: 'material/hardware/desktop-windows'
+              }
+            ]
+          }
+        ]
+      });
+    </script>
+  </body>
+</html>

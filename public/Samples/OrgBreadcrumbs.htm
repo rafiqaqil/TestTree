@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Organizational Chart Breadcrumbs Navigation | JSCharting</title>
+    <meta http-equiv="content-type" content="text-html; charset=utf-8" />
+
+    <script type="text/javascript" src="../jsc/jscharting.js"></script>
+
+    <script type="text/javascript" src="../jsc/modules/types.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="css/default.css" />
+    <style type="text/css">
+      /*CSS*/
+    </style>
+  </head>
+  <body>
+    <div id="chartDiv" style="max-width: 740px;height: 400px;margin: 0px auto;"></div>
+
+    <script type="text/javascript">
+      /*
+Organization chart breadcrumbs.
+Learn how to:
+
+  - Compute point hierarchy breadcrumbs.
+*/
+      // JS
+      var chart = JSC.chart('chartDiv', {
+        debug: true,
+        chartArea_fill: ['#ffcc80', '#ffffcc', '#ffb84d', 90],
+        type: 'organization',
+        legend_visible: false,
+        series: [
+          {
+            shape_padding: 0.1,
+            points: [
+              { x: 'Aida', id: 'aida' },
+              { x: 'Ain', id: 'ain', parent: 'aida' },
+              { x: 'John', id: 'john', parent: 'aida' },
+              { x: 'William', id: 'william', parent: 'aida' },
+              { x: 'Frank', id: 'frank', parent: 'ain' },
+              { x: 'Eric', id: 'eric', parent: 'ain' },
+              { x: 'David', id: 'david', parent: 'john' },
+              { x: 'Stephen', id: 'stephen', parent: 'john' },
+              { x: 'George', id: 'george', parent: 'john' },
+              { x: 'Lori', id: 'lori', parent: 'george' },
+              { x: 'Walt', id: 'walt', parent: 'george' },
+              { x: 'Thomas', id: 'thomas', parent: 'lori' },
+              { x: 'James', id: 'james', parent: 'lori' },
+              { x: 'Tim', id: 'tim', parent: 'lori' },
+              { x: 'Jack', id: 'jack', parent: 'lori' },
+              { x: 'Robert', id: 'robert', parent: 'william' },
+              { x: 'Jose', id: 'jose', parent: 'william' },
+              { x: 'Joe', id: 'joe', parent: 'robert' },
+              { x: 'Mark', id: 'mark', parent: 'robert' }
+            ]
+          }
+        ],
+        defaultTooltip_enabled: false,
+        defaultSeries: {
+          line_color: 'gray',
+          line_width: 2,
+          color: '#fffff6',
+          pointSelection: true
+        },
+        defaultPoint: {
+          outline: { color: 'gray', width: 1, dashStyle: 'dash' },
+          states_select_outline: { dashStyle: 'solid', width: 3 },
+          events: { click: pointClick }
+        },
+        defaultAnnotation: { padding: [5, 10], corners: 'square', margin: 5 },
+        annotations: [
+          {
+            position: 'inside bottom',
+            label_text: 'Click on a node to view the breadcrumbs leading up to it',
+            boxVisible: false
+          }
+        ]
+      });
+
+      function pointClick(point, e) {
+        var hierarchy = [this.x],
+          point = this,
+          parent = this.options('parent');
+
+        while (parent) {
+          point = chart
+            .series(0)
+            .points()
+            .find(function(x) {
+              return x.id === parent;
+            });
+          hierarchy.unshift(point.x);
+          parent = point ? point.options('parent') : null;
+        }
+
+        var text = hierarchy.join(' > '),
+          annotation = chart.annotations('crumbs');
+
+        if (!annotation) {
+          chart.annotations.add({
+            id: 'crumbs',
+            boxVisible: false,
+            position: 'inside top left',
+            label: { text: text, style_fontWeight: 'bold' }
+          });
+        } else {
+          annotation.options({ label_text: text });
+        }
+        point.options({});
+      }
+    </script>
+  </body>
+</html>

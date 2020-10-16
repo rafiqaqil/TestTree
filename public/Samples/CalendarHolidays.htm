@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Yearly Holiday Calendar Patterns | JSCharting</title>
+    <meta http-equiv="content-type" content="text-html; charset=utf-8" />
+
+    <script type="text/javascript" src="../jsc/jscharting.js"></script>
+
+    <script type="text/javascript" src="../jsc/modules/types.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="css/default.css" />
+    <style type="text/css">
+      /*CSS*/
+    </style>
+  </head>
+  <body>
+    <div id="chartDiv" style="width: 700px;height: 220px;margin: 0px auto;"></div>
+
+    <script type="text/javascript">
+      /*
+Calendar patterns applied to year view calendar chart to display federal holidays over a number of years.
+Learn how to:
+
+  - Load JSON calendar patterns of federal US holidays.
+  - Render a calendar chart and load additional series in the background.
+*/
+      // JS
+      var chart,
+        chartConfig = {
+          debug: true,
+          type: 'calendar year solid',
+          title: {
+            label: {
+              text: 'Federal US Holidays',
+              style_fontSize: 16
+            },
+            position: 'center'
+          },
+          legend: { position: 'bottom', template: '%name' },
+          calendar: {
+            range: ['1/1/2018', '12/31/2018'],
+            defaultEmptyPoint: { tooltip: '%name' }
+          },
+          defaultSeries: {
+            shape_innerPadding: 0,
+            defaultPoint_tooltip: '%name'
+          },
+          toolbar_visible: false
+        };
+
+      //The chart is rendered with 1 year of data first, then additional years are added.
+      makeHolidayPoints(initChart);
+
+      function initChart(holidayPoints) {
+        chartConfig.series = [{ points: holidayPoints }];
+        chart = JSC.chart('chartDiv', chartConfig, function(c) {
+          //This timeout will ensure the chart is rendered before processing additional year.
+          setTimeout(function() {
+            c.options({ calendar: { range: ['1/1/2018', '1/1/2030'] } });
+          }, 200);
+        });
+      }
+
+      function makeHolidayPoints(callback) {
+        JSC.fetch('./resources/usHolidays.json.txt')
+          .then(function(response) {
+            return response.json();
+          })
+          .then(function(data) {
+            var holidayPoints = data.map(function(item) {
+              return {
+                date: item.pattern,
+                color: '#758fff',
+                tooltip: '<b>%name</b> ' + item.name
+              };
+            });
+            callback(holidayPoints);
+          })
+          .catch(function(err) {
+            console.error(err);
+          });
+      }
+    </script>
+  </body>
+</html>

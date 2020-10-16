@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Line Caps Chart | JSCharting</title>
+    <meta http-equiv="content-type" content="text-html; charset=utf-8" />
+
+    <script type="text/javascript" src="../jsc/jscharting.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="css/default.css" />
+    <style type="text/css">
+      /*CSS*/
+    </style>
+  </head>
+  <body>
+    <div id="chartDiv" style="max-width: 740px;height: 400px;margin: 0px auto;"></div>
+
+    <script type="text/javascript">
+      /*
+Line chart with arrow caps.
+Learn how to:
+
+  - Draw a line chart with arrow cap.
+*/
+      // JS
+      var chart = JSC.chart('chartDiv', {
+        debug: true,
+        type: 'line',
+        title_label: { text: 'Purchases Trending Up', style_fontSize: 15 },
+        legend_visible: false,
+        defaultAxis_defaultTick_label_style: { fontSize: 15 },
+        xAxis: { scale_type: 'time', crosshair_enabled: true },
+
+        series: [
+          {
+            name: 'Purchases',
+            defaultPoint_marker_visible: false,
+            line: { width: 4, caps_end: { type: 'arrow', size: '500%' } },
+            points: [
+              ['1/1/2020', 29],
+              ['2/1/2020', 71],
+              ['3/1/2020', 106],
+              ['4/1/2020', 66],
+              ['6/1/2020', 169],
+              ['7/1/2020', 144],
+              ['8/1/2020', 226]
+            ]
+          }
+        ],
+        toolbar_visible: false
+      });
+    </script>
+  </body>
+</html>

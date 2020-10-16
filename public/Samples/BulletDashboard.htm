@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Bullet Microchart Dashboard | JSCharting</title>
+    <meta http-equiv="content-type" content="text-html; charset=utf-8" />
+
+    <script type="text/javascript" src="../jsc/jscharting.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="css/default.css" />
+    <style type="text/css">
+      #dashWrapper {
+        max-width: 900px;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-around;
+        align-items: start;
+        margin: 0 auto;
+      }
+      .dashPart {
+        text-align: center;
+      }
+      .vbullets {
+        display: inline-block;
+        margin: 0 6px;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="dashWrapper">
+      <div class="dashPart">
+        <p style="font-size:20px; font-family:tahoma, geneva, sans-serif;color:black">Financial Summary</p>
+        <div class="hbullets" id="hbullet1"></div>
+        <div class="hbullets" id="hbullet2"></div>
+        <div class="hbullets" id="hbullet3"></div>
+        <div class="hbullets" id="hbullet4"></div>
+      </div>
+      <div class="dashPart">
+        <p style="font-size:20px; font-family:tahoma, geneva, sans-serif;color:black">Number of shops</p>
+        <div class="vbullets" id="vbullet1" style="padding-left:3px"></div>
+        <div class="vbullets" id="vbullet2"></div>
+        <div class="vbullets" id="vbullet3"></div>
+        <div class="vbullets" id="vbullet4"></div>
+        <div class="vbullets" id="vbullet5"></div>
+        <div class="vbullets" id="vbullet6"></div>
+      </div>
+      <div id="ml8c1" style="width:100%;height:210px;"></div>
+    </div>
+
+    <script type="text/javascript">
+      /*
+Bullet micro charts with labels and axes.
+Learn how to:
+
+  - Draw multiple bullet charts.
+*/
+      // JS
+
+      /* Bullets chart data */
+      var horizontalBulletsData = [
+        { name: 'Revenue ($B)', value: 500.343, target: 485.873, ranges: [300, 450], max: 600 },
+        { name: 'Net sales ($B)', value: 495.761, target: 481.317, ranges: [250, 450], max: 600 },
+        { name: 'Operating income ($B)', value: 20.437, target: 22.764, ranges: [10, 20], max: 30 },
+        { name: 'Gross profit margin (%)', value: 24.7, target: 24.9, ranges: [15, 20], max: 30 }
+      ];
+
+      var verticalBulletsData = [
+        { name: 'US', value: 4761, target: 4672, ranges: [2500, 4500], max: 5000 },
+        { name: 'Brazil', value: 465, target: 498, ranges: [250, 500], max: 550 },
+        { name: 'Canada', value: 410, target: 410, ranges: [240, 400], max: 500 },
+        { name: 'Japan', value: 336, target: 341, ranges: [170, 320], max: 400 },
+        { name: 'Mexico', value: 2358, target: 2411, ranges: [1600, 2200], max: 2500 },
+        { name: 'China', value: 443, target: 510, ranges: [250, 500], max: 550 }
+      ];
+
+      horizontalBulletsData.forEach(function(item, i) {
+        makeHorizontalBullet('hbullet' + (i + 1), item);
+      });
+
+      verticalBulletsData.forEach(function(item, i) {
+        makeVerticalBullet('vbullet' + (i + 1), item);
+      });
+      chart8 = JSC.chart('ml8c1', {
+        type: 'column solid',
+        title: {
+          label: {
+            text: 'Total number of shops worldwide (2008-2019)',
+            style: {
+              fontSize: 20,
+              fontFamily: 'tahoma, geneva, sans-serif'
+            }
+          },
+          position: 'center'
+        },
+        palette: ['#26c6da'],
+        yAxis: { alternateGridFill: 'none' },
+        xAxis: {
+          defaultTick: {
+            line_visible: false,
+            gridLine_visible: false
+          },
+          scale: { type: 'time', interval_unit: 'year' }
+        },
+        defaultPoint: {
+          outline_width: 0,
+          tooltip: 'Number of shops in {%xValue:date yyyy} year: <b>%value</b>'
+        },
+        toolbar_visible: false,
+        legend_visible: false,
+        series: [
+          {
+            points: [
+              { x: '2008', y: 4295 },
+              { x: '2009', y: 4916 },
+              { x: '2010', y: 5106 },
+              { x: '2011', y: 5611 },
+              { x: '2012', y: 6773 },
+              { x: '2013', y: 7415 },
+              { x: '2014', y: 7949 },
+              { x: '2015', y: 8460 },
+              { x: '2016', y: 8535 },
+              { x: '2017', y: 8702 },
+              { x: '2018', y: 8725 },
+              { x: '2019', y: 8773 }
+            ]
+          }
+        ]
+      });
+      function makeHorizontalBullet(div, data) {
+        return JSC.label(
+          div,
+          '<span style="width:130px; verticalAlign:middle; align:right;">' +
+            data.name +
+            '</span>' +
+            '<chart margin_left=5 size=280x30 type=bullet min=0 colors=#26c6da,black,#80deea,#b2ebf2,#e0f7fa max=' +
+            data.max +
+            ' data=' +
+            data.value +
+            ',' +
+            data.target +
+            ',' +
+            data.ranges.join(',') +
+            ' tooltip=' +
+            data.value +
+            '><br>' +
+            '<chart margin_left=135 size=280x20 orientation=bottom type=scale min=0 max=' +
+            data.max +
+            '>'
+        );
+      }
+
+      function makeVerticalBullet(div, data) {
+        return JSC.label(
+          div,
+          '<chart size=200x32 margin_bottom=4 type=bullet rotate=-90 min=0 colors=#00bcd4,black,#80deea,#b2ebf2,#e0f7fa max=' +
+            data.max +
+            ' data=' +
+            data.value +
+            ',' +
+            data.target +
+            ',' +
+            data.ranges.join(',') +
+            ' tooltip=' +
+            data.value +
+            '>' +
+            '<chart size=200x20 margin_bottom=4 orientation=bottom rotate=-90 type=scale min=0 max=' +
+            data.max +
+            '><br>' +
+            '<span style="width:30px; align:center;">' +
+            data.name +
+            '</span>'
+        );
+      }
+    </script>
+  </body>
+</html>

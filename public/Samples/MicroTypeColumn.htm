@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Column Microchart Options | JSCharting</title>
+    <meta http-equiv="content-type" content="text-html; charset=utf-8" />
+
+    <script type="text/javascript" src="../jsc/jscharting.js"></script>
+
+    <script type="text/javascript" src="../jsc/modules/types.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="css/default.css" />
+    <style type="text/css"></style>
+  </head>
+  <body>
+    <div id="chartDiv" style="max-width:420px;height: 660px;margin: 0px auto;"></div>
+
+    <script type="text/javascript">
+      /*
+Demonstrates column type microchart options.
+Learn how to:
+
+  - Customize column microchart options.
+*/
+      // JS
+
+      var examples = [
+        ['Plain Column Chart:', '<chart type=column margin=5 data=5,8,10,7,3,2,7,4,5,6,3,2 >'],
+        ['With empty values:', '<chart type=column margin=5 data=5,8,10,7,,,,,4,5,6,3,2 >'],
+        ['With 0 values:', '<chart type=column margin=5 data=0,0,0,10,7,3,2,7,4,5,0,0,0 >'],
+        ['With (-) & (+) values:', '<chart type=column margin=5 data=10,7,3,2,7,4,-5,-6,-3,-2 >'],
+        ['With (-) & (+) & 0 values:', '<chart type=column margin=5 data=10,7,3,2,7,4,0,0,0,-5,-6,-3,-2 >'],
+        ['Sizing'],
+        ['Height specified:', '<chart type=column height=20 margin=10 data=5,8,10,7,3 >'],
+        ['Height & Width specified:', '<chart type=column width=40 height=20 margin=10 data=5,8,10,7,3 >'],
+        ['Size specified:', '<chart size=120x30 type=column margin=5 data=5,8,10,7,3 >'],
+        ['Static Column Width:', '<chart height=20 type=column margin=5 data=5,8,10,7,3,2,7,4,5,6,3,2 columnWidth=3>'],
+        ['Axis Marker'],
+        ['Column with an AxisMarker line:', '<chart type=column margin=5 data=5,8,10,7,3,2,7,4,5,6,3,2 axisMarker=5 >'],
+        [
+          'Column with a range AxisMarker:',
+          '<chart type=column margin=5 data=5,8,10,7,3,2,7,4,5,6,3,2 axisMarker=3,7 >'
+        ],
+        ['Coloring'],
+        [
+          'Specifying colors:',
+          '<chart type=column margin=5 data=5,8,10,7,3,2,7,4,-5,-6,-3,-2 axisMarker=5,8 colors=DarkCyan,DeepPink,Yellow >'
+        ]
+      ];
+
+      function makeText(title) {
+        var result = '<span style="font-size: 14px; font-weight: bold;">' + title + '</span>	<hr><ul>';
+
+        result += examples
+          .map(function(entry) {
+            return entry.length === 1
+              ? '</ul><br><b>' + entry[0] + '</b><hr><ul>'
+              : '<li><span style="width:200px; verticalAlign: middle;">' + entry[0] + '</span>' + entry[1] + '</li>';
+          })
+          .join('');
+
+        result += '</ul></span>';
+        return result;
+      }
+
+      var chart = JSC.chart('chartDiv', {
+        toolbar_visible: false,
+        margin_bottom: 30,
+        defaultBox_boxVisible: false,
+        annotations: [
+          {
+            position: 'inside center',
+            label_text: makeText('Column Type Options')
+          }
+        ]
+      });
+    </script>
+  </body>
+</html>

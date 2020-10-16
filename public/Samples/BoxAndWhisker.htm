@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Box and Whisker Chart | JSCharting</title>
+    <meta http-equiv="content-type" content="text-html; charset=utf-8" />
+
+    <script type="text/javascript" src="../jsc/jscharting.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="css/default.css" />
+    <style type="text/css"></style>
+  </head>
+  <body>
+    <div id="chartDiv" style="max-width: 740px;height: 400px;margin: 0px auto;"></div>
+
+    <script type="text/javascript">
+      /*
+Box and whisker data visualization.
+Learn how to:
+
+  - Use subvalue data.
+*/
+      // JS
+      var chart = JSC.chart('chartDiv', {
+        debug: true,
+        defaultSeries_type: 'column',
+        xAxis_scale_type: 'time',
+        title_label_text: 'Box and Whisker',
+        legend_visible: false,
+        series: [
+          {
+            name: 'Data',
+            type: 'column',
+            points: [
+              {
+                x: '3/7/2020',
+                y: [55, 113],
+                subvalue: { range: [26, 120], values: [121, 47] }
+              },
+              {
+                x: '3/9/2020',
+                y: [24, 115],
+                subvalue: { range: [6, 122], values: [123, 22] }
+              },
+              {
+                x: '3/11/2020',
+                y: [11, 47],
+                subvalue: { range: [6, 56], values: [71, 1] }
+              },
+              {
+                x: '3/13/2020',
+                y: [41, 54],
+                subvalue: { range: [18, 77], values: [131, 40] }
+              },
+              {
+                x: '3/15/2020',
+                y: [44, 74],
+                subvalue: { range: [18, 82], values: [102, 8] }
+              },
+              {
+                x: '3/17/2020',
+                y: [57, 69],
+                subvalue: { range: [2, 103], values: [78, 34] }
+              },
+              {
+                x: '3/19/2020',
+                y: [50, 79],
+                subvalue: { range: [35, 126], values: [111, 25] }
+              },
+              {
+                x: '3/21/2020',
+                y: [12, 31],
+                subvalue: { range: [8, 87], values: [42, 0] }
+              },
+              {
+                x: '3/23/2020',
+                y: [85, 118],
+                subvalue: { range: [43, 120], values: [139, 12] }
+              },
+              {
+                x: '3/25/2020',
+                y: [94, 117],
+                subvalue: { range: [26, 120], values: [133, 2] }
+              },
+              {
+                x: '3/27/2020',
+                y: [48, 76],
+                subvalue: { range: [17, 112], values: [136, 45] }
+              },
+              {
+                x: '3/29/2020',
+                y: [83, 93],
+                subvalue: { range: [52, 117], values: [124, 4] }
+              },
+              {
+                x: '3/31/2020',
+                y: [23, 107],
+                subvalue: { range: [7, 116], values: [134, 5] }
+              },
+              {
+                x: '4/2/2020',
+                y: [49, 74],
+                subvalue: { range: [14, 98], values: [111, 2] }
+              },
+              {
+                x: '4/4/2020',
+                y: [39, 81],
+                subvalue: { range: [10, 114], values: [132, 27] }
+              }
+            ]
+          }
+        ]
+      });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Inverted Funnel Chart | JSCharting</title>
+    <meta http-equiv="content-type" content="text-html; charset=utf-8" />
+
+    <script type="text/javascript" src="../jsc/jscharting.js"></script>
+
+    <script type="text/javascript" src="../jsc/modules/types.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="css/default.css" />
+    <style type="text/css">
+      /*CSS*/
+    </style>
+  </head>
+  <body>
+    <div id="chartDiv" style="max-width: 480px;height: 360px;margin: 0px auto;"></div>
+
+    <script type="text/javascript">
+      /*
+Inverted funnel.
+Learn how to:
+
+  - Draw a funnel.
+  - Draw an inverted funnel.
+*/
+      // JS
+      var chart = JSC.chart('chartDiv', {
+        debug: true,
+        type: 'funnel inverted',
+        legend_visible: false,
+        annotations: [
+          {
+            position: 'inside top',
+            margin_top: 15,
+            label: { text: 'Interview Process', style_fontSize: 15 }
+          }
+        ],
+        defaultSeries: {
+          defaultPoint: {
+            tooltip: '<b>%name</b><br><b>Applicants:</b> %yValue',
+            label: {
+              text: '%name %yValue (%percentOfSeriesMax%)',
+              placement: 'outside'
+            }
+          }
+        },
+        series: [
+          {
+            name: 'All Applicants',
+            points: [
+              { name: 'Candidates Applied', y: 183 },
+              { name: 'Aptitude Test', y: 140 },
+              { name: 'Technical Interview', y: 136 },
+              { name: 'HR Interview', y: 80 },
+              { name: 'Candidates Recruited', y: 51 }
+            ]
+          }
+        ]
+      });
+    </script>
+  </body>
+</html>

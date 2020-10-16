@@ -1,0 +1,106 @@
+﻿<h2>Introduction</h2>
+<p>Chart axes are one of the most important and powerful elements of a chart.
+    They affect many aspects from describing data to indicating how data points are arranged.
+    Figure 1 below illustrates some common naming for different axis parts.
+</p>
+<span class="tutorialImage">
+<img src="tutorials/images/AxisElements.png"/>
+<em>Figure 1.</em>
+</span>
+
+<p>The common X, Y and Z axis naming is often used but the roles they play can differ depending on the chart type.
+    A more consistent and not chart type dependent designations for axes are:
+</p>
+<ul class="simpleKvpList">
+    <li><em>Value</em><section>Commonly referred to as the Y Axis, it is associated with the data y value.</section></li>
+    <li><em>Position</em><section>Commonly referred to as the X Axis,  it is associated with the x value, and name properties.</section></li>
+    <li><em>Tertiary</em><section>Commonly referred to as the Z Axis,  it is associated with the z property.</section></li>
+
+</ul>
+<p>This naming is more consistent because If the chart type is 'horizontal' then the y axis would refer to x data values instead of y values. We will use this naming in this tutorial.
+</p>
+<span class="tutorialImage">
+<img src="tutorials/images/AxisVertHoriz.png"/>
+<em>Figure 2.</em>
+</span>
+<p>One goal of the chart type setting is to allow changing the type from vertical to horizontal without changing any other code and render the chart correctly. For that reason, a horizontal chart type applies the xAxis options to the physical y axis.</p>
+<h2>Axes and Chart Types</h2>
+<p>Axis scale settings can be used to specify how series behave. For example, a stacked scale makes series such as bars render as one bar made of all bars that share the same name or x value.
+</p>
+<p>Bars are stacked on the position axis by default. This basically means they are drawn side by side. Setting the value axis scale to stacked, arranges the bars vertically stacked based on their value. If the tertiary axis scale type is set to stacked, they are arranged one in front of the other. This is useful for cases such as gantt.
+</p>
+
+<h2>Axes Describe Data</h2>
+<p>These axes are a visual reference, but because they are associated with specific point value properties, they also describe those values.
+    For example, a Y (value) axis that shows cost in USD ($) also implies the point y values represent cost in USD.
+</p>
+<p>Consider data like greg: 5, martin: 8. if these values describe currency, it is safe to say that the y axis describes currency.</p>
+<p>Axes are used to define formatting and a descriptive string label (axis.label.lext) that appear on the axes if shown and used in automatic tooltips. </p>
+
+
+<p><!--The chart does not currently (v2.2) have full z axis object support, however, points can have z values, and
+    there are z axis properties for label and formatting that match x or y axis properties and allow describing
+    z values if used.-->
+    Bubble series include x, y values and the z value represents the bubble size. The following
+    code can be used to create the automatic tooltip label shown in figure 3.
+</p>
+<span class="codeText">
+{
+      xAxis_label_text: 'Life Expectancy',
+  yAxis_label_text: 'Fertility Rate',
+  zAxis_label_text: 'Population'
+    }</span>
+<span class="tutorialImage">
+<img src="tutorials/images/AxisLabelsInTT.png"/>
+<em>Figure 3.</em>
+</span>
+
+<p>Tokens such as %yAxisLabel can be used in point labels and other point or series related strings to automatically use the specified axis descriptions.</p>
+
+<h3>Axis Styling Features</h3>
+<h2>Axis Line Breaks</h2>
+<span class="tutorialImage">
+<img src="tutorials/images/axisLineBreaks.png"/>
+<em>Figure 4.</em>
+</span>
+<p>Axis lines include a feature that can break the line into segments at tick positions when the axis line.breaks property is defined:
+</p>
+<span class="codeText">
+{
+      yAxis_line_breaks: {}
+    }
+</span>
+
+<p>Gap sizes can be adjusted and the gap and line fill sections can be reversed using the line breaks option.
+</p>
+<span class="codeText">
+{
+      yAxis_line_breaks: {
+    gap:.2,
+    invert:true
+    }
+    }
+</span>
+
+<h2>Axis Line SmartPalette</h2>
+<span class="tutorialImage">
+<img src="tutorials/images/axisLinePalette.png"/>
+<em>Figure 5.</em>
+</span>
+
+<p>The axis line can also be colorized by using a smartPalette. If the smartPalette is defined at the chart.palette level, the axis colors can be applied to the axis with the following code snippet:
+</p>
+<span class="codeText">
+{
+      yAxis_line_color: 'smartPalette'
+    }
+</span>
+
+<p>If the palette is defined at the series level and includes an id, the palette can be specified with code such as:
+</p>
+<span class="codeText">
+{
+      yAxis_line_color: 'smartPalette:id'
+    }
+</span>
+

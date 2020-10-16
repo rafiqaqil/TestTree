@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Custom Navigation Map Chart | JSCharting</title>
+    <meta http-equiv="content-type" content="text-html; charset=utf-8" />
+
+    <script type="text/javascript" src="../jsc/jscharting.js"></script>
+
+    <script type="text/javascript" src="../jsc/modules/toolbar.js"></script>
+    <script type="text/javascript" src="../jsc/modules/maps.js"></script>
+    <script type="text/javascript" src="../jsc/icons/linear/arrows/all.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="css/default.css" />
+    <style type="text/css">
+      /*CSS*/
+    </style>
+  </head>
+  <body>
+    <div id="chartDiv" style="max-width: 740px;height: 480px;margin: 0px auto;"></div>
+
+    <script type="text/javascript">
+      /*
+A map of countries using similar color palettes in context of Europe.
+Learn how to:
+
+  - Set initial map zoom.
+  - Use base layers for context.
+*/
+      // JS
+      var config = {
+        debug: true,
+        type: 'map',
+
+        chartArea_fill: '#dde9ff',
+        /* Pad the map data points for separation from the chart area boundary */
+        defaultSeries_shape_padding: 1.23,
+        mapping_base_layers: 'europe',
+        legend_visible: false,
+        series: [
+          {
+            map: 'pl',
+            palette: JSC.colorToPalette('red', { saturation: 0.2, hue: 0.1 }, 15, 1)
+          },
+          {
+            map: 'de',
+            palette: JSC.colorToPalette('#049DFF', { saturation: 0.3, hue: 0.05 }, 15, 1)
+          },
+          {
+            map: 'cz',
+            palette: JSC.colorToPalette('#34FE35', { saturation: 0.3, hue: 0.05 }, 15, 1)
+          }
+        ],
+        toolbar_items: {
+          zoom_visible: false,
+          resetZoom_visible: false,
+          Left: {
+            icon: 'linear/arrows/slim-left',
+            position: 'inside 2,32',
+            events_click: function() {
+              zoom([-5.055, 0]);
+            }
+          },
+          Top: {
+            icon: 'linear/arrows/slim-up',
+            position: 'inside 35,5',
+            events_click: function() {
+              zoom([0, 5.055]);
+            }
+          },
+          Right: {
+            icon: 'linear/arrows/slim-right',
+            position: 'inside 68,32',
+            events_click: function() {
+              zoom([5.055, 0]);
+            }
+          },
+          Bottom: {
+            icon: 'linear/arrows/slim-down',
+            position: 'inside 35,58',
+            events_click: function() {
+              zoom([0, -5.055]);
+            }
+          },
+          '+': {
+            icon: 'linear/arrows/plus',
+            margin: [5, 0, 0, 110],
+            events_click: function() {
+              chart.zoom('+150');
+            }
+          },
+          '-': {
+            icon: 'linear/arrows/minus',
+            margin: [5, 0, 0, 3],
+            events_click: function() {
+              chart.zoom('-50');
+            }
+          },
+          '100%': {
+            margin: [5, 0, 0, 3],
+            height: 26,
+            events_click: function() {
+              chart.zoom(1);
+            }
+          },
+          '200%': {
+            margin: [5, 0, 0, 3],
+            height: 26,
+            events_click: function() {
+              chart.zoom(2);
+            }
+          },
+          '500%': {
+            margin: [5, 0, 0, 3],
+            height: 26,
+            events_click: function() {
+              chart.zoom(5);
+            }
+          }
+        }
+      };
+
+      var chart = JSC.chart('chartDiv', config);
+
+      function zoom(val) {
+        if (val.length) {
+          val = [val[0], val[1]];
+        }
+        chart.zoom(val);
+      }
+    </script>
+  </body>
+</html>

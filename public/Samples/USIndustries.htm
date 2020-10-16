@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>CSV Data Marker Chart | JSCharting</title>
+    <meta http-equiv="content-type" content="text-html; charset=utf-8" />
+
+    <script type="text/javascript" src="../jsc/jscharting.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="css/default.css" />
+    <style type="text/css"></style>
+  </head>
+  <body>
+    <div id="chartDiv" style="max-width: 700px;height: 400px;margin: 0px auto;"></div>
+
+    <script type="text/javascript">
+      /*
+A marker chart loaded from csv data.
+Learn how to:
+
+  - Create a marker chart from CSV data.
+*/
+      // JS
+      var chart;
+
+      JSC.fetch('./resources/USIndustries.csv')
+        .then(function(response) {
+          return response.text();
+        })
+        .then(function(text) {
+          var data = JSC.csv2Json(text);
+          chart = renderChart(makeSeries(data));
+        });
+
+      function renderChart(series) {
+        return JSC.chart('chartDiv', {
+          type: 'horizontal marker',
+          title_label_text: 'Average Wage by Industry in the US',
+          legend_visible: false,
+          defaultAxis: {
+            defaultTick: {
+              line_visible: false,
+              gridLine_color: '#eceff1'
+            }
+          },
+          yAxis: {
+            alternateGridFill: 'none',
+            formatString: 'c0',
+            markers: [{ value: 55390, line_width: 4, label_text: 'Avg wage in US: %value', line_color: '#cfd8dc' }],
+            defaultTick_gridLine_opacity: 0.4
+          },
+          xAxis: {
+            crosshair_enabled: true,
+            defaultTick_gridLine_width: 2
+          },
+          defaultTooltip_label_text: '%points',
+          defaultPoint: {
+            tooltip: '<b>%yValue</b>',
+            xAxisTick_label_text: '%industry',
+            marker: { outline_width: 0, size: 12 }
+          },
+
+          series: series
+        });
+      }
+
+      function makeSeries(data) {
+        var series = JSC.nest()
+          .key('industry')
+          .pointRollup(function(key, val) {
+            var yVal = val[0].avg_wage;
+            var result = {
+              x: key,
+              y: yVal,
+              color: yVal < 55390 ? '#f44336' : '#2196f3',
+              attributes_industry: key
+            };
+            return result;
+          })
+          .series(data);
+        series[0].points.splice(0, 1);
+        return series;
+      }
+    </script>
+  </body>
+</html>

@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Axis Formatting | JSCharting</title>
+    <meta http-equiv="content-type" content="text-html; charset=utf-8" />
+
+    <script type="text/javascript" src="../jsc/jscharting.js"></script>
+
+    <script type="text/javascript" src="../jsc/modules/toolbar.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="css/default.css" />
+    <style type="text/css"></style>
+  </head>
+  <body>
+    <div id="chartDiv" style="max-width: 740px;height: 400px;margin: 0px auto;"></div>
+
+    <script type="text/javascript">
+      /*
+Demonstrates specifying different cultures and format strings to axis tick labels.
+Learn how to:
+
+  - Format axis labels.
+  - Use different label culture formatting.
+  - Globalize the chart by defining a culture used for value formatting.
+  - Use tokens with legend labels.
+  - Use tokens with title labels.
+*/
+      // JS
+      var chart = JSC.chart('chartDiv', {
+        debug: true,
+        type: 'line',
+        defaultCultureName: 'en-US',
+        legend: {
+          title_label_text: 'Formatting just works:',
+          template: '%name %value %min %max %average %xMin %xMax',
+          header: 'Name Sum Min Max Average From To',
+          position: 'top right',
+          cellSpacing: 8
+        },
+        annotations: [
+          {
+            label: { text: 'Total: %sum', style_fontSize: '15px' },
+            position: 'top left'
+          }
+        ],
+        yAxis: { scale_minorInterval: 25, formatString: 'c' },
+        xAxis: {
+          scale_minorInterval: { unit: 'day', multiplier: 4 },
+          formatString: 'd',
+          scale_type: 'time'
+        },
+        defaultPoint_tooltip: '%xValue<br/>%yValue',
+        toolbar: {
+          defaultItem: { position: 'inside bottom right' },
+          items: {
+            export_visible: false,
+            info: {
+              position: 'inside top left',
+              boxVisible: false,
+              icon: {
+                width: 30,
+                height: 30,
+                name: 'system/default/info'
+              },
+              items: {
+                label: {
+                  boxVisible: false,
+                  label_text:
+                    'Simple to use formatting:A setting such as yAxis_formatString:"c" will make all values related to that axis format as currency.  X axis uses a time scale and supports fully featured formatting as well. Try settings like d, f, F, t, T, D, Y, M.'
+                }
+              }
+            },
+            'X Axis Formatting:': {
+              boxVisible: false,
+              position: 'inside bottom right'
+            },
+            culture: {
+              type: 'select',
+              position: 'inside bottom',
+              label_text: 'Culture: %value',
+              events_change: function(val) {
+                setCulture(val);
+              },
+              items: 'en-US,es-MX,pl-PL,de-DE,fr-FR,ja-JP'
+            },
+            xFormat: {
+              type: 'select',
+              events_change: function(val) {
+                setFormat('x', val);
+              },
+              items: 'd,t,T,D,Y,M'
+            },
+            'Y Axis FormatString:': { boxVisible: false, position: 'inside top left' },
+            yFormat: {
+              position: 'inside top left',
+              type: 'select',
+              value: 'c',
+              events_change: function(val) {
+                setFormat('y', val);
+              },
+              items: 'c,c1,n,n1,n2,d,d1,d2,p,p0,p1,p2'
+            }
+          }
+        },
+        series: [
+          {
+            name: 'Purchases',
+            points: [
+              ['1/1/2020', 29.9],
+              ['1/2/2020', 71.5],
+              ['1/3/2020', 106.4],
+              ['1/6/2020', 129.2],
+              ['1/7/2020', 144.0],
+              ['1/8/2020', 176.0]
+            ]
+          }
+        ]
+      });
+
+      function setCulture(val) {
+        chart.options({ defaultCultureName: val });
+      }
+      function setFormat(xory, val) {
+        chart.axes(xory).options({ formatString: val });
+      }
+    </script>
+  </body>
+</html>

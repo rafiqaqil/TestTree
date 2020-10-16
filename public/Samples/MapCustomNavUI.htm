@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Map Custom Nav UI | JSCharting</title>
+    <meta http-equiv="content-type" content="text-html; charset=utf-8" />
+
+    <script type="text/javascript" src="../jsc/jscharting.js"></script>
+
+    <script type="text/javascript" src="../jsc/modules/toolbar.js"></script>
+    <script type="text/javascript" src="../jsc/modules/maps.js"></script>
+    <script type="text/javascript" src=" ../jsc/icons/linear/arrows/all.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="css/default.css" />
+    <style type="text/css">
+      /*CSS*/
+    </style>
+  </head>
+  <body>
+    <div style="max-width: 740px;height: 500px;margin: 0px auto;">
+      Select a Palette:
+      <select id="Palettes">
+        <option value="default">default</option
+        ><option value="spreadsheet">spreadsheet</option
+        ><option value="oceanMidtones">oceanMidtones</option
+        ><option value="mutedRainbow">mutedRainbow</option
+        ><option value="pastelContrast">pastelContrast</option
+        ><option value="rainforest">rainforest</option
+        ><option value="random">random</option
+        ><option value="autumn">autumn</option
+        ><option value="bright">bright</option
+        ><option value="lavender">lavender</option
+        ><option value="midTones">midTones</option
+        ><option value="mixed">mixed</option
+        ><option value="pastel">pastel</option
+        ><option value="poppies">poppies</option
+        ><option value="spring">spring</option
+        ><option value="warmEarth">warmEarth</option
+        ><option value="waterMeadow">waterMeadow</option
+        ><option value="darkRainbow">darkRainbow</option
+        ><option value="midRange">midRange</option
+        ><option value="vividDark">vividDark</option
+        ><option value="fiveColor1">fiveColor1</option
+        ><option value="fiveColor2">fiveColor2</option
+        ><option value="fiveColor3">fiveColor3</option
+        ><option value="fiveColor4">fiveColor4</option
+        ><option value="fiveColor5">fiveColor5</option
+        ><option value="fiveColor6">fiveColor6</option
+        ><option value="fiveColor7">fiveColor7</option
+        ><option value="fiveColor8">fiveColor8</option
+        ><option value="fiveColor9">fiveColor9</option
+        ><option value="fiveColor10">fiveColor10</option
+        ><option value="fiveColor11">fiveColor11</option
+        ><option value="fiveColor12">fiveColor12</option
+        ><option value="fiveColor13">fiveColor13</option
+        ><option value="fiveColor14">fiveColor14</option
+        ><option value="fiveColor15">fiveColor15</option
+        ><option value="fiveColor16">fiveColor16</option
+        ><option value="fiveColor17">fiveColor17</option
+        ><option value="fiveColor18">fiveColor18</option
+        ><option value="fiveColor19">fiveColor19</option
+        ><option value="fiveColor20">fiveColor20</option
+        ><option value="fiveColor21">fiveColor21</option
+        ><option value="fiveColor22">fiveColor22</option
+        ><option value="fiveColor23">fiveColor23</option
+        ><option value="fiveColor24">fiveColor24</option
+        ><option value="fiveColor25">fiveColor25</option
+        ><option value="fiveColor26">fiveColor26</option
+        ><option value="fiveColor27">fiveColor27</option
+        ><option value="fiveColor28">fiveColor28</option
+        ><option value="fiveColor29">fiveColor29</option
+        ><option value="fiveColor30">fiveColor30</option
+        ><option value="fiveColor31">fiveColor31</option
+        ><option value="fiveColor32">fiveColor32</option
+        ><option value="fiveColor33">fiveColor33</option
+        ><option value="fiveColor34">fiveColor34</option
+        ><option value="fiveColor35">fiveColor35</option
+        ><option value="fiveColor36">fiveColor36</option
+        ><option value="fiveColor37">fiveColor37</option
+        ><option value="fiveColor38">fiveColor38</option
+        ><option value="fiveColor39">fiveColor39</option
+        ><option value="fiveColor40">fiveColor40</option
+        ><option value="fiveColor41">fiveColor41</option
+        ><option value="fiveColor42">fiveColor42</option
+        ><option value="fiveColor43">fiveColor43</option
+        ><option value="fiveColor44">fiveColor44</option
+        ><option value="fiveColor45">fiveColor45</option
+        ><option value="fiveColor46">fiveColor46</option>
+      </select>
+      <br />
+      <div id="chartDiv" style="max-width: 730px;height: 450px;margin: 0px auto;"></div>
+    </div>
+
+    <script type="text/javascript">
+      /*
+A map with custom real-time navigation and palette controls.
+Learn how to:
+
+  - Map series from mapCodes.
+  - Update map palette in real-time.
+  - Interactively zoom and pan map charts.
+*/
+      // JS
+      var chart = JSC.chart('chartDiv', {
+        debug: true,
+        type: 'map',
+        legend_visible: false,
+        series: [
+          {
+            id: 'states',
+            defaultPoint_label_text: ' %statecode',
+            palette: 'default',
+            map: 'US'
+          }
+        ],
+        toolbar: {
+          defaultItem: { height: 26 },
+          items: {
+            zoom_visible: false,
+            resetZoom_visible: false,
+            Left: {
+              icon: 'linear/arrows/slim-left',
+              position: 'inside 2,57',
+              events_click: function() {
+                zoom([-50, 0]);
+              }
+            },
+            Top: {
+              icon: 'linear/arrows/slim-up',
+              position: 'inside 35,30',
+              events_click: function() {
+                zoom([0, 50]);
+              }
+            },
+            Right: {
+              icon: 'linear/arrows/slim-right',
+              position: 'inside 68,57',
+              events_click: function() {
+                zoom([50, 0]);
+              }
+            },
+            Bottom: {
+              icon: 'linear/arrows/slim-down',
+              position: 'inside 35,84',
+              events_click: function() {
+                zoom([0, -50]);
+              }
+            },
+            '+': {
+              icon: 'linear/arrows/plus',
+              events_click: function() {
+                chart.zoom('+150');
+              }
+            },
+            '-': {
+              icon: 'linear/arrows/minus',
+              events_click: function() {
+                chart.zoom('-50');
+              }
+            },
+            '100%': {
+              events_click: function() {
+                chart.zoom(1);
+              }
+            },
+            '200%': {
+              events_click: function() {
+                chart.zoom(2);
+              }
+            },
+            '500%': {
+              events_click: function() {
+                chart.zoom(5);
+              }
+            }
+          }
+        }
+      });
+
+      function zoom(val) {
+        if (val.length) {
+          val = [val[0] * 10000, val[1] * 10000];
+        }
+        chart.zoom(val);
+      }
+
+      function selectPalette() {
+        var palettesElement = document.getElementById('Palettes');
+        var palette = palettesElement.options[palettesElement.selectedIndex].value;
+        chart.series('states').options({ palette: palette });
+      }
+
+      (function attachEvents() {
+        document.getElementById('Palettes').addEventListener('change', function() {
+          return selectPalette();
+        });
+      })();
+    </script>
+  </body>
+</html>

@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Bubble Grid Chart | JSCharting</title>
+    <meta http-equiv="content-type" content="text-html; charset=utf-8" />
+
+    <script type="text/javascript" src="../jsc/jscharting.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="css/default.css" />
+    <style type="text/css"></style>
+  </head>
+  <body>
+    <div id="chartDiv" style="max-width: 700px;height: 430px;margin: 0px auto;"></div>
+
+    <script type="text/javascript">
+      /*
+A bubble grid chart.
+Learn how to:
+
+  - Draw a bubble grid chart.
+*/
+      // JS
+      var chart;
+
+      JSC.fetch('./resources/polymerProduction.csv')
+        .then(function(response) {
+          return response.text();
+        })
+        .then(function(text) {
+          var data = JSC.csv2Json(text);
+          chart = renderChart(makeSeries(data));
+        });
+      function renderChart(series) {
+        return JSC.chart('chartDiv', {
+          type: 'bubble',
+          margin_right: 17,
+          title: {
+            label: {
+              text: 'Polymer Production by Sector and Polymer Type',
+              style_fontSize: 20
+            },
+            position: 'center'
+          },
+          defaultAxis: {
+            defaultTick: {
+              gridLine_visible: false,
+              line_visible: false
+            }
+          },
+          yAxis: {
+            scale_invert: true,
+            label_text: 'Market Sector'
+          },
+          xAxis: {
+            orientation: 'opposite',
+            label_text: 'Polymer Type'
+          },
+          palette: {
+            colors: ['#edf8b0', '#c7e9b4', '#7fcdbb', '#41b6c3', '#1d91c0', '#225ea8', '#253494', '#081d58'],
+            pointValue: '{%zValue}'
+          },
+          defaultPoint: {
+            tooltip:
+              '%xAxisLabel: <b>%xValue</b><br>%yAxisLabel: <b>%yValue</b><br><b>%zValue</b> million tonnes produced',
+            outline_width: 0,
+            focusGlow_width: 0
+          },
+          toolbar_visible: false,
+          series: series
+        });
+      }
+
+      function makeSeries(data, type) {
+        var series = JSC.nest()
+          .key('sector')
+          .key('polymer_type')
+          .pointRollup(function(key, val) {
+            return {
+              x: val[0].polymer_type,
+              y: val[0].sector,
+              z: val[0].number
+            };
+          })
+          .series(data);
+        return series;
+      }
+    </script>
+  </body>
+</html>

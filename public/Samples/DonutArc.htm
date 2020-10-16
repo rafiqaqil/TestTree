@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Donut Arc | JSCharting</title>
+    <meta http-equiv="content-type" content="text-html; charset=utf-8" />
+
+    <script type="text/javascript" src="../jsc/jscharting.js"></script>
+
+    <script type="text/javascript" src="../jsc/modules/types.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="css/default.css" />
+    <style type="text/css">
+      /*CSS*/
+    </style>
+  </head>
+  <body>
+    <div id="chartDiv" style="max-width: 475px;height: 350px;margin: 0px auto;"></div>
+
+    <script type="text/javascript">
+      /*
+Pie arc that shows data on only 20 degrees oriented to the right.
+Learn how to:
+
+  - Draw donut arcs segment.
+*/
+      // JS
+      var chart = JSC.chart('chartDiv', {
+        debug: true,
+        type: 'pie donut',
+        title: {
+          position: 'center',
+          label_text: 'Top World Populations'
+        },
+        legend_position: 'inside right top',
+        defaultSeries: {
+          angle: { orientation: 90, sweep: 20 },
+          shape: { innerSize: '70%' },
+          defaultPoint_label_text: '<b>%name</b>'
+        },
+        series: [
+          {
+            name: 'Top 5 Countries',
+            points: [
+              { name: 'China', y: 1349585838 },
+              { name: 'India', y: 1220800359 },
+              { name: 'Europe', y: 509365627 },
+              { name: 'U.S.', y: 316438601 },
+              { name: 'Indonesia', y: 251160124 }
+            ]
+          }
+        ],
+        toolbar_visible: false
+      });
+    </script>
+  </body>
+</html>

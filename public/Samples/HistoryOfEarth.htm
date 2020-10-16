@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Nested Gantt Rings Chart | JSCharting</title>
+    <meta http-equiv="content-type" content="text-html; charset=utf-8" />
+
+    <script type="text/javascript" src="../jsc/jscharting.js"></script>
+
+    <script type="text/javascript" src="../jsc/modules/types.js"></script>
+    <script type="text/javascript" src="../jsc/icons/linear/arrows/clockwise.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="css/default.css" />
+    <style type="text/css">
+      /*CSS*/
+    </style>
+  </head>
+  <body>
+    <div id="chartDiv" style="width: 540px;height: 640px;margin: 0px auto;"></div>
+
+    <script type="text/javascript">
+      /*
+A circular ring chart that illustrates the history of life on earth.
+Learn how to:
+
+  - Create a chart with multiple circular rings across two x axes.
+*/
+      // JS
+      var chart;
+
+      JSC.fetch('./resources/EarthTimeline.csv')
+        .then(function(response) {
+          return response.text();
+        })
+        .then(function(text) {
+          var data = JSC.csv2Json(text);
+          chart = renderChart(makeSeries(data));
+        });
+
+      function renderChart(series) {
+        return JSC.chart('chartDiv', {
+          title: {
+            label: {
+              text: 'History of Earth and its life',
+              style_fontSize: 17
+            },
+            position: 'center'
+          },
+          legend_visible: false,
+          defaultPoint: {
+            tooltip: '<b>%name</b><br>{Math.abs(%ystart):n0}M–{Math.abs(%value):n0}M',
+            focusGlow_width: 0
+          },
+
+          xAxis: [
+            {
+              id: 'x1',
+              defaultTick_gridLine_color: '#eeeeee',
+              spacingPercentage: 0.0
+            },
+            {
+              id: 'x2',
+              defaultTick: {
+                padding: 2,
+                label: { style_fontSize: 11 },
+                gridLine_visible: false,
+                placement: 'inside'
+              },
+              spacingPercentage: 0.5
+            }
+          ],
+          yAxis: {
+            id: 'y1',
+            line_visible: false,
+            defaultTick_enabled: false,
+            scale: { range: [-4540, 0] }
+          },
+          defaultSeries: {
+            type: 'gauge column',
+            angle: { start: -90, sweep: 359 }
+          },
+          series: series
+        });
+      }
+
+      function makeSeries(data) {
+        /* Generate multiple colors from based on base colors. See sample mapPaletteDesigner for more info.*/
+        var palette1 = JSC.colorToPalette('#ff5252', { lightness: 0.5 }, 6, 0).concat(
+          JSC.colorToPalette('#a8e5ff', { lightness: 0.5 }, 14, 0),
+          JSC.colorToPalette('#ffe0b2', { lightness: 0.5 }, 16, 0)
+        );
+        var palette2 = JSC.colorToPalette('#64ffda', { hue: 0.5, lightness: 0.1 }, 11, 0);
+        var pointCount1 = 0;
+        var pointCount2 = 0;
+        var series1 = {
+          shape: {
+            center: '50%,60%',
+            size: 400,
+            label: {
+              text:
+                '<icon name=linear/arrows/clockwise size=125 rotate=182 outline_width=2 outline_color=white fill=#eeeeee>',
+              align: 'center',
+              verticalAlign: 'middle'
+            }
+          },
+          xAxis: 'x1',
+          points: JSC.nest()
+            .key('name')
+            .pointRollup(function(key, val) {
+              var vals = val[0];
+              if (vals.level == 'first' || vals.level == 'second' || vals.level == 'third') {
+                pointCount1++;
+                return {
+                  x: vals.level,
+                  y: [-vals.start_date, -vals.end_date],
+                  name: key,
+                  color: palette1[pointCount1 - 1]
+                };
+              }
+            })
+            .points(data)
+        };
+        series1.points = series1.points.filter(function(element) {
+          return element !== undefined;
+        });
+
+        var series2 = {
+          shape: {
+            center: '50%,60%',
+            size: 740,
+            innerSize: 0.51
+          },
+          xAxis: 'x2',
+          points: JSC.nest()
+            .key('name')
+            .pointRollup(function(key, val) {
+              var vals = val[0];
+              if (vals.level != 'first' && vals.level != 'second' && vals.level != 'third') {
+                pointCount2++;
+                return {
+                  x: vals.level,
+                  y: [-vals.start_date, -vals.end_date],
+                  name: key,
+                  color: palette2[pointCount2 - 1]
+                };
+              }
+            })
+            .points(data)
+        };
+        series2.points = series2.points.filter(function(element) {
+          return element !== undefined;
+        });
+
+        return [series1, series2];
+      }
+    </script>
+  </body>
+</html>

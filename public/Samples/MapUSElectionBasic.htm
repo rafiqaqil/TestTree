@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Map US Election Basic | JSCharting</title>
+    <meta http-equiv="content-type" content="text-html; charset=utf-8" />
+
+    <script type="text/javascript" src="../jsc/jscharting.js"></script>
+
+    <script type="text/javascript" src="../jsc/modules/maps.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="css/default.css" />
+    <style type="text/css">
+      /*CSS*/
+    </style>
+  </head>
+  <body>
+    <div id="chartDiv" style="max-width: 740px;height: 480px;margin: 0px auto;"></div>
+
+    <script type="text/javascript">
+      /*
+Two map series, each with a specific set of map features.
+Learn how to:
+
+  - Map points from mapFiles.
+*/
+      // JS
+
+      var redStates = 'WV,NC,SC,IN,KY,TN,AL,GA,MS,LA,AR,MO,TX,OK,KS,NE,SD,ND,WY,MT,ID,UT,AZ,AK';
+      var blueStates = 'WA,OR,CA,NV,CO,NM,MN,IA,WI,IL,MI,OH,PA,VA,NY,ME,NH,VT,MA,CT,RI,NJ,DE,MD,DC,FL,HI';
+
+      var chart = JSC.chart('chartDiv', {
+        debug: true,
+        title_label_text: '2012 Presidential Election Results',
+        type: 'map',
+        /* Disable zooming */
+        axisToZoom: '',
+        toolbar_visible: false,
+        legend: {
+          position: 'inside top right',
+          margin_right: 100,
+          layout: 'horizontal'
+        },
+        defaultPoint: {
+          outline_color: 'white',
+          label_text: '%stateCode',
+          tooltip: '%name<br/><b>Winner:</b> %seriesName'
+        },
+        series: [
+          {
+            name: 'Romney',
+            color: '#bb4e55',
+            points: redStates.split(',').map(function(val) {
+              return { map: 'US.' + val };
+            })
+          },
+          {
+            name: 'Obama',
+            color: '#40698b',
+            points: blueStates.split(',').map(function(val) {
+              return { map: 'US.' + val };
+            })
+          }
+        ]
+      });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Map Province Attributes | JSCharting</title>
+    <meta http-equiv="content-type" content="text-html; charset=utf-8" />
+
+    <script type="text/javascript" src="../jsc/jscharting.js"></script>
+
+    <script type="text/javascript" src="../jsc/modules/maps.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="css/default.css" />
+    <style type="text/css">
+      /*CSS*/
+    </style>
+  </head>
+  <body>
+    <div id="chartDiv" style="max-width: 540px;height: 400px;margin: 0px auto;"></div>
+
+    <script type="text/javascript">
+      /*
+Shows a few native map tokens in tooltips.
+Learn how to:
+
+  - Use mapping tokens in tooltips.
+  - Map series from mapCodes.
+*/
+      // JS
+      var chart = JSC.chart('chartDiv', {
+        debug: true,
+        type: 'map',
+        legend_visible: false,
+        title_label_text: 'Hover states to see available tokens.',
+        defaultPoint_tooltip:
+          '<b>%mapcode</b> <br>(%statecode) %name - %countryregion <br>(%countrycode) %country - %continent <br/>%worldRegion',
+        series: [{ map: 'us', palette: 'default' }]
+      });
+    </script>
+  </body>
+</html>

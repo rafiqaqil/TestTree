@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Smart Category Grouping | JSCharting</title>
+    <meta http-equiv="content-type" content="text-html; charset=utf-8" />
+
+    <script type="text/javascript" src="../jsc/jscharting.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="css/default.css" />
+    <style type="text/css">
+      .excHeads {
+        background-color: #000000;
+        color: #ffffff;
+      }
+      .samTbls {
+        text-align: center;
+        width: 600px;
+        margin: 0px auto;
+      }
+      .clsWData {
+        background-color: #efefef;
+      }
+      .samTblFrstCol {
+        width: 100px;
+      }
+    </style>
+  </head>
+  <body>
+    <div style="max-width: 750px;margin: 0px auto;">
+      <h3>Smart Category Grouping</h3>
+      <p>Consider excel type data table with missing data points.</p>
+
+      <table class="samTbls">
+        <tr>
+          <th class="samTblFrstCol">&nbsp;</th>
+          <th class="excHeads">
+            A
+          </th>
+          <th class="excHeads">
+            B
+          </th>
+          <th class="excHeads">
+            C
+          </th>
+          <th class="excHeads">
+            D
+          </th>
+          <th class="excHeads">
+            E
+          </th>
+          <th class="excHeads">
+            F
+          </th>
+          <th class="excHeads">
+            G
+          </th>
+          <th class="excHeads">
+            H
+          </th>
+        </tr>
+        <tr>
+          <td class="samTblFrstCol" style="background-color:#5591F6">
+            Series 1
+          </td>
+          <td>&nbsp;</td>
+          <td>&nbsp;</td>
+          <td class="clsWData">1</td>
+          <td class="clsWData">1</td>
+          <td class="clsWData">1</td>
+          <td class="clsWData">1</td>
+          <td>&nbsp;</td>
+          <td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td class="samTblFrstCol" style="background-color:#FE5D2B">
+            Series 2
+          </td>
+          <td>&nbsp;</td>
+          <td>&nbsp;</td>
+          <td>&nbsp;</td>
+          <td>&nbsp;</td>
+          <td class="clsWData">1</td>
+          <td class="clsWData">1</td>
+          <td class="clsWData">1</td>
+          <td class="clsWData">1</td>
+        </tr>
+        <tr>
+          <td class="samTblFrstCol" style="background-color:#DED02E">
+            Series 3
+          </td>
+          <td class="clsWData">1</td>
+          <td class="clsWData">1</td>
+          <td class="clsWData">1</td>
+          <td class="clsWData">1</td>
+          <td>&nbsp;</td>
+          <td>&nbsp;</td>
+          <td>&nbsp;</td>
+          <td>&nbsp;</td>
+        </tr>
+      </table>
+
+      <p>
+        Each series will only contain the points with data. In this example, the names of data points for each series
+        are as follows:
+      </p>
+
+      <table class="samTbls">
+        <tr>
+          <td class="samTblFrstCol" style="background-color:#5591F6">
+            Series 1
+          </td>
+          <td>C</td>
+          <td>D</td>
+          <td>E</td>
+          <td>F</td>
+        </tr>
+        <tr>
+          <td class="samTblFrstCol" style="background-color:#FE5D2B">
+            Series 2
+          </td>
+          <td>E</td>
+          <td>F</td>
+          <td>G</td>
+          <td>H</td>
+        </tr>
+        <tr>
+          <td class="samTblFrstCol" style="background-color:#DED02E">
+            Series 3
+          </td>
+          <td>A</td>
+          <td>B</td>
+          <td>C</td>
+          <td>D</td>
+        </tr>
+      </table>
+
+      <p>
+        When all series do not contain points with same names, the chart will try to figure out the intended order
+        automatically. Given the info above, it is enough to determine the correct order. Some overlaps in point names
+        between series is required to logically conclude the correct result.
+      </p>
+
+      <div id="chartDiv" style="max-width: 740px;height: 200px;margin: 0px auto;"></div>
+    </div>
+
+    <script type="text/javascript">
+      /*
+Demonstrates how unmatched datasets will be grouped in a logical way removing the need for manually specifying the order. The chart will recognize the same datasets but with missing values and order them correctly.
+Learn how to:
+
+  - Use smart data category grouping to automatically order data points of different series.
+*/
+      // JS
+      var chart = JSC.chart('chartDiv', {
+        debug: true,
+        type: 'column',
+        yAxis_scale_type: 'stacked',
+        series: [
+          {
+            name: 'Series 1',
+            points: [['C', 1], ['D', 1], ['E', 1], ['F', 1]]
+          },
+          {
+            name: 'Series 2',
+            points: [['E', 1], ['F', 1], ['G', 1], ['H', 1]]
+          },
+          {
+            name: 'Series 3',
+            points: [['A', 1], ['B', 1], ['C', 1], ['D', 1]]
+          }
+        ]
+      });
+    </script>
+  </body>
+</html>

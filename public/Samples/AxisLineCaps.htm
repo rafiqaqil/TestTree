@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Axis Line Caps | JSCharting</title>
+    <meta http-equiv="content-type" content="text-html; charset=utf-8" />
+
+    <script type="text/javascript" src="../jsc/jscharting.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="css/default.css" />
+    <style type="text/css">
+      /*CSS*/
+    </style>
+  </head>
+  <body>
+    <div id="chartDiv" style="max-width: 740px;height: 400px;margin: 0px auto;"></div>
+
+    <script type="text/javascript">
+      /*
+Arrow and circle axis line caps.
+Learn how to:
+
+  - Style axis line caps.
+*/
+      // JS
+      var chart = JSC.chart('chartDiv', {
+        debug: true,
+        type: 'line spline',
+        title_label: {
+          text: 'Average Temperature (°C)',
+          style_fontSize: 15
+        },
+        legend_visible: false,
+        palette: ['#00bf80'],
+        xAxis: {
+          line: {
+            width: 5,
+            color: '#77a2ee',
+            caps: {
+              start: { type: 'none' },
+              end: { type: 'arrow' }
+            }
+          }
+        },
+        yAxis: {
+          defaultTick: { label_text: '%value°C', line_length: 10 },
+          originTick_gridLine: { width: 3, color: '#77a2ee' },
+          line: {
+            width: 5,
+            color: '#77a2ee',
+            caps: {
+              start: { type: 'circle' },
+              end: { type: 'arrow' }
+            }
+          }
+        },
+        series: [
+          {
+            defaultPoint: {
+              tooltip: '<b>%name</b> %yValue°C',
+              marker_size: 0
+            },
+            points: [
+              { x: 'Jan', y: -6.5 },
+              { x: 'Feb', y: -6.7 },
+              { x: 'Mar', y: -1 },
+              { x: 'Apr', y: 6.7 },
+              { x: 'May', y: 13.2 },
+              { x: 'Jun', y: 17 },
+              { x: 'Jul', y: 19.2 },
+              { x: 'Aug', y: 17 },
+              { x: 'Sep', y: 11.3 },
+              { x: 'Oct', y: 5.6 },
+              { x: 'Nov', y: -1.2 },
+              { x: 'Dec', y: -5.2 }
+            ]
+          }
+        ]
+      });
+    </script>
+  </body>
+</html>

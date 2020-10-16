@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Dynamic Cultures Calendar Chart | JSCharting</title>
+    <meta http-equiv="content-type" content="text-html; charset=utf-8" />
+
+    <script type="text/javascript" src="../jsc/jscharting.js"></script>
+
+    <script type="text/javascript" src="../jsc/modules/toolbar.js"></script>
+    <script type="text/javascript" src="../jsc/modules/types.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="css/default.css" />
+    <style type="text/css">
+      /*CSS*/
+    </style>
+  </head>
+  <body>
+    <div id="chartDiv" style="max-width: 740px;height: 180px;margin: 0px auto;"></div>
+
+    <script type="text/javascript">
+      /*
+Calendar chart from CSV data using a specific formatting culture.
+Learn how to:
+
+  - Set culture based formatting.
+*/
+      // JS
+      var chart = JSC.chart('chartDiv', {
+        debug: true,
+        type: 'calendar year solid',
+        data: './resources/CarSales_2017.csv',
+        defaultCultureName: 'es-MX',
+        annotations: [
+          {
+            position: 'top left',
+            label_text: 'Culture settings will format all labels.'
+          }
+        ],
+        legend_visible: false,
+        defaultBox_boxVisible: false,
+        toolbar_items: {
+          export_visible: false,
+          culture: {
+            type: 'select',
+            position: 'top',
+            label_text: 'Culture: %value',
+            events_change: function(val) {
+              setCulture(val);
+            },
+            items: 'en-US,es-MX,pl-PL,de-DE,fr-FR,ja-JP',
+            value: 'es-MX'
+          }
+        }
+      });
+      function setCulture(val) {
+        chart.options({ defaultCultureName: val });
+      }
+    </script>
+  </body>
+</html>

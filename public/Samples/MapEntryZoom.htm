@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Map Entry Zoom | JSCharting</title>
+    <meta http-equiv="content-type" content="text-html; charset=utf-8" />
+
+    <script type="text/javascript" src="../jsc/jscharting.js"></script>
+
+    <script type="text/javascript" src="../jsc/modules/toolbar.js"></script>
+    <script type="text/javascript" src="../jsc/modules/maps.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="css/default.css" />
+    <style type="text/css">
+      /*CSS*/
+    </style>
+  </head>
+  <body>
+    <div id="chartDiv" style="max-width: 740px;height: 400px;margin: 0px auto;"></div>
+
+    <script type="text/javascript">
+      /*
+Use a custom legend entry to reset zooming.
+Learn how to:
+
+  - Map series from mapCodes.
+  - Interact with maps legend click events.
+  - Zoom map charts.
+*/
+      // JS
+      var chart = JSC.Chart('chartDiv', {
+        debug: true,
+        type: 'map',
+        title_label_text: 'Legend Zoom Navigation',
+        legend: {
+          title_label_text: 'Click legend below',
+          position: 'inside left top',
+          margin: 4,
+          fill: ['white', 0.7]
+        },
+        toolbar_items_resetZoom_visible: false,
+        defaultSeries_events: { legendEntryClick: leClick },
+        defaultPoint_tooltip: '%name',
+        series: [{ map: 'CA' }, { map: 'US' }, { map: 'MX' }, { map: 'GT' }, { map: 'HN' }]
+      });
+
+      var zoomEntry = {
+        name: 'Reset Zoom',
+        id: 'zoomEntry',
+        icon: {
+          name: 'system/default/zoom/zoom-out',
+          fill: '#c2bbc2',
+          outline_color: '#7a7a7a'
+        },
+        events_click: function() {
+          /* Reset zoom and remove entry */
+          chart.zoom('initial');
+          /* Reset bold style of previously clicked legend entry */
+          boldLE && boldLE.options({ style_fontWeight: 'normal' }, false);
+          boldLE = null;
+          chart
+            .legends(0)
+            .entries('zoomEntry')
+            .remove();
+        }
+      };
+
+      /* Store entry that is bold */
+      var boldLE;
+      function leClick(e) {
+        this.options({ style_fontWeight: 'bold' }, false);
+        var legend = chart.legends(0);
+        /* Reset bold style of previously clicked legend entry */
+        boldLE && boldLE.options({ style_fontWeight: 'normal' }, false);
+        boldLE = this.legendEntry.options({ style_fontWeight: 'bold' }, false);
+
+        if (!legend.entries('zoomEntry')) {
+          legend.entries.add(zoomEntry);
+        }
+        this.zoomTo();
+        return false;
+      }
+    </script>
+  </body>
+</html>

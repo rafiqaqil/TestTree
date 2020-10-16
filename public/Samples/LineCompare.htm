@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Multi Dimentional Trend Line Chart | JSCharting</title>
+    <meta http-equiv="content-type" content="text-html; charset=utf-8" />
+
+    <script type="text/javascript" src="../jsc/jscharting.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="css/default.css" />
+    <style type="text/css">
+      /*CSS*/
+    </style>
+  </head>
+  <body>
+    <div id="chartDiv" style="max-width: 740px;height: 400px;margin: 0px auto;"></div>
+
+    <script type="text/javascript">
+      /*
+A multi-dimentional trend line chart that compares two time periods.
+Learn how to:
+
+  - Compare the difference between data point of two lines.
+*/
+      // JS
+
+      // Chart data and settings can be replaced with any data.
+      var period = 7,
+        valuesName = 'Users',
+        dataColor = '#8698fa',
+        data = [
+          ['6/6/2021', 56],
+          ['6/7/2021', 97],
+          ['6/8/2021', 110],
+          ['6/9/2021', 129],
+          ['6/10/2021', 144],
+          ['6/11/2021', 117],
+          ['6/12/2021', 61],
+          ['6/13/2021', 59],
+          ['6/14/2021', 105],
+          ['6/15/2021', 102],
+          ['6/16/2021', 135],
+          ['6/17/2021', 128],
+          ['6/18/2021', 104],
+          ['6/19/2021', 52]
+        ];
+
+      // Process data into two series to make a multi-dimentional trend chart.
+      var series = (function() {
+        //convert raw dates into values.
+        var entries = data.map(function(row) {
+          return [new Date(row[0]).getTime(), row[1]];
+        });
+        //Determine the date at which to split the data.
+        var maxDate = entries[entries.length - 1][0],
+          cutoffDate = addDays(maxDate, -period),
+          minDate = addDays(cutoffDate, -period);
+
+        //Create two series
+        var series = [
+          {
+            name: 'previous',
+            points: [],
+            line: { width: 1, dashStyle: 'dash' }
+          },
+          { name: 'current', points: [] }
+        ];
+
+        //Populate series points giving the previous series points
+        entries.forEach(function(row) {
+          if (row[0] > minDate) {
+            var isPrevious = row[0] <= cutoffDate;
+            if (isPrevious) {
+              series[0].points.push({ x: addDays(row[0], period), y: row[1], attributes_date: row[0] });
+            } else {
+              series[1].points.push({ x: row[0], y: row[1] });
+            }
+          }
+        });
+
+        return series;
+
+        function addDays(date, days) {
+          var dt = new Date(date);
+          return dt.setDate(dt.getDate() + days);
+        }
+      })();
+
+      // Generates KPI text from values.
+      var toKpiText = function(name, valueA, valueB) {
+        var a = valueA,
+          b = valueB,
+          delta = b / a - 1,
+          color = delta >= 0 ? 'green' : 'red',
+          icon =
+            '<icon verticalAlign=middle name=' +
+            (delta >= 0 ? 'arrow-up' : 'arrow-down') +
+            ' size=13 color=' +
+            color +
+            '>',
+          labelValues = [name, b, icon, Math.abs(Math.round(delta * 1000) / 10) + '%'],
+          labelStyles = [
+            'width:40px;',
+            'width:40px;font-weight:bold;',
+            'width:20px;',
+            'width:42px; color:' + color + ';font-weight:bold;'
+          ];
+
+        return labelValues
+          .map(function(v, i) {
+            return '<span style="' + labelStyles[i] + '">' + v + '</span>';
+          })
+          .join('');
+      };
+
+      var titleText = toKpiText(valuesName, JSC.sum(series[0].points, 'y'), JSC.sum(series[1].points, 'y'));
+
+      var tooltipFormatter = function(pts) {
+        // Data points (pts) will be sorted by the order the appear on the y axis.
+        // Sort them by series index to ensure consistent order.
+        pts.sort(function(p, n) {
+          var a = p.series._i,
+            b = n.series._i;
+          return a < b ? -1 : a > b ? 1 : 0;
+        });
+
+        var formatDate = function(dt) {
+          return JSC.formatDate(dt, 'M');
+        };
+
+        return (
+          '<span style="align:center;color:#777">' +
+          formatDate(pts[1].tokenValue('%xValue')) +
+          ' vs ' +
+          formatDate(pts[0].tokenValue('%date')) +
+          '</span><br/><br/>' +
+          toKpiText(valuesName, pts[0].y, pts[1].y)
+        );
+      };
+
+      var chart = JSC.chart('chartDiv', {
+        debug: true,
+        type: 'line',
+        legend_visible: false,
+        margin: { bottom: 5, right: 20 },
+        title_label: {
+          text: titleText,
+          style: { fontWeight: 'normal', fontSize: 15 }
+        },
+        defaultAxis: {
+          line_width: 0,
+          alternateGridFill: 'none',
+          defaultTick_gridLine_color: '#e5e5e5'
+        },
+        yAxis_orientation: 'opposite',
+        xAxis: {
+          crosshair_enabled: true,
+          scale_type: 'time'
+        },
+        defaultSeries: {
+          color: dataColor,
+          defaultPoint: {
+            marker: {
+              // The type is set for focusGlow shape
+              type: 'circle',
+              fill: 'none',
+              outline_width: 0
+            },
+            focusGlow: { color: dataColor, width: 5 }
+          }
+        },
+        defaultTooltip: {
+          padding: 15,
+          label_text: tooltipFormatter
+        },
+        series: series,
+        toolbar_visible: false
+      });
+    </script>
+  </body>
+</html>

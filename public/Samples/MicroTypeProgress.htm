@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Progress Microchart Options | JSCharting</title>
+    <meta http-equiv="content-type" content="text-html; charset=utf-8" />
+
+    <script type="text/javascript" src="../jsc/jscharting.js"></script>
+
+    <script type="text/javascript" src="../jsc/modules/types.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="css/default.css" />
+    <style type="text/css"></style>
+  </head>
+  <body>
+    <div id="chartDiv" style="max-width:430px; height: 640px;margin: 0px auto;"></div>
+
+    <script type="text/javascript">
+      /*
+Demonstrates progress type microchart options.
+Learn how to:
+
+  - Customize progress microchart options.
+*/
+      // JS
+
+      var examples = [
+        ['Progress Bar', '<chart type=progress margin=5 data=6 >'],
+        ['Progress Bar with scale max set', '<chart type=progress margin=5 data=6 max=10>'],
+        ['Progress Bar with scale max and min', '<chart type=progress margin=5 data=6 max=10 min=-4>'],
+        ['Progress Bar with negative values', '<chart type=progress margin=5 data=-6 max=0 min=-10>'],
+        ['Coloring'],
+        ['Progress Bar Fully Colored', '<chart type=progress margin=5 data=6 max=10 colors=forestgreen,lightGreen>'],
+        ['Transparent Background', '<chart type=progress margin=5 data=6 max=10 colors=forestgreen,none>'],
+        ['Shading'],
+        ['Progress Bar Shading 1', '<chart type=progress margin=5 data=8 max=10 shading=1>'],
+        ['Progress Bar Shading 2', '<chart type=progress margin=5 data=8 max=10 shading=2>'],
+        ['Progress Bar Shading 3', '<chart type=progress margin=5 data=8 max=10 shading=3>'],
+        ['Progress Bar Shading 4', '<chart type=progress margin=5 data=8 max=10 shading=4>'],
+        ['Progress Bar Shading 5', '<chart type=progress margin=5 data=8 max=10 shading=5>'],
+        ['Sizing'],
+        [
+          'Progress Bar with specified size',
+          '<chart width=150 height=20 margin=5 type=progress data=6 max=10 color=bisque>'
+        ]
+      ];
+
+      function makeText(title) {
+        var result = '<span style="font-size: 14px; font-weight: bold;">' + title + '</span>	<hr><ul>';
+
+        result += examples
+          .map(function(entry) {
+            return entry.length === 1
+              ? '</ul><br><b>' + entry[0] + '</b><hr><ul>'
+              : '<li><span style="width:200px; verticalAlign: middle;">' + entry[0] + '</span>' + entry[1] + '</li>';
+          })
+          .join('');
+
+        result += '</ul></span>';
+        return result;
+      }
+
+      var chart = JSC.chart('chartDiv', {
+        toolbar_visible: false,
+        margin_bottom: 30,
+        defaultBox_boxVisible: false,
+        annotations: [
+          {
+            position: 'inside center',
+            label_text: makeText('Progress Bar Type Options')
+          }
+        ]
+      });
+    </script>
+  </body>
+</html>

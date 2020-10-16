@@ -1,0 +1,131 @@
+
+
+
+<p>Series and data point styling can be fully controlled through a set of properties and color adjustment settings.
+</p>
+<p>
+    The color adjustment system allows specifying a default colorizing scheme that is not color dependent. A certain
+    look can be defined for all series and points through a single set of default settings. The actual colors will be
+    assigned by a chart palette or directly on the series.
+</p>
+
+<h2>Palettes</h2>
+<p>The <a href="Types.chart.palette">chart.palette</a> property can be set with an array of colors or a palette name.
+    Please see <a href="Enums.palette">this list</a> of available predefined palettes. </p>
+
+<p>Specific colors of pre-defined palette can be retrieved using the <a href="iObject.JSC.getPalette()">JSC.getPalette()</a> function.</p>
+<span class="codeText">
+	JSC.getPalette('default') //-> ["#4285F4", "#fE4C14", "#DBCB18", "#15AC20",...
+</span>
+
+<span class="docsReference">Samples.mapPaletteDesigner:Provides a utility to generate code or colors
+	where the variation between colors can be controlled | Tutorials.smartPalette</span>
+
+<h2>Color by Point</h2>
+Series points can iterate a palette applying different colors to each point when the
+<a href="Types.series.palette">series.palette</a> property is set with
+an array of colors, or palette name. When a series has a palette defined, each point is automatically assigned a legend entry.
+<span class="codeText">
+	var chartOptions ={
+		series:[{
+			name:'Series 1',
+			palette:'autumn',
+			points:[/*...*/]
+	}]
+	}
+</span>
+<h2>Series</h2>
+
+<p>Not all chart types such as bar charts have visual elements to style, however, area and line charts do. The <a href="Types.series.line">series.line</a> and
+	<a href="Types.series.shape">series.shape</a> config objects provide styling options for these visuals when applicable.
+	Line caps can also be specified for series lines.</p>
+
+<span class="codeText">
+	var chartOptions = {
+		series:[{
+			type:'area',
+			line:{width:1,caps_end_type:'arrow'},
+			shape_fill:'white',
+			points:[/*...*/]
+		}]
+	};
+</span>
+
+<h2>Points</h2>
+
+<p>Points have <a href="Types.point.color">color</a>, <a href="Types.point.fill">fill</a>,
+	and <a href="Types.point.outline">outline</a> properties. Setting the color property applies
+	the color to fill and slightly darker version of it to the outline color.
+	Setting fill and outline.color separately provides full control over these colors and avoids any automated styling.
+</p>
+<p>Point label styles such as fontFamily, and fontSize, can be set through the the <a href="Types.label.style">point.label.style</a> property.
+</p>
+
+<h2>Point Markers</h2>
+
+<p>Point marker styling can be specified similarity through the pointMarker <a href="Types.pointMarker.color">color</a>, <a href="Types.pointMarker.fill">fill</a>,
+	and <a href="Types.pointMarker.outline">outline</a> properties.
+	Not all series types have points with markers by default, but they can be enabled for all series types.</p>
+
+<h2>Hatch Styling</h2>
+
+<p>Hatch patterns can be applied to data points. The <a href="Enums.hatchStyle">hatchStyle enum</a> defines all available hatch patterns. Similar to color
+	palettes, the <a href="Types.chart.hatchPalette">chart.hatchPalette</a> and
+	<a href="Types.series.hatchPalette">series.hatchPalette</a> property can be set with an array of hatch pattern names or true to enable the default palette.
+	Hatch patterns can also be applied to individual data points through the <a href="Types.point.hatch.style">point.hatch.style</a> property.</p>
+
+<h2>Color Adjustment Settings</h2>
+<p>A series is assigned a color usually from a chart palette or set directly through the series.color property.
+	This become the series base color. The styling flows through subsequent styling properties resulting in the same
+	or adjusted colors depending on the property. These adjustments can be specified by using special naming in the color properties.
+</p>
+<p>For example, the following snippet makes the point outline color darker than the base color.
+</p>
+<span class="codeText">
+	var chartOptions ={defaultPoint:{outline:{color:'darken'}}}
+</span>
+<p>Similarly, color adjustment for any series and point related color properties can be disabled by specifying 'currentColor'.</p>
+<span class="codeText">
+	var chartOptions ={defaultPoint:{outline:{color:'currentColor'}}}
+</span>
+
+<h3>Color adjustment options</h3>
+
+<span class="tutorialImage">
+<img src="tutorials/images/colorAdjust.png" title="JavaScript Chart data point color adjustment options"/>
+<em>Figure 1.</em><section>Illustration of color adjustment optinos.</section>
+</span>
+
+<ul class="simpleKvpList">
+	<li><em>currentColor</em>
+		<section>The base color of the series or point.
+
+		</section>
+	</li>
+	<li><em>lighten</em>
+		<section>A slightly lighter version of the color.</section>
+	</li><li><em>lightenMore</em>
+		<section>A lighter version of the color.</section>
+	</li>
+	<li><em>darken</em>
+		<section>A slightly darker version of the color.</section>
+	</li>
+	<li><em>darkenMore</em>
+		<section>A darker version of the color.</section>
+	</li>
+	<li><em>desaturate</em>
+		<section>Desaturates the color completely.</section>
+	</li><li><em>complement</em>
+		<section>A color with a complementary hue.</section>
+	</li><li><em>contrast </em>
+		<section>A color that contrasts with the current color.</section>
+	</li>
+</ul>
+
+<h2>States</h2>
+
+<p>Point styling of hover and select states can also be defined using the <a href="Types.point.states">point.states</a> hover/select properties.</p>
+<p></p>
+
+<p>See the <a href="Tutorials.states">states tutorial</a> for more information.</p>
+

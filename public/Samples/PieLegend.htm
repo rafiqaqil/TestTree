@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Pie Legend | JSCharting</title>
+    <meta http-equiv="content-type" content="text-html; charset=utf-8" />
+
+    <script type="text/javascript" src="../jsc/jscharting.js"></script>
+
+    <script type="text/javascript" src="../jsc/modules/types.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="css/default.css" />
+    <style type="text/css"></style>
+  </head>
+  <body>
+    <div id="chartDiv" style="width: 840px; height: 494px;"></div>
+
+    <script type="text/javascript">
+      /*
+Uses a pie series as a legend that lets you toggle series visibility by clicking the pie slices.
+Learn how to:
+
+  - Use an interactive pie as a legend.
+*/
+      // JS
+
+      var sumSeries = {
+        name: 'Summary',
+        type: 'pie',
+        defaultPoint: {
+          tooltip: '%name <b>%yValue</b><br/>{%percentOfSeries:n1}% of Total',
+          label_text: '%name <br>%yValue',
+          label_line: { visible: false },
+          events_click: toggleSer
+        },
+        shape: { center: '150,80', size: 100 },
+        points: [
+          { name: 'Purchases', y: 948.9, color: '#E51E19' },
+          { name: 'Taxes', y: 909.9, color: '#FC7529' },
+          { name: 'Supplies', y: 818.9, color: '#F9F23D' },
+          { name: 'Rent', y: 598.9, color: '#8DEA55' }
+        ]
+      };
+
+      var chart = JSC.chart('chartDiv', {
+        debug: true,
+        palette: 'fiveColor32',
+        title: {
+          label: {
+            style_fontSize: 16,
+            text: 'XYZ Inc 2020 Cost Chart.'
+          }
+        },
+        legend_visible: false,
+        annotations: [
+          {
+            position: 'inside top right',
+            label_text: 'Click the pie slices to toggle series visibility.'
+          }
+        ],
+        defaultAxis: {
+          defaultTick_label_style_fontSize: '14px',
+          label_style_fontSize: '16px'
+        },
+        xAxis: {
+          label_text: '2020',
+
+          originTick_enabled: false,
+          formatString: 'MMM',
+          scale: { type: 'time', interval: { unit: 'month' } }
+        },
+        yAxis: {
+          scale_type: 'stacked',
+          formatString: 'c',
+          label_text: 'Cost (USD)'
+        },
+        defaultSeries: { type: 'area', opacity: 0.85 },
+        defaultPoint: {
+          label_style_fontSize: 12,
+          marker: {
+            type: 'circle',
+
+            fill: 'white',
+            outline_width: 2
+          },
+          tooltip:
+            "%seriesName <b>%yValue</b><br/>{%percentOfGroup:n1}% of this month's cost<br/>{%percentOfTotal:n1}% of 2020 cost"
+        },
+        series: [
+          {
+            name: 'Purchases',
+            points: [
+              ['1/1/2020', 19.9],
+              ['2/1/2020', 29.9],
+              ['3/1/2020', 71.5],
+              ['4/1/2020', 96.4],
+              ['5/1/2020', 129.2],
+              ['6/1/2020', 144.0],
+              ['7/1/2020', 176.0],
+              ['8/1/2020', 126.0],
+              ['9/1/2020', 156.0]
+            ]
+          },
+          {
+            name: 'Taxes',
+            points: [
+              ['1/1/2020', 13.9],
+              ['2/1/2020', 86.9],
+              ['3/1/2020', 89.5],
+              ['4/1/2020', 106.4],
+              ['5/1/2020', 97.2],
+              ['6/1/2020', 123.0],
+              ['7/1/2020', 111.0],
+              ['8/1/2020', 126.0],
+              ['9/1/2020', 156.0]
+            ]
+          },
+          {
+            name: 'Supplies',
+            points: [
+              ['1/1/2020', 39.9],
+              ['2/1/2020', 129.9],
+              ['3/1/2020', 111.5],
+              ['4/1/2020', 66.4],
+              ['5/1/2020', 29.2],
+              ['6/1/2020', 88.0],
+              ['7/1/2020', 102.0],
+              ['8/1/2020', 126.0],
+              ['9/1/2020', 126.0]
+            ]
+          },
+          {
+            name: 'Rent',
+            points: [
+              ['1/1/2020', 59.9],
+              ['2/1/2020', 56.9],
+              ['3/1/2020', 56.5],
+              ['4/1/2020', 56.4],
+              ['5/1/2020', 56.2],
+              ['6/1/2020', 75.0],
+              ['7/1/2020', 56.0],
+              ['8/1/2020', 56.0],
+              ['9/1/2020', 126.0]
+            ]
+          },
+          sumSeries
+        ]
+      });
+
+      function toggleSer(e) {
+        var point = this;
+        if (point.series.name === 'Summary') {
+          chart.series(point.name).visible();
+          point.options({ exploded: !point.options('exploded') });
+        }
+      }
+    </script>
+  </body>
+</html>

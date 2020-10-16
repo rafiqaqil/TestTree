@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Polar Grid Column Chart | JSCharting</title>
+    <meta http-equiv="content-type" content="text-html; charset=utf-8" />
+
+    <script type="text/javascript" src="../jsc/jscharting.js"></script>
+
+    <script type="text/javascript" src="../jsc/modules/types.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="css/default.css" />
+    <style type="text/css">
+      /*CSS*/
+    </style>
+  </head>
+  <body>
+    <div id="chartDiv" style="max-width: 440px;height: 400px;margin: 0px auto;"></div>
+
+    <script type="text/javascript">
+      /*
+Radar chart with y axis gridlines on top.
+Learn how to:
+
+  - Render gridlines on top of data.
+*/
+      // JS
+      var chart = JSC.chart('chartDiv', {
+        debug: true,
+        type: 'radar polar column',
+        legend_visible: false,
+        xAxis: {
+          spacingPercentage: 0,
+          defaultTick: { gridLine_width: 0, line_length: 0 }
+        },
+        yAxis_onTop: true,
+        series: [
+          {
+            name: 'Important Qualities',
+            points: [
+              ['Strength', 5],
+              ['Constitution', 9],
+              ['Dexterity', 20],
+              ['Intelligence', 15],
+              ['Wisdom', 10],
+              ['Charisma', 18]
+            ]
+          }
+        ]
+      });
+    </script>
+  </body>
+</html>

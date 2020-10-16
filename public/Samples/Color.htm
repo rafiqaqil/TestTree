@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Color Infographic | JSCharting</title>
+    <meta http-equiv="content-type" content="text-html; charset=utf-8" />
+
+    <script type="text/javascript" src="../jsc/jscharting.js"></script>
+
+    <script type="text/javascript" src="../jsc/modules/types.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="css/default.css" />
+    <style type="text/css">
+      .mainWrapper {
+        width: 900px;
+        height: 1490px;
+        background: url('images/Color.png');
+        background-size: cover;
+        background-repeat: no-repeat;
+        margin-left: auto;
+        margin-right: auto;
+        position: relative;
+        left: -25px;
+      }
+
+      #cc1 {
+        position: absolute;
+        margin-top: 270px;
+        margin-left: 16px;
+        width: 550px;
+        height: 352px;
+      }
+      #cc2 {
+        position: absolute;
+        margin-top: 264px;
+        margin-left: 390px;
+        width: 550px;
+        height: 352px;
+      }
+      #cc3 {
+        position: absolute;
+        margin-top: 670px;
+        margin-left: 0px;
+        width: 900px;
+        height: 352px;
+      }
+      #cc4 {
+        position: absolute;
+        margin-top: 1150px;
+        margin-left: 0px;
+        width: 500px;
+        height: 352px;
+      }
+      #cc5 {
+        position: absolute;
+        margin-top: 1145px;
+        margin-left: 540px;
+        width: 300px;
+        height: 320px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="mainWrapper">
+      <div id="cc1"></div>
+      <div id="cc2"></div>
+      <div id="cc3"></div>
+      <div id="cc4"></div>
+      <div id="cc5"></div>
+    </div>
+
+    <script type="text/javascript">
+      /*
+Color infographic using JavaScript charts.
+Learn how to:
+
+  - Create an infographic with overlaying charts.
+  - Use template for charts on the same page.
+*/
+      // JS
+      var template = {
+        chartArea: { fill: 'none', outline_color: 'none' },
+        box_fill: 'none',
+        legend_visible: false,
+        defaultPoint_label: {
+          text: '<b>%Value%</b><br/> %name',
+          style: { fontFamily: 'Arial', fontSize: 14 }
+        },
+        toolbar_visible: false
+      };
+      var chart = new JSC.Chart('cc1', {
+        debug: true,
+        type: 'pie',
+        template: template,
+        legend_visible: false,
+        defaultPoint_tooltip: '',
+        series: [
+          {
+            angle_sweep: 180,
+            shape_size: 300,
+            mouseTracking_enabled: false,
+            defaultPoint_label_placement: 'outside',
+            palette: ['#F9A825', '#FDD835', '#FFF59D'],
+            points: [{ name: 'Sound/Smell', y: 1 }, { name: 'Texture', y: 6 }, { name: 'Visual attractiveness', y: 93 }]
+          }
+        ]
+      });
+
+      var chart2 = new JSC.Chart('cc2', {
+        debug: true,
+        type: 'pie',
+        template: template,
+        legend_visible: false,
+        defaultPoint_tooltip: '',
+        series: [
+          {
+            angle_sweep: 180,
+            shape_size: 300,
+            mouseTracking_enabled: false,
+            defaultPoint_label_placement: 'outside',
+            palette: ['#FDD835', '#FFF59D'],
+            points: [{ name: 'Other', y: 15 }, { name: 'Color', y: 85 }]
+          }
+        ]
+      });
+
+      var chart3 = new JSC.Chart('cc3', {
+        debug: true,
+        template: template,
+        type: 'organization down',
+        defaultAnnotation: {
+          padding: [10, 20],
+          corners: 'round',
+          radius: 8,
+          margin: [15, 5, 0, 0]
+        },
+        series: [
+          {
+            line: { color: '#263238', width: 4 },
+            mouseTracking: false,
+            defaultPoint: {
+              label: {
+                text: '<b>%name</b> ',
+                color: 'white',
+                style_fontSize: 26
+              },
+              outline_width: 0,
+              tooltip: ''
+            },
+            points: [
+              { name: 'Colors', id: 'c', color: '#263238', label_style_fontSize: 30 },
+              { name: 'Red', id: 'r', parent: 'c', color: '#F44336' },
+              { name: 'Yellow', id: 'y', parent: 'c', color: '#FFEB3B' },
+              { name: 'Blue', id: 'b', parent: 'c', color: '#2196F3' },
+              { name: 'Orange', id: 'o', parent: 'c', color: '#FF9800' },
+              { name: 'Green', id: 'g', parent: 'c', color: '#4CAF50' },
+              { name: 'Purple', id: 'p', parent: 'c', color: '#9C27B0' },
+              {
+                name: 'Love<br/>Passion<br/>Fire<br/>Violence<br/>War',
+                id: 'rd',
+                parent: 'r',
+                color: 'none',
+                padding: 0,
+                label_color: '#000000',
+                label_style_fontSize: 14
+              },
+              {
+                name: 'Happiness<br/>Sunlight<br/>Cheating<br/>Cowardice',
+                id: 'yd',
+                parent: 'y',
+                color: 'none',
+                padding: 0,
+                label_color: '#000000',
+                label_style_fontSize: 14
+              },
+              {
+                name: 'Calmness<br/>A responsibility<br/>Sadness<br/>Peace',
+                id: 'bd',
+                parent: 'b',
+                color: 'none',
+                padding: 0,
+                label_color: '#000000',
+                label_style_fontSize: 14
+              },
+              {
+                name: 'Health<br/>Life force<br/>Autumn',
+                id: 'od',
+                parent: 'o',
+                color: 'none',
+                padding: 0,
+                label_color: '#000000',
+                label_style_fontSize: 14
+              },
+              {
+                name: 'Update<br/>Abundance<br/>New beginnings<br/>Envy<br/>Jealousy',
+                id: 'gd',
+                parent: 'g',
+                color: 'none',
+                padding: 0,
+                label_color: '#000000',
+                label_style_fontSize: 14
+              },
+              {
+                name: 'Creativity<br/>Fantasy<br/>Wealth<br/>Luxury',
+                id: 'pd',
+                parent: 'p',
+                color: 'none',
+                padding: 0,
+                label_color: '#000000',
+                label_style_fontSize: 14
+              }
+            ]
+          }
+        ]
+      });
+      var chart4 = new JSC.Chart('cc4', {
+        debug: true,
+        type: 'pie',
+        template: template,
+        legend_visible: false,
+        defaultPoint_tooltip: '',
+        series: [
+          {
+            shape_size: 240,
+            mouseTracking_enabled: false,
+            defaultPoint_label_placement: 'outside',
+            palette: ['#FDD835', '#FFF59D'],
+            points: [{ name: 'Use 2 or more colors', y: 5 }, { name: 'Use 2 color', y: 95 }]
+          }
+        ]
+      });
+
+      var chart5 = new JSC.Chart('cc5', {
+        debug: true,
+        type: 'column',
+        template: template,
+        legend_visible: false,
+        yAxis_visible: false,
+        xAxis: { defaultTick: { placement: 'inside', label: { color: 'white', style_fontWeight: 'bold' } } },
+        defaultPoint: {
+          label_text: '<b>%Value%</b> ',
+          tooltip: '<b>%name color</b> - %value%'
+        },
+        series: [
+          {
+            palette: ['#F44336', '#2196F3', '#263238', '#FFEB3B'],
+            points: [
+              { name: 'Red', y: 29 },
+              { name: 'Blue', y: 33 },
+              { name: 'Black', y: 28 },
+              { name: 'Yellow', y: 10 }
+            ]
+          }
+        ]
+      });
+    </script>
+  </body>
+</html>

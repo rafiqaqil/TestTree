@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Smart Palette Weather | JSCharting</title>
+    <meta http-equiv="content-type" content="text-html; charset=utf-8" />
+
+    <script type="text/javascript" src="../jsc/jscharting.js"></script>
+
+    <script type="text/javascript" src="../jsc/modules/toolbar.js"></script>
+    <script type="text/javascript" src="../jsc/icons/weather/all.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="css/default.css" />
+    <style type="text/css"></style>
+  </head>
+  <body>
+    <div id="chartDiv" style="max-width: 740px;height: 450px;margin: 0px auto;"></div>
+
+    <script type="text/javascript">
+      /*
+A smart palette applied to a series of points based on an expression calculation.
+Learn how to:
+
+  - Use a smart palette with values mapped to a point based expression calculation.
+  - Use a smart palette that is clipped in the legend.
+*/
+      // JS
+
+      var palette = {
+        clip: {
+          /*Use the mid value of each point*/
+          pointValue: '{(%yStart+%yValue)/2}',
+          stops: [
+            [0, '#353ffa', 0.7],
+            [20, '#08f7f5', 0.2, 0.5],
+            [50, '#3ae54c'],
+            [62, '#e1fb3a', 0.6],
+            [80, '#fda330'],
+            [100, '#fe473a']
+          ],
+          colorBar: {
+            length: 450,
+            axis_defaultTick_label_text: '%value°F'
+          }
+        },
+        noClip: {
+          /*Use the mid value of each point*/
+          pointValue: '{(%yStart+%yValue)/2/100}',
+          stops: [
+            [0, '#353ffa', 0.7],
+            [0.2, '#08f7f5', 0.2, 0.5],
+            [0.5, '#3ae54c'],
+            [0.62, '#e1fb3a', 0.6],
+            [0.8, '#fda330'],
+            [1, '#fe473a']
+          ],
+          colorBar: {
+            length: 450,
+            axis_defaultTick_label_text: '{%value*100}°F'
+          }
+        }
+      };
+      var chart = JSC.chart('chartDiv', {
+        debug: true,
+        type: 'column',
+        title_label_text: 'Average Temperatures [Chicago]  Range: %min°F to %max°F,    Average: %average°F',
+        legend: { position: 'bottom', margin_top: 20 },
+        palette: {
+          pointValue: '{(%yStart+%yValue)/2}',
+          stops: [
+            [0, '#353ffa', 0.7],
+            [20, '#08f7f5', 0.2, 0.5],
+            [50, '#3ae54c'],
+            [62, '#e1fb3a', 0.6],
+            [80, '#fda330'],
+            [100, '#fe473a']
+          ],
+          colorBar: {
+            length: 450,
+            axis_defaultTick_label_text: '%value°F'
+          }
+        },
+        defaultAxis_defaultTick_label_style_fontSize: '14px',
+        yAxis: [
+          {
+            id: 'mainY',
+            label_text: '(°F) Fahrenheit',
+            defaultTick_label_text: '%value°F',
+            defaultMarker_label_style_fontSize: 14,
+            markers: [
+              {
+                value: [0, 32],
+                label_text: '<icon name=weather/snowflake size=15 verticalAlign=center margin_right=4> Freezing',
+                color: ['#65affb', 0.5]
+              },
+              {
+                value: 72,
+                label_text: '<icon name=weather/sun size=18 verticalAlign=center margin_right=4> Perfect (72°F)',
+                line_width: 3,
+                color: ['#fcc348', 0.5]
+              }
+            ]
+          },
+          {
+            scale_syncWith: 'mainY',
+            orientation: 'right',
+            formatString: 'n2',
+            label_text: '(°C) Celcius',
+            defaultTick_label_text: '{(%Value-32)*5/9:n1}°C'
+          }
+        ],
+        xAxis: {
+          formatString: 'MMM',
+          scale_interval_unit: 'month'
+        },
+        defaultPoint_tooltip:
+          '<b>%xValue</b><br/>Average High: <b>%yValue°F</b>  ({(%yValue-32)*5/9:n1}°C)<br/>Average Low: <b>%yStart°F</b>  ({(%yStart-32)*5/9:n1}°C)',
+        toolbar_items: {
+          clip: {
+            type: 'checkbox',
+            value: true,
+            events_change: setPalette
+          }
+        },
+        xAxis_scale_type: 'time',
+        series: [
+          {
+            name: 'Average Temps Range',
+            points: {
+              mapTo: 'x,y',
+              data: [
+                [new Date(2010, 0, 1), [15, 30]],
+                [new Date(2010, 1, 1), [18, 35]],
+                [new Date(2010, 2, 1), [27, 47]],
+                [new Date(2010, 3, 1), [37, 60]],
+                [new Date(2010, 4, 1), [46, 71]],
+                [new Date(2010, 5, 1), [56, 80]],
+                [new Date(2010, 6, 1), [61, 83]],
+                [new Date(2010, 7, 1), [60, 81]],
+                [new Date(2010, 8, 1), [51, 75]],
+                [new Date(2010, 9, 1), [40, 63]],
+                [new Date(2010, 10, 1), [30, 48]],
+                [new Date(2010, 11, 1), [19, 34]]
+              ]
+            }
+          }
+        ]
+      });
+
+      function setPalette(clip) {
+        chart.options({ palette: clip ? palette.clip : palette.noClip });
+      }
+    </script>
+  </body>
+</html>

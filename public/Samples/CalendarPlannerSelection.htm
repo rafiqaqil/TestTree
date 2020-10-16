@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Event Planner Details Calendar Chart | JSCharting</title>
+    <meta http-equiv="content-type" content="text-html; charset=utf-8" />
+
+    <script type="text/javascript" src="../jsc/jscharting.js"></script>
+
+    <script type="text/javascript" src="../jsc/modules/types.js"></script>
+    <script type="text/javascript" src="../jsc/icons/material/toggle/radio-button-unchecked.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="css/default.css" />
+    <style type="text/css">
+      #eventsDiv {
+        width: 300px;
+        margin: 0px auto;
+        height: 600px;
+        display: block;
+        font-family: Arial;
+      }
+      #chartDiv {
+        width: 300px;
+        height: 300px;
+        margin: 0px auto;
+        display: block;
+      }
+      .day {
+        color: #263238;
+        width: 40px;
+        float: left;
+        padding-top: 5px;
+        padding-right: 10px;
+        text-align: center;
+        font-size: 12px;
+      }
+      .events {
+        float: left;
+      }
+      .dayEvents {
+        width: 300px;
+        overflow: hidden;
+        clear: right;
+      }
+      .dayEvents table {
+        width: 200px;
+        font-size: 14px;
+        word-wrap: break-word;
+        padding: 8px;
+        margin: 5px;
+        color: #263238;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="background">
+      <div id="chartDiv"></div>
+      <div id="eventsDiv"></div>
+    </div>
+
+    <script type="text/javascript">
+      /*
+Events data loaded dynamically shown as dots with expanded view on click.
+Learn how to:
+
+  - Merge multiple CSV data text icons into a calendar cells.
+*/
+      // JS
+      var chart,
+        palette = JSC.getPalette(0),
+        chartConfig = {
+          type: 'calendar month solid',
+          defaultCultureName: 'en',
+          title: {
+            label_text: 'JULY 2019',
+            position: 'right',
+            label_style: { fontSize: 20 }
+          },
+
+          legend: {
+            visible: true,
+            position: 'bottom',
+            template: '%icon %name'
+          },
+
+          calendar: {
+            range: ['7/1/2019', '8/1/2019'],
+            defaultEdgePoint: { mouseTracking: false, label_visible: false, fill: 'none' }
+          },
+          defaultTooltip_enabled: false,
+          defaultSeries: {
+            legendEntry_visible: false,
+            shape_innerPadding: 0,
+            pointSelection: true
+          },
+          defaultPoint: {
+            events_click: pointClick,
+            states_hover: { color: '#eaf5f9' },
+            outline_width: 0,
+            label: {
+              text: '%icons<br><span style="align:center;"><b>%name</b></span>',
+              style_fontSize: 12,
+              align: 'right',
+              verticalAlign: 'top',
+              padding: 5,
+              color: 'gray'
+            },
+            attributes_events: '',
+            attributes_icons:
+              '<icon name=material/toggle/radio-button-unchecked color=transparent outerShape=circle size=6 >'
+          },
+          toolbar_visible: false,
+          yAxis_visible: false
+        };
+
+      JSC.fetch('./resources/events_data2.csv')
+        .then(function(response) {
+          return response.text();
+        })
+        .then(function(text) {
+          var parsedData = JSC.parseCsv(text);
+          renderChart(parsedData.data);
+        })
+        .catch(function(err) {
+          console.error(err);
+        });
+      var weekDays = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+      function renderChart(data) {
+        var customEntriesNames = [];
+        data.map(function(row) {
+          var entryName = row[3];
+          if (customEntriesNames.indexOf(entryName) === -1) {
+            customEntriesNames.push(entryName);
+          }
+        });
+        chartConfig.series = [
+          {
+            points: data.map(function(row, i) {
+              var eventsText =
+                '<div class="' +
+                row[3] +
+                '" style="border-left:5px solid ' +
+                palette[customEntriesNames.indexOf(row[3])] +
+                "\";><table><tr><th style='text-align:left; font-weight:normal'><icon name=material/toggle/radio-button-unchecked color=black size=4>" +
+                row[2] +
+                "</th><th style='text-align:right;font-size:10px; width:50px'>" +
+                JSC.formatDate(new Date(row[0]), 't') +
+                '</th></tr></table></div>';
+              var labelText =
+                '<icon name=material/toggle/radio-button-unchecked color=' +
+                palette[customEntriesNames.indexOf(row[3])] +
+                ' outerShape=circle size=6 >';
+              return {
+                date: [row[0], row[1]],
+                attributes: { events: [eventsText], icons: [labelText] }
+              };
+            })
+          }
+        ];
+
+        chartConfig.legend.customEntries = customEntriesNames.map(function(name, i) {
+          return {
+            name: name,
+            icon: {
+              color: palette[i],
+              name: 'material/toggle/radio-button-unchecked',
+              size: 14,
+              outerShape: 'circle',
+              outline_width: 0
+            }
+          };
+        });
+        chart = JSC.chart('chartDiv', chartConfig, pointClick);
+      }
+
+      function pointClick(chartRef) {
+        var c = chart || chartRef;
+        setTimeout(function() {
+          var dates = [];
+          c.series()
+            .points({ selected: true })
+            .each(function(point) {
+              var attributes = point.options('attributes');
+              var day =
+                '<div class="day">' +
+                '<span style="font-size:22px; font-weight:bold">' +
+                JSC.formatDate(point.tokenValue('%date'), 'dd') +
+                '</span>' +
+                '\n' +
+                '<span style="font-weight:100;text-transform:uppercase">' +
+                weekDays[new Date(point.tokenValue('%date')).getDay()] +
+                '</span>' +
+                '</div>';
+              var str = day;
+              str += '<div class="events">' + attributes.events + '</div>';
+              dates.push('<div class="dayEvents">' + str + '</div>');
+              document.getElementById('eventsDiv').innerHTML = dates.join('\n');
+            });
+        }, 100);
+      }
+    </script>
+  </body>
+</html>

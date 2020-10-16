@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Annotation Footer | JSCharting</title>
+    <meta http-equiv="content-type" content="text-html; charset=utf-8" />
+
+    <script type="text/javascript" src="../jsc/jscharting.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="css/default.css" />
+    <style type="text/css"></style>
+  </head>
+  <body>
+    <div id="chartDiv" style="max-width: 740px;height: 350px;margin: 0px auto;"></div>
+
+    <script type="text/javascript">
+      /*
+Uses an annotation as a chart footer.
+Learn how to:
+
+  - Draw a chart footer using a transparent annotation placed in the bottom chart margin.
+*/
+      // JS
+      var chart = JSC.chart('chartDiv', {
+        debug: true,
+        type: 'column',
+        legend_visible: false,
+        annotations: [
+          {
+            position: 'bottom left',
+            margin_top: 5,
+            label: {
+              text: 'Annotation as a chart footer can be used to cite sources, brand, etc.',
+              color: 'crimson'
+            }
+          }
+        ],
+        title_label_text: 'Unit sales change by seller. (Jan 2019 vs. Jan 2020)',
+        yAxis: { label_text: 'Sales trend' },
+        series: [
+          {
+            name: 'Representatives',
+            points: [
+              ['Angie', -3],
+              ['Chris', 8],
+              ['Arthur', 5],
+              ['David', 2],
+              ['Mike', -4],
+              ['George', -6],
+              ['Jeff', 6]
+            ]
+          }
+        ]
+      });
+    </script>
+  </body>
+</html>

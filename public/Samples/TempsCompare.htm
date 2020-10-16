@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Multi Sparkline Comparison Calendar Chart | JSCharting</title>
+    <meta http-equiv="content-type" content="text-html; charset=utf-8" />
+
+    <script type="text/javascript" src="../jsc/jscharting.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="css/default.css" />
+    <style type="text/css"></style>
+  </head>
+  <body>
+    <div id="chartDiv" style="width: 740px;height: 700px;margin: 0px auto;"></div>
+
+    <script type="text/javascript">
+      /*
+Calendar chart with two microcharts comparing values.
+Learn how to:
+
+  - Draw multiple overlapping microcharts in calendar cells.
+*/
+      // JS
+      var chart;
+
+      JSC.fetch('./resources/temperatureComparison.csv')
+        .then(function(response) {
+          return response.text();
+        })
+        .then(function(text) {
+          var data = JSC.csv2Json(text);
+          chart = renderChart(makeSeries(data));
+        });
+
+      function renderChart(series) {
+        return JSC.chart('chartDiv', {
+          type: 'calendar month solid',
+          title_label: {
+            text:
+              'Air Temperature in Phoenix, AZ Сomparison of <icon name=material/action/timeline verticalAlign=middle color=#5c6bc0 size=20> <span color=#5c6bc0>1990</span> and <icon name=material/action/timeline color=#ec407a size=20> <span color=#ec407a>2018</span>',
+            style_fontSize: 16
+          },
+          defaultAxis: {
+            defaultTick_line_visible: false,
+            scale_interval: 1
+          },
+          defaultSeries_shape_innerPadding: 0.017,
+          yAxis_visible: false,
+          toolbar_visible: false,
+          legend: {
+            position: 'right top',
+            template: '%name',
+            defaultEntry: { height: 30, width: 40, style_fontSize: '15px' }
+          },
+          calendar: {
+            range: ['1/1/1990', '12/31/1990'],
+            defaultEdgePoint: { mouseTracking: false, label_visible: false, color: 'white', outline_width: 0 }
+          },
+          defaultPoint: {
+            outline_color: 'white',
+            focusGlow_width: 0,
+            margin: 0
+          },
+          series: series
+        });
+      }
+
+      function makeSeries(data) {
+        var series = JSC.nest()
+          .key({ key: 'time', pattern: 'day' })
+          .pointRollup(function(key, val) {
+            var tooltip = '';
+            var color = '';
+            if (JSC.sum(val, 'temp_1990') < JSC.sum(val, 'temp_2018')) {
+              tooltip = 'This day in 2018 was <b>warmer</b> than in 1990';
+              color = '#ec407a';
+            } else {
+              tooltip = 'This day in 2018 was <b>colder</b> than in 1990';
+              color = '#5c6bc0';
+            }
+            return {
+              date: new Date(key),
+              attributes: {
+                temp1990:
+                  '<chart width=90 height=68 align=center min=27 max=122 verticalAlign=top type=sparkline data=' +
+                  val
+                    .map(function(a) {
+                      return a.temp_1990;
+                    })
+                    .join(',') +
+                  ' color=#5c6bc0>',
+                temp2018:
+                  '<chart width=90 height=68 align=center min=27 max=122 verticalAlign=top type=sparkline data=' +
+                  val
+                    .map(function(a) {
+                      return a.temp_2018;
+                    })
+                    .join(',') +
+                  ' color=#ec407a>',
+                min1990: JSC.min(val, 'temp_1990'),
+                max1990: JSC.max(val, 'temp_1990'),
+                min2018: JSC.min(val, 'temp_2018'),
+                max2018: JSC.max(val, 'temp_2018')
+              },
+              color: [color, 0.1],
+              states_hover_color: [color, 0.25],
+              label_text:
+                '<span style="align:left;font-size:13px;color:#9E9E9E"><b>%name</b></span><br><absolute>%temp1990%temp2018</absolute>',
+              tooltip:
+                '<b>{%date:date m}</b><br>Max/Min Temperature in 1990: <span color=#5c6bc0><b>%max1990°/%min1990°F</b></span><br>' +
+                'Max/Min Temperature in 2018: <span color=#ec407a><b>%max2018°/%min2018°F</b></span><br>' +
+                tooltip
+            };
+          })
+          .series(data);
+        return series;
+      }
+    </script>
+  </body>
+</html>

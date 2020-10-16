@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Axis Shadowing Time | JSCharting</title>
+    <meta http-equiv="content-type" content="text-html; charset=utf-8" />
+
+    <script type="text/javascript" src="../jsc/jscharting.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="css/default.css" />
+    <style type="text/css"></style>
+  </head>
+  <body>
+    <div id="chartDiv" style="max-width: 740px;height: 400px;margin: 0px auto;"></div>
+
+    <script type="text/javascript">
+      /*
+Define multiple axes sharing a common time scale while using different tick intervals.
+Learn how to:
+
+  - Use two axes with different time intervals.
+  - Style axis gridlines.
+  - Specify complex time scale axis intervals.
+*/
+      // JS
+
+      var chart = JSC.chart('chartDiv', {
+        debug: true,
+        type: 'line',
+        legend_visible: false,
+        toolbar_visible: false,
+        annotations: [
+          {
+            fill: 'white',
+            label_text: 'Sync with main axis and use different intervals.',
+            position: 'inside top left',
+            margin: 15
+          }
+        ],
+        defaultAxis: {
+          label_style_fontWeight: 'bold',
+          defaultTick_gridLine_opacity: 0.5
+        },
+        xAxis: [
+          {
+            id: 'mainX',
+            label: { text: 'Month Intervals', color: '#475db4' },
+            scale: { type: 'time', interval: { unit: 'month' } },
+            defaultTick: {
+              gridLine: { color: '#5975e1', width: 1 },
+              label_style_color: '#475db4'
+            }
+          },
+          {
+            scale: {
+              syncWith: 'mainX',
+              interval: { unit: 'week' }
+            },
+            label: {
+              text: 'Week Intervals (Shadow copy)',
+              color: '#1b8720'
+            },
+            formatString: 'M/d',
+            defaultTick: {
+              gridLine_color: '#28c62f',
+              label_style_color: '#1b8720'
+            },
+            orientation: 'top'
+          }
+        ],
+        series: [
+          {
+            name: 'Site 1',
+            points: [
+              [new Date(2014, 0, 1), 29.9],
+              [new Date(2014, 0, 15), 71.5],
+              [new Date(2014, 1, 1), 106.4],
+              [new Date(2014, 1, 15), 129.2],
+              [new Date(2014, 2, 1), 144.0],
+              [new Date(2014, 2, 15), 176.0]
+            ]
+          },
+          {
+            name: 'Site 2',
+            points: [
+              [new Date(2014, 0, 1), 18.9],
+              [new Date(2014, 0, 15), 52.5],
+              [new Date(2014, 1, 1), 85.4],
+              [new Date(2014, 1, 15), 102.2],
+              [new Date(2014, 2, 1), 140.0],
+              [new Date(2014, 2, 15), 168.0]
+            ]
+          },
+          {
+            name: 'Site 3',
+            points: [
+              [new Date(2014, 0, 1), 76.9],
+              [new Date(2014, 0, 15), 70.5],
+              [new Date(2014, 1, 1), 60.4],
+              [new Date(2014, 1, 15), 75.2],
+              [new Date(2014, 2, 1), 84.0],
+              [new Date(2014, 2, 15), 92.0]
+            ]
+          }
+        ]
+      });
+    </script>
+  </body>
+</html>

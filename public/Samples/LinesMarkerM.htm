@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Dynamic Point Color Line Chart | JSCharting</title>
+    <meta http-equiv="content-type" content="text-html; charset=utf-8" />
+
+    <script type="text/javascript" src="../jsc/jscharting.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="css/default.css" />
+    <style type="text/css"></style>
+  </head>
+  <body>
+    <div id="chartDiv" style="max-width: 740px;height: 300px;margin: 0px auto;"></div>
+
+    <script type="text/javascript">
+      /*
+A Line series type with large dynamic point color markers.
+Learn how to:
+
+  - Draw line chart with large markers.
+*/
+      // JS
+      var chart = JSC.chart('chartDiv', {
+        debug: true,
+        yAxis_formatString: 'c',
+        defaultAxis_defaultTick_label_style_fontSize: '15px',
+        legend_visible: false,
+        palette: {
+          colors: ['#F8C1A8', '#EF9198', '#E8608A', '#C0458A', '#8F3192', '#63218F', '#4B186C', '#33104A']
+        },
+        defaultSeries: {
+          type: 'line',
+          defaultPoint: {
+            marker: { size: 24, type: 'five-point-star' }
+          }
+        },
+        series: [
+          {
+            name: 'Representatives',
+            line_color: 'lightGray',
+            points: [
+              { x: 'Jan', y: 32165 },
+              { x: 'Feb', y: 28651 },
+              { x: 'Mar', y: 18563 },
+              { x: 'Apr', y: 35698 },
+              { x: 'May', y: 27659 },
+              { x: 'Jun', y: 28684 },
+              { x: 'Jul', y: 25684 },
+              { x: 'Aug', y: 38654 }
+            ]
+          }
+        ],
+        toolbar_visible: false
+      });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,283 @@
+<img src="tutorials/images/javascript-gantt-chart-library.png" title="JavaScript Gantt Chart Library">
+
+<h2>Introduction</h2>
+<p>Javascript Gantt charts can be for project management and scheduling individual tasks along a time scale.
+	Additional Gantt related features include task dependency arrows for critical path visualization, milestones,
+	and % complete indicators.</p>
+
+<p>
+	Gantt chart generation is automatic with no custom HTML or SVG editing required. Easily configure options with
+	simple JavaScript settings. Full control is provided using the column series type as it supports all Gantt
+	related features. There are a few common settings that should be used with all Gantt charts.
+</p>
+
+<span class="codeText">
+{
+type:'horizontal column',
+zAxis_scale_type:'stacked',
+xAxis_scale_type:'time',
+legend_defaultEntry_value:'{days(%yRangeSums*1)}d'
+}
+</span>
+
+<p>The stacked z axis type setting allows adding series data points with the same x values to take up the same
+	space on the x axis.</p>
+
+<h2>Milestones</h2>
+<p>Milestones can be added to the same column series as other related points by using the same start and end y
+	value and making the point marker visible with configuration such as:</p>
+
+<span class="codeText">
+{
+marker_visible:true,
+y:['1/1/2019', '1/1/2019']
+}
+</span>
+
+<h2>Dependencies</h2>
+
+<span class="tutorialImage">
+<img src="tutorials/images/gantt-chart-dependencies.png" title="JavaScript Chart Gantt Dependencies"/>
+<em></em><section></section>
+</span>
+<p>In order to draw a dependency hierarchy in your Gantt chart, the same properties can be used as with
+	organizational charts. Points can have <span class="example">&#39;id&#39;</span> values and parent properties that indicate which points a
+	point is dependent on.</p>
+
+<span class="codeText">
+{
+	points:[
+	{id:'first',
+	x:'First Project',
+	y:['1/1/2019', '2/1/2019']
+	},{id:'second',
+	//Depends on first project
+	parent:'first',
+	x:'Second Project',
+	y:['2/1/2019', '3/1/2019']
+	}
+	]
+	}
+</span>
+<p>Multiple dependencies can be specified by listing the id of each parent point</p>
+<span class="codeText">
+{
+	points:[
+	{id:'first',
+	x:'First Project',
+	y:['1/1/2019', '2/1/2019']
+	},{id:'second',
+	x:'Second Project',
+	y:['1/1/2019', '3/1/2019']
+	},{id:'final',
+	//Depends on first and second project
+	parent:'first,second',
+	x:'Final Phase',
+	y:['3/1/2019', '3/1/2019']
+	}
+	]
+	}
+</span>
+
+<h2>% Complete</h2>
+<p>Points can include values that indicate the percentage of how much of the task is currently completed.
+	For example, this point configuration specifies that 50% of this task is completed.</p>
+<span class="codeText">
+{
+y:['1/1/2019', '1/1/2019'],
+complete:.5
+}
+</span>
+
+<p>A range can also be specified for the complete property when used to indicate a different detail such as an
+	upcoming vacation or slack time as follows:</p>
+
+<span class="codeText">
+{
+y:['1/1/2019', '1/1/2019'],
+complete:[.5,1]
+}
+</span>
+
+<p>The code above marks the second half of the point instead the first half as the previous example does.</p>
+
+<h2>X Axis Ticks</h2>
+
+<p>Gantt charts where each data point has a unique name (x value) show the task names on the x axis by default.
+	However, the point.xAxisTick feature can be used to allow using all point related tokens in the axis tick
+	label directly. For example:</p>
+
+
+<span class="codeText">
+{
+	defaultPoint_xAxisTick:{
+	label_text:&#39;%xValue %yStart %yValue&#39;
+	}
+
+}
+</span>
+
+<p>This makes it much more convenient to define data point related items in axis ticks.</p>
+
+<h2>X Axis Data Grid</h2>
+
+<p>The above idea of including point details in axis tick labels is very useful but the details are not aligned
+	nicely for readability purposes.</p>
+<p>A data-grid like table can be created using x axis ticks by leveraging text <span> tag support with width style
+	values to define column widths of individual task item variables.</p>
+
+<span class="tutorialImage">
+<img src="tutorials/images/gantt-chart-data-grid.png" title="JavaScript Chart Gantt Data Grid"/>
+<em></em>
+</span>
+
+<p>First we define the column widths, then two reusable functions to format a list of strings into spans that use those widths:</p>
+<span class="codeText">
+var columnWidths = [120,70,65];
+var span = function(val,width){return &#39;&lt;span style=&quot;width:&#39;+width+&#39;px;&quot;&gt;&#39;+val+&#39;&lt;/span&gt;&#39;;}
+var mapLabels = function(labels){return labels.map(function(v,i){return span(v,columnWidths[i]);}).join(&#39;&#39;)}
+</span>
+
+<p>Let's start with a header for this grid by using an annotation positioned near the top left corner as follows:</p>
+
+
+
+<span class="codeText">
+{
+annotations:[
+{
+position:'0,20',
+label_text: &#39;&lt;b&gt;&#39;+mapLabels([&#39;Task&#39;,&#39;Start&#39;,&#39;End&#39;])+&#39;&lt;/b&gt;&#39;
+}
+],
+	defaultPoint_xAxisTick:{
+	label_text:mapLabels([&#39;%name&#39;,&#39;%low&#39;,&#39;%high&#39;])
+	}
+}
+</span>
+
+<h2>Time Span Formatting</h2>
+
+<p>Start date and end dates can be shown in point related text properties using the
+	<span class="example">&#39;%yStart&#39;</span> and <span class="example">&#39;%yValue&#39;</span> tokens
+	respectively. In order to show the time span between them the following expression and formatting can be used:</p>
+<h3>Number of hours</h3>
+
+<span class="output">
+    &#39;{hours(%yValue-%yStart):number d2}hr&#39;
+</span>
+<h3>Number of days</h3>
+
+<span class="output">
+    &#39;{days(%yValue-%yStart):number d2}hr&#39;
+</span>
+
+<h3>Legend values</h3>
+<p>In the legend, the series level %yRangeSums token can be used to show the total time spans of all tasks
+	in that series. This value can be formatted using expression formatting as above however, expressions are
+	detected when using +-/* chars so we can use  '%yRangeSums*1' with the following syntax will ensure the
+	correct result:</p>
+
+<h3>Number of hours</h3>
+<span class="codeText">
+{
+	legend_defaultEntry_value:'{hours(%yRangeSums*1):number d2}hr'
+	}
+</span>
+
+<h2>Using Data with JSC.nest()</h2>
+<p>The nest() functionality can be leveraged with Gantt data to help break data entries into different series and
+	define data field mapping to points. Nest requires using two key() calls. The first key() call identifies the
+	series an entry belongs to and the second key() call identifies a unique property or value that groups items
+	into individual points. If data entries all belong to the same series and each defines a unique data point, a
+	simple dataArray.map()  function can be used.</p>
+
+<p>In this example we use nest() to split entries into series, then individual points and finally we define data
+	field mapping through the pointRollup() call. Consider the following csv data:</p>
+
+<p>
+	<span class="output">
+    type,start,end,note<br/>
+	Flying,12/21/2018 13:50,12/22/2018 18:50,ORD to Shanghai (14hr 25min)<br/>
+	Layover,12/22/2018 18:50,12/23/2018 19:20,Shanghai Layover
+</span>
+
+</p>
+
+
+
+<span class="codeText">
+	var data = data = JSC.csv2Json(csvText);
+var series = new JSC.nest()
+.key('type')
+.key('start')
+.pointRollup(function(key, vals) {
+			var entry=vals[0];
+			return {
+				x:entry.type,
+				y:[entry.start,entry.end],
+				attributes:{
+					note:entry.note,
+				},
+			}
+		})
+		.series(data);
+
+
+</span>
+
+If the points don't have a property that identifies unique points, this trick can be used:
+
+<span class="codeText">
+var i=0;
+new JSC.nest()
+.key('seriesKey')
+.key(function(){return i++;})
+</span>
+
+
+<span class="docsReference">Tutorials.nesting</span>
+
+
+<!--
+
+<h2>Introduction</h2>
+<p></p>
+<p></p>
+<p></p>
+
+<h3>subSection</h3>
+<p></p>
+<p></p>
+
+<span class="codeText">
+
+</span>
+<span class="todo">
+
+</span>
+
+
+<span class="tutorialImage">
+<img src="tutorials/images/pieZValueFormatting.png"/>
+<em>Figure 2.</em>
+</span>
+
+Text in quotes:
+<span class="example">&#39;&#39;</span>
+
+<ul>
+	<li>Chart</li>
+</ul>
+
+<span class="output">
+    output here.
+</span>
+
+<ul class="simpleKvpList">
+	<li><em>Chart</em><section>A visualization of multiple data series.  The data a chart can show is also known as a series collection.</section></li>
+	<li><em>Series</em><section>A collection of data points.</section></li>
+	<li><em>Chart Type</em><section>Specifies how multiple series are arranged together to form a visual.</section></li>
+	<li><em>Series Type</em><section>Specifies  how  a set of data points is visualized on a chart.</section></li>
+</ul>
+-->

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Y Value Bar Mekko Chart | JSCharting</title>
+    <meta http-equiv="content-type" content="text-html; charset=utf-8" />
+
+    <script type="text/javascript" src="../jsc/jscharting.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="css/default.css" />
+    <style type="text/css"></style>
+  </head>
+  <body>
+    <div id="chartDiv" style="max-width: 740px;height: 400px;margin: 0px auto;"></div>
+
+    <script type="text/javascript">
+      /*
+Variwide chart without z values. Y values are used.
+Learn how to:
+
+  - Draw variwide chart without z values.
+*/
+      // JS
+      var chart = JSC.chart('chartDiv', {
+        debug: true,
+        type: 'variwide',
+        yAxis_label_text: 'Unit Count',
+        title_label_text: 'Unit Sales by Representative',
+        legend_visible: false,
+        defaultPoint_label_visible: true,
+        yAxis_visible: false,
+        series: [
+          {
+            name: 'Representatives',
+            palette: 'default',
+            points: [
+              { name: 'Chris', y: 8 },
+              { name: 'David', y: 6 },
+              { name: 'Arthur', y: 5 },
+              { name: 'Angie', y: 3 }
+            ]
+          }
+        ]
+      });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Nest Microchart Data | JSCharting</title>
+    <meta http-equiv="content-type" content="text-html; charset=utf-8" />
+
+    <script type="text/javascript" src="../jsc/jscharting.js"></script>
+
+    <script type="text/javascript" src="../jsc/modules/types.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="css/default.css" />
+    <style type="text/css">
+      /*CSS*/
+    </style>
+  </head>
+  <body>
+    <div id="chartDiv" style="max-width: 740px; height: 250px; margin: 0px auto;"></div>
+
+    <script type="text/javascript">
+      /*
+Nested date grouping by day and by hour mapped to points and point attributes.
+Learn how to:
+
+  - Use data nesting to inside nesting functions to make data for microcharts.
+*/
+      // JS
+      // Nested date grouping by day and by hour mapped to points and point attributes
+      var data = [
+        { date: '1/1/2019 3:00', ip: '...' },
+        { date: '1/1/2019 10:00', ip: '...' },
+        { date: '1/1/2019 11:00', ip: '...' },
+        { date: '1/1/2019 11:00', ip: '...' },
+        { date: '1/1/2019 12:00', ip: '...' },
+        { date: '1/1/2019 12:00', ip: '...' },
+        { date: '1/2/2019 10:00', ip: '...' },
+        { date: '1/2/2019 11:00', ip: '...' },
+        { date: '1/2/2019 12:00', ip: '...' },
+        { date: '1/2/2019 12:00', ip: '...' },
+        { date: '1/2/2019 13:00', ip: '...' },
+        { date: '1/2/2019 17:00', ip: '...' },
+        { date: '1/3/2019 10:00', ip: '...' },
+        { date: '1/3/2019 11:00', ip: '...' },
+        { date: '1/3/2019 12:00', ip: '...' },
+        { date: '1/3/2019 13:00', ip: '...' },
+        { date: '1/3/2019 14:00', ip: '...' },
+        { date: '1/3/2019 14:00', ip: '...' },
+        { date: '1/3/2019 15:00', ip: '...' },
+        { date: '1/3/2019 16:00', ip: '...' }
+      ];
+
+      function dateToRange(date) {
+        var norm = normalizeDate(date);
+        return [norm, normalizeDate(date).setDate(norm.getDate() + 1) - 1];
+
+        function normalizeDate(date) {
+          var dt = new Date(date);
+          return new Date(dt.getFullYear(), dt.getMonth(), dt.getDate());
+        }
+      }
+
+      var series = JSC.nest()
+        // Group by day
+        .key({ key: 'date', pattern: 'day' })
+        .pointRollup(function(k, vals) {
+          return {
+            x: k,
+            y: vals.length,
+            // Group each value by hour. Specifying range for the full day creates 24 values.
+            attributes_byHour: JSC.nest()
+              .key({ key: 'date', pattern: 'hour', range: dateToRange(k) })
+              // Use points to output just numbers.
+              .pointRollup(function(k, v) {
+                return v.length;
+              })
+              .points(vals)
+              .join(',')
+          };
+        })
+        .series(data);
+
+      var chart = JSC.chart('chartDiv', {
+        debug: true,
+        type: 'column',
+        modules: ['types'],
+        legend_visible: false,
+        toolbar_visible: false,
+        title_label_text: 'Count data rows by day. Date group hits by hour',
+        xAxis: {
+          label_text: 'Date',
+          scale_interval: { unit: 'day' },
+          formatString: 'D'
+        },
+        yAxis_label_text: 'Hits',
+        defaultPoint_label_text: '<chart column data=%byHour color=darkblue>',
+        series: series
+      });
+    </script>
+  </body>
+</html>

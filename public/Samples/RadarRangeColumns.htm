@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Polar Range Column Radar Chart | JSCharting</title>
+    <meta http-equiv="content-type" content="text-html; charset=utf-8" />
+
+    <script type="text/javascript" src="../jsc/jscharting.js"></script>
+
+    <script type="text/javascript" src="../jsc/modules/types.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="css/default.css" />
+    <style type="text/css"></style>
+  </head>
+  <body>
+    <div id="chartDiv" style="max-width: 540px;height: 500px;margin: 0px auto;"></div>
+
+    <script type="text/javascript">
+      /*
+Radar column series type and range values.
+Learn how to:
+
+  - Draw radar chart with ranged column series .
+*/
+      // JS
+      var chart = JSC.chart('chartDiv', {
+        debug: true,
+        title: {
+          label_text: 'Test score ranges per student. [Best: %maxPointName %max%, Worst: %minPointName %min%]',
+          position: 'center'
+        },
+        legend_visible: false,
+        type: 'radar polar column ',
+        xAxis_spacingPercentage: 0.4,
+        yAxis: {
+          scale: { interval: 25, range: [0, 100] },
+          defaultTick_label_text: '%value%',
+          markers: [{ value: [0, 60], color: ['red', 0.3] }]
+        },
+        defaultSeries_shape_padding: -0.08,
+        defaultPoint_tooltip: '<b>%name</b> <br/>Score range: <b>%yStart</b>–<b>%yValue%</b>',
+        series: [
+          {
+            name: 'Test Scores',
+            points: [
+              { name: 'Brayden', y: [57.5, 93] },
+              { name: 'Elijah', y: [61, 87] },
+              { name: 'Mason', y: [55, 83] },
+              { name: 'Levi', y: [51.5, 81] },
+              { name: 'Anthony', y: [58.5, 78] },
+              { name: 'Connor', y: [52.5, 76] },
+              { name: 'Mateo', y: [46, 73] },
+              { name: 'Aiden', y: [32.5, 72] },
+              { name: 'Cameron', y: [51.5, 69] },
+              { name: 'Luke', y: [41, 63] }
+            ]
+          }
+        ]
+      });
+    </script>
+  </body>
+</html>

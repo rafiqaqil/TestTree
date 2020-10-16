@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Interactive Lambert Conformal Conic Projection | JSCharting</title>
+    <meta http-equiv="content-type" content="text-html; charset=utf-8" />
+
+    <script type="text/javascript" src="../jsc/jscharting.js"></script>
+
+    <script type="text/javascript" src="../jsc/modules/toolbar.js"></script>
+    <script type="text/javascript" src="../jsc/modules/maps.js"></script>
+    <script type="text/javascript" src="../jsc/icons/linear/arrows/all.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="css/default.css" />
+    <style type="text/css">
+      /*CSS*/
+    </style>
+  </head>
+  <body>
+    <div id="chartDiv" style="max-width: 740px; height: 400px;margin: 0px auto;"></div>
+    <div id="chartDiv2" style="max-width: 740px; height: 200px;margin: 0px auto;"></div>
+
+    <script type="text/javascript">
+      /*
+Lambert conformal conic projection with options.
+Learn how to:
+
+  - Projection.
+*/
+      // JS
+
+      var chartConfig = {
+        debug: true,
+        type: 'map',
+        animation_duration: 1000,
+        legend_visible: false,
+        title: {
+          position: 'full',
+          label_text: 'Lambert Conformal Conic Projection'
+        },
+        mapping_projection: {
+          type: 'lambertConformalConic',
+          point: [0, 0],
+          parallels: [0, 0]
+        },
+        series: [{ map: 'world', palette: 'fiveColor4' }],
+        toolbar_items_zoom_visible: false
+      };
+      var chart = null;
+      var chart2 = null;
+      var parallels = [0, 0];
+
+      function getAnnotationText() {
+        return 'Standard parallel: ' + parallels[0] + '°';
+      }
+
+      function updateChart() {
+        chart.options({ mapping_projection_parallels: parallels });
+        chart2.annotations(0).options({ label_text: getAnnotationText() });
+        chart2.series(1).options({ points: getParallelPointsFront() });
+      }
+
+      var referencePoint = [0, 10];
+
+      function getParallelPointsFront() {
+        var offset = 5;
+        return [
+          [referencePoint[0] - 90 - offset, parallels[0]],
+          [referencePoint[0], parallels[0]],
+          [referencePoint[0] + 90 + offset, parallels[0]]
+        ];
+      }
+
+      chartConfig.targetElement = 'chartDiv';
+      chart = new JSC.Chart(chartConfig);
+
+      var chartConfig2 = {
+        targetElement: 'chartDiv2',
+        type: 'map',
+        animation_duration: 1000,
+        legend_visible: false,
+        title_visible: false,
+        mapping_projection: {
+          type: 'orthographic',
+          point: referencePoint,
+          parallels: parallels
+        },
+        defaultPoint_marker_visible: false,
+        series: [
+          { map: 'world', palette: 'fiveColor4' },
+          {
+            type: 'spline',
+            line_width: 2,
+            color: 'rgba(255,0,0,1)',
+            points: getParallelPointsFront()
+          }
+        ],
+        toolbar_items: {
+          top: {
+            position: 'inside right',
+            margin: [-10, 5, 0, 0],
+            icon_name: 'linear/arrows/up',
+            events_click: function(val) {
+              parallels[0] = Math.min(parallels[0] + 5, 90);
+              updateChart();
+            }
+          },
+          bottom: {
+            margin: [3, 5, 0, 0],
+            position: 'inside right',
+            icon_name: 'linear/arrows/down',
+            events_click: function(val) {
+              parallels[0] = Math.max(parallels[0] - 5, -90);
+              updateChart();
+            }
+          }
+        },
+        annotations: [
+          {
+            position: 'inside left',
+            margin: 5,
+            label: { text: 'Standard parallel: 0°' },
+            boxVisible: false
+          }
+        ],
+        toolbar_items_export_visible: false,
+        toolbar_items_zoom_visible: false
+      };
+      chart2 = new JSC.Chart(chartConfig2);
+
+      /**
+       * Generate palettes for mapping
+       * @returns {Array}
+       */
+    </script>
+  </body>
+</html>

@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Line Error Styling | JSCharting</title>
+    <meta http-equiv="content-type" content="text-html; charset=utf-8" />
+
+    <script type="text/javascript" src="../jsc/jscharting.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="css/default.css" />
+    <style type="text/css">
+      /*CSS*/
+    </style>
+  </head>
+  <body>
+    <div id="chartDiv" style="max-width: 740px;height: 350px;margin: 0px auto;"></div>
+
+    <script type="text/javascript">
+      /*
+Line chart with styled error bars.
+Learn how to:
+
+  - Draw error bars with default Percent offset.
+  - Error bar styling.
+*/
+      // JS
+      var chart = JSC.chart('chartDiv', {
+        debug: true,
+        type: 'line',
+        title_label_text: 'Projected Sales [2020]',
+        legend_visible: false,
+        annotations: [
+          {
+            label_text: 'Data Accuracy: +/- 15%',
+            position: 'inside top left',
+            margin: 5
+          }
+        ],
+        series: [
+          {
+            defaultPoint: {
+              subvalue: {
+                percent: 15,
+                line: {
+                  color: 'darkenMore',
+                  width: 2,
+                  /*Percentage width of element*/
+                  length: 30
+                }
+              }
+            },
+            name: 'Projected Sales',
+            points: [
+              { name: 'Jan', y: 84 },
+              { name: 'Feb', y: 97 },
+              { name: 'Mar', y: 98 },
+              { name: 'Apr', y: 114 },
+              { name: 'May', y: 101 },
+              { name: 'Jun', y: 99 },
+              { name: 'Jul', y: 117 },
+              { name: 'Aug', y: 114 },
+              { name: 'Sep', y: 106 },
+              { name: 'Oct', y: 89 },
+              { name: 'Nov', y: 95 },
+              { name: 'Dec', y: 81 }
+            ]
+          }
+        ]
+      });
+    </script>
+  </body>
+</html>

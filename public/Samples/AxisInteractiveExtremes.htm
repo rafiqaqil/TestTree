@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Axis Interactive Extremes | JSCharting</title>
+    <meta http-equiv="content-type" content="text-html; charset=utf-8" />
+
+    <script type="text/javascript" src="../jsc/jscharting.js"></script>
+
+    <script type="text/javascript" src="../jsc/modules/toolbar.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="css/default.css" />
+    <style type="text/css">
+      /*CSS*/
+    </style>
+  </head>
+  <body>
+    <div id="chartDiv" style="max-width: 740px;height: 400px;margin: 0px auto;"></div>
+    <div style="width:500px;margin: 0px auto;">
+      Static Range: <input id="low" type="text" value="0" /><input id="high" type="text" value="600" />
+      <br />Output:<br />
+      <textarea id="info" cols="50" rows="3"></textarea>
+    </div>
+
+    <script type="text/javascript">
+      /*
+Get and set the axis range dynamically through an interactive UI.
+Learn how to:
+
+  - Set axis range in real-time.
+  - Get axis range in real-time.
+*/
+      // JS
+      var yAxis;
+      var chart = JSC.chart(
+        'chartDiv',
+        {
+          debug: true,
+          type: 'column',
+          toolbar_items: {
+            'Apply Static Range': { type: 'checkbox', events_change: setExtremes },
+            'Get Y Range': { events_click: getExtremes }
+          },
+          yAxis: { label_text: 'Units Sold' },
+          xAxis: { label_text: 'Quarter' },
+          title_label_text: 'Acme Tool Sales',
+          series: [
+            {
+              name: 'Saw',
+              id: 's1',
+              points: [['Q1', 230], ['Q2', 240], ['Q3', 267], ['Q4', 238]]
+            },
+            {
+              name: 'Hammer',
+              points: [['Q1', 325], ['Q2', 347], ['Q3', 392], ['Q4', 371]]
+            },
+            {
+              name: 'Grinder',
+              points: [['Q1', 285], ['Q2', 292], ['Q3', 327], ['Q4', 158]]
+            },
+            {
+              name: 'Drill',
+              points: [['Q1', 185], ['Q2', 192], ['Q3', 198], ['Q4', 318]]
+            }
+          ]
+        },
+        function(chart) {
+          yAxis = chart.axes({ prefix: 'y' }).items[0];
+        }
+      );
+
+      function getExtremes() {
+        var ext = yAxis.getRange();
+
+        var infoElement = document.getElementById('info');
+        infoElement.value = JSON.stringify(ext).replace(',', ',\n');
+      }
+
+      function setExtremes(setOrUnset) {
+        if (setOrUnset) {
+          var lowValue = document.getElementById('low').value;
+          var highValaue = document.getElementById('high').value;
+          yAxis.zoom(lowValue, highValaue);
+        } else {
+          yAxis.zoom();
+        }
+      }
+    </script>
+  </body>
+</html>

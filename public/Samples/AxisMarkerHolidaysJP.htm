@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Holiday Calendar Pattern Markers | JSCharting</title>
+    <meta http-equiv="content-type" content="text-html; charset=utf-8" />
+
+    <script type="text/javascript" src="../jsc/jscharting.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="css/default.css" />
+    <style type="text/css"></style>
+  </head>
+  <body>
+    <div id="chartDiv" style="max-width: 740px;height: 400px;margin: 0px auto;"></div>
+
+    <script type="text/javascript">
+      /*
+Holiday calendar pattern markers correlating with website traffic.
+Learn how to:
+
+  - Use calendar patterns with axis markers.
+*/
+      // JS
+      var chart = JSC.chart('chartDiv', {
+        debug: true,
+        data: './resources/wikipediaSiteviews.csv',
+        title_label_text: 'Japan Wikipedia Siteviews',
+        legend_visible: false,
+        xAxis: {
+          crosshair: { enabled: true, label_text: '{%value:date d}' },
+          scale_type: 'time',
+          defaultMarker: {
+            value_pattern_offset: { unit: 'day', multiplier: -0.5 },
+            color: ['#2e75fe', 0.6]
+          },
+          markers: [
+            {
+              value: { pattern: { day: 8, month: 1 } },
+              label_text: 'Coming of Age Day'
+            },
+            {
+              value: { pattern: { day: 12, month: 2 } },
+              label_text: 'Foundation Day'
+            },
+            {
+              value: { pattern: { day: 21, month: 3 } },
+              label_text: 'Vernal Equinox Day'
+            },
+            {
+              value: { pattern: { day: 30, month: 4 } },
+              label_text: 'Shōwa Day'
+            },
+            {
+              value: { pattern: { day: 13, month: 5 } },
+              label_text: 'Constitution Memorial Day'
+            }
+          ]
+        },
+        annotations: [
+          {
+            position: 'bottom',
+            label_text: 'ja.wikipedia.org total pageviews from 1/1/2018 to 6/1/2018'
+          }
+        ],
+        defaultSeries_states_hover_line_width: 1,
+        defaultPoint_marker_visible: false
+      });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Map Zoom To | JSCharting</title>
+    <meta http-equiv="content-type" content="text-html; charset=utf-8" />
+
+    <script type="text/javascript" src="../jsc/jscharting.js"></script>
+
+    <script type="text/javascript" src="../jsc/modules/maps.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="css/default.css" />
+    <style type="text/css">
+      /*CSS*/
+    </style>
+  </head>
+  <body>
+    <div style="max-width: 740px;height: 450px;margin: 0px auto;">
+      Map Code: <input type="text" id="tb" value="US.region:Midwest" />
+      <input type="button" id="zoomToBtn" value="Zoom" />
+      <input id="zoomOutBtn" type="button" value="Zoom Out" />
+      <div style="width: 640px;">Examples: 'US', 'MX', 'US.IL', 'CA.BC', 'US.region:Midwest',</div>
+      <div id="chartDiv" style="max-width: 740px;height: 400px;margin: 0px auto;"></div>
+    </div>
+
+    <script type="text/javascript">
+      /*
+Zoom based on mapCodes or property filters.
+Learn how to:
+
+  - Mapping base layers from mapCodes.
+  - Zoom map using mapCodes and propertyFilters.
+*/
+      // JS
+      var chart = JSC.chart('chartDiv', {
+        debug: true,
+        type: 'map',
+        mapping_base: {
+          layers: 'Americas,US,CA,MX',
+          series: { defaultPoint: { color: '#d1eedd' } }
+        }
+      });
+      var tbElement;
+
+      function doZoom() {
+        var val = tbElement.value;
+        chart.zoom(val);
+      }
+
+      (function attachEvents() {
+        tbElement = document.getElementById('tb');
+        tbElement.addEventListener('keyup', function(event) {
+          (event.key === 'Enter' || event.keyCode === 13) && document.getElementById('zoomToBtn').onclick();
+        });
+        document.getElementById('zoomToBtn').addEventListener('click', function() {
+          return doZoom();
+        });
+        document.getElementById('zoomOutBtn').addEventListener('click', function() {
+          return chart.zoom(1);
+        });
+      })();
+    </script>
+  </body>
+</html>

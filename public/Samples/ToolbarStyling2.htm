@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Toolbar Styling 2 | JSCharting</title>
+    <meta http-equiv="content-type" content="text-html; charset=utf-8" />
+
+    <script type="text/javascript" src="../jsc/jscharting.js"></script>
+
+    <script type="text/javascript" src="../jsc/modules/toolbar.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="css/default.css" />
+    <style type="text/css"></style>
+  </head>
+  <body>
+    <div id="chartDiv" style="max-width: 740px;height: 400px;margin: 0px auto;"></div>
+
+    <script type="text/javascript">
+      /*
+Styling the toolbar buttons and states.
+Learn how to:
+
+  - Style export toolbar buttons.
+  - Specify export toolbar layout.
+*/
+      // JS
+      var chart = JSC.chart('chartDiv', {
+        debug: true,
+        legend_visible: false,
+        type: 'line',
+        defaultPoint_label_visible: true,
+        annotations: [{ label_text: 'Hover this icon:', position: 'inside top left' }],
+        toolbar: {
+          items: {
+            export: {
+              margin: 10,
+              position: 'inside left top',
+              icon: {
+                padding: 13,
+                width: 40,
+                height: 40,
+                fill: '#96a864'
+              },
+              states: {
+                select: { icon_outerShape: 'five-point-star' },
+                hover: { icon_outerShape: 'five-point-star' }
+              },
+              itemsBox_visible: false,
+              defaultItem: {
+                fill: 'white',
+                opacity: 0.9,
+                padding: 5,
+                outline: { color: '#4285F4', width: 2 },
+                icon_fill: '#4285F4',
+                states: {
+                  hover: { icon_fill: 'white', fill: '#4285F4' }
+                }
+              },
+              items: { print: { visible: false } }
+            }
+          }
+        },
+        xAxis: { scale_type: 'time' },
+        series: [
+          {
+            name: 'Purchases',
+            points: [
+              ['1/1/2020', 29.9],
+              ['1/15/2020', 71.5],
+              ['2/1/2020', 106.4],
+              ['2/15/2020', 129.2],
+              ['3/1/2020', 144.0],
+              ['3/15/2020', 176.0]
+            ]
+          }
+        ]
+      });
+    </script>
+  </body>
+</html>

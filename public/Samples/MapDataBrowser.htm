@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Mapping Data Browser | JSCharting</title>
+    <meta http-equiv="content-type" content="text-html; charset=utf-8" />
+
+    <script type="text/javascript" src="../jsc/jscharting.js"></script>
+
+    <script type="text/javascript" src="../jsc/modules/toolbar.js"></script>
+    <script type="text/javascript" src="../jsc/modules/maps.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="css/default.css" />
+    <style type="text/css">
+      /*CSS*/
+    </style>
+  </head>
+  <body>
+    <div style="max-width: 740px;height: 480px;margin: 0px auto;">
+      <select id="Countries"> </select>
+      <select id="Provinces"> </select>
+      <select id="Regions"> </select>
+      <input id="zoomBtn" type="button" value=" 200%" />
+      <div id="chartDiv" style="max-width: 730px;height: 450px;margin: 0px auto;"></div>
+    </div>
+
+    <script type="text/javascript">
+      /*
+Loads the digital list of available maps and displays them.
+Learn how to:
+
+  - View all available maps.
+*/
+      // JS
+      var chartConfig = {
+        debug: true,
+        type: 'map',
+        defaultPoint_label_visible: true,
+        legend_visible: false,
+        defaultPoint_tooltip: '%mapCode<br/>%name<br/>%region',
+        series: [
+          {
+            defaultPoint: {
+              outline_color: 'contrast',
+              states_select: { outline: { color: 'white', width: 1 } }
+            }
+          }
+        ],
+        toolbar_items_resetZoom_visible: false
+      };
+      var mapDataIndex;
+      var countriesElement;
+      var provincesElement;
+      var regionsElement;
+      var paletteIndex = 0;
+      var palette = JSC.getPalette(0);
+      var chart = null;
+
+      JSC.fetch('resources/mapDataIndex.js')
+        .then(function(response) {
+          response.text().then(function(text) {
+            var scriptTag = document.createElement('script');
+            scriptTag.innerHTML = text;
+            document.head.appendChild(scriptTag);
+
+            var countryOptions = [];
+            mapDataIndex = JSC.bundle.mapDataIndex;
+            countriesElement = document.getElementById('Countries');
+            provincesElement = document.getElementById('Provinces');
+            regionsElement = document.getElementById('Regions');
+            populateCountries();
+            selectCountry();
+
+            function populateCountries() {
+              for (var cID in mapDataIndex) {
+                countryOptions.push(
+                  '<option value="' + cID + '">' + mapDataIndex[cID].name + ' (' + cID + ')</option>'
+                );
+              }
+              countryOptions.sort();
+              countriesElement.innerHTML = countryOptions.join('');
+            }
+          });
+        })
+        .catch(function(error) {
+          console.log('Cannot find the resources/mapDataIndex.js file. : ' + error);
+        });
+
+      function updateChart(id) {
+        var ser = {
+          map: id,
+          name: mapDataIndex[id].name,
+          palette: JSC.colorToPalette(
+            palette[paletteIndex++ % palette.length],
+            {
+              saturation: 0.3,
+              hue: 0.05,
+              lightness: 0.5
+            },
+            10,
+            4
+          )
+        };
+        if (chart) {
+          chart.series.splice(0, 1, [ser]);
+        } else {
+          delete chartConfig.series;
+          chartConfig.series = [ser];
+          chart = JSC.chart('chartDiv', chartConfig);
+        }
+      }
+
+      function selectCountry() {
+        var countryId = countriesElement.options[countriesElement.selectedIndex].value;
+        updateChart(countryId);
+        populateProvinces(countryId);
+
+        function populateProvinces(id) {
+          provincesElement.innerHTML = '<option value="ALL">Select a province</option>';
+          regionsElement.innerHTML = '<option value="ALL">Select a region</option>';
+          var data = mapDataIndex[id].provinces;
+
+          //Make an array of province options to sort
+          var tmpProvArr = [];
+          for (var pID in data) {
+            tmpProvArr.push('<option value="' + pID + '">' + data[pID].name + '</option>');
+          }
+          tmpProvArr.sort();
+          provincesElement.innerHTML += tmpProvArr.join('');
+
+          if ((data = mapDataIndex[id].regions)) {
+            data.sort();
+            for (var i = 0, iLen = data.length; i < iLen; i++) {
+              var obj = data[i];
+              regionsElement.innerHTML += '<option value="' + obj + '">' + obj + '</option>';
+            }
+            chart.options({ defaultPoint_tooltip: '%mapCode<br/>%name<br/>%region' });
+          } else {
+            regionsElement.innerHTML = '<option value="ALL">Regions not available</option>';
+            chart.options({ defaultPoint_tooltip: '%mapCode<br/>%name' });
+          }
+        }
+      }
+
+      function selectProvince() {
+        //Reset region dropdown
+        regionsElement.selectedIndex = 0;
+        var provPoint,
+          provinceVal = provincesElement.options[provincesElement.selectedIndex].value;
+        if (provinceVal === 'ALL') {
+          chart.zoom(1);
+          updateZoomState(0);
+        } else if ((provPoint = chart.series().points(provinceVal))) {
+          provPoint.zoomTo();
+        }
+      }
+
+      function selectRegion() {
+        var regionProvs,
+          regionsVal = regionsElement.options[regionsElement.selectedIndex].value;
+        //Reset province dropdown
+        provincesElement.selectedIndex = 0;
+        updateZoomState(0);
+        if (regionsVal === 'ALL') {
+          chart.zoom(1);
+        } else {
+          chart.zoom('region:' + regionsVal);
+        }
+      }
+
+      var zoomState = 0;
+
+      function toggleZoom() {
+        //Reset province dropdown
+        provincesElement.selectedIndex = 0;
+        if (zoomState === 0) {
+          updateZoomState(1);
+          chart.zoom(2);
+        } else {
+          updateZoomState(0);
+          chart.zoom(1);
+        }
+      }
+
+      function updateZoomState(state) {
+        var zoomBtnElement = document.getElementById('zoomBtn');
+        if (state === 0) {
+          zoomBtnElement.value = '200%';
+          zoomState = 0;
+        } else if (state === 1) {
+          zoomBtnElement.value = '100%';
+          zoomState = 1;
+        }
+      }
+
+      (function attachEvents() {
+        document.getElementById('Countries').addEventListener('change', function() {
+          return selectCountry();
+        });
+        document.getElementById('Provinces').addEventListener('change', function() {
+          return selectProvince();
+        });
+        document.getElementById('Regions').addEventListener('change', function() {
+          return selectRegion();
+        });
+        document.getElementById('zoomBtn').addEventListener('click', function() {
+          return toggleZoom();
+        });
+      })();
+    </script>
+  </body>
+</html>

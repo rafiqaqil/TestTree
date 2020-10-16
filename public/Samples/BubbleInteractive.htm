@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Bubble Interactive | JSCharting</title>
+    <meta http-equiv="content-type" content="text-html; charset=utf-8" />
+
+    <script type="text/javascript" src="../jsc/jscharting.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="css/default.css" />
+    <style type="text/css"></style>
+  </head>
+  <body>
+    <div id="chartDiv" style="max-width: 740px;height: 400px;margin: 0px auto;"></div>
+
+    <script type="text/javascript">
+      /*
+A scatter bubble chart with interactive data.
+Learn how to:
+
+  - Draw an interactive bubble chart with animations.
+*/
+      // JS
+      var chart;
+      var iconChecked = '<icon name=system/default/checkbox fill=slategray size=13>',
+        iconBlank = '<icon name=system/default/checkbox-blank fill=slategray size=13>';
+
+      JSC.fetch('./resources/USCrimeRate.csv')
+        .then(function(response) {
+          return response.text();
+        })
+        .then(function(text) {
+          var data = JSC.csv2Json(text);
+          chart = renderChart(data, 'Total Crime');
+        });
+
+      function renderChart(data, type) {
+        return JSC.chart('chartDiv', {
+          type: 'bubble',
+          annotations: [{ label: { style_fontSize: '15px', text: 'US Crime Rate' }, position: 'top left' }],
+          animation_duration: 500,
+          legend: {
+            template: '%lecb,%icon,%name',
+            position: 'inside left top',
+            defaultEntry_events_click: function leClick(series) {
+              series.options({ legendEntry_attributes_lecb: series.isVisible ? iconBlank : iconChecked });
+            }
+          },
+          yAxis: {
+            label_text: 'Crime Rate (per 100k people)',
+            defaultTick_label_width: 40,
+            alternateGridFill: 'none'
+          },
+          xAxis: { label_text: 'Unemployment Rate', defaultTick_label_text: '%value%' },
+          defaultSeries: {
+            attributes: { lecb: iconChecked }
+          },
+          defaultPoint: {
+            tooltip:
+              '<b>%state</b><br>%xAxisLabel: <b>%xValue</b><br>%yAxisLabel: <b>{%yValue:n1}</b><br>Population: <b>%zValue</b>',
+            opacity: 0.8
+          },
+          series: makeSeries(data, type),
+          toolbar_items: {
+            export_visible: false,
+            'Crime Type': {
+              position: 'top right',
+              label_text: '',
+              events_change: function(val) {
+                updateSeries(data, val);
+              },
+              itemsBox: {
+                layout: 'horizontal',
+                visible: true,
+                margin_top: 5
+              },
+              defaultItem_type: 'radio',
+              value: 'Total Crime',
+              items: {
+                'Total Crime': {},
+                'Violent Crime': {},
+                'Property Crime': {}
+              }
+            }
+          }
+        });
+      }
+
+      function updateSeries(data, type) {
+        var series = makeSeries(data, type);
+        series.forEach(function(s) {
+          chart.series(s.name).options({ points: s.points }, false);
+        });
+        chart.redraw();
+      }
+
+      function makeSeries(data, type) {
+        var series;
+        switch (type) {
+          case 'Total Crime':
+            series = JSC.nest()
+              .key('region')
+              .key('state')
+              .pointRollup(function(key, val) {
+                var values = val[0];
+                return {
+                  id: key,
+                  x: values.unemployment_rate,
+                  y: values.violent_rate + values.property_rate,
+                  z: values.population,
+                  attributes_state: key
+                };
+              })
+              .series(data);
+            break;
+
+          case 'Violent Crime':
+            series = JSC.nest()
+              .key('region')
+              .key('state')
+              .pointRollup(function(key, val) {
+                var values = val[0];
+                return {
+                  id: key,
+                  x: values.unemployment_rate,
+                  y: values.violent_rate,
+                  z: values.population,
+                  attributes_state: key
+                };
+              })
+              .series(data);
+            break;
+
+          case 'Property Crime':
+            series = JSC.nest()
+              .key('region')
+              .key('state')
+              .pointRollup(function(key, val) {
+                var values = val[0];
+                return {
+                  id: key,
+                  x: values.unemployment_rate,
+                  y: values.property_rate,
+                  z: values.population,
+                  attributes_state: key
+                };
+              })
+              .series(data);
+            break;
+        }
+        series.forEach(function(s) {
+          s.id = s.name;
+        });
+        return series;
+      }
+    </script>
+  </body>
+</html>

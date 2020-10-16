@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Legend Point Highlight | JSCharting</title>
+    <meta http-equiv="content-type" content="text-html; charset=utf-8" />
+
+    <script type="text/javascript" src="../jsc/jscharting.js"></script>
+
+    <script type="text/javascript" src="../jsc/modules/toolbar.js"></script>
+    <script type="text/javascript" src="../jsc/icons/material/image/wb-incandescent.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="css/default.css" />
+    <style type="text/css"></style>
+  </head>
+  <body>
+    <div id="chartDiv" style="max-width: 740px;height: 400px;margin: 0px auto;"></div>
+
+    <script type="text/javascript">
+      /*
+Line series with a highlighted point that uses an icon and legend entry.
+Learn how to:
+
+  - Include specific points in the legend.
+  - Highlight a specific point with a marker icon.
+*/
+      // JS
+      var chart = JSC.chart('chartDiv', {
+        debug: true,
+        defaultSeries_type: 'line',
+        axisToZoom: 'x',
+        title_label_text: 'Server Load (GB)',
+        xAxis_scale_type: 'time',
+        yAxis_defaultTick_label_text: '{%value:n0} GB',
+        legend: {
+          position: 'inside left top',
+          defaultEntry_value: '%value GB'
+        },
+        annotations: [
+          {
+            label_text: 'When zoomed in, clicking the point legend entry<br> zooms the point into view.',
+            position: 'inside bottom right'
+          }
+        ],
+        series: [
+          {
+            name: 'YTD',
+            points: [
+              { x: '1/1/2020', y: 29.9 },
+              { x: '2/1/2020', y: 71.5 },
+              { x: '3/1/2020', y: 106.4 },
+              { x: '4/1/2020', y: 106.4 },
+              { x: '5/1/2020', y: 106.4 },
+              { x: '6/1/2020', y: 129.2 },
+              { x: '7/1/2020', y: 144.0 },
+              {
+                x: '8/1/2020',
+                y: 176.0,
+                color: '#fa633d',
+                marker: { size: 20, type: 'material/image/wb-incandescent' },
+                legendEntry_visible: true
+              },
+              { x: '9/1/2020', y: 123 },
+              { x: '10/1/2020', y: 112 },
+              { x: '11/1/2020', y: 89 },
+              { x: '12/1/2020', y: 72 }
+            ]
+          }
+        ],
+        toolbar_items_resetZoom_position: 'inside bottom left'
+      });
+    </script>
+  </body>
+</html>

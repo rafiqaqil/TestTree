@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Inverted Pyramid Chart | JSCharting</title>
+    <meta http-equiv="content-type" content="text-html; charset=utf-8" />
+
+    <script type="text/javascript" src="../jsc/jscharting.js"></script>
+
+    <script type="text/javascript" src="../jsc/modules/types.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="css/default.css" />
+    <style type="text/css">
+      /*CSS*/
+    </style>
+  </head>
+  <body>
+    <div id="chartDiv" style="max-width: 480px;height: 360px;margin: 0px auto;"></div>
+
+    <script type="text/javascript">
+      /*
+Inverted pyramid.
+Learn how to:
+
+  - Draw a pyramid.
+  - Draw an inverted pyramid.
+*/
+      // JS
+      var chart = JSC.chart('chartDiv', {
+        debug: true,
+        type: 'pyramidInverted',
+        legend_visible: false,
+        annotations: [
+          {
+            margin_top: 10,
+            position: 'inside top',
+            label: { text: 'Operations Cost', style_fontSize: 15 }
+          }
+        ],
+
+        /*These y axis settings  describe the point y values.*/
+        yAxis: { label_text: 'Cost', formatString: 'c' },
+        defaultSeries: {
+          shape_innerPadding: 6,
+          defaultPoint: {
+            label: {
+              text: '%name <b>%yValuek</b> (%percentOfSeries%)',
+              placement: 'outside'
+            }
+          }
+        },
+        series: [
+          {
+            name: 'Costs',
+            palette: 'default',
+            points: [
+              { name: 'R&D', y: 183 },
+              { name: 'Shipping', y: 140 },
+              { name: 'Marketing', y: 136 },
+              { name: 'Manufacturing', y: 80 },
+              { name: 'Retail', y: 50 }
+            ]
+          }
+        ]
+      });
+    </script>
+  </body>
+</html>

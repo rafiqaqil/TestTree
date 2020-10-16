@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Event Tooltip Details Calendar Chart | JSCharting</title>
+    <meta http-equiv="content-type" content="text-html; charset=utf-8" />
+
+    <script type="text/javascript" src="../jsc/jscharting.js"></script>
+
+    <script type="text/javascript" src="../jsc/modules/types.js"></script>
+    <script type="text/javascript" src="../jsc/icons/material/toggle/radio-button-unchecked.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="css/default.css" />
+    <style type="text/css">
+      #chartDiv {
+        width: 300px;
+        height: 300px;
+        margin: 0px auto;
+        display: block;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="chartDiv"></div>
+
+    <script type="text/javascript">
+      /*
+Events data loaded dynamically shown as dots with expanded view in tooltips.
+Learn how to:
+
+  - Merge multiple CSV data text icons into a calendar cells.
+*/
+      // JS
+      var chart,
+        palette = JSC.getPalette(0),
+        csvData,
+        chartConfig = {
+          type: 'calendar month solid',
+          defaultCultureName: 'en',
+          title: {
+            label_text: 'JULY 2019',
+            position: 'right',
+            label_style: { fontSize: 20 }
+          },
+          legend: {
+            visible: true,
+            position: 'bottom',
+            template: '%icon %name',
+            customEntries: [
+              {
+                name: 'Sport',
+                icon: {
+                  color: '#e082ff',
+                  name: 'material/toggle/radio-button-unchecked',
+                  size: 14,
+                  outerShape: 'circle',
+                  outline_width: 0
+                }
+              },
+              {
+                name: 'Study',
+                icon: {
+                  color: '#91e775',
+                  name: 'material/toggle/radio-button-unchecked',
+                  size: 14,
+                  outerShape: 'circle',
+                  outline_width: 0
+                }
+              },
+              {
+                name: 'Birthdays',
+                icon: {
+                  color: '#ffe082',
+                  name: 'material/toggle/radio-button-unchecked',
+                  size: 14,
+                  outerShape: 'circle',
+                  outline_width: 0
+                }
+              },
+              {
+                name: 'Parties',
+                icon: {
+                  color: '#82a1ff',
+                  name: 'material/toggle/radio-button-unchecked',
+                  size: 14,
+                  outerShape: 'circle',
+                  outline_width: 0
+                }
+              },
+              {
+                name: 'Entertainment',
+                icon: {
+                  color: '#75e7ca',
+                  name: 'material/toggle/radio-button-unchecked',
+                  size: 14,
+                  outerShape: 'circle',
+                  outline_width: 0
+                }
+              }
+            ]
+          },
+
+          calendar: {
+            range: ['7/1/2019', '8/1/2019'],
+            defaultEdgePoint: { mouseTracking: false, label_visible: false, fill: 'none' },
+            defaultEmptyPoint: { label_color: 'gray', hatch: 'none', mouseTracking_enabled: false }
+          },
+          defaultSeries: {
+            legendEntry_visible: false,
+            shape_innerPadding: 0
+          },
+          defaultTooltip: {
+            fill: '#495057',
+            label_style_color: 'white',
+            padding: 8,
+            radius: 5
+          },
+          defaultPoint: {
+            tooltip: "<b>{%date:date m}:</b><br><span style='listPadding: 0;'><ul>%events</ul></span>",
+            states_hover: { color: '#cfd8dc' },
+            outline_width: 0,
+            label: {
+              text: '%icons<br><span style="align:center;"><b>%name</b></span>',
+              style_fontSize: 12,
+              align: 'right',
+              verticalAlign: 'top',
+              padding: 5,
+              color: 'gray'
+            },
+            attributes_events: '',
+            attributes_icons:
+              '<icon name=material/toggle/radio-button-unchecked color=transparent outerShape=circle size=6 >'
+          },
+          toolbar_visible: false,
+          yAxis_visible: false
+        };
+
+      JSC.fetch('./resources/events_data2.csv')
+        .then(function(response) {
+          if (response.ok) {
+            response.text().then(function(text) {
+              var parsedData = JSC.parseCsv(text);
+              renderChart((csvData = parsedData.data));
+            });
+          }
+        })
+        .catch(function(err) {
+          console.error(err);
+        });
+      var weekDays = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+      var colorOfCategory = {
+        Sport: '#e082ff',
+        Study: '#91e775',
+        Birthdays: '#ffe082',
+        Parties: '#82a1ff',
+        Entertainment: '#75e7ca'
+      };
+
+      function renderChart(data) {
+        chart = JSC.chart('chartDiv', makeChartConfig(data));
+      }
+      function makeChartConfig(data) {
+        var config = chartConfig;
+        var customEntriesNames = [];
+        data.map(function(row) {
+          var entryName = row[3];
+          if (customEntriesNames.indexOf(entryName) === -1) {
+            customEntriesNames.push(entryName);
+          }
+        });
+        config.series = [
+          {
+            points: data.map(function(row) {
+              var eventsText =
+                "<span style='text-align:left;font-weight:bold; color:" +
+                palette[customEntriesNames.indexOf(row[3])] +
+                "'><li>" +
+                row[2] +
+                ' - <span style="font-weight:normal">' +
+                JSC.formatDate(new Date(row[0]), 't') +
+                '</span></li></span>';
+              var labelText =
+                '<icon name=material/toggle/radio-button-unchecked color=' +
+                palette[customEntriesNames.indexOf(row[3])] +
+                ' outerShape=circle size=6 >';
+              return {
+                date: [row[0], row[1]],
+                attributes: { events: [eventsText], icons: [labelText] }
+              };
+            })
+          }
+        ];
+
+        config.legend.customEntries = customEntriesNames.map(function(name, i) {
+          return {
+            name: name,
+            icon: {
+              color: palette[i],
+              name: 'material/toggle/radio-button-unchecked',
+              size: 14,
+              outerShape: 'circle',
+              outline_width: 0
+            }
+          };
+        });
+
+        return config;
+      }
+    </script>
+  </body>
+</html>

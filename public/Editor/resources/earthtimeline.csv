@@ -1,0 +1,48 @@
+name,level,start_date,end_date
+Hadean,first,4540,4000
+Archean,first,4000,2500
+Eoarchean,second,4000,3600
+Paleoarchean,second,3600,3200
+Mesoarchean,second,3200,2800
+Neoarchean,second,2800,2500
+Proterozoic,first,2500,541
+Paleoproterozoic Era,second,2500,1600
+Siderian Period,third,2500,2300
+Rhyacian Period,third,2300,2050
+Orosirian Period,third,2050,1800
+Statherian Period,third,1800,1600
+Mesoproterozoic Era,second,1600,1000
+Calymmian Period,third,1600,1400
+Ectasian Period,third,1400,1200
+Stenian Period,third,1200,1000
+Neoproterozoic Era,second,1000,541
+Tonian Period,third,1000,720
+Cryogenian Period,third,720,635
+Ediacaran Period,third,635,541
+Phanerozoic,first,541,0
+Palaeozoic Era,second,541,252.9
+Cambrian Period,third,541,485.4
+Ordovician Period,third,485.4,443.8
+Silurian Period,third,443.8,419.2
+Devonian Period,third,419.2,358.9
+Carboniferous Period,third,358.9,298.9
+Permian Period,third,298.9,251.9
+Mesozoic Era,second,252.9,66
+Triassic Period,third,251.9,201.3
+Jurassic period,third,201.3,145
+Cretaceous Period,third,145,66
+Cenozoic Era,second,66,0
+Paleogene Period,third,66,23.03
+Neogene Period,third,23.03,2.58
+Quaternary Period,third,2.58,0
+Single-celled life,Single-celled life,4000,0
+Eukaryotes,Eukaryotes,2100,0
+Multicellular life,Multicellular life,1600,0
+Arthropod and Mollusca,Arthropod and Mollusca,540,0
+Plants,Plants,390,0
+Dinosaurs,Dinosaurs,233.23,66
+Mammal,Mammal,167,0
+Flowering plants,Flowering plants,130,0
+Birds,Birds,121,0
+Primates,Primates,55,0
+First hominins,First hominins,6.5,0

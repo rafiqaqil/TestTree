@@ -1,0 +1,162 @@
+
+<h2>Gauge types</h2>
+<p>Circular gauge types provide many features with flexibility to create a wide range of visualizations. The radial
+	charts support virtually all the same axis features as normal charts except they are curved around a circle.
+</p>
+
+<h3>Classic Gauges</h3>
+<p>When the chart type property is set to 'gauge', classic needle gauges are used by default. Internally the default
+	series type is set to marker and defaultPoint.marker.type is set to 'needle'. When different series/marker
+	types are specified, modern gauges are used. Needle lengths and ranges can be controlled by the point.marker.length
+	property.
+</p>
+
+<span class="docsReference">
+	Samples.Gauge:Demonstrates setting needle lengths and ranges.
+</span>
+
+<p>Size of the center needle base cap of the gauge that needles start from can be modified through the
+	shape.innerPadding property like so:
+</p>
+
+<span class="codeText">
+{
+	defaultSeries_shape_innerPadding:.5
+}
+</span>
+
+<p>To make the cap smaller, positive values from 0 to 1 can be used. Negative values will make it larger.</p>
+
+<p>For more detailed information on classic gauges, please refer to this tutorial:
+	<a href="Tutorials.gaugeChartType">Classic gauge tutorial.</a>
+</p>
+
+<h3>Modern Gauges</h3>
+<p>Modern gauges are standard horizontal charts projected around a circle or arc. All axis features are
+	supported just like with standard charts but some default settings may differ between standard and different
+	circular chart types. For example, x axes are not visible by default on circular gauges but all x axis visuals can be enabled.
+</p>
+
+<span class="docsReference">
+	Samples.CircularGrid: Shows all visual elements of both x and y axes.
+</span>
+
+<h3>OnTop Features</h3>
+
+<p>Each axis visual element can be set to render on top of data visuals by setting the onTop property to true. The following
+	items include onTop settings to modify where it renders.
+</p>
+
+
+<ul>
+	<li><a href="Types.axis">axis</a></li>
+	<li><a href="Types.axis.line">axis.line</a></li>
+	<li><a href="Types.axisTick">axisTick</a></li>
+	<li><a href="Types.axisTick.label">axisTick.label</a></li>
+	<li><a href="Types.axisTick.gridLine">axisTick.gridLine</a></li>
+	<li><a href="Types.axisMarker">axisMarker</a></li>
+</ul>
+
+
+<p>When axis elements render behind data, the axis line renders on top of grid lines by default, but if
+	axis.line.onTop=false is set explicitly it will make gridlines render on top of the axis line.
+</p>
+
+<span class="docsReference">Samples.CircularShapeLabels</span>
+
+<h3>Axis Tick Label Placement</h3>
+<p>Outer axis tick labels on circular charts can render inside or outside the circular chartArea using the label.placement
+	property. The default placement can differ between gauge types but can also be set explicitly as in this snippet:
+</p>
+
+<span class="codeText">
+{
+	yAxis:{
+		defaultTick_label_placement:'inside'
+	}
+}
+</span>
+<span class="docsReference">Samples.CircularTickPlacement</span>
+
+
+<h3>Circular Columns</h3>
+<p>Circular columns have some unique behaviors that cater to modern dashboard needs.</p>
+
+
+<h4>Column Overflow</h4>
+<p>When y axis range is 0-100 on a full circle, and the column values are larger than that range (say 200), the visual
+	will spiral over top of itself. Columns can spiral this way repeatedly and the shape will not represent the column
+	value because 200 will look the same as 300, 400, and so on. However, there is a color cue that indicates the
+    number of times the column overlaps itself through a change of the column hue.</p>
+
+<span class="tutorialImage">
+<img src="tutorials/images/columnOverflow.png"/>
+<em>Figure 1.</em><section>Column overflow feature</section>
+</span>
+
+
+<p>This hue change can be disabled by setting 'column solid' series type.</p>
+
+<h3>Span Axis Origin</h3>
+
+<p>Sometimes it is necessary for a column to span the origin on the axis. For example if axis range is 0-12
+	representing a clock and a column must be drawn clockwise between 10 and 2, this can be accomplished by
+	setting the point y value with [10,2]. When the first value is larger than the second value, the chart
+	will assume the point range should span the axis origin.
+</p>
+
+<p>Circular columns don't  support all column shading effects, but they do support roundCaps.</p>
+<span class="docsReference">Samples.CircularSleep</span>
+
+<h3>Grid Line Column Guide</h3>
+<p>A common linear or circular column gauge feature is  drawing the full path the column can fill behind it. To
+	replicate this visual x axis grid lines can be used. Setting grid line width to 'column' makes
+	the grid lines match column widths and caps to replicates this visualization.
+</p>
+
+<span class="codeText">
+{
+	xAxis:{
+		defaultTick_gridLine_width:'column'
+	}
+}
+</span>
+
+<span class="tutorialImage">
+<img src="tutorials/images/columnGuides.png"/>
+<em>Figure 2.</em><section>Circular and linear column guides</section>
+</span>
+
+<span class="docsTip">
+To ensure axis tick positions coincide with columns, it is best to use category x axis scales.
+	Meaning, points have string x values.
+</span>
+
+<span class="docsReference">Samples.CircularSweepGuides|Samples.LinearGuides</span>
+
+<h3>Gauge Shape Labels</h3>
+<p>Gauges including radar, circular, and linear support labels than can be positioned outside or inside the gauge.
+	Multiple labels with different alignments can be used on a single gauge.
+</p>
+
+
+<span class="docsReference">Samples.CircularShapeLabels</span>
+
+<span class="docsTip">
+Tip: Using labels with icons can be a useful design approach to make modern looking charts.
+</span>
+
+<h3>Circular Point Marker Rotation</h3>
+<p>Point markers on radars or attached to circular columns don't rotate by default, however, by
+	setting marker.rotate='auto'  markers will orient their "up" direction to point away from the circular center.
+	Auto rotation can be confusing if used on radars with many different markers, but can be useful in some cases
+	as in this sample:
+</p>
+
+<span class="docsReference">Samples.CircularColumnMarkers</span>
+
+<p>In addition, rotation also supports a numeric angle in degrees.</p>
+
+
+
+

@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Calendar Pattern Range Ticks | JSCharting</title>
+    <meta http-equiv="content-type" content="text-html; charset=utf-8" />
+
+    <script type="text/javascript" src="../jsc/jscharting.js"></script>
+
+    <script type="text/javascript" src="../jsc/modules/toolbar.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="css/default.css" />
+    <style type="text/css">
+      /*CSS*/
+    </style>
+  </head>
+  <body>
+    <div id="chartDiv" style="max-width: 740px;height: 400px;margin: 0px auto;"></div>
+
+    <script type="text/javascript">
+      /*
+Interval calendar pattern ranges on a time scale axis.
+Learn how to:
+
+  - Axis Range Ticks.
+*/
+      // JS
+      var chart = JSC.chart('chartDiv', {
+        debug: true,
+        axisToZoom: 'x',
+        margin_right: 10,
+        xAxis: {
+          scale_type: 'time',
+          defaultTick_enabled: false,
+          customTicks: [
+            { value_pattern: 'month', label_text: '%min' },
+            {
+              value_pattern: 'quarter',
+              label_text: qTickText
+            },
+            { value_pattern: 'year', label_text: '%min' }
+          ]
+        },
+        legend_visible: false,
+        title_label_text: 'Apple iPhone sales (in million units)',
+        series: [
+          {
+            type: 'line spline',
+            defaultPoint: {
+              marker: { outline: { width: 2, color: 'white' } }
+            },
+            points: [
+              { x: '04/1/2016', y: 74.78 },
+              { x: '07/1/2016', y: 51.19 },
+              { x: '10/1/2016', y: 40.4 },
+              { x: '1/1/2017', y: 45.51 },
+              { x: '04/1/2017', y: 78.29 },
+              { x: '07/1/2017', y: 50.76 },
+              { x: '10/1/2017', y: 41.03 },
+              { x: '1/1/2018', y: 46.68 },
+              { x: '04/1/2018', y: 67.32 },
+              { x: '07/1/2018', y: 52.22 },
+              { x: '10/1/2018', y: 41.3 },
+              { x: '1/1/2019', y: 46.89 }
+            ]
+          }
+        ]
+      });
+
+      function qTickText(v) {
+        return dateToQuarter(v[0]);
+      }
+
+      function dateToQuarter(d) {
+        d = new Date(d);
+        return 'Q' + (Math.floor(d.getMonth() / 3) + 1);
+      }
+    </script>
+  </body>
+</html>

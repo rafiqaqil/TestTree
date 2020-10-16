@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Interactive KPI | JSCharting</title>
+    <meta http-equiv="content-type" content="text-html; charset=utf-8" />
+
+    <script type="text/javascript" src="../jsc/jscharting.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="css/default.css" />
+    <style type="text/css">
+      /*CSS*/
+    </style>
+  </head>
+  <body>
+    <div id="chartDiv" style="max-width: 740px;height: 400px;margin: 0px auto;"></div>
+
+    <script type="text/javascript">
+      /*
+KPI buttons selecting details chart data.
+Learn how to:
+
+  - Use uiItem buttons with microcharts to select chart data.
+*/
+      // JS
+      var chart;
+
+      JSC.fetch('./resources/website_analytics.csv')
+        .then(function(response) {
+          return response.text();
+        })
+        .then(function(text) {
+          var data = JSC.csv2Json(text);
+          chart = renderChart(makeSeries(data), makeButtons(data));
+        });
+
+      function makeSeries(data) {
+        var series = [
+          {
+            name: 'New Users',
+            type: 'column',
+            points: JSC.nest()
+              .key('date')
+              .rollup('new_users')
+              .points(data)
+          },
+          {
+            name: 'Returning Users',
+            type: 'column',
+            points: JSC.nest()
+              .key('date')
+              .rollup('returning_users')
+              .points(data)
+          }
+        ];
+        return series;
+      }
+
+      function renderChart(series, buttons) {
+        return JSC.chart(
+          'chartDiv',
+          {
+            xAxis: {
+              scale_type: 'time',
+              defaultTick_gridLine_visible: false,
+              crosshair: { enabled: true }
+            },
+            yAxis: {
+              scale_type: 'stacked',
+              alternateGridFill: 'none',
+              defaultTick_label_text: '%value',
+              orientation: 'opposite'
+            },
+            legend: {
+              template: '%icon %name',
+              position: 'inside top right'
+            },
+            defaultPoint: {
+              marker_type: 'circle',
+              label_autoHide: false,
+              label_placement: 'outside'
+            },
+            toolbar: {
+              items: {
+                Buttons: buttons,
+                export_visible: false
+              }
+            }
+          },
+          function(c) {
+            c.options({ series: series });
+          }
+        );
+      }
+
+      var selectedFill = { angle: 90, stops: [[0, '#85a1ff'], [0.08, '#85a1ff'], [0.08, '#ffffff'], [1, '#ffffff']] };
+
+      function makeButtons(data) {
+        var new_users = JSC.nest()
+          .key('date')
+          .rollup('new_users')
+          .points(data);
+        var returning_users = JSC.nest()
+          .key('date')
+          .rollup('returning_users')
+          .points(data);
+        var users = JSC.nest()
+          .key('date')
+          .pointRollup(function(key, val) {
+            return {
+              x: new Date(parseInt(key)),
+              y: val[0].new_users + val[0].returning_users
+            };
+          })
+          .points(data);
+        var session_duration = JSC.nest()
+          .key('date')
+          .rollup('session_duration')
+          .points(data);
+        var sessions = JSC.nest()
+          .key('date')
+          .rollup('sessions')
+          .points(data);
+        var buttons = {
+          label_text: '',
+          position: 'top left',
+          itemsBox: {
+            layout: 'horizontal',
+            visible: true,
+            margin_top: 5
+          },
+          defaultItem: {
+            type: 'radio',
+            position: 'top',
+            padding: [10, 18, 10, 0],
+            outline_width: 0,
+            margin: 1,
+            radius: 0,
+            fill: '#fefefe',
+            label_style: { fontWeight: 'normal', fontSize: '14px' },
+            icon: { visible: false },
+            states: {
+              select: { fill: selectedFill, label_style_fontWeight: 'bold' },
+              hover_fill: '#f6f6f6'
+            }
+          },
+          events: { change: changeChartData },
+          value: 'Users',
+          items: {
+            Users: {
+              label_text: toKpiText('Users', getLastValues(users, 2)) + '<br>' + makeMicroChart(users)
+            },
+            Sessions: {
+              label_text: toKpiText('Sessions', getLastValues(sessions, 2)) + '<br>' + makeMicroChart(sessions)
+            },
+            'Session Duration': {
+              label_text:
+                toKpiText('Avg. Session Duration', getLastValues(session_duration, 2)) +
+                '<br>' +
+                makeMicroChart(session_duration)
+            }
+          }
+        };
+
+        function getLastValues(obj, n) {
+          return obj
+            .map(function(a) {
+              return a.y;
+            })
+            .slice(-n);
+        }
+
+        function makeMicroChart(data) {
+          return (
+            '<chart sparkline margin_top=5 colors=#424242,#616161 width=127 data=' +
+            getLastValues(data, 7).join(',') +
+            '>'
+          );
+        }
+
+        function changeChartData(val) {
+          switch (val) {
+            case 'Users':
+              chart.chartAreas(0).legend.options({ visible: true }, false);
+              chart.options({
+                series: [
+                  { name: 'New Users', points: new_users },
+                  { name: 'Returning Users', points: returning_users }
+                ],
+                type: 'column',
+                defaultPoint_tooltip: '%seriesName: <b>%yValue</b>',
+                yAxis_defaultTick_label_text: '%value'
+              });
+              break;
+            case 'Sessions':
+              chart.chartAreas(0).legend.options({ visible: false }, false);
+              chart.options({
+                series: [{ name: 'Sessions', points: sessions }],
+                type: 'line',
+                defaultPoint_tooltip: '%seriesName: <b>%yValue</b>',
+                yAxis_defaultTick_label_text: '%value'
+              });
+              break;
+            case 'Session Duration':
+              chart.chartAreas(0).legend.options({ visible: false }, false);
+              chart.options({
+                series: [{ name: 'Avg. Session Duration', points: session_duration }],
+                type: 'line',
+                defaultPoint_tooltip: function(point) {
+                  return '%seriesName: <b>00:' + JSC.formatDate(new Date(0).setSeconds(point.y), 'mm:ss') + '</b>';
+                },
+                yAxis_defaultTick_label_text: function(v) {
+                  return '00:' + JSC.formatDate(new Date(0).setSeconds(v), 'mm:ss');
+                }
+              });
+              break;
+          }
+        }
+
+        return buttons;
+      }
+
+      // Generates KPI text from values.
+      function toKpiText(name, elements) {
+        var a = elements[0],
+          b = elements[1],
+          delta = b / a - 1,
+          color = delta >= 0 ? 'green' : 'red',
+          lastValue = b;
+        if (name.indexOf('Duration') > -1) {
+          lastValue = '00:' + JSC.formatDate(new Date(0).setSeconds(b), 'mm:ss');
+        }
+        var icon =
+            '<icon verticalAlign=middle name=' +
+            (delta >= 0 ? 'arrow-up' : 'arrow-down') +
+            ' size=13 color=' +
+            color +
+            '>',
+          labelValues = [name + '<br>', lastValue, icon, Math.abs(Math.round(delta * 1000) / 10) + '%'],
+          labelStyles = [
+            'width:170px;',
+            'width:70px;font-weight:bold;font-size:14px;',
+            'width:17px;align:right',
+            'width:45px; color:' + color + ';font-weight:bold;font-size:14px;'
+          ];
+
+        return labelValues
+          .map(function(v, i) {
+            return '<span style="' + labelStyles[i] + '">' + v + '</span>';
+          })
+          .join('');
+      }
+    </script>
+  </body>
+</html>

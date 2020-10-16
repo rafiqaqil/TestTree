@@ -1,0 +1,70 @@
+<h2>Your First Chart</h2>
+
+
+To begin, create a new HTML file.
+<span class="docsNote">This file can be created within the JSC bundle or
+			built off of a sample in /Samples. In order to use the charts in any other location,
+                               copy the JSC folder from within the bundle to your working directory. This is the minimum requirement to
+			work with JSCharting.</span>
+
+First, include the JSCharting library in your HTML file as follows:
+
+<span class="htmlText">
+		&lt;script type=&quot;text/javascript&quot; src=&quot;JSC/JSCharting.js&quot;&gt;&lt;/script&gt;
+</span>
+
+In the body of the HTML page, add a div element with a
+specific ID attribute to contain the chart graphics.
+<span class="htmlText">&lt;div id=&quot;chartDiv&quot; style=&quot;width: 100%; height: 400px&quot;&gt;&lt;/div&gt;</span>
+<span class="docsNote">
+The chart will automatically conform to the container size by default.
+</span>
+
+Now add a script block to define the chart options to initialize and render the chart in the div#chartDiv tag.
+
+<span class="docsCaution">The div ID can be specified through the targetElement property in config or as the first argument in the chart constructor.</span>
+
+<span class="codeText">
+		&lt;script type=&quot;text/javascript&quot;&gt;<br />
+<br />
+var config = {<br />
+series: [<br />
+{<br />
+ name: &#39;Purchases&#39;,<br />
+ points: [<br />
+['Jan',29.9],<br />
+    ['Feb',34.6],<br />
+    ['Mar',33.8]<br />
+ ]<br />
+ }]<br />
+		};<br />
+<br />
+<br />
+            /*Now initialize the chart with this config setting and a chart will
+			render in place of the div tag with the '<span class="htmlText">chartDiv</span>' ID.*/
+var chart = new JSC.Chart('chartDiv',config);<br />
+<br /><br />
+&lt;/script&gt;</span>
+Open this page in your web browser to view your newly configured
+chart!
+
+<span class="docsTip">
+It is best to include scripts and script tags at the end of the HTML page. This way scripts will not block rendering of the HTML page. Include CSS files at the beginning.
+</span>
+
+<p>If jQuery is used on the page, the chart will become a jQuery plugin and can be used to initialize the chart more easily.</p>
+<span class="codeText">
+//Initialize chart
+$('#chartDiv').JSC(config);
+
+    //Get chart reference.
+var chart = $('#chartDiv').JSC();
+
+</span>
+
+<span class="docsNote">Note: It is important to be aware of the chart's <a href="Tutorials.codeExpansion">Code Expansion</a> feature when looking at sample code.</span>
+
+<span class="docsNote">In order to specify the chart types effectively, it is also important to understand <a href="Tutorials.enumChaining">Enum Chaining</a> feature.
+More on using chart types is available in the <a href="Tutorials.chartTypes">chart types tutorials</a>.
+</span>
+

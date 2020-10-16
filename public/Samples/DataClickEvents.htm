@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Data Click Events | JSCharting</title>
+    <meta http-equiv="content-type" content="text-html; charset=utf-8" />
+
+    <script type="text/javascript" src="../jsc/jscharting.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="css/default.css" />
+    <style type="text/css"></style>
+  </head>
+  <body>
+    <div id="chartDiv" style="max-width: 740px;height: 400px;margin: 0px auto;"></div>
+
+    <script type="text/javascript">
+      /*
+Set a default point click event handler.
+Learn how to:
+
+  - Use data point click events to enable interactivity.
+  - Specify a data point hover cursor.
+*/
+      // JS
+      var chart = JSC.chart('chartDiv', {
+        debug: true,
+        legend_visible: false,
+        annotations: [
+          {
+            position: 'inside top left',
+            margin: 5,
+            label_text: 'Click a bar to invoke the default click event.'
+          }
+        ],
+        defaultSeries: { type: 'column' },
+        defaultPoint_events_click: function() {
+          alert(this.name);
+        },
+        series: [
+          {
+            palette: 'default',
+            name: 'Representatives',
+            points: [
+              { name: 'Angie', y: 3 },
+              { name: 'Chris', y: 8 },
+              { name: 'Arthur', y: 5 },
+              { name: 'David', y: 6 }
+            ]
+          }
+        ],
+        yAxis_label_text: 'Unit Count',
+        title_label_text: 'Unit Sales by Representative'
+      });
+    </script>
+  </body>
+</html>

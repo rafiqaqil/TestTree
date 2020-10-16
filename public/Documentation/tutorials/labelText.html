@@ -1,0 +1,79 @@
+<h2>Styling parts of text using &lt;span&gt;</h2>
+	<p>The example below styles only part of the text</p>
+	<span class="htmlText">
+	{
+		label_text:
+		'Using label styling &lt;span style="font-size: 18px; fill: crimson; font-weight: bold;"&gt;Styled span&lt;/span&gt;'
+	}
+	</span>
+
+<h2>Images in text using &lt;img&gt;</h2>
+	<p>Images can be added to any labels</p>
+	<span class="htmlText">
+	{
+		label_text:'&lt;img src="fileName.png" height=30 width=30 /&gt;'
+	}
+	</span>
+
+<h2>List in text using &lt;UL&gt; &lt;LI&gt;</h2>
+	<p>Nested UL, LI list tags can be used in any text labels.</p>
+	<span class="htmlText">
+	{
+		label_text:'&lt;ul&gt;&lt;li&gt;Item 1&lt;/li&gt;&lt;li&gt;Item2&lt;/li&gt;&lt;/ul&gt;'
+	}
+	</span>
+	<p>Lists can be styled by wrapping them in span tags.</p>
+	<span class="htmlText">
+	{
+		label_text:'&lt;span style="listStyleType:none; listPadding:16;&gt;&lt;ul&gt;&lt;li&gt;Item 1&lt;/li&gt;&lt;li&gt;Item2&lt;/li&gt;&lt;/ul&gt;&lt;/span&gt;'
+	}
+	</span>
+
+
+<h2>Icons in text using &lt;icon&gt;</h2>
+	<p>Icons can be specified inside any label and they behave similarly to the html &lt;img&gt; tag within text.
+		An example:
+	</p>
+	<span class="codeText">
+		{
+	label_text:'&lt;icon name="linear/basic/paperplane" rotate="10" size="50"  fill="#F2A"&gt;'
+		}
+	</span>
+	<p>The full icon type api is available through the tag attributes. For deeper property settings the same shortcut syntax
+		as can be used as in chart config, for example:
+	</p>
+
+	<span class="codeText">
+		{
+	label_text:"&lt;icon margin_top='5' ...&gt;"
+		}
+	</span>
+
+	<p>Quotes around attribute values are optional.</p>
+
+	<span class="codeText">
+		{
+	label_text:"&lt;icon size=15 ...&gt;"
+		}
+	</span>
+	<p>Please refer to the <a href="Samples.iconsBrowser">icon browser sample</a> to find available predefined icons. Alternatively, custom SVG paths
+		can be specified with the path property and the chart will take care of everything else like scaling
+		automatically.
+	</p>
+
+
+<h2>Superscript and SubScript</h2>
+<p>The superscript &lt;sup&gt; and subscript &lt;sub&gt; are also supported within chart labels</p>
+
+<p>To achieve E = mc<sup>2</sup> </p>
+<span class="htmlText">
+	{
+		label_text:'E = mc&lt;sup&gt;2&lt;/sup&gt;'
+	}
+	</span>
+
+<h2>Label Styling</h2>
+	<p>Label styling can be specified for any label on the chart.
+		See the <a href="Types.label.style">label.styling options</a> for more information.</p>
+
+<p></p>

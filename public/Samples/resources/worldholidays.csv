@@ -1,0 +1,158 @@
+country,holiday,date
+Germany,New Year's Day,1/1/2020
+Germany,Good Friday,4/10/2020
+Germany,Easter Monday,4/13/2020
+Germany,Labour Day,5/1/2020
+Germany,Ascension Day,5/21/2020
+Germany,Whit Monday,6/1/2020
+Germany,Day of German Unity,10/3/2020
+Germany,Christmas Day,12/25/2020
+Germany,2nd Day of Christmas,12/26/2020
+UK,New Year’s Day,1/1/2020
+UK,Good Friday,4/10/2020
+UK,Early May bank holiday,5/4/2020
+UK,Spring bank holiday,5/25/2020
+UK,Christmas Day,12/25/2020
+UK,Boxing Day,12/26/2020
+UK,Substitute Bank Holiday for Boxing Day,12/28/2020
+Canada,New Year’s Day,1/1/2020
+Canada,Good Friday,4/10/2020
+Canada,Easter Monday,4/13/2020
+Canada,Victoria Day,5/18/2020
+Canada,Canada Day,7/1/2020
+Canada,Civic/Provincial Day,8/3/2020
+Canada,Labour Day,9/7/2020
+Canada,Thanksgiving Day,10/12/2020
+Canada,Remembrance Day,11/11/2020
+Canada,Christmas Day,12/25/2020
+Canada,Boxing Day,12/26/2020
+US,New Year’s Day,1/1/2020
+US,Martin Luther King Jr. Day,1/20/2020
+US,Presidents' Day,2/17/2020
+US,Memorial Day,5/25/2020
+US,Independence Day observed,7/3/2020
+US,Independence Day,7/4/2020
+US,Labor Day,9/7/2020
+US,Columbus Day,10/12/2020
+US,Veterans Day,11/11/2020
+US,Thanksgiving Day,11/26/2020
+US,Christmas Day,12/25/2020
+Russia,New Year's Day,1/1/2020
+Russia,New Year Holiday Week,1/2/2020
+Russia,New Year Holiday Week,1/3/2020
+Russia,New Year Holiday Week,1/6/2020
+Russia,Orthodox Christmas Day,1/7/2020
+Russia,New Year Holiday Week,1/8/2020
+Russia,Defender of the Fatherland Day,2/23/2020
+Russia,Defender of the Fatherland Day observed,2/24/2020
+Russia,International Women's Day,3/8/2020
+Russia,International Women's Day observed,3/9/2020
+Russia,Spring and Labor Day,5/1/2020
+Russia,Victory Day,5/9/2020
+Russia,Victory Day observed,5/11/2020
+Russia,Russia Day,6/12/2020
+Russia,Unity Day,11/4/2020
+Australia,New Year's Day,1/1/2020
+Australia,Australia Day,1/26/2020
+Australia,Australia Day observed,1/27/2020
+Australia,Good Friday,4/10/2020
+Australia,Easter Monday,4/13/2020
+Australia,ANZAC Day,4/25/2020
+Australia,ANZAC Day,4/27/2020
+Australia,Christmas Day,12/25/2020
+Australia,Boxing Day,12/26/2020
+Australia,Christmas/Boxing Day Holiday,12/28/2020
+China,New Year's Day,1/1/2020
+China,Spring Festival Eve,1/24/2020
+China,Chinese New Year,1/25/2020
+China,Spring Festival Golden Week holiday,1/26/2020
+China,Qing Ming Jie,4/4/2020
+China,Labour Day,5/1/2020
+China,Dragon Boat Festival,6/25/2020
+China,National Day,10/1/2020
+China,Mid-Autumn Festival,10/1/2020
+China,National Day Golden Week holiday,10/2/2020
+China,National Day Golden Week holiday,10/3/2020
+Japan,New Year's Day,1/1/2020
+Japan,Coming of Age Day,1/13/2020
+Japan,National Foundation Day,2/11/2020
+Japan,Emperor's Birthday,2/23/2020
+Japan,Emperor's Birthday observed,2/24/2020
+Japan,Spring Equinox,3/20/2020
+Japan,Shōwa Day,4/29/2020
+Japan,Constitution Memorial Day,5/3/2020
+Japan,Greenery Day,5/4/2020
+Japan,Children's Day,5/5/2020
+Japan,Constitution Memorial Day observed,5/6/2020
+Japan,Sea Day,7/23/2020
+Japan,Health and Sports Day,7/24/2020
+Japan,Mountain Day,8/10/2020
+Japan,Respect for the Aged Day,9/21/2020
+Japan,Autumn Equinox,9/22/2020
+Japan,Culture Day,11/3/2020
+Japan,Labor Thanksgiving Day,11/23/2020
+India,Lohri,1/14/2020
+India,Republic Day,1/26/2020
+India,Maha Shivaratri/Shivaratri,2/21/2020
+India,Mahavir Jayanti,4/6/2020
+India,Good Friday,4/10/2020
+India,Buddha Purnima/Vesak,5/7/2020
+India,Bakr Id/Eid ul-Adha,7/31/2020
+India,Janmashtami,8/12/2020
+India,Independence Day,8/15/2020
+India,Muharram/Ashura,8/29/2020
+India,Mahatma Gandhi Jayanti,10/2/2020
+India,Dussehra,10/25/2020
+India,Milad un-Nabi/Id-e-Milad,10/29/2020
+India,Diwali/Deepavali,11/14/2020
+India,Guru Nanak Jayanti,11/30/2020
+India,Christmas,12/25/2020
+Italy,New Year's Day,1/1/2020
+Italy,Epiphany,1/6/2020
+Italy,Easter Monday,4/13/2020
+Italy,Liberation Day,4/25/2020
+Italy,Labor Day / May Day,5/1/2020
+Italy,Republic Day,6/2/2020
+Italy,Assumption of Mary / Ferragosto,8/15/2020
+Italy,All Saints' Day,11/1/2020
+Italy,Feast of the Immaculate Conception,12/8/2020
+Italy,Christmas Day,12/25/2020
+Italy,St. Stephen's Day,12/26/2020
+Netherlands,New Year's Day,1/1/2020
+Netherlands,Easter Day,4/12/2020
+Netherlands,Easter Monday,4/13/2020
+Netherlands,King's Birthday,4/27/2020
+Netherlands,Liberation Day,5/5/2020
+Netherlands,Ascension Day,5/21/2020
+Netherlands,Whit Sunday,5/31/2020
+Netherlands,Whit Monday,6/1/2020
+Netherlands,Christmas Day,12/25/2020
+Netherlands,Second Day of Christmas,12/26/2020
+Singapore,New Year's Day,1/1/2020
+Singapore,Chinese Lunar New Year's Day,1/25/2020
+Singapore,Second day of Chinese Lunar New Year,1/27/2020
+Singapore,Good Friday,4/10/2020
+Singapore,Labour Day,5/1/2020
+Singapore,Vesak Day,5/7/2020
+Singapore,Hari Raya Puasa,5/24/2020
+Singapore,Hari Raya Haji,7/31/2020
+Singapore,National Day,8/9/2020
+Singapore,National Day observed,8/10/2020
+Singapore,Diwali/Deepavali,11/14/2020
+Singapore,Christmas Day,12/25/2020
+South Korea,New Year's Day,1/1/2020
+South Korea,Seollal Holiday,1/24/2020
+South Korea,Seollal,1/25/2020
+South Korea,Seollal Holiday,1/27/2020
+South Korea,Independence Movement Day,3/1/2020
+South Korea,National Assembly Election Day,4/15/2020
+South Korea,Buddha's Birthday,4/30/2020
+South Korea,Children's Day,5/5/2020
+South Korea,Memorial Day,6/6/2020
+South Korea,Liberation Day,8/15/2020
+South Korea,Chuseok Holiday,9/10/2020
+South Korea,Chuseok,10/1/2020
+South Korea,Chuseok Holiday,10/2/2020
+South Korea,National Foundation Day,10/3/2020
+South Korea,Hangeul Proclamation Day,10/9/2020
+South Korea,Christmas Day,12/25/2020

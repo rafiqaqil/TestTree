@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Linear Gantt Gauge Chart | JSCharting</title>
+    <meta http-equiv="content-type" content="text-html; charset=utf-8" />
+
+    <script type="text/javascript" src="../jsc/jscharting.js"></script>
+
+    <script type="text/javascript" src="../jsc/modules/types.js"></script>
+    <script type="text/javascript" src="../jsc/icons/weather/moon.js"></script>
+    <script type="text/javascript" src=" ../jsc/icons/material/image/wb-sunny.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="css/default.css" />
+    <style type="text/css">
+      /*CSS*/
+    </style>
+  </head>
+  <body>
+    <div id="chartDiv" style="max-width: 740px;height: 220px;margin: 0px auto;"></div>
+
+    <script type="text/javascript">
+      /*
+Gantt data on a linear gauge.
+Learn how to:
+
+  - Combine series into a single linear gauge.
+*/
+      // JS
+      var chart = JSC.chart('chartDiv', {
+        debug: true,
+        type: 'gauge linear horizontal ',
+        defaultSeries_type: 'column roundCaps',
+        legend_visible: false,
+        title: {
+          position: 'center',
+          label_text: 'Jan 1st 2020 Activity'
+        },
+        xAxis: {
+          spacingPercentage: 0.6,
+          staticColumnWidth: 30,
+          defaultTick: {
+            padding: 20,
+
+            /*Defining label object enables it.*/
+            label: {}
+          }
+        },
+        yAxis: {
+          orientation: 'opposite',
+          scale: { range: [0, 24], interval: 6 },
+          line_color: '#e9e9e9',
+          defaultTick: { enabled: false },
+          customTicks: [
+            {
+              value: 0,
+              label_text: '<icon name=weather/moon size=18 fill=#888987 >'
+            },
+            {
+              value: 12,
+              label_text: '<icon name=material/image/wb-sunny size=22 fill=#888987>'
+            },
+            { value: 6, label_text: '6AM' },
+            { value: 18, label_text: '6PM' },
+            { value: 24, label_text: '12PM' }
+          ]
+        },
+        defaultPoint_tooltip: tooltipFormatter,
+        series: [
+          {
+            name: 'Sleep',
+            points: [['Sleep', [0, 6.2]], ['Sleep', [23, 24]]]
+          },
+          {
+            name: 'Walking',
+            points: [['Walking', [6.75, 7.2]], ['Walking', [9.12, 9.8]], ['Walking', [14.12, 14.58]]]
+          },
+          {
+            name: 'Standing',
+            points: [['Standing', [8.2, 8.22]], ['Standing', [12.7, 12.92]], ['Standing', [15.5, 15.57]]]
+          }
+        ],
+        toolbar_visible: false
+      });
+
+      function tooltipFormatter(point) {
+        var twoDigit = function(v) {
+          return ('0' + v).slice(-2);
+        };
+        var formatHour = function(v) {
+          var ampm = v <= 12 ? 'PM' : 'AM',
+            hour = Math.floor(v) % 12,
+            min = Math.floor((v % 1) * 60);
+          return (hour || 12) + ':' + twoDigit(min) + ampm;
+        };
+        return '<b>%name ' + '<br/>' + formatHour(point.y[0]) + ' - ' + formatHour(point.y[1]);
+      }
+    </script>
+  </body>
+</html>

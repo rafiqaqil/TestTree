@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Radar Analysis Dashboard | JSCharting</title>
+    <meta http-equiv="content-type" content="text-html; charset=utf-8" />
+
+    <script type="text/javascript" src="../jsc/jscharting.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="css/default.css" />
+    <style type="text/css">
+      .title {
+        font-size: 26px;
+      }
+      .dashboard-radar {
+        height: 250px;
+        width: 250px;
+      }
+
+      .dashboard-column {
+        max-width: 230px;
+        height: 220px;
+      }
+
+      .chartWrapper {
+        margin: 0 auto;
+        max-width: 800px;
+      }
+
+      .dashboard-radars {
+        margin: 0 auto;
+        display: grid;
+        grid-template-columns: repeat(3, minmax(220px, 1fr));
+        justify-items: center;
+      }
+
+      .dashboard-columns {
+        margin: 30px 0px 0px auto;
+        display: grid;
+        grid-template-columns: repeat(5, 1fr);
+      }
+
+      .adoption {
+        margin-top: 20px;
+        height: 220px;
+        width: 100%;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="chartWrapper">
+      <div class="title">Top Javascript front end frameworks</div>
+      <div class="dashboard-radars">
+        <div id="chartDiv1" class="dashboard-radar"></div>
+        <div id="chartDiv2" class="dashboard-radar"></div>
+        <div id="chartDiv3" class="dashboard-radar"></div>
+        <div id="chartDiv4" class="dashboard-radar"></div>
+        <div id="chartDiv5" class="dashboard-radar"></div>
+        <div id="chartDiv6" class="dashboard-radar"></div>
+      </div>
+
+      <div class="dashboard-columns">
+        <div id="chartDiv7" class="dashboard-column"></div>
+        <div id="chartDiv8" class="dashboard-column"></div>
+        <div id="chartDiv9" class="dashboard-column"></div>
+        <div id="chartDiv10" class="dashboard-column"></div>
+        <div id="chartDiv11" class="dashboard-column"></div>
+      </div>
+
+      <div id="chartDiv12" class="adoption"></div>
+    </div>
+
+    <script type="text/javascript">
+      /*
+A dashboard analyzing the top JavaScript front end frameworks.
+Learn how to:
+
+  - Layout charts in dashboard with radar and column charts.
+  - Enable interactivity between multiple charts.
+*/
+      // JS
+
+      var colors = {
+        react: '#00d8ff',
+        vuejs: '#42b883',
+        svelte: 'tomato',
+        preact: 'darkviolet',
+        angular: '#b52e31',
+        ember: 'peru'
+      };
+
+      var interest = [
+        { x: 'svelte', y: 67 },
+        { x: 'vuejs', y: 64 },
+        { x: 'react', y: 61 },
+        { x: 'preact', y: 40 },
+        { x: 'angular', y: 23 },
+        { x: 'ember', y: 18 }
+      ];
+
+      var satisfaction = [
+        { x: 'react', y: 89 },
+        { x: 'svelte', y: 88 },
+        { x: 'vuejs', y: 87 },
+        { x: 'preact', y: 78 },
+        { x: 'angular', y: 38 },
+        { x: 'ember', y: 31 }
+      ];
+
+      var awareness = [
+        { x: 'react', y: 100 },
+        { x: 'angular', y: 100 },
+        { x: 'vuejs', y: 100 },
+        { x: 'ember', y: 91 },
+        { x: 'preact', y: 76 },
+        { x: 'svelte', y: 75 }
+      ];
+
+      var experience = [
+        { x: 'angular', y: 7.5 },
+        { x: 'react', y: 7.5 },
+        { x: 'vuejs', y: 7.6 },
+        { x: 'svelte', y: 8.1 },
+        { x: 'preact', y: 9.1 },
+        { x: 'ember', y: 9.9 }
+      ];
+
+      var salary = [
+        { x: 'angular', y: 75 },
+        { x: 'vuejs', y: 75 },
+        { x: 'react', y: 79 },
+        { x: 'svelte', y: 80 },
+        { x: 'preact', y: 94 },
+        { x: 'ember', y: 108 }
+      ];
+
+      var companySize = [
+        { x: 'react', y: 178 },
+        { x: 'vuejs', y: 72 },
+        { x: 'svelte', y: 86 },
+        { x: 'ember', y: 194 },
+        { x: 'angular', y: 327 },
+        { x: 'preact', y: 386 }
+      ];
+
+      var wouldNotUse = [
+        { x: 'svelte', y: 13 },
+        { x: 'vuejs', y: 13 },
+        { x: 'react', y: 11 },
+        { x: 'preact', y: 22 },
+        { x: 'angular', y: 62 },
+        { x: 'ember', y: 70 }
+      ];
+
+      var wouldUse = [
+        { x: 'react', y: 89 },
+        { x: 'svelte', y: 87 },
+        { x: 'vuejs', y: 87 },
+        { x: 'preact', y: 78 },
+        { x: 'angular', y: 38 },
+        { x: 'ember', y: 30 }
+      ];
+
+      var selected = '';
+      var hovered = '';
+      function getValue(dataset, framework) {
+        return dataset.find(d => d.x === framework).y;
+      }
+
+      function getStatistics(data) {
+        var max = -Infinity;
+        var min = Infinity;
+        var sum = 0;
+        Object.keys(data).forEach(key => {
+          max = Math.max(max, data[key].y);
+          min = Math.min(min, data[key].y);
+          sum += data[key].y;
+        });
+        var average = sum / data.length;
+        return { min: min, max: max, average: average };
+      }
+
+      function normalizeValue(value, statistics) {
+        return value / statistics.max;
+      }
+
+      function getDescription(title, value, statistics, color) {
+        let description = '';
+        if (value === statistics.max) {
+          description = 'maximum value';
+        } else if (value === statistics.min) {
+          description = 'minimum value';
+        } else if (value > statistics.average) {
+          description = 'above average';
+        } else if (value < statistics.average) {
+          description = 'below average';
+        } else {
+          description = 'average value';
+        }
+        return `<b>${title}</b><br><chart bullet color=${color} data=${[
+          value,
+          statistics.average
+        ]} width=100 height=20><br>${description}`;
+      }
+
+      function makeDashboard(cb) {
+        function getRadarSeries(framework) {
+          var sat = getValue(satisfaction, framework);
+          var int = getValue(interest, framework);
+          var exp = getValue(experience, framework);
+          var sal = getValue(salary, framework);
+          var siz = getValue(companySize, framework);
+
+          var satStat = getStatistics(satisfaction);
+          var intStat = getStatistics(interest);
+          var expStat = getStatistics(experience);
+          var salStat = getStatistics(salary);
+          var sizStat = getStatistics(companySize);
+
+          return {
+            type: 'area',
+            color: [colors[framework], 0.7],
+            shape: {
+              size: '130%',
+              offset: '0,20',
+              label: {
+                class: 'shapeLabel',
+                margin: [-20, 0, 0, 0],
+                text: framework,
+                color: 'gray',
+                style: { fontSize: 24 }
+              }
+            },
+            points: [
+              {
+                x: 'Satisfaction',
+                name: '<b>Satisfaction</b><br>' + sat + ' %',
+                y: normalizeValue(sat, satStat),
+                z: getDescription('Satisfaction', sat, satStat, colors[framework])
+              },
+              {
+                x: 'Interest',
+                name: '<b>Interest</b><br>' + int + ' %',
+                y: normalizeValue(int, intStat),
+                z: getDescription('Interest', int, intStat, colors[framework])
+              },
+              {
+                x: 'Experience',
+                name: '<b>Experience</b><br>' + exp + ' years',
+                y: normalizeValue(exp, expStat),
+                z: getDescription('Experience', exp, expStat, colors[framework])
+              },
+              {
+                x: 'Salary',
+                name: '<b>Salary</b><br>$' + sal + 'k',
+                y: normalizeValue(sal, salStat),
+                z: getDescription('Salary', sal, salStat, colors[framework])
+              },
+              {
+                x: 'Company',
+                name: '<b>Company</b><br>' + siz + ' people',
+                y: normalizeValue(siz, sizStat),
+                z: getDescription('Company', siz, sizStat, colors[framework])
+              }
+            ]
+          };
+        }
+
+        var radarCharts = [];
+
+        function createRadar(container, framework) {
+          const series = getRadarSeries(framework);
+
+          radarCharts.push(
+            JSC.chart(container, {
+              id: framework,
+              events_mouseOver: () => {
+                onChange(framework);
+              },
+              events_click: () => {
+                const same = selected === framework;
+                if (selected) {
+                  selected = '';
+                  onChange(framework);
+                }
+                if (!same) {
+                  selected = framework;
+                }
+                return false;
+              },
+              defaultPoint: {
+                marker: { visible: true, color: 'none', size: 20 },
+                tooltip: '%zValue'
+              },
+              defaultSeries: {
+                states: {
+                  select: { line_width: 3 }
+                },
+                type: 'radar',
+                line_width: 0
+                //Bug: shape_fill:'black'
+              },
+              legend_visible: false,
+              yAxis: {
+                defaultTick: {
+                  label_visible: false,
+                  line_visible: false,
+                  gridLine_visible: false
+                },
+                scale_range: [0, 1]
+              },
+              xAxis: {
+                defaultTick: {
+                  label_text: value => series.points[value].name,
+                  line_visible: false,
+                  padding: 0
+                }
+              },
+              defaultBox_boxVisible: false,
+              toolbar_items_export_visible: false,
+              series: [series]
+            })
+          );
+        }
+
+        createRadar('chartDiv1', 'react');
+        createRadar('chartDiv2', 'angular');
+        createRadar('chartDiv3', 'vuejs');
+        createRadar('chartDiv4', 'svelte');
+        createRadar('chartDiv5', 'preact');
+        createRadar('chartDiv6', 'ember');
+
+        function getPointConfig(point) {
+          return {
+            x: point.x,
+            y: point.y,
+            color: 'lightgray',
+            states_select: { color: colors[point.x] },
+            focusGlow: false,
+            events_mouseOver: () => onChange(point.x),
+            events_click: () => {
+              const same = selected === point.x;
+              if (selected) {
+                selected = '';
+                onChange(point.x);
+              }
+              if (!same) {
+                selected = point.x;
+              }
+              return false;
+            }
+          };
+        }
+
+        var columnCharts = [];
+
+        function createColumn(container, dataset, title, pointText) {
+          columnCharts.push(
+            JSC.chart(container, {
+              type: 'horizontal column solid',
+              defaultTooltip_enabled: false,
+              legend_visible: false,
+              title: {
+                label: {
+                  text: title,
+                  style: { fontSize: 15 }
+                }
+              },
+              yAxis: { visible: false },
+              xAxis: {
+                defaultTick_label_style: { fontSize: 14 }
+              },
+              defaultPoint: {
+                label: {
+                  align: 'left',
+                  autoHide: false,
+                  visible: true,
+                  text: pointText || '%yValue',
+                  style: { fontSize: 14 }
+                },
+                outline_width: 0
+              },
+              defaultBox_boxVisible: false,
+              toolbar_items_export_visible: false,
+              series: [
+                {
+                  pointSelection: true,
+                  points: dataset.map(getPointConfig)
+                }
+              ]
+            })
+          );
+        }
+
+        function onChange(framework, select) {
+          if (selected) {
+            return;
+          }
+
+          colorChart(columnCharts[0], framework, select);
+          colorChart(columnCharts[1], framework, select);
+          colorChart(columnCharts[2], framework, select);
+          colorChart(columnCharts[3], framework, select);
+          colorChart(columnCharts[4], framework, select);
+
+          colorChart(adoption, framework, select, 1);
+
+          radarCharts.map(radar => {
+            var series = radar.series(0);
+            var selected = radar.id === framework;
+            series.select(selected);
+          });
+        }
+
+        function colorChart(chart, framework, select, series) {
+          chart
+            .series(series || 0)
+            .points()
+            .find(p => p.x === framework)
+            .select(select);
+        }
+
+        createColumn('chartDiv7', satisfaction, '<b>Satisfaction</b><br>ratio', '%yValue%');
+        createColumn('chartDiv8', interest, '<b>Interest</b><br>ratio', '%yValue%');
+        createColumn('chartDiv9', experience, 'Most likely<br><b>experience</b>', '%yValue yr');
+        createColumn('chartDiv10', salary, 'Most likely<br><b>salary</b>', '$%yValuek');
+        createColumn('chartDiv11', companySize, 'Most likely<br><b>company size</b>', '%yValue ppl');
+
+        function getAdoptionPoint(p, tooltip) {
+          return {
+            states_select: { color: colors[p.x] },
+            focusGlow: false,
+            label_text: '%yValue%',
+            x: p.x,
+            y: p.y,
+            tooltip: tooltip,
+
+            events_mouseOver: () => {
+              if (hovered !== p.x) {
+                onChange(p.x);
+                hovered = p.x;
+              }
+            },
+            events_click: () => {
+              const same = selected === p.x;
+              if (selected) {
+                selected = '';
+                onChange(p.x);
+              }
+              if (!same) {
+                selected = p.x;
+              }
+              return false;
+            }
+          };
+        }
+
+        var adoption = JSC.chart('chartDiv12', {
+          type: 'column solid',
+
+          legend: {
+            title_label_text: '<b>Users would</b>',
+            position: 'top left',
+            template: '%icon,%name',
+            margin_left: '30px'
+          },
+          yAxis: {
+            visible: false,
+            scale: { type: 'stacked', range: [0, 100] }
+          },
+          xAxis_defaultTick_label_style_fontWeight: 'bold',
+
+          series: [
+            {
+              pointSelection: true,
+              name: 'Not use again',
+              defaultPoint_color: '#939393',
+              points: wouldNotUse.map(p =>
+                getAdoptionPoint(p, '%yValue% of %xValue users<br>would <b>NOT</b> use it again')
+              )
+            },
+            {
+              pointSelection: true,
+              name: 'Use again',
+              defaultPoint_color: '#d1d1d1',
+              points: wouldUse.map(p => getAdoptionPoint(p, '%yValue% of %xValue users<br><b>WOULD</b> use it again'))
+            }
+          ],
+          toolbar_visible: false
+        });
+        cb && cb();
+      }
+
+      makeDashboard();
+    </script>
+  </body>
+</html>

@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Axis Series Groups | JSCharting</title>
+    <meta http-equiv="content-type" content="text-html; charset=utf-8" />
+
+    <script type="text/javascript" src="../jsc/jscharting.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="css/default.css" />
+    <style type="text/css">
+      /*CSS*/
+    </style>
+  </head>
+  <body>
+    <div id="chartDiv" style="max-width: 740px;height: 400px;margin: 0px auto;"></div>
+
+    <script type="text/javascript">
+      /*
+Category axis label groups using range ticks.
+Learn how to:
+
+  - Custom Axis Ticks.
+  - Axis Range Ticks.
+*/
+      // JS
+      var palette = JSC.getPalette(0);
+      var chart = JSC.chart('chartDiv', {
+        debug: true,
+        type: 'column',
+        animation_duration: 600,
+        yAxis_visible: false,
+        zAxis_scale_type: 'stacked',
+        xAxis: {
+          markers: [
+            { color: '#ffbeae', value: ['Switch', 'Bulb'], label_text: 'Electrical', legendEntry_value: '' },
+            { value: 'Bearing', label_text: 'Bearing', legendEntry_value: '' }
+          ],
+          // Position labels outside range rick shapes.
+          defaultTick_label_placement: 'outside',
+          customTicks: [
+            { value: ['Gear', 'Motor'], label_text: 'Mechanical', line_color: palette[0] },
+            { value: ['Switch', 'Bulb'], label_text: 'Electrical', line_color: palette[1] },
+            { value: ['Pump', 'Seals'], label_text: 'Hydraulic', line_color: palette[2] }
+          ]
+        },
+        defaultPoint_label_visible: true,
+        series: [
+          {
+            name: 'Mechanical',
+            points: [{ x: 'Gear', y: 6 }, { x: 'Bearing', y: 4 }, { x: 'Motor', y: 5 }]
+          },
+          {
+            name: 'Electrical',
+            points: [
+              { x: 'Switch', y: 3 },
+              { x: 'Plug', y: 8 },
+              { x: 'Chord', y: 5 },
+              { x: 'Fuse', y: 3 },
+              { x: 'Bulb', y: 2 }
+            ]
+          },
+          {
+            name: 'Hydraulic',
+            points: [{ x: 'Pump', y: 6 }, { x: 'Leak', y: 4 }, { x: 'Seals', y: 5 }]
+          }
+        ]
+      });
+    </script>
+  </body>
+</html>

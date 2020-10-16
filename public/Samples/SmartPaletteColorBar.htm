@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Smart Palette Color Bar | JSCharting</title>
+    <meta http-equiv="content-type" content="text-html; charset=utf-8" />
+
+    <script type="text/javascript" src="../jsc/jscharting.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="css/default.css" />
+    <style type="text/css">
+      /*CSS*/
+    </style>
+  </head>
+  <body>
+    <div id="chartDiv" style="max-width: 740px;height: 400px;margin: 0px auto;"></div>
+
+    <script type="text/javascript">
+      /*
+Customize smartPalette colorBar.
+Learn how to:
+
+  - Use custom ticks with smartPalette colorBar.
+*/
+      // JS
+      var chart = JSC.chart('chartDiv', {
+        debug: true,
+        type: 'bubble',
+        legend_title_label_text: 'Workers/Capita',
+        xAxis_label_text: 'Unemployment',
+        zAxis_label_text: 'Population',
+        title_label_text: 'GDP, Unemployment, Population and Workers/Capita',
+
+        yAxis: {
+          label_text: 'GDP',
+          defaultTick_label_text: '{%value/1000000000} B',
+          formatString: 'n0'
+        },
+        palette: {
+          /* Point color is based on this calculation */
+          pointValue: '{%laborForce/%zvalue}',
+          colors: ['#8b0000', '#ff0000', '#ffa500', '#fefe20', '#00e700', '#00008b', '#4b0082', '#ee82ee'],
+          /* Specify the numeric range the colors should fill*/
+          colorsValueRange: [0.2, 0.7],
+          /* Reverse colors */
+          invert: true,
+          colorBar: {
+            /* The width refers to the width when the colorBar is vertical, but to height when it's horizontal */
+            width: 20,
+            length: 250,
+            axis: {
+              /* Use only custom ticks. */
+              defaultTick: { enabled: false, line: { length: 9, width: 1 } },
+              customTicks: [
+                { value: 0, label_text: 'Not<br/>Good' },
+                { value: 0.5, label_text: 'Ok' },
+                { value: 1, label_text: 'Very<br/>Good' }
+              ],
+              /* Styling of color bar crosshair. */
+              crosshair: {
+                radius: 10,
+                fill: '#fafafa',
+                outline: { width: 2, color: '#a0a0a0' }
+              }
+            }
+          }
+        },
+        defaultSeries: {
+          size_max: 100,
+          defaultPoint: {
+            tooltip:
+              '<b>%name</b><br/>Unemployment: %xValue<br/>GDP: {%yvalue/1000000000} B<br/>Population: %zValue<br/>Workers/Capita: {%laborForce/%zvalue:n2}',
+            label_text: '%name'
+          }
+        },
+
+        series: [
+          {
+            name: 'Countries',
+            points: [
+              {
+                name: 'China',
+                x: 6.4,
+                y: 13370000000000,
+                z: 1349585838,
+                attributes: { laborForce: 797600000 }
+              },
+              {
+                name: 'India',
+                x: 8.8,
+                y: 4962000000000,
+                z: 1220800359,
+                attributes: { laborForce: 487300000 }
+              },
+              {
+                name: 'European Union',
+                x: 10.8,
+                y: 15830000000000,
+                z: 509365627,
+                attributes: { laborForce: 231000000 }
+              },
+              {
+                name: 'United States',
+                x: 7.3,
+                y: 16720000000000,
+                z: 316438601,
+                attributes: { laborForce: 155400000 }
+              },
+              {
+                name: 'Indonesia',
+                x: 6.6,
+                y: 1285000000000,
+                z: 251160124,
+                attributes: { laborForce: 120000000 }
+              },
+              {
+                name: 'Brazil',
+                x: 5.7,
+                y: 2422000000000,
+                z: 201009622,
+                attributes: { laborForce: 107300000 }
+              },
+              {
+                name: 'Pakistan',
+                x: 6.6,
+                y: 574100000000,
+                z: 193238868,
+                attributes: { laborForce: 59210000 }
+              },
+              {
+                name: 'Bangladesh',
+                x: 5,
+                y: 324600000000,
+                z: 163654860,
+                attributes: { laborForce: 78620000 }
+              },
+              {
+                name: 'Russia',
+                x: 5.8,
+                y: 2553000000000,
+                z: 142500482,
+                attributes: { laborForce: 75290000 }
+              }
+            ]
+          }
+        ]
+      });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>HTML Table Headers | JSCharting</title>
+    <meta http-equiv="content-type" content="text-html; charset=utf-8" />
+
+    <script type="text/javascript" src="../jsc/jscharting.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="css/default.css" />
+    <style type="text/css">
+      /*CSS*/
+    </style>
+  </head>
+  <body>
+    <div style="max-width: 750px;margin: 0px auto;">
+      <p>
+        This is a standard HTML table with values. The sample examines the table data and charts it.
+      </p>
+      <table id="dataTable" style="margin:0px auto;">
+        <tr>
+          <th>States</th>
+          <th></th>
+        </tr>
+        <tr>
+          <td>Illinois</td>
+          <td>4324</td>
+        </tr>
+        <tr>
+          <td>Indiana</td>
+          <td>5564</td>
+        </tr>
+        <tr>
+          <td>California</td>
+          <td>9453</td>
+        </tr>
+        <tr>
+          <td>Florida</td>
+          <td>7645</td>
+        </tr>
+        <tr>
+          <td>Nevada</td>
+          <td>12143</td>
+        </tr>
+        <tr>
+          <td>Colorado</td>
+          <td>3342</td>
+        </tr>
+      </table>
+
+      <div id="chartDiv" style="max-width: 740px;height: 400px;margin: 0px auto;"></div>
+    </div>
+
+    <script type="text/javascript">
+      /*
+Read an HTML Table with a header and chart the data.
+Learn how to:
+
+  - Convert HTML table with headers to a chart.
+*/
+      // JS
+      var options = {
+        debug: true,
+        type: 'column',
+        title_label_text: 'Take HTML and Chart it.',
+        defaultPoint_label_visible: true
+      };
+
+      JSC.ready().then(function() {
+        options.series = getData('dataTable');
+        new JSC.Chart('chartDiv', options);
+      });
+
+      function getData(tableId) {
+        var series = { points: [] };
+
+        var rowItems = document.querySelectorAll('#dataTable tr');
+
+        for (var i = 0; i < rowItems.length; i++) {
+          var rowItem = rowItems[i];
+          var tds = rowItem.children;
+
+          if (tds[1].innerText.length === 0) {
+            series.name = tds[0].innerText;
+          } else {
+            var point = [tds[0].innerText, parseInt(tds[1].innerText)];
+            series.points.push(point);
+          }
+        }
+
+        return [series];
+      }
+    </script>
+  </body>
+</html>

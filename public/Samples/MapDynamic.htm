@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Map Dynamic | JSCharting</title>
+    <meta http-equiv="content-type" content="text-html; charset=utf-8" />
+
+    <script type="text/javascript" src="../jsc/jscharting.js"></script>
+
+    <script type="text/javascript" src="../jsc/modules/toolbar.js"></script>
+    <script type="text/javascript" src="../jsc/modules/maps.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="css/default.css" />
+    <style type="text/css">
+      /*CSS*/
+    </style>
+  </head>
+  <body>
+    <div id="chartDiv" style="max-width: 740px;height: 400px;margin: 0px auto;"></div>
+
+    <script type="text/javascript">
+      /*
+Dynamically load provinces when a country is clicked.
+Learn how to:
+
+  - Map series from mapCodes.
+  - Add maps in real-time.
+  - Interact with map click events.
+*/
+      // JS
+      var colorIndex = 0,
+        addedCountries = [];
+      var basePalette = JSC.getPalette(0);
+      var chart = JSC.chart('chartDiv', {
+        debug: true,
+        type: 'map',
+        legend_title_label_text: 'Click to zoom',
+        defaultPoint_legendEntry_visible: false,
+        annotations: [
+          {
+            label: {
+              text: 'Click a country to load states/provinces.',
+              style_fontSize: 14
+            },
+            outline_width: 0,
+            margin: 5,
+            corners: 'square',
+            position: 'inside top left'
+          }
+        ],
+        series: [
+          {
+            map: 'Americas',
+            color: '#EEEDE3',
+            defaultPoint: {
+              events_click: countryClickEv,
+              tooltip: 'Click to load %country'
+            }
+          }
+        ],
+        toolbar_items_resetZoom_visible: false
+      });
+
+      function countryClickEv() {
+        var point = this;
+        //Get country code of this point.
+        var id = point.tokenValue('%mapCode');
+        if (addedCountries.indexOf(id) === -1) {
+          chart.series.add({
+            map: id,
+            defaultPoint_legendEntry_visible: false,
+            // Generate similar colors. See sample mapPaletteDesigner to play with the color generating options.
+            palette: JSC.colorToPalette(basePalette[colorIndex++], { hue: 0.03 }, 20, 1)
+          });
+          addedCountries.push(id);
+        }
+
+        // Zoom to the specified point.
+        point.zoomTo({ animation: false });
+      }
+    </script>
+  </body>
+</html>

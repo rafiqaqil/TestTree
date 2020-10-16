@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Axis Tick Label Styling | JSCharting</title>
+    <meta http-equiv="content-type" content="text-html; charset=utf-8" />
+
+    <script type="text/javascript" src="../jsc/jscharting.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="css/default.css" />
+    <style type="text/css">
+      /*CSS*/
+    </style>
+  </head>
+  <body>
+    <div id="chartDiv" style="max-width: 740px;height: 400px;margin: 0px auto;"></div>
+
+    <script type="text/javascript">
+      /*
+Styles major and minor tick labels with different formatting.
+Learn how to:
+
+  - Style and format tick labels.
+*/
+      // JS
+      var chart = JSC.chart('chartDiv', {
+        debug: true,
+        yAxis: {
+          scale: { minorInterval: 50, interval: 100 },
+          defaultTick: {
+            /*Y Axis Default MAJOR Tick*/
+            label: {
+              text: '%value',
+              style: {
+                color: 'black',
+                fontSize: '9pt',
+                fontFamily: 'Tahoma, Geneva, sans-serif',
+                fontStyle: 'normal',
+                fontWeight: 'bold'
+              }
+            }
+          },
+
+          /*Y Axis Default MINOR Tick*/
+          defaultMinorTick: {
+            label: {
+              text: '{%value:n1}',
+              style: {
+                color: 'gray',
+                fontSize: '8pt',
+                fontFamily: 'Tahoma, Geneva, sans-serif',
+                fontStyle: 'normal',
+                fontWeight: 'bold'
+              }
+            }
+          },
+          label_text: 'Units Sold'
+        },
+        xAxis: { label_text: 'Quarter' },
+        title_label_text: 'Acme Tool Sales',
+        series: [
+          {
+            name: 'Saw',
+            id: 's1',
+            points: [['Q1', 230], ['Q2', 240], ['Q3', 267], ['Q4', 238]]
+          },
+          {
+            name: 'Hammer',
+            points: [['Q1', 325], ['Q2', 347], ['Q3', 392], ['Q4', 371]]
+          },
+          {
+            name: 'Grinder',
+            points: [['Q1', 285], ['Q2', 292], ['Q3', 327], ['Q4', 158]]
+          },
+          {
+            name: 'Drill',
+            points: [['Q1', 185], ['Q2', 192], ['Q3', 198], ['Q4', 318]]
+          }
+        ]
+      });
+    </script>
+  </body>
+</html>

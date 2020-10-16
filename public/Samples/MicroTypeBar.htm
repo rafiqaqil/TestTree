@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Bar Microchart Options | JSCharting</title>
+    <meta http-equiv="content-type" content="text-html; charset=utf-8" />
+
+    <script type="text/javascript" src="../jsc/jscharting.js"></script>
+
+    <script type="text/javascript" src="../jsc/modules/types.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="css/default.css" />
+    <style type="text/css"></style>
+  </head>
+  <body>
+    <div id="chartDiv" style="max-width:440px;height: 640px;margin: 0px auto;"></div>
+
+    <script type="text/javascript">
+      /*
+Demonstrates barFull type microchart options.
+Learn how to:
+
+  - Customize barFull microchart options.
+*/
+      // JS
+
+      var examples = [
+        ['Plain bar', '<chart margin=5 type=bar data=6 >'],
+        ['Bar with scale max set', '<chart margin=5 type=bar data=6 max=10>'],
+        ['Bar with scale max and min', '<chart margin=5 type=bar data=6 max=10 min=-4>'],
+        ['Bar with negative values', '<chart margin=5 type=bar data=-6 max=0 min=-10>'],
+        ['Coloring'],
+        ['Bar Fully Colored', '<chart margin=5 type=bar data=6 max=10 colors=forestgreen,,lightGreen>'],
+        ['Transparent Background', '<chart margin=5 type=bar data=6 max=10 colors=forestgreen,none>'],
+        ['Shading'],
+        ['Bar Shading 1', '<chart margin=5 type=bar data=8 max=10 shading=1>'],
+        ['Bar Shading 2', '<chart margin=5 type=bar data=8 max=10 shading=2>'],
+        ['Bar Shading 3', '<chart margin=5 type=bar data=8 max=10 shading=3>'],
+        ['Bar Shading 4', '<chart margin=5 type=bar data=8 max=10 shading=4>'],
+        ['Bar Shading 5', '<chart margin=5 type=bar data=8 max=10 shading=5>'],
+        ['Sizing'],
+        ['Bar with specified width/height', '<chart margin=5 width=150 height=20 type=bar data=6 max=10 >'],
+        ['Bar with specified size', '<chart margin=5 size=90x8 type=bar data=6 max=10 >']
+      ];
+
+      function makeText(title) {
+        var result = '<span style="font-size: 14px; font-weight: bold;">' + title + '</span>	<hr><ul>';
+
+        result += examples
+          .map(function(entry) {
+            return entry.length === 1
+              ? '</ul><br><b>' + entry[0] + '</b><hr><ul>'
+              : '<li><span style="width:200px; verticalAlign: middle;">' + entry[0] + '</span>' + entry[1] + '</li>';
+          })
+          .join('');
+
+        result += '</ul></span>';
+        return result;
+      }
+
+      var chart = JSC.chart('chartDiv', {
+        toolbar_visible: false,
+        margin_bottom: 30,
+        defaultBox_boxVisible: false,
+        annotations: [
+          {
+            position: 'inside center',
+            label_text: makeText('Bar Type Options')
+          }
+        ]
+      });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Master Detail Slider | JSCharting</title>
+    <meta http-equiv="content-type" content="text-html; charset=utf-8" />
+
+    <script type="text/javascript" src="../jsc/jscharting.js"></script>
+
+    <script type="text/javascript" src="../jsc/modules/toolbar.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="css/default.css" />
+    <style type="text/css">
+      /*CSS*/
+    </style>
+  </head>
+  <body>
+    <div id="chartDiv" style="width: 700px;height: 250px;margin: 0px auto;"></div>
+    <div id="chartDiv2" style="width: 700px;height: 400px;margin: 0px auto;"></div>
+
+    <script type="text/javascript">
+      /*
+Master detail charts controlled with a slider UI item.
+Learn how to:
+
+  - Use a slider uiItem to adjust control another chart.
+  - Use data nesting to generate series.
+*/
+      // JS
+
+      var data,
+        series,
+        chart,
+        chartDetail,
+        initialView = [1990, 2015];
+
+      function renderCharts() {
+        chart = JSC.chart('chartDiv', {
+          debug: true,
+          title_label_text: 'Births to Unmarried Women by Age Group',
+          animation: false,
+          legend: { template: '%icon %name', position: 'bottom' },
+          defaultPoint_marker_type: 'none',
+          defaultSeries_mouseTracking_enabled: false,
+          yAxis: {
+            alternateGridFill: 'none',
+            label_text: 'Number of births'
+          },
+          xAxis: {
+            formatString: 'd',
+            label_text: 'Year',
+            markers: [{ value: initialView, legendEntry_visible: false }]
+          },
+          series: getSeries(),
+          toolbar_items: {
+            export_visible: false,
+            slider: {
+              position: 'inside top',
+              type: 'range',
+              label_text: '1940-2015',
+              visible: true,
+              width: 595,
+              value: initialView,
+              min: 1940,
+              max: 2015,
+              events_change: updateDetailChart
+            }
+          }
+        });
+
+        chartDetail = JSC.chart(
+          'chartDiv2',
+          {
+            title_label_text: 'Detail',
+            animation: false,
+            debug: true,
+            legend_visible: false,
+            defaultPoint: {
+              marker_type: 'none',
+              tooltip: '%seriesName %icon %yValue'
+            },
+            yAxis: {
+              alternateGridFill: 'none',
+              label_text: 'Number of births'
+            },
+            xAxis: { crosshair_enabled: true, formatString: 'd', label_text: 'Year' },
+            series: getSeries()
+          },
+          function(c) {
+            c.axes('x').zoom(initialView);
+          }
+        );
+      }
+
+      // Load CSV data and convert to JSON
+      JSC.fetch('https://data.cdc.gov/resource/fvae-a8ai.csv')
+        .then(function(response) {
+          return response.text();
+        })
+        .then(function(text) {
+          data = JSC.csv2Json(text);
+          renderCharts();
+        });
+
+      function getSeries() {
+        return JSC.nest()
+          .key('age_group')
+          .key('year')
+          .rollup('birth_number')
+          .series(data);
+      }
+
+      function updateDetailChart(range) {
+        //Update marker position on main chart.
+        chart
+          .axes('x')
+          .markers(0)
+          .options({ value: range });
+        //Update details chart zoom
+        chartDetail.axes('x').zoom(range);
+      }
+    </script>
+  </body>
+</html>

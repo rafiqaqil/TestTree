@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Map Context | JSCharting</title>
+    <meta http-equiv="content-type" content="text-html; charset=utf-8" />
+
+    <script type="text/javascript" src="../jsc/jscharting.js"></script>
+
+    <script type="text/javascript" src="../jsc/modules/toolbar.js"></script>
+    <script type="text/javascript" src="../jsc/modules/maps.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="css/default.css" />
+    <style type="text/css">
+      /*CSS*/
+    </style>
+  </head>
+  <body>
+    <div id="chartDiv" style="max-width: 740px;height: 400px;margin: 0px auto;"></div>
+
+    <script type="text/javascript">
+      /*
+Loads a map with select surrounding base layer countries for context.
+Learn how to:
+
+  - Mapping base layers from mapCodes.
+  - Map series from mapCodes.
+*/
+      // JS
+      var chart = JSC.chart('chartDiv', {
+        debug: true,
+        type: 'map',
+        /* Disable zooming */
+        axisToZoom: '',
+        /* The following maps are loaded for context and will only be shown in the background of the series map. */
+        mapping_base_layers: 'CA,MX',
+        legend_position: 'inside top left',
+        series: [{ map: 'US', color: '#83c239' }],
+        toolbar_items_resetZoom_visible: false
+      });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,64 @@
+<h2 id="introduction">Introduction</h2>
+
+<p>The axis crosshair features provide a mechanism to analyze single or multiple data points with a shared x value. The combined tooltip is a related feature that summarizes the details of these multiple points that share an x value at a given pointer position. Crosshair options automatically enable combined tooltip in some scenarios. </p>
+
+<p>Features</p>
+
+<ul>
+    <li>X crosshair with data snapping</li>
+
+    <li>Crosshair tick label box with callout</li>
+
+    <li>Y crosshair without data snapping</li>
+
+    <li>Y crosshairs that mark all y data points at given x position.</li>
+
+    <li>Combined tooltip with details for all points at a given x position.</li>
+</ul>
+
+<span class="docsNote">
+When the series setting mouseTracking.enabled=false is used, the series and points are not included in crosshairs or combined tooltips.
+</span>
+
+<h2 id="crosshairs">Crosshairs</h2>
+
+<p>The <a href="Types.axis.crosshair">axis.crosshair</a> property extends axisTick with two additional properties [enabled, snapToData] and specialized behavior that follows the pointer position. </p>
+
+<p>Behaviors of x axis and y axis crosshairs differs slightly. When the x axis crosshair is enabled, it sets a point
+    focus state (<a href="Types.point.focusGlow">point.focusGlow</a>) on all points at the x axis crosshair position and
+    enables a combined tooltip that summarizes the related points. This crosshair is also useful for highlighting the x
+    axis tick labels at cursor position.</p>
+
+<p data-height="324" data-theme-id="35044" data-slug-hash="BGaJJx" data-default-tab="js,result" data-user="jsblog" data-pen-title="Docs - X Crosshair & CTT" class="codepen">See the Pen <a href="https://codepen.io/jsblog/pen/BGaJJx/">Docs - X Crosshair & CTT</a> by Arthur Puszynski (<a href="https://codepen.io/jsblog">@jsblog</a>) on <a href="https://codepen.io">CodePen</a>.</p>
+<script async src="https://static.codepen.io/assets/embed/ei.js"></script>
+
+<p>The x axis crosshair snapToData option cannot be disabled. </p>
+
+<p>The y axis crosshair snapToData option can be disabled, however, when this option is used, the crosshair simply follows the pointer position and does not interact with the actual data points themselves. </p>
+
+<p data-height="323" data-theme-id="35044" data-slug-hash="JejMLK" data-default-tab="js,result" data-user="jsblog" data-pen-title="Docs - Y Crosshair Without snapToData" class="codepen">See the Pen <a href="https://codepen.io/jsblog/pen/JejMLK/">Docs - Y Crosshair Without snapToData</a> by Arthur Puszynski (<a href="https://codepen.io/jsblog">@jsblog</a>) on <a href="https://codepen.io">CodePen</a>.</p>
+<script async src="https://static.codepen.io/assets/embed/ei.js"></script>
+
+<p>When snapToData is true (default) it works in conjunction with the x axis crosshair and marks each point y value on the y axis for a given x crosshair position with multiple color coded y axis crosshairs.</p>
+
+<p data-height="329" data-theme-id="35044" data-slug-hash="eQYyrO" data-default-tab="js,result" data-user="jsblog" data-pen-title="Docs - Y Crosshair With snapToData" class="codepen">See the Pen <a href="https://codepen.io/jsblog/pen/eQYyrO/">Docs - Y Crosshair With snapToData</a> by Arthur Puszynski (<a href="https://codepen.io/jsblog">@jsblog</a>) on <a href="https://codepen.io">CodePen</a>.</p>
+<script async src="https://static.codepen.io/assets/embed/ei.js"></script>
+
+<p>The combined tooltip is also not enabled automatically by default when this set of options are used because the individual data point values are shown on the y axis.</p>
+
+<h2 id="combinedtooltip">Combined tooltip</h2>
+
+<p>Combined tooltip can be enabled with or without axis crosshairs. Without x crosshair enabled the result is similar to enabling x crosshair except the crosshair visual is not shown.</p>
+
+<p data-height="323" data-theme-id="35044" data-slug-hash="XyWVYJ" data-default-tab="js,result" data-user="jsblog" data-pen-title="Docs - Combined Tooltip Without Crosshairs" class="codepen">See the Pen <a href="https://codepen.io/jsblog/pen/XyWVYJ/">Docs - Combined Tooltip Without Crosshairs</a> by Arthur Puszynski (<a href="https://codepen.io/jsblog">@jsblog</a>) on <a href="https://codepen.io">CodePen</a>.</p>
+<script async src="https://static.codepen.io/assets/embed/ei.js"></script>
+
+<p>The combined tooltip text template can be configured through the defaultTooltip.label.text property and uses 'point list tokens' reference . The %points token lists  the individual point tooltips which are configured through the point.tooltip property.</p>
+
+<span class="docsTip">
+A useful trick configuring combined tooltip text is to use the &#x3C;span&#x3E; tags with specific style width settings to create a grid of columns and rows.
+</span>
+
+
+<p data-height="325" data-theme-id="35044" data-slug-hash="NEWXBE" data-default-tab="js,result" data-user="jsblog" data-pen-title="Docs - Combined Tooltip With Columns" class="codepen">See the Pen <a href="https://codepen.io/jsblog/pen/NEWXBE/">Docs - Combined Tooltip With Columns</a> by Arthur Puszynski (<a href="https://codepen.io/jsblog">@jsblog</a>) on <a href="https://codepen.io">CodePen</a>.</p>
+<script async src="https://static.codepen.io/assets/embed/ei.js"></script>

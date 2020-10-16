@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Average Timeline Scatter Chart | JSCharting</title>
+    <meta http-equiv="content-type" content="text-html; charset=utf-8" />
+
+    <script type="text/javascript" src="../jsc/jscharting.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="css/default.css" />
+    <style type="text/css"></style>
+  </head>
+  <body>
+    <div id="chartDiv" style="max-width: 740px;height: 400px;margin: 0px auto;"></div>
+
+    <script type="text/javascript">
+      /*
+A scatter chart with average lines.
+Learn how to:
+
+  - Draw a scatter chart with averaged line.
+*/
+      // JS
+      var chart;
+
+      JSC.fetch('./resources/laborForceUs.csv')
+        .then(function(response) {
+          return response.text();
+        })
+        .then(function(text) {
+          var data = JSC.csv2Json(text, {
+            coerce: function(d, i) {
+              return {
+                state: d.state,
+                year: d.year + ' ' + d.state,
+                employed: d.employed,
+                unemployed: d.unemployed,
+                labor_force: d.labor_force
+              };
+            }
+          });
+          chart = renderChart(makeSeries(data));
+        });
+      function renderChart(series) {
+        return JSC.chart('chartDiv', {
+          animation_duration: 0,
+          title_label_text: 'US Labor Force',
+          toolbar_visible: false,
+          defaultPoint: {
+            tooltip: '',
+            legendEntry_visible: false,
+            focusGlow_width: 0,
+            marker: {
+              type: 'circle',
+              outline_width: 0,
+              size: 12
+            }
+          },
+          legend: {
+            template: '%icon %name',
+            position: 'bottom',
+            defaultEntry: {
+              cursor: 'default',
+              /* Disable hiding series on click */
+              events_click: function() {
+                return false;
+              }
+            }
+          },
+          chartArea_shadow: true,
+          yAxis: [
+            {
+              id: 'y1',
+              scale: {
+                range: [0, 100],
+                breaks_limit: 1,
+                defaultBreak: {
+                  line: { color: '#d4d4d4', dashStyle: 'longDash', width: 8 }
+                }
+              },
+              alternateGridFill: 'none'
+            },
+            {
+              id: 'y2',
+              scale_syncWith: 'y1',
+              defaultTick: {
+                enabled: false,
+                gridLine_visible: false
+              },
+              alternateGridFill: 'none',
+              crosshair: {
+                enabled: true,
+                label: {
+                  text: '{%value:n1}%',
+                  style_fontSize: 16
+                }
+              },
+              orientation: 'opposite'
+            }
+          ],
+          xAxis: {
+            formatString: 'd',
+            crosshair_enabled: true
+          },
+          series: series
+        });
+      }
+
+      function makeSeries(data) {
+        var myNest = JSC.nest().key('year');
+        return [
+          {
+            name: 'State Employment Rate',
+            type: 'marker',
+            color: '#049DFF',
+            opacity: 0.07,
+            yAxis: 'y1',
+            mouseTracking_enabled: false,
+            points: myNest
+              .pointRollup(function(key, val) {
+                var values = val[0];
+                return {
+                  x: parseInt(key.replace(/\D+/g, '')),
+                  y: (parseInt(values.employed) * 100) / parseInt(values.labor_force)
+                };
+              })
+              .points(data)
+          },
+          {
+            name: 'Average Employment Rate',
+            type: 'line',
+            color: '#049DFF',
+            yAxis: 'y2',
+            line: { color: 'currentColor', width: 4 },
+            lastPoint_yAxisTick_label_text:
+              '<span style="font-size:16px;color:#049DFF"><b>{%value:n1}%</b></span><br>Employment rate<br>(percent of total labor force)',
+            defaultPoint_marker_visible: false,
+            points: myNest
+              .pointRollup(function(key, val) {
+                var values = val[0];
+                return {
+                  x: parseInt(key.replace(/\D+/g, '')),
+                  y: (parseInt(values.employed) * 100) / parseInt(values.labor_force)
+                };
+              })
+              .points(
+                data.filter(function(x) {
+                  return x.state === 'Total';
+                })
+              )
+          },
+          {
+            name: 'State Unemployment Rate',
+            type: 'marker',
+            color: '#FE6535',
+            opacity: 0.07,
+            yAxis: 'y1',
+            mouseTracking_enabled: false,
+            points: myNest
+              .pointRollup(function(key, val) {
+                var values = val[0];
+                return {
+                  x: parseInt(key.replace(/\D+/g, '')),
+                  y: (parseInt(values.unemployed) * 100) / parseInt(values.labor_force)
+                };
+              })
+              .points(data)
+          },
+          {
+            name: 'Average Unemployment Rate',
+            type: 'line',
+            color: '#FE6535',
+            yAxis: 'y2',
+            line: { color: 'currentColor', width: 4 },
+            lastPoint_yAxisTick_label_text:
+              '<span style="font-size:16px;color:#FE6535"><b>{%value:n1}%</b></span><br>Unemployment rate<br>(percent of total labor force)',
+            defaultPoint_marker_visible: false,
+            points: myNest
+              .pointRollup(function(key, val) {
+                var values = val[0];
+                return {
+                  x: parseInt(key.replace(/\D+/g, '')),
+                  y: (parseInt(values.unemployed) * 100) / parseInt(values.labor_force)
+                };
+              })
+              .points(
+                data.filter(function(x) {
+                  return x.state === 'Total';
+                })
+              )
+          }
+        ];
+      }
+    </script>
+  </body>
+</html>

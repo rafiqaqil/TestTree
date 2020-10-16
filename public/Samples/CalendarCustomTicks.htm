@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Custom Tick Calendar Chart | JSCharting</title>
+    <meta http-equiv="content-type" content="text-html; charset=utf-8" />
+
+    <script type="text/javascript" src="../jsc/jscharting.js"></script>
+
+    <script type="text/javascript" src="../jsc/modules/types.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="css/default.css" />
+    <style type="text/css">
+      /*CSS*/
+    </style>
+  </head>
+  <body>
+    <div id="chartDiv" style="max-width: 740px;height: 300px;margin: 0px auto;"></div>
+
+    <script type="text/javascript">
+      /*
+Custom ticks on a calendar chart and heatmap value formatting.
+Learn how to:
+
+  - Add custom axis ticks to calendar chart.
+  - Format heatmap value.
+*/
+      // JS
+      var chart = JSC.chart('chartDiv', {
+        debug: true,
+        type: 'calendar hourMinutes solid',
+        defaultBox_boxVisible: false,
+        annotations: [{ position: 'top', label_text: '1:00 AM Cashflow by minute' }],
+        palette_colorBar_axis_formatString: 'c',
+        data: generateRandomData(),
+        xAxis: {
+          //Custom ticks
+          scale_interval: 1,
+          defaultTick: { enabled: true, label_text: '+:0%value' }
+        },
+        legend: {
+          defaultEntry: {
+            events_click: function() {
+              var date = this.target.tokenValue('%date');
+              this.chart.annotations(0).options({ label_text: JSC.formatDate(date, 't') + ' Cashflow by minute' });
+            }
+          }
+        },
+        //Specify currency format for heatmap values.
+        zAxis_formatString: 'c'
+      });
+
+      function generateRandomData() {
+        var dataRange = ['1/1/2018 01:00', '1/1/2018 3:00'];
+        var start = new Date(dataRange[0]),
+          startNum = start.getTime(),
+          end = new Date(dataRange[1]),
+          endNum = end.getTime();
+        var ret = [];
+        var date = startNum;
+        var step = (1000 * 60) / 20;
+
+        var rand = function(mul) {
+          var v = Math.random() * 50;
+          return v * mul;
+        };
+
+        function mapToMul(dateNum) {
+          var minOfHour = new Date(dateNum).getMinutes() + 1;
+          var timeOfDayMod = Math.sin(mapValue(0, 3, 0, 60, minOfHour));
+          return Math.sin(mapValue(0, 4, startNum, endNum, dateNum)) * timeOfDayMod;
+        }
+
+        var _i = 0;
+        while (date < end) {
+          ret.push([new Date(date).getTime(), rand(mapToMul(date))]);
+          date = date + step;
+          if (_i > 100000) {
+            break;
+          }
+        }
+        return ret;
+
+        function mapValue(toStart, toEnd, fromStart, fromEnd, value) {
+          return toStart + ((value - fromStart) / (fromEnd - fromStart)) * (toEnd - toStart);
+        }
+      }
+    </script>
+  </body>
+</html>

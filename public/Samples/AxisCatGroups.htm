@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Category Range Ticks | JSCharting</title>
+    <meta http-equiv="content-type" content="text-html; charset=utf-8" />
+
+    <script type="text/javascript" src="../jsc/jscharting.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="css/default.css" />
+    <style type="text/css">
+      /*CSS*/
+    </style>
+  </head>
+  <body>
+    <div id="chartDiv" style="max-width: 740px;height: 330px;margin: 0px auto;"></div>
+
+    <script type="text/javascript">
+      /*
+Multi-level category axis range tick labels.
+Learn how to:
+
+  - Custom Axis Ticks.
+  - Axis Range Ticks.
+*/
+      // JS
+      var chart = JSC.chart('chartDiv', {
+        debug: true,
+        type: 'column',
+        yAxis_visible: false,
+        title_label: { text: 'Stock Inventory', style_fontSize: 15 },
+        legend_position: 'inside top right',
+        toolbar_visible: false,
+        xAxis: {
+          customTicks: [
+            { value: ['Milk', 'Water'], label_text: 'Shelf 1' },
+            {
+              value: ['Sugar', 'Honey'],
+              label_text: 'Shelf 2'
+            },
+            { value: ['Wheat', 'Corn'], label_text: 'Shelf 1' },
+            {
+              value: ['Chicken', 'Beef'],
+              label_text: 'Shelf 2'
+            },
+            { value: ['Milk', 'Honey'], label_text: 'Room A' },
+            { value: ['Wheat', 'Beef'], label_text: 'Room B' }
+          ]
+        },
+        series: [
+          {
+            defaultPoint_label_visible: true,
+            name: 'All Items',
+            points: [
+              { x: 'Milk', y: 8 },
+              { x: 'Water', y: 4 },
+              { x: 'Sugar', y: 5 },
+              { x: 'Honey', y: 3 },
+              { x: 'Wheat', y: 6 },
+              { x: 'Corn', y: 5 },
+              { x: 'Chicken', y: 3 },
+              { x: 'Beef', y: 2 }
+            ]
+          }
+        ]
+      });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Axis Scales | JSCharting</title>
+    <meta http-equiv="content-type" content="text-html; charset=utf-8" />
+
+    <script type="text/javascript" src="../jsc/jscharting.js"></script>
+
+    <script type="text/javascript" src="../jsc/modules/toolbar.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="css/default.css" />
+    <style type="text/css">
+      /*CSS*/
+    </style>
+  </head>
+  <body>
+    <div id="chartDiv" style="max-width: 740px;height: 350px;margin: 0px auto;"></div>
+
+    <script type="text/javascript">
+      /*
+Applies axis scales settings that affect the axis range and appearance.
+Learn how to:
+
+  - Specify an axis scale range.
+  - Reverse or invert the axis scale.
+  - Apply axis scale padding.
+*/
+      // JS
+      var chart = JSC.chart('chartDiv', {
+        debug: true,
+        legend_visible: false,
+        title_label_text: 'Manipulating axis scale ranges. [Invert scale, Static range, Range padding]',
+        type: 'column',
+
+        /*Y Axis Settings*/
+        yAxis: { scale: { invert: true, range: [-75, 350] } },
+
+        /*X Axis Settings*/
+        xAxis: {
+          scale: { range_padding: 0.2, invert: true },
+          scale_type: 'time'
+        },
+        toolbar_items_invert: {
+          type: 'checkbox',
+          events_click: setInvertScale
+        },
+        series: [
+          {
+            name: 'Purchases',
+            points: [
+              ['1/1/2020', 29.9],
+              ['1/2/2020', 71.5],
+              ['1/3/2020', 106.4],
+              ['1/6/2020', 129.2],
+              ['1/7/2020', 144.0],
+              ['1/8/2020', 176.0]
+            ]
+          }
+        ]
+      });
+      function setInvertScale(val) {
+        chart.axes('y').options({ scale_invert: val });
+      }
+    </script>
+  </body>
+</html>

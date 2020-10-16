@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Tires Compared | JSCharting</title>
+    <meta http-equiv="content-type" content="text-html; charset=utf-8" />
+
+    <script type="text/javascript" src="../jsc/jscharting.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="css/default.css" />
+    <style type="text/css">
+      /*CSS*/
+    </style>
+  </head>
+  <body>
+    <div id="chartDiv" style="max-width: 740px;height: 480px;margin: 0px auto;"></div>
+
+    <script type="text/javascript">
+      /*
+Custom curly brace range ticks mapped to tire ratings.
+Learn how to:
+
+  - Custom Axis Ticks.
+  - Axis Range Ticks.
+*/
+      // JS
+      var ratings = [
+        [[0, 1], '#c90f18', 'Poor'],
+        [[1, 2], '#eaa220', 'Fair'],
+        [[2, 3], '#ead229', 'Good'],
+        [[3, 4], '#aeea31', 'Very Good'],
+        [[4, 5], '#50c814', 'Excellent']
+      ];
+      var chartConfig = {
+        debug: true,
+        annotations: [
+          {
+            position: 'bottom left',
+            label_text: 'Source: Consumer Reports'
+          }
+        ],
+        palette: ['#e9e9e9', '#b7b7b7', '#797979'],
+        legend: {
+          position: 'top right',
+          template: '%icon %name',
+          defaultEntry_style: { fontSize: 15 }
+        },
+        xAxis: {
+          orientation: 'opposite',
+          defaultTick_label_style: { maxWidth: 75, fontSize: 15 }
+        },
+        yAxis: {
+          defaultTick: {
+            enabled: false,
+            rangeMode: 'curly',
+            line_radius: 10,
+            label_padding: 5,
+            label_placement: 'outside'
+          },
+          scale_range: [0.5, 5.5]
+        },
+        defaultSeries: { line_width: 4, defaultPoint_marker_size: 13 },
+        series: [
+          {
+            name: 'UHP Summer',
+            points: [
+              { x: 'Handling', y: 5 },
+              { x: 'Dry Breaking', y: 5 },
+              { x: 'Wet Breaking', y: 4 },
+              { x: 'Ride Noise', y: 3 },
+              { x: 'Ride Comfort', y: 2 },
+              { x: 'Rolling Resistance', y: 2 },
+              { x: 'Snow Traction', y: 1 }
+            ]
+          },
+          {
+            name: 'All Season',
+            points: [
+              { x: 'Handling', y: 3 },
+              { x: 'Dry Breaking', y: 4 },
+              { x: 'Wet Breaking', y: 3 },
+              { x: 'Ride Noise', y: 4 },
+              { x: 'Ride Comfort', y: 4 },
+              { x: 'Rolling Resistance', y: 3 },
+              { x: 'Snow Traction', y: 3 }
+            ]
+          },
+          {
+            name: 'Winter/Snow',
+            points: [
+              { x: 'Handling', y: 2 },
+              { x: 'Dry Breaking', y: 2 },
+              { x: 'Wet Breaking', y: 2 },
+              { x: 'Ride Noise', y: 3 },
+              { x: 'Ride Comfort', y: 5 },
+              { x: 'Rolling Resistance', y: 3 },
+              { x: 'Snow Traction', y: 5 }
+            ]
+          }
+        ]
+      };
+
+      chartConfig.yAxis.customTicks = ratings.map(function(row) {
+        return {
+          value: [row[0][0] + 0.5, row[0][1] + 0.5],
+          line_color: row[1],
+          label: { text: row[2] }
+        };
+      });
+
+      var chart = JSC.chart('chartDiv', chartConfig);
+    </script>
+  </body>
+</html>

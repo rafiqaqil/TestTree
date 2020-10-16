@@ -1,0 +1,162 @@
+
+<h2>Introduction</h2>
+<p>
+    The <a href="API.JS.nest">nest</a> object provides a mechanism to define a list of operations that can be used to
+    arrange an array of data objects
+    into a nested hierarchy that maps to the chart data hierarchy of series, x values, and y values.
+</p>
+
+<p>
+The goal of this utility is to simplify the process of arranging any arbitrary data sets into chart series and points.
+    It can be enough to look at the code examples below to quickly comprehend how the utility can be used.
+</p>
+
+<p></p>
+The operations are divided into 3 groups: nest, aggregate, and generate. The nesting <a href="API.JS.nest.key()">key()</a> function groups entries by
+key values and includes date grouping capabilities. At least one <a href="API.JS.nest.key()">key()</a> call must be used to establish a hierarchy or to
+specify a property that maps to the resulting data point x value. Aggregation specifies values that map to point
+properties from the nested entries and provides additional output mapping customization options. Only one of each
+of the aggregation functions <a href="API.JS.nest.rollup()">rollup()</a> and <a href="API.JS.nest.pointRollup()">pointRollup()</a> can be used within a nest call chain. The final tail end
+calls are used to pass the data for processing to generate the final output. The different tail end functions <a href="API.JS.nest.series()">series()</a>,
+<a href="API.JS.nest.points()">points()</a>, and <a href="API.JS.nest.entries()">entries()</a> determine
+how the data is formatted.
+</p>
+
+<h2>Basic Overview</h2>
+<h4>Nesting</h4>
+
+<p>
+The <a href="API.JS.nest.key()">key()</a> function call identifies a data field of interest. It can be used once to map to point x value which results
+in a single series. Or it can be used twice to establish a series grouping property and point x values.
+</p>
+<span class="codeText">
+JSC.nest().key('seriesName').key('xField')
+</span>
+
+<p><a href="API.JS.nest.key()">key()</a> can also take a function as an argument that gets a key value for a given data entry.</p>
+
+
+<h4>Aggregation</h4>
+<p>The most basic aggregation operation defines a data property that maps to point y values using the <a href="API.JS.nest.rollup()">rollup()</a> call.
+    Combining a <a href="API.JS.nest.key()">key()</a> call with a rollup() call results in mapping the data entries into a list of [x,y] points.
+    It is similar to using array.map() when key values don't repeat, however, the <a href="API.JS.nest.key()">key()</a> call merges entries with
+    matching key values into a grouping and rollup combines the grouped y values with a calculation such as 'sum'
+    by default. A different calculation can be specified as a rollup argument.</p>
+
+<span class="codeText">
+JSC.nest().key('seriesName').key('xField').rollup('yField','mean')
+</span>
+
+<p>For more customization control, the <a href="API.JS.nest.pointRollup()">pointRollup()</a> function provides a way to manually map a grouping of entries into
+    point objects given a key value and the entries that are part of that grouping.</p>
+
+
+<h4>Generation</h4>
+
+
+<p>Finally, the data can be passed to the nest call chain to be processed into chart series (<a href="API.JS.nest.series()">series()</a>),
+    points (<a href="API.JS.nest.points()">points()</a>), or the raw data using <a href="API.JS.nest.entries()">entries()</a>  </p>
+
+<span class="codeText">
+JSC.nest().key('seriesName').key('xField').rollup('yField','mean').series(dataArray);
+</span>
+
+<p>A basic example that maps data properties to points.</p>
+<p data-height="320" data-theme-id="35044" data-slug-hash="LgwwNx" data-default-tab="js,result" data-user="jsblog" data-pen-title="Nest Property Mapping" class="codepen">See the Pen <a href="https://codepen.io/jsblog/pen/LgwwNx/">Nest Property Mapping</a> (<a href="https://codepen.io/jsblog">@jsblog</a>) on <a href="https://codepen.io">CodePen</a>.</p>
+<script async src="https://static.codepen.io/assets/embed/ei.js"></script>
+
+
+
+<h2>Date Grouping</h2>
+
+<p>The key function can also accept on object with properties key, pattern, and range. Calendar patterns can represent
+    intervals like day, month, etc. when set with configuration {month:'*'} translating roughly to [every month]. A string
+    setting can be used as a shortcut to these interval configurations. For example setting 'month' is equivalent to {month:'*'}.
+</p>
+
+<p>A date based key can be used in a nesting call chain with code such as</p>
+<span class="codeText">JSC.nest().key('dateField') </span>
+<p>This will only group data based on unique values of dateField properties but it will not apply date grouping.
+    The following code will group data entries by day.
+</p>
+<span class="codeText">JSC.nest().key({ key:'dateField', pattern:'day'})
+</span>
+<p>This creates groups for each unique date that exists in the data. However, date grouping can also fill in the gaps
+    with empty elements for a given date range using code such as:
+</p>
+<span class="codeText">JSC.nest().key({ key:'dateField', pattern:'day', range:['1/1/2019 0:00', '1/31/2019 23:59:59']})
+</span>
+<p>If this is used to generate series points, the range could be applied to x axis range instead:
+</p>
+<span class="codeText">{xAxis_scale_range:['1/1/2019 0:00', '1/31/2019 23:59:59']}
+</span>
+
+<p>However, if this is used to generate values for microcharts like 'columns' then it will ensure the correct number of
+    values are generated to represent each day in the given date range.
+</p>
+<p>The date range used in this property should be inclusive where values that fall within the range are determined by
+    min &lt;= value &lt;= max. If the range ['1/1/2019', '2/1/2019'] is used, all days in January would fall within the range
+    including any dates at midnight February 1st. When using dates like this, it is recommended to negate 1 millisecond
+    from the end date. </p>
+
+<h2>Examples</h2>
+
+
+<h4>Multiple Series</h4>
+<p>Using two <a href="API.JS.nest.key()">key()</a> calls to generate multiple series</p>
+
+<p data-height="320" data-theme-id="35044" data-slug-hash="bmXXaZ" data-default-tab="js,result" data-user="jsblog" data-pen-title="Nest Multi Series" class="codepen">See the Pen <a href="https://codepen.io/jsblog/pen/bmXXaZ/">Nest Multi Series</a> (<a href="https://codepen.io/jsblog">@jsblog</a>) on <a href="https://codepen.io">CodePen</a>.</p>
+<script async src="https://static.codepen.io/assets/embed/ei.js"></script>
+
+<h4>Custom pointRollup() example</h4>
+<p>Using <a href="API.JS.nest.pointRollup()">pointRollup()</a> function to generate custom point configurations. In this example, an additional Z value is included in points. </p>
+<p data-height="320" data-theme-id="35044" data-slug-hash="MPNNzK" data-default-tab="js,result" data-user="jsblog" data-pen-title="Nesting Point Rollup" class="codepen">See the Pen <a href="https://codepen.io/jsblog/pen/MPNNzK/">Nesting Point Rollup</a> (<a href="https://codepen.io/jsblog">@jsblog</a>) on <a href="https://codepen.io">CodePen</a>.</p>
+<script async src="https://static.codepen.io/assets/embed/ei.js"></script>
+
+<h4>Custom pointRollup() Range</h4>
+<p>A more involved point rollup example</p>
+<p data-height="321" data-theme-id="35044" data-slug-hash="rQBBBy" data-default-tab="js,result" data-user="jsblog" data-pen-title="Nesting pointRollup() Range" class="codepen">See the Pen <a href="https://codepen.io/jsblog/pen/rQBBBy/">Nesting pointRollup() Range</a> (<a href="https://codepen.io/jsblog">@jsblog</a>) on <a href="https://codepen.io">CodePen</a>.</p>
+<script async src="https://static.codepen.io/assets/embed/ei.js"></script>
+
+
+<h4>Count occurences</h4>
+<p data-height="322" data-theme-id="35044" data-slug-hash="JePPGL" data-default-tab="js,result" data-user="jsblog" data-pen-title="Nest Ratings Summary" class="codepen">See the Pen <a href="https://codepen.io/jsblog/pen/JePPGL/">Nest Ratings Summary</a> (<a href="https://codepen.io/jsblog">@jsblog</a>) on <a href="https://codepen.io">CodePen</a>.</p>
+<script async src="https://static.codepen.io/assets/embed/ei.js"></script>
+
+<h4>Reuse Nest Objects</h4>
+<p>Reuse a nest object to generate series mapping different columns to point y values</p>
+<p data-height="320" data-theme-id="35044" data-slug-hash="GwKKNa" data-default-tab="js,result" data-user="jsblog" data-pen-title="Nesting Multi Tails" class="codepen">See the Pen <a href="https://codepen.io/jsblog/pen/GwKKNa/">Nesting Multi Tails</a> (<a href="https://codepen.io/jsblog">@jsblog</a>) on <a href="https://codepen.io">CodePen</a>.</p>
+<script async src="https://static.codepen.io/assets/embed/ei.js"></script>
+
+
+<h4>Date Grouping</h4>
+
+<p data-height="322" data-theme-id="35044" data-slug-hash="XyrGyG" data-default-tab="js,result" data-user="jsblog" data-pen-title="XyrGyG" class="codepen">See the Pen <a href="https://codepen.io/jsblog/pen/XyrGyG/">XyrGyG</a> (<a href="https://codepen.io/jsblog">@jsblog</a>) on <a href="https://codepen.io">CodePen</a>.</p>
+<script async src="https://static.codepen.io/assets/embed/ei.js"></script>
+
+
+<h4>Point Microcharts Metadata</h4>
+<p>Using nest inside a pointRollup function to apply date grouping on metadata that is shown in microcharts.</p>
+<p data-height="320" data-theme-id="35044" data-slug-hash="rQBRPR" data-default-tab="js,result" data-user="jsblog" data-pen-title="Nesting Microcharts" class="codepen">See the Pen <a href="https://codepen.io/jsblog/pen/rQBRPR/">Nesting Microcharts</a> (<a href="https://codepen.io/jsblog">@jsblog</a>) on <a href="https://codepen.io">CodePen</a>.</p>
+<script async src="https://static.codepen.io/assets/embed/ei.js"></script>
+
+<p>Another trick this example demonstrates is using <a href="API.JS.nest.pointRollup()">pointRollup()</a> to create a list of numbers.
+    This approach can be used do process data and generate any type of output.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!--
+<span class="codeText"></span>-->

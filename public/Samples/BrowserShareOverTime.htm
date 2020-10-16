@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Multi Series Trendline | JSCharting</title>
+    <meta http-equiv="content-type" content="text-html; charset=utf-8" />
+
+    <script type="text/javascript" src="../jsc/jscharting.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="css/default.css" />
+    <style type="text/css"></style>
+  </head>
+  <body>
+    <div id="chartDiv" style="max-width: 740px;height: 300px;margin: 0px auto;"></div>
+
+    <script type="text/javascript">
+      /*
+A JavaScript line chart with multiple series illustrating Chrome browsers rise to dominance over time.
+Learn how to:
+
+  - Draw multiple trendlines over time.
+*/
+      // JS
+      var chart;
+
+      JSC.fetch('./resources/browserShareMonthly.csv')
+        .then(function(response) {
+          return response.text();
+        })
+        .then(function(text) {
+          var data = JSC.csv2Json(text);
+          chart = renderChart(makeChartData(data));
+        });
+
+      function renderChart(chartData) {
+        return JSC.chart('chartDiv', {
+          type: 'line',
+          title_label_text: 'Chrome browser share growth over time',
+          defaultTooltip_label_text: '%points',
+          defaultPoint: {
+            tooltip: '%icon <b>{%value:n1}%</b> %SeriesName',
+            marker_visible: false
+          },
+          yAxis: {
+            alternateGridFill: 'none',
+            defaultTick_label_text: '%value%'
+          },
+          xAxis: {
+            scale_type: 'time',
+            crosshair: {
+              enabled: true,
+              label_text: '{%value:date MMM yyyy}'
+            }
+          },
+          legend: { template: '{%lastY:n0}%,%icon,%name' },
+          series: chartData
+        });
+      }
+
+      function makeChartData(data) {
+        var series = [];
+        series.push(getBrowserSeries('Chrome'));
+        series.push(getBrowserSeries('Safari'));
+        series.push(getBrowserSeries('Firefox'));
+        series.push(getBrowserSeries('IE'));
+        series.push(getBrowserSeries('Edge Legacy'));
+        series.push(getBrowserSeries('Opera'));
+        return series;
+
+        function getBrowserSeries(name) {
+          var ser = JSC.nest()
+            .key('Date')
+            .rollup(name)
+            .series(data)[0];
+          ser.name = name;
+          return ser;
+        }
+      }
+    </script>
+  </body>
+</html>

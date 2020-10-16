@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Exploded Pie Slice | JSCharting</title>
+    <meta http-equiv="content-type" content="text-html; charset=utf-8" />
+
+    <script type="text/javascript" src="../jsc/jscharting.js"></script>
+
+    <script type="text/javascript" src="../jsc/modules/types.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="css/default.css" />
+    <style type="text/css"></style>
+  </head>
+  <body>
+    <div id="chartDiv" style="max-width: 430px;height: 405px;margin: 0px auto;"></div>
+
+    <script type="text/javascript">
+      /*
+A pie chart with labels and specific pie slices exploded.
+Learn how to:
+
+  - Draw a pie chart.
+  - Explode pie slices.
+*/
+      // JS
+      var chart = JSC.chart('chartDiv', {
+        debug: true,
+        legend_visible: false,
+        title_position: 'center',
+        defaultSeries: {
+          type: 'pie',
+          pointSelection: true,
+          shape_padding: 0.45
+        },
+        defaultPoint_label_text: '%name<br><b>%yValue</b>',
+        yAxis: { formatString: 'n', label_text: 'GDP' },
+        series: [
+          {
+            points: [
+              { name: 'United States', y: 5452500 },
+              { exploded: true, name: 'Canada', y: 786052 },
+              {
+                exploded: true,
+                name: 'United Kingdom',
+                y: 477338
+              },
+              { exploded: true, name: 'Mexico', y: 155313 }
+            ],
+            name: 'Countries'
+          }
+        ],
+        title_label_text: 'Countries GDP'
+      });
+    </script>
+  </body>
+</html>

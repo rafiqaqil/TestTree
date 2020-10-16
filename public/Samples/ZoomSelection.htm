@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Zoom Selection | JSCharting</title>
+    <meta http-equiv="content-type" content="text-html; charset=utf-8" />
+
+    <script type="text/javascript" src="../jsc/jscharting.js"></script>
+
+    <script type="text/javascript" src="../jsc/modules/toolbar.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="css/default.css" />
+    <style type="text/css">
+      /*CSS*/
+    </style>
+  </head>
+  <body>
+    <div id="chartDiv" style="max-width: 740px;height: 400px;margin: 0px auto;"></div>
+
+    <script type="text/javascript">
+      /*
+Use selecting events to draw a clipped overlay line series.
+Learn how to:
+
+  - Use line interpolation.
+  - Use selecting events.
+*/
+      // JS
+      var chart = JSC.chart('chartDiv', {
+        debug: true,
+        legend_visible: false,
+        axisToZoom: 'x',
+        defaultAnnotation: { corners: 'square' },
+        annotations: [
+          {
+            id: 'inf',
+            label_text: 'Drag cursor on chart area to make selection',
+            position: 'inside top left'
+          },
+          {
+            id: 'startVal',
+            position: 'inside bottom left',
+            fill: '#e8faff'
+          },
+          {
+            id: 'endVal',
+            position: 'inside bottom right',
+            fill: '#e8faff'
+          }
+        ],
+        yAxis: { formatString: 'n0', label_text: 'Speed' },
+        xAxis: { formatString: 'n0', label_text: 'Distance' },
+        series: [
+          {
+            mouseTracking_enabled: false,
+            name: 'Representatives',
+            points: {
+              mapTo: 'x,y',
+              data: [
+                [0, 6544],
+                [1, 9585],
+                [2, 5507],
+                [3, 18781],
+                [4, 11170],
+                [5, 16021],
+                [6, 21328],
+                [7, 23479],
+                [8, 12047],
+                [9, 24047],
+                [10, 16080],
+                [11, 14486],
+                [12, 9128],
+                [13, 10052],
+                [14, 11313],
+                [15, 15128],
+                [16, 16904],
+                [17, 13415],
+                [18, 22102],
+                [19, 23454],
+                [20, 14457],
+                [21, 12974],
+                [22, 12178],
+                [23, 23428],
+                [24, 11391],
+                [25, 16116],
+                [26, 8211],
+                [27, 24113],
+                [28, 9473],
+                [29, 24806],
+                [30, 6396],
+                [31, 13489],
+                [32, 10542],
+                [33, 6360],
+                [34, 8580],
+                [35, 15691],
+                [36, 9353],
+                [37, 17639],
+                [38, 16511],
+                [39, 18459],
+                [40, 13773],
+                [41, 20584],
+                [42, 22635],
+                [43, 15618],
+                [44, 5629],
+                [45, 14710],
+                [46, 8177],
+                [47, 6066],
+                [48, 15857],
+                [49, 18856],
+                [50, 20765],
+                [51, 12948],
+                [52, 7923],
+                [53, 18988],
+                [54, 14539],
+                [55, 9598],
+                [56, 16648],
+                [57, 22139],
+                [58, 22849],
+                [59, 18563],
+                [60, 17436],
+                [61, 21838],
+                [62, 20853],
+                [63, 16684],
+                [64, 17689],
+                [65, 16302],
+                [66, 8765],
+                [67, 24987],
+                [68, 23763],
+                [69, 21650],
+                [70, 6188],
+                [71, 15749],
+                [72, 11753],
+                [73, 22968],
+                [74, 5165],
+                [75, 15514],
+                [76, 20726],
+                [77, 23538],
+                [78, 20190],
+                [79, 23545],
+                [80, 11399],
+                [81, 14172],
+                [82, 19778],
+                [83, 14042],
+                [84, 19899],
+                [85, 14517],
+                [86, 10284],
+                [87, 21537],
+                [88, 9395],
+                [89, 23866],
+                [90, 5591],
+                [91, 7784],
+                [92, 17885],
+                [93, 7939],
+                [94, 11367],
+                [95, 5621],
+                [96, 5735],
+                [97, 24650],
+                [98, 13352],
+                [99, 11320],
+                [100, 15661],
+                [101, 19250],
+                [102, 24983],
+                [103, 12162],
+                [104, 12225],
+                [105, 8933],
+                [106, 16513],
+                [107, 19770],
+                [108, 22133],
+                [109, 5455],
+                [110, 5364],
+                [111, 21966],
+                [112, 8070],
+                [113, 10511],
+                [114, 8815],
+                [115, 6285],
+                [116, 23511],
+                [117, 23982],
+                [118, 21210],
+                [119, 18621],
+                [120, 15748],
+                [121, 10934],
+                [122, 21008],
+                [123, 18174],
+                [124, 16047],
+                [125, 24143],
+                [126, 7978],
+                [127, 14634],
+                [128, 17119],
+                [129, 10912]
+              ]
+            }
+          },
+          {
+            name: 'trend',
+            id: 'trend',
+            line_dashStyle: 'dash'
+          },
+          {
+            name: 'overlay',
+            id: 'overlay',
+            defaultPoint: { marker_type: 'none', color: 'red' }
+          },
+          {
+            name: 'selectionPoints',
+            id: 'selectionPoints',
+            type: 'marker',
+            color: 'red',
+            defaultPoint_marker: { size: 10, type: 'circle', outline_width: 0 }
+          }
+        ],
+        events_selection: selectionHandler,
+        events_selecting: selectingHandler
+      });
+      var annotation, interpolatedPoints;
+      function selectionHandler(ev) {
+        var range = ev.xAxis.sort(function(a, b) {
+          return a < b ? -1 : a > b ? 1 : 0;
+        });
+        var p1 = [range[0], chart.series(0).yAt(range[0])];
+        var p2 = [range[1], chart.series(0).yAt(range[1])];
+        chart.series('trend').visible(true);
+        chart.series('trend').options({ points: [p1, p2] });
+        chart.series('selectionPoints').visible(false);
+
+        //Select all annotations except the main info.
+        chart
+          .annotations(function(a) {
+            return a.id !== 'inf';
+          })
+          .options({ visible: false });
+        return false;
+      }
+
+      function selectingHandler(ev) {
+        var axRange = chart.axes('x').getRange();
+        var range = ev.xAxis.sort(function(a, b) {
+          return a < b ? -1 : a > b ? 1 : 0;
+        });
+        range[0] = Math.max(range[0], axRange.dataMin);
+        range[1] = Math.min(range[1], axRange.dataMax);
+        var p1 = [range[0], chart.series(0).yAt(range[0])];
+        var p2 = [range[1], chart.series(0).yAt(range[1])];
+
+        interpolatedPoints = [p1, p2];
+        chart
+          .series('selectionPoints')
+          .visible(true)
+          .options({ points: [p1, p2] });
+        chart.series('trend').visible(false);
+
+        chart.annotations('startVal').options({ visible: true, label_text: formatNum(range[0]) });
+        chart.annotations('endVal').options({ visible: true, label_text: formatNum(range[1]) });
+
+        var pointsInRange = chart.series(0).points(function(p) {
+          return p.x > range[0] && p.x < range[1];
+        });
+        var pointsArr = pointsInRange.map(function(p) {
+          return [p.x, p.y];
+        });
+
+        //Include interpolated points
+        pointsArr.splice(0, 0, p1);
+        pointsArr.push(p2);
+
+        chart.series('overlay').options({ points: pointsArr });
+      }
+
+      function formatNum(n) {
+        return JSC.formatNumber(n, 'n2');
+      }
+    </script>
+  </body>
+</html>

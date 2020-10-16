@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Label Callbacks | JSCharting</title>
+    <meta http-equiv="content-type" content="text-html; charset=utf-8" />
+
+    <script type="text/javascript" src="../jsc/jscharting.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="css/default.css" />
+    <style type="text/css"></style>
+  </head>
+  <body>
+    <div style="max-width: 750px;margin: 0px auto;text-align: left;">
+      <p>
+        Some label text properties accept a function as a callback to generate the label text.<br />
+        The following are demonstrated here:
+      </p>
+      <ul>
+        <li>legend_defaultEntry_name</li>
+        <li>defaultPoint_label_text</li>
+        <li>defaultPoint_tooltip</li>
+        <li>yAxis_defaultTick_label_text</li>
+      </ul>
+
+      <div id="chartDiv" style="max-width: 740px;height: 400px;margin: 0px auto;"></div>
+    </div>
+
+    <script type="text/javascript">
+      /*
+Uses callback functions to process label text.
+Learn how to:
+
+  - Use callback function in legend labels.
+  - Use callback function in axis tick labels.
+  - Use callback function in data point labels.
+*/
+      // JS
+      var chart = JSC.chart('chartDiv', {
+        debug: true,
+        legend_defaultEntry_name: function(series) {
+          return 'ID:' + series.options('name');
+        },
+        defaultPoint_label_text: function(point) {
+          return 'Point:' + point.options('x');
+        },
+        defaultPoint_tooltip: function(point) {
+          return 'Tip:' + point.options('x');
+        },
+        yAxis_defaultTick_label_text: function(v) {
+          return 'At:' + v;
+        },
+        defaultSeries: { type: 'column' },
+        yAxis: { label_text: 'Units Sold' },
+        xAxis: { label_text: 'Quarter' },
+        title_label_text: 'Acme Tool Sales',
+        series: [
+          {
+            name: 'Saw',
+            id: 's1',
+            points: [['Q1', 230], ['Q2', 240], ['Q3', 267], ['Q4', 238]]
+          },
+          {
+            name: 'Hammer',
+            points: [['Q1', 325], ['Q2', 347], ['Q3', 392], ['Q4', 371]]
+          },
+          {
+            name: 'Grinder',
+            points: [['Q1', 285], ['Q2', 292], ['Q3', 327], ['Q4', 158]]
+          },
+          {
+            name: 'Drill',
+            points: [['Q1', 185], ['Q2', 192], ['Q3', 198], ['Q4', 318]]
+          }
+        ]
+      });
+    </script>
+  </body>
+</html>

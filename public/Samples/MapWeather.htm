@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Weather Map Chart | JSCharting</title>
+    <meta http-equiv="content-type" content="text-html; charset=utf-8" />
+
+    <script type="text/javascript" src="../jsc/jscharting.js"></script>
+
+    <script type="text/javascript" src="../jsc/modules/maps.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="css/default.css" />
+    <style type="text/css">
+      /*CSS*/
+    </style>
+  </head>
+  <body>
+    <div id="chartDiv" style="max-width: 740px;height: 480px;margin: 0px auto;"></div>
+
+    <script type="text/javascript">
+      /*
+A weather map with markers.
+Learn how to:
+
+  - Draw a simple country map.
+*/
+      // JS
+
+      var weatherDesc = {
+        cloud: 'Cloudy',
+        cloud_dark: 'Overcast',
+        cloud_rain: 'Rain',
+        cloud_sun: 'Partly Cloudy',
+        sun: 'Sunny'
+      };
+
+      var weatherData = [
+        ['Harrisburg', 'cloud'],
+        ['Columbia', 'sun'],
+        ['Charleston', 'cloud_sun'],
+        ['Raleigh', 'cloud_sun']
+      ];
+
+      var chartConfig = {
+        debug: true,
+        chartArea_fill: '#b6d9ff',
+        type: 'map',
+        legend_visible: false,
+
+        /* The goal is to use a reference map layer but only select data points for features that have data. */
+        mapping: {
+          referenceLayers: 'resources/UsCapitals.json.txt',
+          base: {
+            layers: 'us',
+            series: { defaultPoint: { color: '#d1eedd' } }
+          }
+        },
+        /* Pad the map data points for separation from the chart area boundary. */
+        defaultSeries_shape_padding: 0.6,
+        title_label_text: 'East Coast Weather',
+        series: [
+          {
+            mouseTracking_enabled: false,
+            defaultPoint: { label_offset: '0,-20' }
+          }
+        ]
+      };
+
+      chartConfig.series[0].points = weatherData.map(function(data) {
+        return {
+          map: 'UsCapitals.' + data[0],
+          marker_type: 'url(images/' + data[1] + '.png)',
+          label_text: '<b>%name</b> <br/>' + weatherDesc[data[1]]
+        };
+      });
+
+      var chart = JSC.chart('chartDiv', chartConfig);
+    </script>
+  </body>
+</html>

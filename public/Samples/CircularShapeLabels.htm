@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Circular Gauge Shape Labels | JSCharting</title>
+    <meta http-equiv="content-type" content="text-html; charset=utf-8" />
+
+    <script type="text/javascript" src="../jsc/jscharting.js"></script>
+
+    <script type="text/javascript" src="../jsc/icons/material/maps/directions-run.js"></script>
+    <script type="text/javascript" src="../jsc/modules/types.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="css/default.css" />
+    <style type="text/css">
+      /*CSS*/
+    </style>
+  </head>
+  <body>
+    <div id="chartDiv" style="max-width: 440px;height: 400px;margin: 0px auto;"></div>
+
+    <script type="text/javascript">
+      /*
+Multiple shape labels used on a circular gauge.
+Learn how to:
+
+  - Multiple instances of shape label on same series shape.
+*/
+      // JS
+      var chart = JSC.chart('chartDiv', {
+        debug: true,
+        type: 'gauge ',
+        legend_visible: false,
+        yAxis: {
+          defaultTick_padding: 10,
+          line: {
+            onTop: false,
+            color: '#114b8b',
+            width: 10,
+
+            /*If defined, breaks will be used at tick positions.*/
+            breaks_gap: 0.05
+          },
+          scale_range: [0, 15]
+        },
+        defaultSeries: {
+          mouseTracking_enabled: false,
+          angle: { end: 180, start: -90 },
+          shape: {
+            innerSize: '60%',
+            label: [
+              {
+                verticalAlign: 'top',
+                align: 'left',
+                text: 'Walking',
+                style: {
+                  fontWeight: 'bold',
+                  fontSize: 28,
+                  color: '#707070'
+                }
+              },
+              {
+                verticalAlign: 'bottom',
+                align: 'left',
+                text: 'Distance traveled:',
+                style: { fontSize: 18, color: '#707070' }
+              },
+              {
+                verticalAlign: 'middle',
+                text: '<icon name=material/maps/directions-run outerShape=circle size=104 padding=20 fill=#7eb7f1 >'
+              },
+              {
+                align: 'right',
+                verticalAlign: 'bottom',
+                text: "7.15<span style='fontSize: 16'> miles</span>",
+                style: {
+                  fontFamily: 'Trebuchet MS',
+                  fontSize: 38,
+                  color: '#707070'
+                }
+              }
+            ]
+          }
+        },
+        series: [
+          {
+            name: 'Distance',
+            type: 'column roundCaps',
+            points: [['value', 7.15]]
+          }
+        ]
+      });
+    </script>
+  </body>
+</html>

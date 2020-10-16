@@ -1,0 +1,48 @@
+<h1>Introduction</h1>
+
+<p>Calendar highlights can be used to outline or highlight specific calendar patterns.
+    Highlight fills render behind cells while their outlines render on top. With year view calendar,
+    a highlight is automatically added to outline each month. Using highlights through the FP API
+    can also get a list of cells (points) that are part of the highlight.
+</p>
+
+<span class="codeText">
+{
+    highlights:[{pattern:{month:'*'}, outline:{color:'black',width:1}}]
+}
+</span>
+
+<p>For more information, see the <a href="Tutorials.calendarPatterns">calendar patterns tutorial</a>.</p>
+
+<h2>Highlights points with or without data</h2>
+
+<p>Highlights will detect whether any data exists within the cells outlined by the shape and apply a modification
+    to empty highlight styling. This modification can be specified with code such as this default modification:
+</p>
+
+<span class="codeText">
+{
+   pattern:{month:'*'}, outline:{color:'black',width:1},
+    empty:{outline_opacity:.3}
+}
+</span>
+
+<h2>Real-time Highlights</h2>
+
+<p>Highlights can also be added and removed in real-time through the FP API. </p>
+
+<span class="codeText">
+{
+    //Add highlight
+    chart.highlights.add({id:'myHL', pattern:{month:'*'}, outline:{color:'black',width:1}});
+
+    //Modify
+    chart.highlights('myHL').options({outline_width:2});
+
+    //Remove
+    chart.highlights('myHL').remove();
+
+    //Modify cells (points) that match the pattern of this highlight.
+    chart.highlights('myHL').items().options({outline_width:2});
+}
+</span>

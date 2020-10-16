@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Multi Parent Organizational Chart | JSCharting</title>
+    <meta http-equiv="content-type" content="text-html; charset=utf-8" />
+
+    <script type="text/javascript" src="../jsc/jscharting.js"></script>
+
+    <script type="text/javascript" src="../jsc/modules/toolbar.js"></script>
+    <script type="text/javascript" src="../jsc/modules/types.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="css/default.css" />
+    <style type="text/css">
+      /*CSS*/
+    </style>
+  </head>
+  <body>
+    <div id="chartDiv" style="max-width: 740px;height: 400px;margin: 0px auto;"></div>
+
+    <script type="text/javascript">
+      /*
+Organization chart with multiple parent nodes.
+Learn how to:
+
+  - Organization nodes with multiple parents.
+*/
+      // JS
+      var chart = JSC.chart('chartDiv', {
+        debug: true,
+        type: 'organization down',
+        legend_visible: false,
+        series: [
+          {
+            line_color: '#747c72',
+            defaultPoint: {
+              label: {
+                text: '<b>%name</b><br/>%pos',
+                autoWrap: false
+              },
+              annotation: {
+                padding: 9,
+                corners: ['cut', 'square', 'cut', 'square'],
+                margin: [15, 5, 10, 0]
+              },
+              color: '#dcead7',
+              tooltip: '<b>%name</b><br/>%pos<br/>%phone'
+            },
+            points: [
+              {
+                name: 'Margret Swanson',
+                id: 'ms',
+                color: 'red',
+                attributes: { pos: 'President', phone: '630-555-1111' }
+              },
+              {
+                name: 'Mark Swanson',
+                id: 'ms2',
+                color: 'red',
+                attributes: { pos: 'President', phone: '630-555-1111' }
+              },
+              {
+                name: 'Mark Hudson',
+                id: 'mh',
+                parent: 'ms',
+                attributes: {
+                  pos: 'Vice President Marketing',
+                  phone: '630-555-1111'
+                }
+              },
+              {
+                name: 'Chris Lysek',
+                id: 'cl',
+                parent: 'ms,ms2',
+                attributes: {
+                  pos: 'Vice President Sales',
+                  phone: '630-555-2222'
+                }
+              },
+              {
+                name: 'Karyn Borbas',
+                id: 'kb',
+                parent: 'mh',
+                attributes: {
+                  pos: 'Marketing Manager',
+                  phone: '312-555-3333'
+                }
+              },
+              {
+                name: 'Chris Rup',
+                id: 'cr',
+                parent: 'mh',
+                attributes: {
+                  pos: 'Marketing Manager',
+                  phone: '773-555-4444'
+                }
+              },
+              {
+                name: 'Jenny Powers',
+                id: 'jp',
+                parent: 'cl',
+                attributes: { pos: 'Sales Manager', phone: '630-555-5555' }
+              },
+              {
+                name: 'Katies Lone Parent',
+                id: 'kslp',
+                attributes: { pos: 'Sales Manager', phone: '630-555-6666' }
+              },
+              {
+                name: 'Katie Swift',
+                id: 'ks',
+                parent: 'cl,kslp',
+                attributes: { pos: 'Sales Manager', phone: '630-555-6666' }
+              }
+            ]
+          }
+        ],
+        toolbar: {
+          defaultItem: { margin: 5, events_click: orientChart },
+          items: {
+            Left_icon: 'system/default/zoom/arrow-left',
+            Right_icon: 'system/default/zoom/arrow-right',
+            Down_icon: 'system/default/zoom/arrow-down',
+            Up_icon: 'system/default/zoom/arrow-up'
+          }
+        }
+      });
+
+      function orientChart(direction) {
+        chart.options({ type: 'organization ' + direction });
+      }
+    </script>
+  </body>
+</html>

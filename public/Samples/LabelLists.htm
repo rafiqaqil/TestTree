@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Label Lists | JSCharting</title>
+    <meta http-equiv="content-type" content="text-html; charset=utf-8" />
+
+    <script type="text/javascript" src="../jsc/jscharting.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="css/default.css" />
+    <style type="text/css"></style>
+  </head>
+  <body>
+    <div id="chartDiv" style="max-width: 340px;height: 600px;margin: 0px auto;"></div>
+
+    <script type="text/javascript">
+      /*
+Demonstrate using lists and images to text annotations.
+Learn how to:
+
+  - Style text with lists and images in text labels.
+*/
+      // JS
+
+      var chart = JSC.chart('chartDiv', {
+        debug: true,
+        legend_visible: false,
+        toolbar_visible: false,
+        annotations: [
+          {
+            position: 'CA:center',
+            margin: 5,
+            label: {
+              style_whiteSpace: 'nowrap',
+              text:
+                '<span style="font-size: 22px; fill: midnightblue; font-weight: bold;">' +
+                '<img src="https://cdn.countryflags.com/thumbs/united-states-of-america/flag-round-250.png" height=30 width=30> Federal Holidays 2018</span>' +
+                '<hr><ul><span style="font-size: 18px; fill: crimson; font-weight: bold;">' +
+                '<li>January<span style="font-size: 14px; fill: indigo; font-weight: normal; listStyleType: none; listPadding: 16;">' +
+                "<ul><li><b>1/1/2018</b> New Year's Day</li><li><b>1/15/2018</b> Martin Luther King Day</li></ul></span>" +
+                '</li><li>February<span style="font-size: 14px; fill: indigo; font-weight: normal; listStyleType: none; listPadding: 16;">' +
+                "<ul><li><b>2/19/2018</b> President's Day</li></ul></span>" +
+                '</li><li>May<span style="font-size: 14px; fill: indigo; font-weight: normal; listStyleType: none; listPadding: 16;">' +
+                '<ul><li><b>5/28/2018</b> Memorial Day</li></ul></span></li><li>July' +
+                '<span style="font-size: 14px; fill: indigo; font-weight: normal; listStyleType: none; listPadding: 16;">' +
+                '<ul><li><b>7/4/2018</b> Independence Day</li></ul></span></li><li>September' +
+                '<span style="font-size: 14px; fill: indigo; font-weight: normal; listStyleType: none; listPadding: 16;">' +
+                '<ul><li><b>9/3/2018</b> Labor Day</li></ul></span></li><li>October' +
+                '<span style="font-size: 14px; fill: indigo; font-weight: normal; listStyleType: none; listPadding: 16;">' +
+                '<ul><li><b>9/8/2018</b> Columbus Day</li></ul></span></li><li>November' +
+                '<span style="font-size: 14px; fill: indigo; font-weight: normal; listStyleType: none; listPadding: 16;">' +
+                '<ul><li><b>11/11/2018</b> Veterans Day</li><li><b>11/12/2018</b> Veterans Day (observed)</li>' +
+                '<li><b>11/22/2018</b> Thanksgiving Day</li></ul></span></li><li>December' +
+                '<span style="font-size: 14px; fill: indigo; font-weight: normal; listStyleType: none; listPadding: 16;">' +
+                '<ul><li><b>12/25/2018</b> Christmas Day</li></ul></span></li></ul></span>'
+            }
+          }
+        ]
+      });
+    </script>
+  </body>
+</html>

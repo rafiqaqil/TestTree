@@ -1,0 +1,151 @@
+<p>It is sometimes necessary to make charts accessible to people with disabilities and limitations. JSCharting provides
+    an easy to use API to screen reader users. The features result in accessible charts using aria attributes such as
+    aria-label as well as keyboard navigation of chart items to enhance impaired user experience.
+</p>
+
+<h2>Usage</h2>
+<p> To get started the feature can be enabled by setting the chart <a href="Types.chart.tabIndex">tabIndex</a> property
+    to <span class="example">&#39;auto&#39;</span> which places the chart into accessibility mode.
+    This allows the main chart elements to be iterated using the keyboard tab button. When a main element is selected
+    such as legend, a dropdown uiItem, or series, the arrow keys can be used to iterate over sub elements of those
+    items.
+</p><p>
+    The chart <a href="Types.chart.tabIndex">tabIndex</a>
+    property can be set with <span class="example">&#39;auto&#39;</span>, <span class="example">&#39;none&#39;</span> or
+    a tab index value for assigning tab indexes to specific chart elements.</p>
+
+<span class="codeText">
+    {
+	tabIndex:'auto'
+	}
+</span>
+
+<p>Alternatively, specifying the description property for any chart element enables accessibility mode as well.</p>
+
+<p>The list of objects below all have tabIndex and description properties. By setting tabIndex to
+    <span class="example">&#39;none&#39;</span> for any specific
+    items, it excludes them from keyboard navigation.</p>
+<p>If the chart has labels like title, axis labels, series and point names, it will provide descriptions for most
+    elements automatically. Custom descriptions can be specified for all chart elements through the following
+    properties.</p>
+
+<ul class="simpleKvpList">
+    <li><em>Chart <a href="Types.chart.description">description</a></em>
+        <section>Description for the entire chart.</section>
+    </li>
+    <li><em>Chart Title <a href="Types.titleBox.description">description</a></em>
+        <section>Description for the entire chart.</section>
+    </li>
+    <li><em>Legend <a href="Types.legend.description">description</a></em>
+        <section>Legend description.</section>
+    </li>
+    <li><em>Legend Entry<a href="Types.legendEntry.description">description</a></em>
+        <section>Legend entry description.</section>
+    </li>
+    <li><em>ChartArea <a href="Types.chartArea.description">description</a></em>
+        <section>ChartArea description.</section>
+    </li>
+    <li><em>Series <a href="Types.series.description">description</a></em>
+        <section>Series description.</section>
+    </li>
+    <li><em>Point <a href="Types.point.description">description</a></em>
+        <section>Data point description.</section>
+    </li>
+    <li><em>Axis <a href="Types.axis.description">description</a></em>
+        <section>Axis description.</section>
+    </li>
+    <li><em>Annotation and uiItems <a href="Types.annotation.description">description</a></em>
+        <section>Includes any annotations or interactive uiItem description.</section>
+    </li>
+</ul>
+
+<h2>Interactive UiItems</h2>
+<p>In accessibility mode with interactive uiItems on the chart, navigation to iterate through each item is possible
+    using the tab
+    key. To adjust the value of a uiItems, the arrow keys can be used to select a new value. The new value is then
+    applied by pressing the Enter.</p>
+
+<h2>Chart as DataGrid</h2>
+<p>By enabling the chart html table view, chart data is shown in a data table format. This can be useful as an
+    alternative chart view to enhance accessibility.</p>
+
+
+<span class="codeText">
+    {
+	grid:{
+	enabled:true,
+	//TabIndex of the chart/grid switch buttons.
+	tabIndex:'auto'
+	}
+	}
+</span>
+
+<h2>Color Impaired Vision</h2>
+
+<p>A few high-contrast palettes optimized for color impaired vision are available. It is easier to distinguish
+    between the colors in these palettes despite the type of color impairment the viewer may suffer from.</p>
+
+<span class="codeText">
+    {
+	palette:'colorVision1'
+	}
+</span>
+<p>To supplement or as an alternative, hatch patterns can further enhance the apparent differences between series and
+    point colors.
+    They can be enabled giving each data series a unique hatch pattern using the following code:</p>
+
+<span class="codeText">
+    {
+	hatchPalette:true
+	}
+</span>
+
+<p>Or if each point of a series should be distinguishable, a color palette must be set for the series and the
+    hatchPalette property can be set to true to assign each point of this series a unique hatch pattern.</p>
+<span class="codeText">
+    {
+	defaultSeries:{
+	palette:'default',
+	hatchPalette:true
+	}
+	}
+</span>
+
+<!--
+
+<h2>Introduction</h2>
+<p></p>
+<p></p>
+<p></p>
+
+<h3>subSection</h3>
+<p></p>
+<p></p>
+
+<span class="codeText">
+	chart.options({title_label_text:'text'})
+</span>
+
+
+<span class="tutorialImage">
+<img src="tutorials/images/pieZValueFormatting.png"/>
+<em>Figure 2.</em>
+</span>
+
+Text in quotes:
+<span class="example">&#39;&#39;</span>
+
+<ul>
+	<li>Chart</li>
+</ul>
+
+<span class="output">
+    output here.
+</span>
+
+<ul class="simpleKvpList">
+	<li><em>Chart</em><section>A visualization of multiple data series.  The data a chart can show is also known as a series collection.</section></li>
+	<li><em>Series</em><section>A collection of data points.</section></li>
+	<li><em>Chart Type</em><section>Specifies how multiple series are arranged together to form a visual.</section></li>
+	<li><em>Series Type</em><section>Specifies  how  a set of data points is visualized on a chart.</section></li>
+</ul>-->

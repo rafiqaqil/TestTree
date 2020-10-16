@@ -1,0 +1,596 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Circular Gauge and Calendar Dashboard | JSCharting</title>
+    <meta http-equiv="content-type" content="text-html; charset=utf-8" />
+
+    <script type="text/javascript" src="../jsc/jscharting.js"></script>
+
+    <script type="text/javascript" src="../jsc/modules/types.js"></script>
+    <script type="text/javascript" src="../jsc/modules/types.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="css/default.css" />
+    <style type="text/css">
+      .mainWrapper {
+        width: 840px;
+        height: 820px;
+        background: white;
+        margin-left: auto;
+        margin-right: auto;
+        position: relative;
+        left: 0px;
+      }
+      #cc1 {
+        position: absolute;
+        /*background: #004c4c;linear-gradient(to top, #004c4c 80%, #006064 80%, #006064 100%);*/
+        margin-top: 0px;
+        margin-left: 0px;
+        width: 840px;
+        height: 240px;
+      }
+      #cc2 {
+        position: absolute;
+        background: white;
+        margin-top: 240px;
+        margin-left: 0px;
+        width: 340px;
+        height: 350px;
+      }
+      #cc3 {
+        position: absolute;
+        background: white;
+        margin-top: 240px;
+        margin-left: 340px;
+        width: 500px;
+        height: 350px;
+      }
+      #cc4 {
+        position: absolute;
+        background: white;
+        margin-top: 590px;
+        margin-left: 0px;
+        width: 825px;
+        height: 280px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="mainWrapper">
+      <div id="cc1"></div>
+      <div id="cc2"></div>
+      <div id="cc3"></div>
+      <div id="cc4"></div>
+    </div>
+
+    <script type="text/javascript">
+      /*
+Fitness dashboard using JavaScript charts.
+Learn how to:
+
+  - Create a dashboard with overlaying charts.
+  - Use template for charts on the same page.
+*/
+      // JS
+      var template = {
+        title: {
+          label_style: {
+            fontSize: '24',
+            fontFamily: 'Arial',
+            color: '#616161',
+            fontWeight: 'bold'
+          }
+        },
+        defaultAxis_defaultTick_label_color: '#757575',
+        // box_fill:'none',
+        legend_visible: false,
+        toolbar_visible: false
+      };
+      var chart = new JSC.Chart('cc1', {
+        debug: true,
+        template: template,
+        title_label: { text: 'Today', margin_left: 20 },
+
+        legend_visible: false,
+        yAxis: [
+          {
+            id: 'y1',
+            line_width: 0,
+            defaultTick_enabled: false,
+            scale_range: [0, 10000]
+          },
+          {
+            id: 'y2',
+            line_width: 0,
+            defaultTick_enabled: false,
+            scale_range: [0, 180]
+          },
+          {
+            id: 'y3',
+            line_width: 0,
+            defaultTick_enabled: false,
+            scale_range: [0, 5000]
+          },
+          {
+            id: 'y4',
+            line_width: 0,
+            defaultTick_enabled: false,
+            scale_range: [0, 10]
+          }
+        ],
+        xAxis: {
+          spacingPercentage: 0.15,
+          defaultTick: { label_color: 'none' }
+        },
+        defaultPoint_tooltip: '',
+        defaultSeries: {
+          type: 'gauge column roundCaps',
+          angle_orientation: 0,
+          palette: ['#00838f'],
+          shape: {
+            offset: '0,5',
+            innerSize: '70%',
+            label: [
+              {
+                text: "<span style='font-size:18px'><b>%name</b></span><br><span style='font-size:14px'>%value</span>",
+                width: 55,
+                verticalAlign: 'middle',
+                offset: '-90,0',
+                align: 'right',
+                color: '#757575'
+              },
+              {
+                verticalAlign: 'middle',
+                align: 'center',
+                offset: '0,0',
+                text: "<icon name='%icon' size=36 fill=#757575>"
+              }
+            ]
+          }
+        },
+        series: [
+          {
+            name: 'Steps',
+            yAxis: 'y1',
+            points: [['value', 1577]],
+            attributes_icon: 'material/maps/directions-walk'
+          },
+          {
+            name: 'Active time',
+            yAxis: 'y2',
+            points: [['value', 26]],
+            shape_label: [
+              {
+                text: "<span style='font-size:18px'><b>%name</b></span><br><span style='font-size:14px'>%valuem</span>"
+              },
+              {}
+            ],
+            attributes_icon: 'material/device/access-time'
+          },
+          {
+            name: 'Calories',
+            yAxis: 'y3',
+            points: [['value', 838]],
+            attributes_icon: 'material/social/whatshot'
+          },
+          {
+            name: 'Distance',
+            yAxis: 'y4',
+            points: [['value', 0.68]],
+            shape_label: [
+              {
+                text: "<span style='font-size:18px'><b>%name</b></span><br><span style='font-size:14px'>%valuemi</span>"
+              },
+              {}
+            ],
+            attributes_icon: 'material/maps/place'
+          }
+        ]
+      });
+      var chart2 = new JSC.Chart('cc2', {
+        debug: true,
+        type: 'gauge linear solid',
+
+        template: template,
+        legend_visible: false,
+        xAxis: {
+          visible: true,
+          orientation: 'top',
+          defaultTick: {
+            label: {
+              text: '%value',
+              color: '#757575',
+              padding_bottom: 15
+            }
+          }
+        },
+        yAxis: {
+          scale_range: [0, 13000],
+          visible: false
+        },
+        defaultPoint_tooltip: '<b>%xValue</b><br>%seriesName %value',
+        defaultSeries: {
+          type: 'column roundCaps',
+          palette: ['#00897b'],
+          shape: {
+            size: 290,
+            label: {
+              text: 'Summary',
+              align: 'left',
+              offset: '-20,-30',
+              style: {
+                fontSize: '24',
+                fontFamily: 'Arial',
+                fontWeight: 'bold',
+                color: '#616161'
+              }
+            }
+          }
+        },
+        series: [
+          {
+            name: 'Steps',
+            points: [
+              { x: 'Mon', y: 10959 },
+              { x: 'Tue', y: 6482 },
+              { x: 'Wed', y: 9042 },
+              { x: 'Thu', y: 8264 },
+              { x: 'Fri', y: 7201 },
+              { x: 'Sat', y: 4455 },
+              { x: 'Sun', y: 2778 }
+            ]
+          }
+        ],
+        toolbar_visible: true,
+        toolbar_items: {
+          export: { visible: false },
+          Activity: {
+            type: 'select',
+            items: 'Steps,Calories,Distance',
+            position: 'inside 170,15',
+            width: 120,
+            value: 'Steps',
+            events_change: changeActivity,
+            icon: {
+              size: 16,
+              name: 'material/navigation/arrow-drop-down',
+              fill: 'white',
+              margin: 4
+            },
+            radius: 22,
+            fill: '#00897b',
+            outline_width: 0,
+            verticalAlign: 'middle',
+            label: {
+              style_fontSize: 18,
+              color: 'white'
+            },
+            itemsBox_outline_width: 0,
+            states_hover: {
+              fill: '#00897b',
+              outline_width: 0
+            },
+            defaultItem: {
+              icon: { visible: false },
+              boxVisible: false,
+              outline_width: 2,
+              height: 30,
+              label: {
+                style_fontSize: 18,
+                margin: 3,
+                color: '#757575'
+              },
+              states_hover_label_color: '#00897b'
+            }
+          }
+        }
+      });
+      var steps = [
+        { x: 'Mon', y: 10959 },
+        { x: 'Tue', y: 6482 },
+        { x: 'Wed', y: 9042 },
+        { x: 'Thu', y: 8264 },
+        { x: 'Fri', y: 7201 },
+        { x: 'Sat', y: 4455 },
+        { x: 'Sun', y: 2778 }
+      ];
+      var calories = [
+        { x: 'Mon', y: 1819 },
+        { x: 'Tue', y: 1579 },
+        { x: 'Wed', y: 1522 },
+        { x: 'Thu', y: 1641 },
+        { x: 'Fri', y: 1610 },
+        { x: 'Sat', y: 1516 },
+        { x: 'Sun', y: 979 }
+      ];
+      var distance = [
+        { x: 'Mon', y: 5 },
+        { x: 'Tue', y: 2.47 },
+        { x: 'Wed', y: 2.07 },
+        { x: 'Thu', y: 3.22 },
+        { x: 'Fri', y: 2.56 },
+        { x: 'Sat', y: 1.82 },
+        { x: 'Sun', y: 1.16 }
+      ];
+      function changeActivity(val) {
+        if (val == 'Steps') {
+          chart2.series().options({ name: 'Steps', points: steps });
+          chart2.axes('y').options({ scale_range: [0, 13000] });
+        }
+        if (val == 'Calories') {
+          chart2.series().options({ name: 'Calories', points: calories });
+          chart2.axes('y').options({ scale_range: [0, 3000] });
+        }
+        if (val == 'Distance') {
+          chart2
+            .series()
+            .options({
+              defaultPoint_tooltip: '<b>%xValue</b><br>%seriesName %valuemi',
+              name: 'Distance',
+              points: distance
+            });
+          chart2.axes('y').options({ scale_range: [0, 10] });
+        }
+      }
+
+      var chart3Config = {
+        debug: true,
+        template: template,
+        type: 'gauge linear horizontal ',
+        defaultSeries: {
+          type: 'column',
+          shape: {
+            padding: 0.1,
+            offset: '0,-10',
+            label: {
+              text: 'Sleep',
+              align: 'left',
+              offset: '0,-2',
+              style: {
+                fontSize: '24',
+                fontFamily: 'Arial',
+                fontWeight: 'bold',
+                color: '#616161'
+              }
+            }
+          }
+        },
+        legend_visible: false,
+        xAxis: {
+          spacingPercentage: 0.2,
+          staticColumnWidth: 26,
+          defaultTick_label_visible: true
+        },
+        yAxis: {
+          orientation: 'opposite',
+          defaultTick_enabled: false,
+          line_visible: false,
+          customTicks: [
+            {
+              value: 12,
+              gridLine: { width: 2, dashStyle: 'dash', onTop: true },
+              label_text: "<icon name='weather/moon' size=18 fill=#757575><br/>%valuePM"
+            },
+            {
+              value: 19,
+              gridLine: { width: 2, dashStyle: 'dash', onTop: true },
+              label_text: "<icon name='linear/basic/alarm' size=22 fill=#757575><br/>7AM"
+            }
+          ]
+        },
+        defaultPoint_tooltip: tooltipFormatterInterval,
+        series: [
+          {
+            name: 'Mon',
+            points: [
+              { x: 'Mon/Tue', name: 'Sleep', y: [12.37, 13.82] },
+              { x: 'Mon/Tue', name: 'Deep Sleep', y: [13.82, 13.98] },
+              { x: 'Mon/Tue', name: 'Sleep', y: [13.98, 14.17] },
+              { x: 'Mon/Tue', name: 'Deep Sleep', y: [14.17, 14.5] },
+              { x: 'Mon/Tue', name: 'Sleep', y: [14.5, 15.17] },
+              { x: 'Mon/Tue', name: 'Deep Sleep', y: [15.17, 15.45] },
+              { x: 'Mon/Tue', name: 'Sleep', y: [15.45, 15.63] },
+              { x: 'Mon/Tue', name: 'Deep Sleep', y: [15.63, 16.18] },
+              { x: 'Mon/Tue', name: 'Sleep', y: [16.18, 16.7] },
+              { x: 'Mon/Tue', name: 'Awake', y: [16.7, 16.71] },
+              { x: 'Mon/Tue', name: 'Sleep', y: [16.71, 17.28] },
+              { x: 'Mon/Tue', name: 'Deep Sleep', y: [17.28, 17.68] },
+              { x: 'Mon/Tue', name: 'Sleep', y: [17.68, 18.47] }
+            ]
+          },
+          {
+            name: 'Tue',
+            points: [
+              { x: 'Tue/Wed', name: 'Sleep', y: [11.32, 11.63] },
+              { x: 'Tue/Wed', name: 'Deep Sleep', y: [11.63, 11.88] },
+              { x: 'Tue/Wed', name: 'Sleep', y: [11.88, 13.37] },
+              { x: 'Tue/Wed', name: 'Awake', y: [13.37, 13.42] },
+              { x: 'Tue/Wed', name: 'Sleep', y: [13.42, 14.82] },
+              { x: 'Tue/Wed', name: 'Deep Sleep', y: [14.82, 15.27] },
+              { x: 'Tue/Wed', name: 'Sleep', y: [15.27, 15.72] },
+              { x: 'Tue/Wed', name: 'Deep Sleep', y: [15.72, 16.52] },
+              { x: 'Tue/Wed', name: 'Sleep', y: [16.52, 16.85] },
+              { x: 'Tue/Wed', name: 'Deep Sleep', y: [16.85, 16.98] },
+              { x: 'Tue/Wed', name: 'Sleep', y: [16.98, 17.28] },
+              { x: 'Tue/Wed', name: 'Deep Sleep', y: [17.28, 18.15] },
+              { x: 'Tue/Wed', name: 'Sleep', y: [18.15, 18.67] }
+            ]
+          },
+          {
+            name: 'Wed',
+            points: [
+              { x: 'Wed/Thu', name: 'Sleep', y: [11.17, 11.32] },
+              { x: 'Wed/Thu', name: 'Deep Sleep', y: [11.32, 11.65] },
+              { x: 'Wed/Thu', name: 'Sleep', y: [11.65, 12.57] },
+              { x: 'Wed/Thu', name: 'Deep Sleep', y: [12.57, 13.17] },
+              { x: 'Wed/Thu', name: 'Sleep', y: [13.17, 13.65] },
+              { x: 'Wed/Thu', name: 'Deep Sleep', y: [13.65, 13.93] },
+              { x: 'Wed/Thu', name: 'Sleep', y: [13.93, 14.05] },
+              { x: 'Wed/Thu', name: 'Deep Sleep', y: [14.05, 14.47] },
+              { x: 'Wed/Thu', name: 'Sleep', y: [14.47, 15.02] },
+              { x: 'Wed/Thu', name: 'Deep Sleep', y: [15.02, 15.4] },
+              { x: 'Wed/Thu', name: 'Sleep', y: [15.4, 15.6] },
+              { x: 'Wed/Thu', name: 'Deep Sleep', y: [15.6, 15.77] },
+              { x: 'Wed/Thu', name: 'Sleep', y: [15.77, 18.13] },
+              { x: 'Wed/Thu', name: 'Deep Sleep', y: [18.13, 18.62] },
+              { x: 'Wed/Thu', name: 'Sleep', y: [18.62, 19] },
+              { x: 'Wed/Thu', name: 'Awake', y: [19, 19.03] },
+              { x: 'Wed/Thu', name: 'Sleep', y: [19.03, 19.5] }
+            ]
+          },
+          {
+            name: 'Thu',
+            points: [
+              { x: 'Thu/Fri', name: 'Sleep', y: [11.78, 14.22] },
+              { x: 'Thu/Fri', name: 'Deep Sleep', y: [14.22, 14.83] },
+              { x: 'Thu/Fri', name: 'Sleep', y: [14.83, 15.22] },
+              { x: 'Thu/Fri', name: 'Deep Sleep', y: [15.22, 15.45] },
+              { x: 'Thu/Fri', name: 'Sleep', y: [15.45, 16.03] },
+              { x: 'Thu/Fri', name: 'Awake', y: [16.03, 16.07] },
+              { x: 'Thu/Fri', name: 'Sleep', y: [16.07, 17.17] },
+              { x: 'Thu/Fri', name: 'Deep Sleep', y: [17.17, 17.37] },
+              { x: 'Thu/Fri', name: 'Sleep', y: [17.37, 18.98] }
+            ]
+          },
+          {
+            name: 'Fri',
+            points: [
+              { x: 'Fri/Sat', name: 'Sleep', y: [12.23, 13.65] },
+              { x: 'Fri/Sat', name: 'Deep Sleep', y: [13.65, 14.02] },
+              { x: 'Fri/Sat', name: 'Sleep', y: [14.02, 14.72] },
+              { x: 'Fri/Sat', name: 'Deep Sleep', y: [14.72, 15.1] },
+              { x: 'Fri/Sat', name: 'Sleep', y: [15.1, 16.23] },
+              { x: 'Fri/Sat', name: 'Deep Sleep', y: [16.23, 16.4] },
+              { x: 'Fri/Sat', name: 'Sleep', y: [16.4, 17.43] },
+              { x: 'Fri/Sat', name: 'Deep Sleep', y: [17.43, 17.6] },
+              { x: 'Fri/Sat', name: 'Sleep', y: [17.6, 19.25] }
+            ]
+          },
+          {
+            name: 'Sat',
+            points: [
+              { x: 'Sat/Sun', name: 'Sleep', y: [13.83, 14] },
+              { x: 'Sat/Sun', name: 'Deep Sleep', y: [14, 14.53] },
+              { x: 'Sat/Sun', name: 'Sleep', y: [14.53, 16.63] },
+              { x: 'Sat/Sun', name: 'Deep Sleep', y: [16.63, 16.9] },
+              { x: 'Sat/Sun', name: 'Sleep', y: [16.9, 17] },
+              { x: 'Sat/Sun', name: 'Deep Sleep', y: [17, 17.65] },
+              { x: 'Sat/Sun', name: 'Sleep', y: [17.65, 18.2] },
+              { x: 'Sat/Sun', name: 'Deep Sleep', y: [18.2, 18.92] },
+              { x: 'Sat/Sun', name: 'Sleep', y: [18.92, 20.15] },
+              { x: 'Sat/Sun', name: 'Deep Sleep', y: [20.15, 20.48] }
+            ]
+          },
+          {
+            name: 'Sun',
+            points: [
+              { x: 'Sun/Mon', name: 'Sleep', y: [12.36, 13.82] },
+              { x: 'Sun/Mon', name: 'Deep Sleep', y: [13.82, 13.98] },
+              { x: 'Sun/Mon', name: 'Sleep', y: [13.98, 14.17] },
+              { x: 'Sun/Mon', name: 'Deep Sleep', y: [14.17, 14.5] },
+              { x: 'Sun/Mon', name: 'Sleep', y: [14.5, 15.17] },
+              { x: 'Sun/Mon', name: 'Deep Sleep', y: [15.17, 15.45] },
+              { x: 'Sun/Mon', name: 'Sleep', y: [15.45, 15.63] },
+              { x: 'Sun/Mon', name: 'Deep Sleep', y: [15.63, 16.18] },
+              { x: 'Sun/Mon', name: 'Sleep', y: [16.18, 16.5] },
+              { x: 'Sun/Mon', name: 'Awake', y: [16.5, 16.52] },
+              { x: 'Sun/Mon', name: 'Sleep', y: [16.52, 17.28] },
+              { x: 'Sun/Mon', name: 'Deep Sleep', y: [17.28, 17.68] },
+              { x: 'Sun/Mon', name: 'Sleep', y: [17.68, 18.47] }
+            ]
+          }
+        ]
+      };
+      for (var i = 0; i < chart3Config.series.length; i++) {
+        chart3Config.series[i].points.map(function(point) {
+          if (point.name == 'Awake') point.color = '#ffd54f';
+          if (point.name == 'Sleep') point.color = '#4db6ac';
+          if (point.name == 'Deep Sleep') point.color = '#00897b';
+        });
+      }
+      var chart3 = new JSC.Chart('cc3', chart3Config);
+
+      function tooltipFormatterInterval(point) {
+        var twoDigit = function(v) {
+          return ('0' + v).slice(-2);
+        };
+        var formatHour = function(v) {
+          var ampm = v <= 12 ? 'PM' : 'AM',
+            hour = Math.floor(v) % 12,
+            min = Math.floor((v % 1) * 60);
+          return (hour || 12) + ':' + twoDigit(min) + ampm;
+        };
+        return '<b>%name ' + '<br/>' + formatHour(point.y[0]) + ' - ' + formatHour(point.y[1]);
+      }
+
+      var chart4 = new JSC.Chart('cc4', {
+        debug: true,
+        type: 'calendar week30min solid',
+        data: './resources/heatmaptracking_data.csv',
+        title_label: {
+          text: 'Activity',
+          // margin_left: 30,
+          style: {
+            fontSize: '24',
+            fontFamily: 'Arial',
+            color: '#616161',
+            fontWeight: 'bold'
+          }
+        },
+        calendar_calculation: 'average',
+        legend: {
+          template: '%name,%icon',
+          position: 'bottom',
+          cellSpacing: 1,
+          defaultEntry_iconWidth: 10
+        },
+        defaultPoint_tooltip: '<b>{%date:date m}</b> {%date:date t}',
+        palette: {
+          colors: ['#00897b', '#e0e0e0', '#ffa000'],
+          ranges: [
+            { value: 0, legendEntry: { name: 'Sleep: ', style_fontWeight: 'bold', style_fontSize: 12 } },
+            { value: 1 },
+            { value: 2 },
+            { value: 3 },
+            { value: 4 },
+            { value: 5 },
+            { value: 6, legendEntry: { name: ' Inactive: ', style_fontWeight: 'bold', style_fontSize: 12 } },
+            { value: 7, legendEntry: { name: ' Active: ', style_fontWeight: 'bold', style_fontSize: 12 } },
+            { value: 8 },
+            { value: 9 },
+            { value: 10 },
+            { value: 11 },
+            { value: 12 }
+          ]
+        },
+        xAxis: {
+          scale_interval: 2,
+          defaultTick: {
+            label_text: function(v) {
+              return ((v % 24) / 2).toString();
+            },
+            gridLine_width: 0
+          },
+          customTicks: [
+            { value: 0, label_text: '<icon name=weather/moon size=18 fill=#14327f><br>AM' },
+            //24 == 12PM because there are 48 30min intervals in a day
+            { value: 24, label_text: '<icon name=weather/sun size=24 fill=#e9b82e><br>PM' }
+          ]
+        },
+        defaultSeries_legendEntry_visible: false,
+        toolbar_visible: false
+      });
+      function formatHour(v) {
+        return (v % 12) + '';
+      }
+
+      function tooltipFormatter(point) {
+        var day = point.tokenValue('%yValue');
+        var time = point.tokenValue('%xValue');
+        var hour = Math.floor(time);
+        hour = hour === 0 ? 24 : hour % 24;
+        var min = (time % 1) * 60;
+        return '<b>' + day + '</b> ' + hour + ':' + min;
+      }
+    </script>
+  </body>
+</html>

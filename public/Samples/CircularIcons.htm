@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Circular Icons Gauge Chart | JSCharting</title>
+    <meta http-equiv="content-type" content="text-html; charset=utf-8" />
+
+    <script type="text/javascript" src="../jsc/jscharting.js"></script>
+
+    <script type="text/javascript" src="../jsc/icons/material/maps/all.js"></script>
+    <script type="text/javascript" src="../jsc/modules/types.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="css/default.css" />
+    <style type="text/css">
+      /*CSS*/
+    </style>
+  </head>
+  <body>
+    <div id="chartDiv" style="width: 640px;height: 280px;margin: 0px auto;"></div>
+
+    <script type="text/javascript">
+      /*
+Circular gauge bars with icons in shape labels that use the outer shape feature.
+Learn how to:
+
+  - Draw a gauge chart.
+*/
+      // JS
+      var chart = JSC.chart('chartDiv', {
+        debug: true,
+        legend_visible: false,
+        yAxis: {
+          line_visible: false,
+          defaultTick_enabled: false
+        },
+        defaultSeries: {
+          type: 'gauge column roundcaps',
+          angle: { sweep: 360, start: -90 },
+          defaultPoint_tooltip: '<b>%seriesName</b> %yValue% of Goal',
+          shape: {
+            innerSize: '70%',
+            label: {
+              text: '<icon name=%icon outerShape=circle size=120 padding=35 fill=%fill>',
+              align: 'center',
+              verticalAlign: 'middle'
+            }
+          }
+        },
+        series: [
+          {
+            color: '#E10715',
+            name: 'Walking',
+            attributes: {
+              icon: 'material/maps/directions-walk',
+              fill: '#E10715'
+            },
+            points: [['val', 97]]
+          },
+          {
+            color: '#3FDC00',
+            name: 'Running',
+            attributes: {
+              icon: 'material/maps/directions-run',
+              fill: '#3FDC00'
+            },
+            points: [['val', 57]]
+          },
+          {
+            color: '#3EBAE1',
+            name: 'Biking',
+            attributes: {
+              icon: 'material/maps/directions-bike',
+              fill: '#3EBAE1'
+            },
+            points: [['val', 37]]
+          }
+        ]
+      });
+    </script>
+  </body>
+</html>

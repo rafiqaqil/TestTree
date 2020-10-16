@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Axis Markers Gantt Chart | JSCharting</title>
+    <meta http-equiv="content-type" content="text-html; charset=utf-8" />
+
+    <script type="text/javascript" src="../jsc/jscharting.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="css/default.css" />
+    <style type="text/css">
+      /*CSS*/
+    </style>
+  </head>
+  <body>
+    <div id="chartDiv" style="max-width: 740px;height: 200px;margin: 0px auto;"></div>
+
+    <script type="text/javascript">
+      /*
+Gantt chart with axis markers.
+Learn how to:
+
+  - Create a gantt chart with axis markers.
+*/
+      // JS
+      var chart = JSC.chart('chartDiv', {
+        debug: true,
+        type: 'horizontal column',
+        zAxisScaleType: 'stacked',
+        yAxis_scale_type: 'time',
+        xAxis_visible: false,
+        title_label_text: 'Project Alpha ',
+        legend_visible: false,
+        defaultPoint: {
+          label_text: '%name',
+          tooltip: '<b>%name</b> <br/>%low - %high<br/>{days(%high-%low)} days'
+        },
+        yAxis: {
+          markers: [
+            {
+              value: '5/5/2017',
+              color: '#b0be5f',
+              label_text: 'Meeting'
+            },
+            {
+              value: ['5/12/2017', '6/1/2017'],
+              color: ['orange', 0.5],
+              label_text: 'Scheduled Vacation'
+            }
+          ]
+        },
+        series: [
+          {
+            name: 'one',
+            points: [
+              {
+                name: 'Preparations',
+                y: ['1/1/2017', '3/15/2017']
+              },
+              {
+                name: 'Execution',
+                y: ['3/15/2017', '4/20/2017']
+              },
+              { name: 'Cleanup', y: ['4/10/2017', '5/12/2017'] },
+              {
+                name: 'Presentation',
+                y: ['6/1/2017', '7/15/2017']
+              }
+            ]
+          }
+        ]
+      });
+    </script>
+  </body>
+</html>

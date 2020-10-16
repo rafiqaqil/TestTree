@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Area Microchart Options | JSCharting</title>
+    <meta http-equiv="content-type" content="text-html; charset=utf-8" />
+
+    <script type="text/javascript" src="../jsc/jscharting.js"></script>
+
+    <script type="text/javascript" src="../jsc/modules/types.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="css/default.css" />
+    <style type="text/css"></style>
+  </head>
+  <body>
+    <div id="chartDiv" style="max-width:400px;height: 350px;margin: 0px auto;"></div>
+
+    <script type="text/javascript">
+      /*
+Demonstrates area type microchart options.
+Learn how to:
+
+  - Customize area line microchart options.
+*/
+      // JS
+
+      var examples = [
+        ['Plain arealine', '<chart margin=6 type="arealine" data="2,4,0,3">'],
+        ['Sparkline empty values', '<chart margin=6 type="arealine" data="2,4,,,,0,3">'],
+        ['Arealine with ends', '<chart margin=6 type="arealine" data="2,4,0,3" colors="darkgray,blue">'],
+        [
+          'Arealine with ends and min/max',
+          '<chart margin=6 type="arealine" data="2,4,0,3" colors="darkgray,blue,red">'
+        ],
+        ['Arealine with min/max', '<chart margin=6 type="arealine" data="2,4,0,3" colors="darkgray,none,red">'],
+        ['Colored arealine', '<chart margin=6 type="arealine" color="steelblue" data="2,4,0,3">'],
+        ['Arealine with AxisMarker line', '<chart margin=6 type="arealine" axisMarker=2 data="2,4,0,3">'],
+        [
+          'Arealine with colored range AxisMarker',
+          '<chart margin=6 type="arealine" axisMarker="1,3" colors="darkgray,none,none,mediumpurple" data="2,4,0,3">'
+        ]
+      ];
+
+      function makeText(title) {
+        var result = '<span style="font-size: 14px; font-weight: bold;">' + title + '</span>	<hr><ul>';
+
+        result += examples
+          .map(function(entry) {
+            return entry.length === 1
+              ? entry[0]
+              : '<li><span style="width:220px; verticalAlign: middle;">' + entry[0] + '</span>' + entry[1] + '</li>';
+          })
+          .join('');
+
+        result += '</ul></span>';
+        return result;
+      }
+
+      var chart = JSC.chart('chartDiv', {
+        toolbar_visible: false,
+        margin_bottom: 30,
+        defaultBox_boxVisible: false,
+        annotations: [
+          {
+            position: 'inside center',
+            label: {
+              text: makeText('AreaLine Types and Options')
+            }
+          }
+        ]
+      });
+    </script>
+  </body>
+</html>

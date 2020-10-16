@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Crosshair Columns | JSCharting</title>
+    <meta http-equiv="content-type" content="text-html; charset=utf-8" />
+
+    <script type="text/javascript" src="../jsc/jscharting.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="css/default.css" />
+    <style type="text/css"></style>
+  </head>
+  <body>
+    <div id="chartDiv" style="max-width: 740px;height: 400px;margin: 0px auto;"></div>
+
+    <script type="text/javascript">
+      /*
+Column series type with x axis crosshair using column width grid line.
+Learn how to:
+
+  - Use axis crosshair on category columns.
+  - Customize combined tooltip text.
+  - Style crosshair axis tick.
+*/
+      // JS
+      var chart = JSC.chart('chartDiv', {
+        debug: true,
+        defaultSeries_type: 'column',
+        annotations: [
+          {
+            label_text: 'Hover or tap the chart area for crosshair and combined tooltip.',
+            position: 'inside top'
+          }
+        ],
+
+        yAxis_label_text: 'Units Sold',
+        title_label_text: 'Acme Tool Sales',
+        xAxis: {
+          label_text: 'Quarters',
+          // Enabling x crosshair enables combined tooltip automatically.
+          crosshair: {
+            enabled: true,
+            gridLine: {
+              width: 'column',
+              color: '#dfdfdf',
+              opacity: 0.5
+            }
+          }
+        },
+
+        /* The combined tooltip text template where %points token lists the tooltip for each point
+         *  For a list of possible tokens, visit Point List Tokens section here:
+         *  https://jscharting.com/tutorials/js-chart-labels/token-reference/
+         */
+        defaultTooltip_label_text: '<b>%xValue</b><hr>%points',
+        // The tooltip template for each point.
+        defaultPoint_tooltip: ' %yValue <span style="color:%color"><b>%seriesName</b></span>',
+
+        series: [
+          {
+            name: 'Saw',
+            id: 's1',
+            points: [{ name: 'Q1', y: 230 }, { name: 'Q2', y: 240 }, { name: 'Q3', y: 267 }, { name: 'Q4', y: 238 }]
+          },
+          {
+            name: 'Hammer',
+            points: [{ name: 'Q1', y: 325 }, { name: 'Q2', y: 367 }, { name: 'Q3', y: 382 }, { name: 'Q4', y: 371 }]
+          },
+          {
+            name: 'Grinder',
+            points: [{ name: 'Q1', y: 285 }, { name: 'Q2', y: 292 }, { name: 'Q3', y: 267 }, { name: 'Q4', y: 218 }]
+          },
+          {
+            name: 'Drill',
+            points: [{ name: 'Q1', y: 185 }, { name: 'Q2', y: 192 }, { name: 'Q3', y: 198 }, { name: 'Q4', y: 248 }]
+          }
+        ]
+      });
+    </script>
+  </body>
+</html>

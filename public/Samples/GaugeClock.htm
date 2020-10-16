@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Clock Gauge Chart | JSCharting</title>
+    <meta http-equiv="content-type" content="text-html; charset=utf-8" />
+
+    <script type="text/javascript" src="../jsc/jscharting.js"></script>
+
+    <script type="text/javascript" src="../jsc/modules/types.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="css/default.css" />
+    <style type="text/css">
+      /*CSS*/
+    </style>
+  </head>
+  <body>
+    <div id="chartDiv" style="width: 400px; height: 400px; margin: 0px auto;"></div>
+
+    <script type="text/javascript">
+      /*
+Gauge simulating a real-time clock.
+Learn how to:
+
+  - Draw a gauge simulating a live clock.
+*/
+      // JS
+      var siId;
+
+      var curTime = function() {
+        var now = new Date();
+        return JSC.formatDate(now, 'T');
+      };
+      var chart = JSC.chart(
+        'chartDiv',
+        {
+          debug: true,
+          type: 'gauge',
+
+          toolbar_visible: false,
+          legend_visible: false,
+          title_position: 'center',
+          yAxis: {
+            formatString: 'n0',
+            scale: { range: [0, 12], interval: 1 },
+            line_color: '#aaa',
+            defaultTick: {
+              line_color: '#aaa',
+              label: { style: { fontSize: '30px' } }
+            }
+          },
+          defaultSeries: {
+            mouseTracking_enabled: false,
+            shape_padding: 0.12
+          },
+          series: [
+            {
+              id: 's1',
+              shape_outline: { width: 2, color: '#e8e8e8' },
+              angle: { sweep: 360, start: -90 },
+              color: 'black',
+
+              // Make needle base smaller.
+              shape: { innerPadding: 0.3 },
+              points: [
+                { id: 'hours', y: 0, marker_length: 0.5 },
+
+                { id: 'minutes', y: 0, marker_length: 0.8 },
+
+                {
+                  id: 'seconds',
+                  y: 0,
+                  marker: { color: '#dbdbdb', length: 0.8 }
+                }
+              ]
+            }
+          ]
+        },
+        startClock
+      );
+
+      function startClock(chrt) {
+        updateClock(this, true);
+        siId = setInterval(function() {
+          updateClock(chart || this);
+        }, 1000);
+      }
+
+      function updateClock(chart, noAnim) {
+        var animate = { duration: noAnim ? 0 : 400 };
+        if (chart) {
+          var now = getNow(),
+            seriesColl = chart.series();
+          var updateOptions = { animation: now.seconds !== 0 ? animate : { duration: 0 } };
+          var series = chart.series(0);
+          series.points('minutes').options({ y: now.minutes }, false);
+          series.points('hours').options({ y: now.hours }, false);
+          series.points('seconds').options({ y: now.seconds }, updateOptions);
+
+          chart.options({ title_label_text: curTime() });
+        }
+
+        function getNow() {
+          var now = new Date();
+          return {
+            hours: now.getHours() + now.getMinutes() / 60,
+            minutes: (now.getMinutes() * 12) / 60 + (now.getSeconds() * 12) / 3600,
+            seconds: (now.getSeconds() * 12) / 60
+          };
+        }
+      }
+    </script>
+  </body>
+</html>

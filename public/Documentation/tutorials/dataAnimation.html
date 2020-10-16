@@ -1,0 +1,59 @@
+
+<p>There are a number of chart animation types. Some are aesthetic while others have functional value. One functional
+    scenario is when updating series data points in real-time, animation provides a context for what is changing. A line
+    series may have points added at the end or have certain point values change and if the line animates this change
+    correctly, it is immediately understandable what change has occurred.
+</p>
+<p>When using the FP API to update a series by adding, updating or removing points, the chart will automatically animate
+    the change based on this operation.</p>
+<span class="codeText">
+	chart.series(0).points.add({/*…*/}); // point is added
+</span>
+
+<p>This is not always a practical interface to use when updating points. Most of the time, there is just a new list of
+    values that must be plotted.
+</p>
+
+<p>JSCharting provides a clean way to easily accomplish this. The only thing that is needed is that points are given an
+	'id' value that identifies them. For example, the <a href="Samples.masterDetail">masterDetail</a> sample uses this approach to animate the days of the
+    month when they change. The points have id values such as 'p1'-'p31' and values are updated with code such as:
+</p>
+
+<span class="codeText">
+	chart.series(0).options({points:[{id:'p1', x:'1/1/2020', y:23}, /*...*/]});
+</span>
+<p>The chart automatically updates each day, removes days if the month has fewer, or adds additional days when the
+    month has more. If a point with matching id exists, the existing point visual with that id will animate.
+</p>
+
+<p>This id binding extends to series as well. Multiple series can be defined and animated at the same time through a
+    chart options() call.</p>
+
+<span class="codeText">
+	chart.options({series:[ {id:'s1', points:[{id:'p1', y:5}]}]});
+</span>
+
+
+<p>This will remove all other series and points except the p1 point and animate it. To only update this point without
+    removing others, code such as this can be used:</p>
+
+<span class="codeText">
+chart.series('s1').points('p1').options({y:5});
+</span>
+<p>If there is no confusion about which series p1 is in, this will work as well:</p>
+
+<span class="codeText">
+	chart.series().points('p1').options({y:5});
+</span>
+
+<h2>Individual vs. Connected Points</h2>
+<p>Using id binding to animate points works automatically when dealing with individual point visuals like columns. When
+    the points are connected to each other, as in the case of line series, it becomes slightly more difficult because id
+    binding only adds points to the end of the series and x value sort order is not enforced. However, if necessary, the
+    splice() function can be used to insert points into the series at any position.
+
+</p>
+
+<span class="codeText">
+	chart.series('s1').points.splice(0, [{/*…*/}]);
+</span>

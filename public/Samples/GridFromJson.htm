@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Grid From Json | JSCharting</title>
+    <meta http-equiv="content-type" content="text-html; charset=utf-8" />
+
+    <script type="text/javascript" src="../jsc/jscharting.js"></script>
+
+    <script type="text/javascript" src="../jsc/modules/datagrid.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="css/default.css" />
+    <style type="text/css">
+      /*CSS*/
+    </style>
+  </head>
+  <body>
+    <div id="gridDiv" style="max-width: 440px;height: 200px;margin: 0px auto;"></div>
+
+    <script type="text/javascript">
+      /*
+Stand-alone JS data grid from CSV.
+Learn how to:
+
+  - Render a data grid from CSV.
+*/
+      // JS
+      var grid;
+
+      JSC.fetch('./resources/hotelReservations.csv')
+        .then(function(response) {
+          if (response.ok) {
+            return response.text();
+          } else {
+            console.error('Problem loading: ' + response.url);
+          }
+        })
+        .then(function(text) {
+          var json = JSC.csv2Json(text);
+          return JSC.Grid(
+            'gridDiv',
+            JSC.merge({ header: 'Start Date,End Date,Name'.split(','), headerCol: true, exportFile: 'myData' }, json)
+          );
+        })
+        .then(function(response) {
+          grid = response;
+        });
+    </script>
+  </body>
+</html>

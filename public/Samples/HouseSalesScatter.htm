@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Scatter Dashboard | JSCharting</title>
+    <meta http-equiv="content-type" content="text-html; charset=utf-8" />
+
+    <script type="text/javascript" src="../jsc/jscharting.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="css/default.css" />
+    <style type="text/css"></style>
+  </head>
+  <body>
+    <div id="scatterDiv" style="width: 800px;height: 400px;margin: 0px auto;"></div>
+    <div id="histograms" style="width: 800px;height: 250px;margin: 0px auto;">
+      <div id="histogramDiv1" style="width: 390px;height: 250px;margin: 0px auto;display:inline-block;"></div>
+      <div id="histogramDiv2" style="width: 390px;height: 250px;margin: 0px auto;display:inline-block;"></div>
+    </div>
+
+    <script type="text/javascript">
+      /*
+A scatter chart dashboard including column, and area charts.
+Learn how to:
+
+  - Layout charts in dashboard with scatter, column, and area charts.
+  - Use template for charts on the same page.
+*/
+      // JS
+      var chart1, chart2, chart3;
+      var template = {
+        legend_visible: false,
+        palette: ['#4393c3'],
+        defaultPoint_tooltip: '<b>%xValue:</b> %yValue',
+        yAxis: { alternateGridFill: 'none' }
+      };
+      JSC.fetch('./resources/houseSales.csv')
+        .then(function(response) {
+          return response.text();
+        })
+        .then(function(text) {
+          var data = JSC.csv2Json(text);
+          chart1 = renderScatterChart(data);
+          chart2 = renderHistogram1(data);
+          chart3 = renderHistogram2(data);
+        });
+
+      function renderScatterChart(data) {
+        var series = [
+          {
+            type: 'marker',
+            points: JSC.nest()
+              .key('id')
+              .pointRollup(function(key, val) {
+                let values = val[0];
+                return {
+                  x: new Date(values.yr_built, 0, 1),
+                  y: values.sqft_living,
+                  z: values.price
+                };
+              })
+              .points(data)
+          }
+        ];
+
+        return JSC.chart('scatterDiv', {
+          title_label_text: 'Year of construction vs square footage of a home',
+          defaultPoint: {
+            tooltip: 'Built <b>%xValue</b> - <b>%yValue sf</b><br>Price: <b>{%zValue:c0}</b>',
+            marker: { outline_width: 0, size: 12 },
+            opacity: 0.7
+          },
+          legend: {
+            title_label: {
+              text: 'Price',
+              style_fontWeight: 'bold'
+            }
+          },
+          yAxis: {
+            label_text: 'Square footage',
+            alternateGridFill: 'none'
+          },
+          xAxis: {
+            scale_type: 'time',
+            formatString: 'yyyy'
+          },
+          palette: {
+            colors: ['#ffffd9', '#edf8b0', '#c7e9b4', '#7fcdbb', '#41b6c3', '#1d91c0', '#225ea8', '#253494', '#081d58'],
+            // Use a function to get point z values to improve performance.
+            pointValue: function(p) {
+              return p.options('z');
+            },
+            colorBar_axis_formatString: 'c0'
+          },
+          series: series
+        });
+      }
+
+      function renderHistogram1(data) {
+        var series = [
+          {
+            type: 'column',
+            points: JSC.nest()
+              .key('yr_built')
+              .pointRollup(function(key, val) {
+                let values = val[0];
+                return {
+                  x: new Date(key, 0, 1),
+                  y: val.length
+                };
+              })
+              .points(data)
+          }
+        ];
+        return JSC.chart('histogramDiv1', {
+          title_label_text: 'House construction by year',
+          template: template,
+          xAxis: {
+            scale_type: 'time',
+            formatString: 'yyyy'
+          },
+          defaultPoint_tooltip: '<b>%xValue:</b> %yValue',
+          series: series
+        });
+      }
+
+      function renderHistogram2(data) {
+        var series = [
+          {
+            type: 'area',
+            points: JSC.nest()
+              .key('sqft_living')
+              .pointRollup(function(key, val) {
+                let values = val[0];
+                return { x: parseInt(key), y: val.length };
+              })
+              .points(data)
+          }
+        ];
+        return JSC.chart('histogramDiv2', {
+          title_label_text: 'Number of houses by square footage',
+          defaultSeries_states_hover_line_width: 1,
+          defaultTooltip_label_text: '%points %xValue sf. home(s)',
+          defaultPoint_tooltip: '<b>%yValue</b>',
+          xAxis_crosshair_enabled: true,
+          template: template,
+          series: series
+        });
+      }
+    </script>
+  </body>
+</html>

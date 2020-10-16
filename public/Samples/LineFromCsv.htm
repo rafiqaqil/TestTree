@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Line From Csv | JSCharting</title>
+    <meta http-equiv="content-type" content="text-html; charset=utf-8" />
+
+    <script type="text/javascript" src="../jsc/jscharting.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="css/default.css" />
+    <style type="text/css">
+      /*CSS*/
+    </style>
+  </head>
+  <body>
+    <div id="chartDiv" style="max-width: 740px;height: 400px;margin: 0px auto;"></div>
+
+    <script type="text/javascript">
+      /*
+Line chart using CSV data file.
+Learn how to:
+
+  - Draw a line chart from CSV data.
+*/
+      // JS
+      var chart = JSC.chart('chartDiv', {
+        debug: true,
+        type: 'line',
+        title_label_text: '2017 Environmental Particle Sensor (PPM)',
+        data: './resources/CarSales_2017.csv',
+        legend_visible: false,
+        yAxis_label_text: 'PPM',
+        defaultSeries: { states_hover_line_width: 1 },
+        xAxis_crosshair_enabled: true,
+        defaultPoint_tooltip: 'PPM: %yValue'
+      });
+    </script>
+  </body>
+</html>

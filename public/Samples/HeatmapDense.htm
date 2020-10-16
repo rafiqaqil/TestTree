@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Dense Heatmap Chart | JSCharting</title>
+    <meta http-equiv="content-type" content="text-html; charset=utf-8" />
+
+    <script type="text/javascript" src="../jsc/jscharting.js"></script>
+
+    <script type="text/javascript" src="../jsc/modules/types.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="css/default.css" />
+    <style type="text/css">
+      /*CSS*/
+    </style>
+  </head>
+  <body>
+    <div id="chartDiv" style="max-width: 540px;height: 400px;margin: 0px auto;"></div>
+
+    <script type="text/javascript">
+      /*
+Using a smartPalette with a heatmap chart.
+Learn how to:
+
+  - Draw a heatmap chart with a smartPalette.
+*/
+      // JS
+      var chart = JSC.chart('chartDiv', {
+        debug: true,
+        type: 'heatmap solid',
+        margin_right: 20,
+        annotations: [{ label_text: 'Heatmap Data' }],
+        defaultSeries: {
+          opacity: 1,
+          /* Provides additional performance boost by omitting hover state computations. */
+          mouseTracking_enabled: false
+        },
+        defaultPoint: { outline_color: 'none' },
+        /* Describe data point values.*/
+        xAxis_label_text: 'Longitude',
+        yAxis_label_text: 'Latitude',
+        zAxis_label_text: 'Heat Delta',
+
+        palette: {
+          /*Using a function instead of token like '%zValue' improves performance.*/
+          pointValue: function(p) {
+            return p.options('z');
+          },
+          colors: ['#ffffcc', '#ffeda0', '#fed976', '#feb24c', '#fd8d3c', '#fc4e2a', '#e31a1c', '#bd0026', '#b00026']
+        },
+        series: [{ points: generateData(50, 50) }],
+        toolbar_visible: false
+      });
+      function generateData(xCount, yCount) {
+        var pointDistance = function(point1, point2) {
+          var xs = point2[0] - point1[0];
+          xs = xs * xs;
+          var ys = point2[1] - point1[1];
+          ys = ys * ys;
+          return Math.sqrt(xs + ys);
+        };
+        var points = [];
+        var cxy = [xCount / 2, yCount / 2];
+        for (var x = 0; x < xCount; x++) {
+          for (var y = 0; y < yCount; y++) {
+            var dist = pointDistance([x, y], cxy);
+            points.push({
+              x: x,
+              y: y,
+              z: Math.sin(x / 3) + Math.cos((y + x) / 2.5) + Math.sin(dist / 6),
+              attributes: { dist: dist }
+            });
+          }
+        }
+        return points;
+      }
+    </script>
+  </body>
+</html>

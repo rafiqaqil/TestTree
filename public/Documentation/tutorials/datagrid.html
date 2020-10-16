@@ -1,0 +1,273 @@
+<img src="tutorials/images/javascript-data-grid.png" title="Javascript data grid library">
+
+<h2>Introduction</h2>
+<p>JSCGrid is a javascript data grid component that can work as a stand-alone (no jquery or other frameworks required)
+	HTML5 data grid that consumes JSON data. It can also be emitted by a chart to show the chart datatables in a grid
+	format targeting a specific div on a page or as an alternative chart view. The chart can query server-side data and
+	update the client-side html tables as needed.
+</p>
+<p>The javascript grid supports token values similar to the chart labels making it easy to create columns with
+	expressions and formatting. Microcharts, icons, and other features can also be added easily to the grid using the
+	same text syntax as within chart labels.
+</p>
+<p>A CSS file loads automatically but can be disabled and a custom CSS file based on the original can be used.
+</p>
+
+
+<h2>Grid is thenable</h2>
+<p>A grid requires an additional module to download. It can be included in the page script tag or will download
+	on first use. Functions that return a grid, including the grid constructor will always return a thenable object.
+	This means a .then() can follow the grid function to use the grid after it is created. </p>
+
+<span class="codeText">
+	var grid;
+		JSC.Grid('gridDiv',	{/*Grid Options*/})
+		.then(function(g){
+			grid = g;
+		}	);
+
+</span>
+
+<p>If the datagrid.js module is included in the page script tag, the grid constructor will return a grid object.
+However, the grid object is still thenable.</p>
+
+<span class="htmlText">
+&lt;script src="./JSC/modules/datagrid.js"&gt;&lt;/script&gt;
+
+</span>
+<span class="codeText">
+	var grid = new JSC.Grid('gridDiv',	{/*Grid Options*/});
+</span>
+
+<h2>Chart Based Grid</h2>
+
+
+<p>A chart offers a <a href="iObject.chart.toGrid()">toGrid()</a> function that emits the chart data to a grid inside the specified html div element.</p>
+
+<span class="codeText">
+	var grid, chart = new JSC.Chart('chartDiv',	{/*Chart Options*/},
+		function(c){
+			c.toGrid('gridDiv').then(function(g){grid=g;});
+		}
+	);
+
+</span>
+<p>Charts can offer the alternative grid view by setting the chart based <a href="Types.chart.grid.enabled">grid_enabled</a>
+	option to true.
+</p>
+
+<span class="codeText">
+	var chart = new JSC.Chart('chartDiv', {
+		grid:{enabled:true}
+		/*Chart Options*/
+	});
+
+</span>
+
+<p>Options are not required to generate a grid from a chart. The grid will automatically determine the data  values,
+	and formatting necessary based on chart options but everything can be customized by passing new options to the
+	grid. Each chart data point is represented in the grid as a dataRow.
+</p>
+
+<h3>Chart bound grid column definitions</h3>
+<p>Column definitions can be defined to overwrite the default columns determined automatically with a high-performance microchart.  An example:
+</p>
+
+
+<span class="codeText">
+var myGrid;
+chart1.toGrid('gridDiv', {
+	columns:[{
+		header:'Series',
+		value:'%seriesName',
+	},{
+		header:'X Value',
+		value:'%xValue',
+	},	{
+		header:'% of Series',
+		value:'%percentOfSeries'
+	},	{
+		header:'Y Value Microchart',
+		// Microchart with tooltip
+		value:'&lt;chart type=bar data=%yValue tooltip=%yValue max=200&gt;'
+	},{
+		header:'Calculation',
+		// Expression with currency formatting
+		value:'{%yValue*5.23:c}}'
+	}
+	}]
+}).then(function(grid){
+	myGrid=grid;
+})
+
+</span>
+
+<h3>Refreshing chart based grid when chart data changes</h3>
+<p>When the following code runs, the grid will refresh values and apply any specified options.
+</p>
+
+<span class="codeText">
+	myGrid.options({})
+</span>
+
+<h2>Stand-Alone DataGrid Data Binding</h2>
+
+<h3>Array Data Source</h3>
+<p>Using an array of arrays as a data source. </p>
+
+<p class="codepen" data-height="280" data-theme-id="35044" data-default-tab="js,result" data-user="jsblog" data-slug-hash="5285ba48868fdfe5acd2134a9da70125" data-editable="true" style="height: 280px; box-sizing: border-box; display: flex; align-items: center; justify-content: center; border: 2px solid black; margin: 1em 0; padding: 1em;" data-pen-title="Docs - Array Data Source">
+  <span>See the Pen <a href="https://codepen.io/jsblog/pen/5285ba48868fdfe5acd2134a9da70125/">
+  Docs - Array Data Source</a> by Arthur Puszynski (<a href="https://codepen.io/jsblog">@jsblog</a>)
+  on <a href="https://codepen.io">CodePen</a>.</span>
+</p>
+<script async src="https://static.codepen.io/assets/embed/ei.js"></script>
+
+<!--<span class="codeText">
+	var data = [
+  ['Product','Units Sold', 'Revenue'],
+	['Hammer',152, 1518.48],
+	['Saw',1355, 27086.45],
+	['Nail Gun',3355, 201266.45]
+];
+var grid = new JSC.Grid('gridDiv',{data:data,headerRow:false});
+</span>-->
+
+
+<h3>Array Data Source with Custom Columns</h3>
+<p>Array data columns can be referenced inside column value strings using tokens as shown below. This example skips some
+	columns and adds others that use the hidden data in calculations.</p>
+<span class="codeText">
+	var grid, data = [
+  ['Product','Units Sold', 'Revenue'],
+  ['Hammer',152, 1518.48],
+  ['Saw',1355, 27086.45],
+  ['Nail Gun',3355, 201266.45]
+];
+JSC.Grid('gridDiv',{data:data.slice(1),columns:[
+    {header:'Product',value:'%0'},
+    {header:'Units Sold',value:'%1',align:'right'},
+    {header:'Revenue',value:'{%2:c}',align:'right'},
+    {header:'Unit Price',value:'{%2/%1:c}',align:'right'}
+  ]}).then(function(g){
+	grid = g;
+	});
+</span>
+
+<h3>Array of Objects Data Source</h3>
+<p>An array of objects can be used as a data source with similar token syntax to add calculation columns. A function
+	can also be used to define column values to provide more complex calculation capabilities.</p>
+
+<span class="docsReference">Samples.dataGridDeep</span>
+
+<h3>JSC.csv2Json()</h3>
+<p>A CSV file content can be loaded into a grid very easily with a single line of code such as:</p>
+
+<span class="codeText">
+JSC.Grid('gridDiv', JSC.csv2Json(csvString)).then(function(grid){
+	});
+</span>
+
+<p>The code above will parse CSV text, detect headers and data types, and render the grid with the CSV data inside the gridDiv element.</p>
+
+<span class="docsReference">Tutorials.gettingData:Loading CSV files</span>
+
+<h2>Usage</h2>
+
+<h4>Column and Summary Definitions</h4>
+
+<h4>Default Column</h4>
+<p>The grid <a href="Types.grid.defaultColumn">defaultColumn</a> option can be set to specify default column settings
+	to avoid setting the same values for each column definition.</p>
+
+<span class="codeText">
+   grid.options( {
+	defaultColumn:{width:'150px'}
+	});
+</span>
+
+<p>As seen in the above samples, each column can define the data it displays, headers, and other options. Column values
+	can be customized to refer to any values in a given data row.</p>
+
+<h3>Summary Row</h3>
+<p>A row that summarized the data of a given column can be defined as well.</p>
+<p>Each data column can be summarized with a calculation at the end. The grid <a href="Types.grid.summaryRow">summaryRow</a> option can be defined with an
+    array of values for each column, or an object with property names matching the source data properties. An
+    array of either one can be used to define multiple summary rows.
+</p>
+
+<span class="codeText">
+      grid.options({
+	summaryRow: ['Sum','','%sum']
+	})
+</span>
+
+<span class="docsReference">
+Samples.gridSummaryRow
+</span>
+
+<h3>Tokens</h3>
+<h4>Chart Based</h4>
+
+<p>The same tokens used in charts work grid cell values. See the <a href="Tutorials.tokenReference">points token reference</a>.</p>
+
+<h4>Array/Object based</h4>
+
+<p>
+When data rows are arrays, tokens such as <span class="example">&#39;%1&#39;</span> can be used and they refer to the
+value at the data row array index. Object data rows use a similar syntax such as
+	<span class="example">&#39;%property&#39;</span> or nested object properties such as
+	<span class="example">&#39;%name.first&#39;</span>.
+</p>
+
+<span class="docsReference">Samples.dataGridDeep</span>
+
+
+
+<h3>File Export</h3>
+<p>The grid <a href="Types.grid.exportFile">exportFile</a> option enables a button that downloads the data shown in the grid as a CSV file.
+</p>
+
+<h3>CSS Styling</h3>
+
+<p>The grid component automatically downloads the datagrid.css file found in the
+	<span class="example">JSC/resources/</span> folder.
+	To modify the default grid styling, an additional css file can be defined and referenced in the html &lt;head&gt;.
+	The default datagrid styles will load first. </p>
+
+<p>To omit loading default styles, the grid <a href="Types.grid.cssFile">cssFile</a> property can be set to an empty string. Or the path of an
+	alternative css file can be used with this property to load it automatically.</p>
+
+<p>It may be easiest to make a copy of the default css file to modify and set the
+	<a href="Types.grid.cssFile">cssFile</a> property to point to this
+	new file. Or if the modified css file is merged with other website styles, setting the
+	<a href="Types.grid.cssFile">cssFile</a> property to an empty string.</p>
+<!--
+Function value (OMITED)
+The value property can be set with a function that is called with row/col indexes and data in order to return the final string value.
+-->
+
+
+<h3>Microcharts &amp; Icons</h3>
+
+<p>Microcharts can be inserted into grids for any cell. The same
+	<span class="example">&#39;&lt;chart&gt;&#39;</span> syntax can be used in column definition
+	values as in chart labels. In addition, the <span class="example">&#39;&lt;icon&gt;&#39;</span> syntax can be added to
+	column values to insert svg icons into the grid.</p>
+
+
+<span class="docsReference">Samples.gridCustomIcons</span>
+
+
+
+<!--
+
+Date Grouping Utility
+
+This utility accepts an array of date value pairs, an interval calendarPattern and optionally a calculation.
+The function returns a list of objects that represent the groupings and contain the base date, calculated
+value and list of values that were used in the calculation.
+
+-->
+
+
+

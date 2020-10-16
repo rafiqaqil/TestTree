@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>External Font Styling | JSCharting</title>
+    <meta http-equiv="content-type" content="text-html; charset=utf-8" />
+
+    <script type="text/javascript" src="../jsc/jscharting.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="css/default.css" />
+    <style type="text/css">
+      /*CSS*/
+    </style>
+  </head>
+  <body>
+    <link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet" />
+    <div id="chartDiv" style="max-width: 740px;height: 400px;margin: 0px auto;"></div>
+
+    <script type="text/javascript">
+      /*
+Uses the JSC.fontsReady() function to ensure 3rd party fonts are loaded before rendering the chart.
+Learn how to:
+
+  - Style charts with fonts loaded from 3rd party.
+*/
+      // JS
+      var chart,
+        fontStyleConfig = {
+          defaultPoint_label_style_fontFamily: 'Roboto',
+          defaultAxix: {
+            label_style: {
+              fontFamily: 'Roboto',
+              fontSize: 14,
+              color: '#616161'
+            },
+            defaultTick_label_style: {
+              fontFamily: 'Roboto',
+              fontSize: 12,
+              color: '#757575'
+            }
+          },
+          defaultTooltip_label_style: {
+            fontFamily: 'Roboto',
+            color: '#212121'
+          },
+          legend_defaultEntry_style: {
+            fontFamily: 'Roboto',
+            fontSize: 12,
+            color: '#424242'
+          },
+          title_label_style: {
+            fontSize: 20,
+            fontFamily: 'Roboto',
+            color: '#212121'
+          }
+        };
+      JSC.ready(document).then(function(result) {
+        console.log('DOM content loaded: ' + result.ok);
+        JSC.fontsReady(['Roboto']).then(function(result) {
+          console.log('Fonts loaded: ' + result.ok);
+          JSC.chart(
+            'chartDiv',
+            JSC.merge(
+              {
+                type: 'horizontal column solid',
+                title_label: { text: 'Global Plastic by Market Sector, 2015' },
+                palette: 'fiveColor33',
+                legend: {
+                  template: '%icon %name',
+                  position: 'inside bottom right',
+                  layout: 'vertical'
+                },
+                yAxis_label_text: 'Plastic, in million tonnes',
+                xAxis_label_text: 'Market Sector',
+                yAxis_alternateGridFill: 'none',
+                defaultAxis: { defaultTick: { line_visible: false } },
+                defaultPoint: { label: { text: '%value' }, outline_width: 0 },
+                series: [
+                  {
+                    name: 'Primary plastic produced',
+                    points: [
+                      { name: 'Packaging', y: 146 },
+                      { name: 'Building and Construction', y: 65 },
+                      { name: 'Other sector', y: 59 },
+                      { name: 'Textiles', y: 47 },
+                      { name: 'Consumer & Institutional Products', y: 42 },
+                      { name: 'Transportation', y: 27 },
+                      { name: 'Electrical/Electronic', y: 18 },
+                      { name: 'Industrial Machinery', y: 3 }
+                    ]
+                  },
+                  {
+                    name: 'Plastic waste generated',
+                    points: [
+                      { name: 'Packaging', y: 141 },
+                      { name: 'Building and Construction', y: 13 },
+                      { name: 'Other sector', y: 42 },
+                      { name: 'Textiles', y: 38 },
+                      { name: 'Consumer & Institutional Products', y: 37 },
+                      { name: 'Transportation', y: 17 },
+                      { name: 'Electrical/Electronic', y: 13 },
+                      { name: 'Industrial Machinery', y: 1 }
+                    ]
+                  }
+                ]
+              },
+              fontStyleConfig
+            )
+          );
+        });
+      });
+    </script>
+  </body>
+</html>

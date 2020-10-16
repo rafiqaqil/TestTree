@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Date Range Picker Calendar Chart | JSCharting</title>
+    <meta http-equiv="content-type" content="text-html; charset=utf-8" />
+
+    <script type="text/javascript" src="../jsc/jscharting.js"></script>
+
+    <script type="text/javascript" src="../jsc/modules/types.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="css/default.css" />
+    <style type="text/css">
+      /*CSS*/
+    </style>
+  </head>
+  <body>
+    <div id="chartDiv" style="max-width: 740px;height: 300px;margin: 0px auto;"></div>
+
+    <script type="text/javascript">
+      /*
+A simple date range picker with random heatmap data.
+Learn how to:
+
+  - Implement date range picker.
+*/
+      // JS
+      var chart,
+        selectedDates = [],
+        selectorColor = '#d2c7ed',
+        chartConfig = {
+          debug: true,
+          type: 'calendar month solid',
+          defaultTooltip_enabled: false,
+          defaultAnnotation_style_fontWeight: 'bold',
+          annotations: [
+            { label_text: 'Simple Date Range Picker', position: 'top left' },
+            { id: 'an1', label_text: 'Click two points', position: 'top right' }
+          ],
+          highlights: [
+            {
+              //Highlight weekends
+              pattern: { weekday: [0, 6] },
+              fill: '#ffedc4',
+              opacity: 0.5,
+              outline_color: '#eeeeee'
+            }
+          ],
+          defaultSeries: {
+            shape_innerPadding: 0.1,
+            opacity: 0.7,
+            defaultPoint: {
+              events: {
+                click: pointClick,
+                mouseOver: pointOver
+              },
+              states: {
+                hover: { outline_width: 2 }
+              }
+            }
+          }
+        };
+
+      loadData(makeChart);
+
+      function pointClick() {
+        var point = this;
+        var clickedDate = point.tokenValue('%date');
+        if (selectedDates.length === 2) {
+          selectedDates = [];
+        }
+        selectedDates.push(clickedDate);
+        //Allow selecting end date first.
+        selectedDates.sort();
+        //Passing this date when count is 1 will remove animation
+        highlightDates(selectedDates.length === 1 ? clickedDate : undefined);
+        updateAnnotation();
+
+        //Disable any default point click behavior.
+        return false;
+      }
+
+      function pointOver() {
+        var point = this;
+        var pointDate = point.tokenValue('%date');
+
+        //If another point is hovered while only one date is selected, update the highlight
+        if (selectedDates.length < 2) {
+          highlightDates(pointDate);
+        }
+      }
+
+      function updateAnnotation() {
+        var ann = chart.annotations('an1');
+        var dates = selectedDates;
+        var dCountToText = [
+          'Click two points',
+          'Click another point',
+          'Selected Range: ' +
+            dates
+              .map(function(d) {
+                return JSC.formatDate(d, 'd');
+              })
+              .join(' - ')
+        ];
+
+        ann.options({ label_text: dCountToText[dates.length] }, { animation: false });
+      }
+
+      function getHighlightCfg(hoverDate) {
+        var dates = selectedDates.slice(0);
+        hoverDate && dates.push(hoverDate) && dates.sort();
+        var isFinalRange = selectedDates.length === 2;
+        var cfg = {
+          id: 'selection',
+          fill: isFinalRange ? selectorColor : 'none',
+          outline: { color: selectorColor, dashStyle: isFinalRange ? 'solid' : 'dash' }
+        };
+        var dateVal = dates.length === 1 ? dates[0] : { range: dates };
+        if (dates.length) {
+          cfg.pattern = { date: dateVal };
+        }
+        return cfg;
+      }
+
+      function highlightDates(hoverDate) {
+        var hl,
+          dates = selectedDates,
+          updateOptions = hoverDate ? { animation: { duration: 0 } } : {};
+        hl = chart.highlights('selection');
+
+        if (dates.length) {
+          let config = getHighlightCfg(hoverDate);
+          if (hl) {
+            hl.options(config, updateOptions);
+          } else {
+            chart.highlights.add(config, updateOptions);
+          }
+        } else if (hl) {
+          hl.remove();
+        }
+      }
+
+      function loadData(cb) {
+        var start = new Date('1/1/2018'),
+          startNum = start.getTime(),
+          end = new Date('5/1/2018'),
+          endNum = end.getTime();
+        var ret = [];
+        var date = start.getTime();
+        var step = 1000 * 60 * 60; // oneHour;
+        var _i = 0;
+        var rand = function(mul) {
+          var v = Math.random() * 50;
+          return v * mul;
+        };
+        function mapValue(toStart, toEnd, fromStart, fromEnd, value) {
+          return toStart + ((value - fromStart) / (fromEnd - fromStart)) * (toEnd - toStart);
+        }
+        function mapToMul(dateNum) {
+          var hourOfDay = new Date(dateNum).getHours();
+          var timeOfDayMod = Math.sin(mapValue(0, 3, 0, 23, hourOfDay));
+          return Math.sin(mapValue(0, 4, startNum, endNum, dateNum)) * timeOfDayMod;
+        }
+        while (date < end) {
+          ret.push([new Date(date), rand(mapToMul(date))]);
+          date = date + step;
+          if (_i > 100000) {
+            break;
+          }
+        }
+        cb(ret);
+      }
+
+      function makeChart(data) {
+        chartConfig.data = data;
+        chart = JSC.chart('chartDiv', chartConfig);
+      }
+    </script>
+  </body>
+</html>

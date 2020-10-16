@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Percent Complete Gantt Chart | JSCharting</title>
+    <meta http-equiv="content-type" content="text-html; charset=utf-8" />
+
+    <script type="text/javascript" src="../jsc/jscharting.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="css/default.css" />
+    <style type="text/css">
+      /*CSS*/
+    </style>
+  </head>
+  <body>
+    <div id="chartDiv" style="max-width: 740px;height: 400px;margin: 0px auto;"></div>
+
+    <script type="text/javascript">
+      /*
+Simple Gantt chart with % complete values.
+Learn how to:
+
+  - Creating a gantt chart.
+*/
+      // JS
+      var chart = JSC.chart('chartDiv', {
+        debug: true,
+        /*Typical Gantt setup. Horizontal columns by default.*/
+        type: 'horizontal column',
+        /*Make columns overlap.*/
+        zAxisScaleType: 'stacked',
+        /*Time Y Axis.*/
+        yAxis_scale_type: 'time',
+        yAxis_formatString: 'MMMM',
+        xAxis_defaultTick_label_style: { fontSize: 16, fontWeight: 'bold' },
+
+        defaultPoint_opacity: 0.8,
+
+        legend: { template: '%icon %name', position: 'inside top right' },
+        title_label_text: 'Simple Gantt Chart',
+
+        series: [
+          {
+            name: 'Preperations',
+            points: [
+              {
+                name: 'Mike',
+                y: ['1/1/2017', '2/1/2017'],
+                complete: 1
+              },
+              {
+                name: 'Chris',
+                y: ['2/1/2017', '3/1/2017'],
+                complete: 0.5
+              }
+            ]
+          },
+          {
+            name: 'Execution',
+            points: [
+              {
+                name: 'Mike',
+                y: ['2/1/2017', '4/1/2017'],
+                complete: 0.2
+              },
+              {
+                name: 'Chris',
+                y: ['3/1/2017', '6/1/2017']
+              }
+            ]
+          }
+        ],
+        toolbar_visible: false
+      });
+    </script>
+  </body>
+</html>

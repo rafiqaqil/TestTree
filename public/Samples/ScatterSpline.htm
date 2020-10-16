@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Spline Scatter Chart | JSCharting</title>
+    <meta http-equiv="content-type" content="text-html; charset=utf-8" />
+
+    <script type="text/javascript" src="../jsc/jscharting.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="css/default.css" />
+    <style type="text/css">
+      .LabelStyle {
+        font-family: Verdana, Geneva, Tahoma, sans-serif;
+        font-size: xx-small;
+        color: #aa0033;
+        font-weight: bold;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="chartDiv" style="max-width: 740px;height: 400px;margin: 0px auto;"></div>
+
+    <script type="text/javascript">
+      /*
+A scatter line chart.
+Learn how to:
+
+  - Draw a scatter spline chart.
+*/
+      // JS
+      var chart = JSC.chart('chartDiv', {
+        debug: true,
+        defaultSeries_type: 'spline',
+        defaultPoint_label_text: '%xValue, %yValue',
+        xAxis_scale_range: [2, 8],
+        series: [
+          {
+            name: 'Start Points',
+            defaultPoint_color: 'red',
+            points: [{ x: 3, y: 6 }, { x: 6, y: 2 }, { x: 5, y: 8 }, { x: 4, y: 2 }, { x: 7, y: 6 }, { x: 3.4, y: 6 }]
+          }
+        ]
+      });
+    </script>
+  </body>
+</html>

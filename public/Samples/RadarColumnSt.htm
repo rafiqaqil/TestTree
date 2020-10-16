@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Stacked Column Radar Chart | JSCharting</title>
+    <meta http-equiv="content-type" content="text-html; charset=utf-8" />
+
+    <script type="text/javascript" src="../jsc/jscharting.js"></script>
+
+    <script type="text/javascript" src="../jsc/modules/types.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="css/default.css" />
+    <style type="text/css">
+      /*CSS*/
+    </style>
+  </head>
+  <body>
+    <div id="chartDiv" style="max-width: 540px;height: 500px;margin: 0px auto;"></div>
+
+    <script type="text/javascript">
+      /*
+Radar chart with stacked column series.
+Learn how to:
+
+  - Draw radar with stacked columns.
+*/
+      // JS
+      var chart = JSC.chart('chartDiv', {
+        debug: true,
+        type: 'radar column',
+        yAxis_scale_type: 'stacked',
+        legend_position: 'bottom',
+        title: {
+          position: 'center',
+          label: {
+            text: 'Sales By Representative',
+            style: { fontSize: 15, fontWeight: 'normal' }
+          }
+        },
+        defaultSeries: {
+          opacity: 0.7,
+          defaultPoint_marker_rotate: 'auto'
+        },
+        series: [
+          {
+            name: 'William',
+            points: [
+              { name: 'Jan', y: 196 },
+              { name: 'Feb', y: 178 },
+              { name: 'Mar', y: 169 },
+              { name: 'Apr', y: 166 },
+              { name: 'May', y: 72 },
+              { name: 'Jun', y: 162 }
+            ]
+          },
+          {
+            name: 'Elliot',
+            points: [
+              { name: 'Jan', y: 186 },
+              { name: 'Feb', y: 78 },
+              { name: 'Mar', y: 186 },
+              { name: 'Apr', y: 171 },
+              { name: 'May', y: 180 },
+              { name: 'Jun', y: 66 }
+            ]
+          },
+          {
+            name: 'Andrew',
+            points: [
+              { name: 'Jan', y: 146 },
+              { name: 'Feb', y: 134 },
+              { name: 'Mar', y: 28 },
+              { name: 'Apr', y: 120 },
+              { name: 'May', y: 117 },
+              { name: 'Jun', y: 112 }
+            ]
+          }
+        ]
+      });
+    </script>
+  </body>
+</html>

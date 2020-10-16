@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Chart Template | JSCharting</title>
+    <meta http-equiv="content-type" content="text-html; charset=utf-8" />
+
+    <script type="text/javascript" src="../jsc/jscharting.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="css/default.css" />
+    <style type="text/css"></style>
+  </head>
+  <body>
+    <div id="chartDiv" style="max-width: 740px;height: 400px;margin: 0px auto;"></div>
+
+    <script type="text/javascript">
+      /*
+Utilizes a predefined template with a chart. A template can be used to define chart appearance for all charts in a website.
+Learn how to:
+
+  - Use a chart template.
+*/
+      // JS
+      var template1 = {
+        box_fill: ['#8BC6EC', 0.05],
+        title: {
+          fill: ['#8BC6EC', 0.35],
+          position: 'full',
+          label_color: '#0E4959'
+        },
+        palette: ['#64B5F6', '#6D96E5', '#7576D3', '#7E57C2'],
+        box_padding: 20,
+        yAxis_alternateGridFill: ['white', 0.6],
+        legend: {
+          fill: ['#9599E2', 0.5],
+          position: 'bottom'
+        },
+        defaultAxis: {
+          line_color: 'white',
+          label_color: '#0E4959',
+          defaultTick: {
+            line_color: 'white',
+            label_color: '#0E4959',
+            gridLine_color: 'white'
+          }
+        },
+        chartArea: {
+          fill: [['#8BC6EC', 0.3], ['#9599E2', 0.3], 90],
+          outline_color: 'none'
+        }
+      };
+      var chart = JSC.chart('chartDiv', {
+        debug: true,
+        template: template1,
+        yAxis: { label_text: 'Units Sold' },
+        xAxis: { label_text: 'Quarter' },
+        title_label_text: 'Acme Tool Sales',
+        series: [
+          {
+            name: 'Saw',
+            id: 's1',
+            points: [['Q1', 230], ['Q2', 240], ['Q3', 267], ['Q4', 238]]
+          },
+          {
+            name: 'Hammer',
+            points: [['Q1', 325], ['Q2', 347], ['Q3', 392], ['Q4', 371]]
+          },
+          {
+            name: 'Grinder',
+            points: [['Q1', 285], ['Q2', 292], ['Q3', 327], ['Q4', 158]]
+          },
+          {
+            name: 'Drill',
+            points: [['Q1', 185], ['Q2', 192], ['Q3', 198], ['Q4', 318]]
+          }
+        ]
+      });
+    </script>
+  </body>
+</html>

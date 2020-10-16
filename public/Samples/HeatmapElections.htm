@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Election Timeline Heatmap Chart | JSCharting</title>
+    <meta http-equiv="content-type" content="text-html; charset=utf-8" />
+
+    <script type="text/javascript" src="../jsc/jscharting.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="css/default.css" />
+    <style type="text/css"></style>
+  </head>
+  <body>
+    <div id="chartDiv" style="max-width: 620px;height:1000px;margin: 0px auto;"></div>
+
+    <script type="text/javascript">
+      /*
+A heatmap chart with multiple axes.
+Learn how to:
+
+  - Draw a styled scatter line chart without markers.
+*/
+      // JS
+      var chart;
+
+      JSC.fetch('./resources/USPresidentialElectionResults1976-2016.csv')
+        .then(function(response) {
+          return response.text();
+        })
+        .then(function(text) {
+          var data = JSC.csv2Json(text);
+          chart = renderChart(makeSeries(data));
+        });
+
+      function renderChart(series) {
+        return JSC.chart('chartDiv', {
+          annotations: [
+            {
+              label: {
+                text: 'Presidential General Election<br>Results by States (1976-2016)',
+                style_fontSize: 16
+              },
+              position: 'top left'
+            }
+          ],
+          defaultAxis: {
+            defaultTick: {
+              line_visible: false,
+              gridLine_visible: false
+            },
+            line_visible: false
+          },
+          xAxis: [
+            {
+              /* The main axis */
+              id: 'x1',
+              orientation: 'top',
+              defaultTick_label: {
+                text: '<b>%value</b>',
+                offset: '8,5'
+              },
+              scale_interval: { unit: 'year', multiplier: 4 }
+            },
+            {
+              /* A duplicate x axis */
+              scale_syncWith: 'x1',
+              orientation: 'bottom',
+              defaultTick_label: {
+                text: '<b>%value</b>',
+                offset: '8,-5'
+              },
+              scale_interval: { unit: 'year', multiplier: 4 }
+            }
+          ],
+          yAxis: {
+            scale_invert: true,
+            line_visible: false,
+            defaultTick_label_offset: '4,0'
+          },
+          type: 'heatmap solid',
+          defaultPoint: {
+            legendEntry_visible: false,
+            outline: { color: 'white', width: 2 }
+          },
+          toolbar_visible: false,
+          legend: {
+            template: '%icon %name',
+            position: 'top right',
+            layout: 'vertical'
+          },
+          series: series
+        });
+      }
+
+      function makeSeries(data) {
+        return [
+          {
+            name: 'Republican',
+            palette: {
+              colors: ['#ffebee', '#ef5350'],
+              pointValue: function(p) {
+                return p.options('attributes.votes1');
+              }
+            },
+            defaultPoint_tooltip:
+              '<b>%yValue (%winner)</b><br>' +
+              '<span style="color:#ef5350">%candidate1 <b>{%votes1:n2}%</b></span><br>' +
+              '<span style="color:#42a5f5">%candidate2 <b>{%votes2:n2}%</b></span><br>' +
+              'Other <b>{100-%votes1-%votes2:n2}%</b>',
+            points: getPoints('republican', data)
+          },
+          {
+            name: 'Democratic',
+            palette: {
+              colors: ['#e3f2fd', '#42a5f5'],
+              pointValue: function(p) {
+                return p.options('attributes.votes1');
+              }
+            },
+            defaultPoint_tooltip:
+              '<b>%yValue (%winner)</b><br>' +
+              '<span style="color:#42a5f5">%candidate1 <b>{%votes1:n2}%</b></span><br>' +
+              '<span style="color:#ef5350">%candidate2 <b>{%votes2:n2}%</b></span><br>' +
+              'Other <b>{100-%votes1-%votes2:n2}%</b>',
+            points: getPoints('democratic', data)
+          }
+        ];
+
+        function getPoints(party, data) {
+          var points = data
+            .filter(function(v) {
+              return v.party == party;
+            })
+            .map(function(v) {
+              return {
+                x: new Date(v.year + 1, 0, 1),
+                y: v.state,
+                z: v.candidate1_votes,
+                attributes: {
+                  candidate1: v.candidate1,
+                  votes1: (v.candidate1_votes * 100) / v.total_votes,
+                  candidate2: v.candidate2,
+                  votes2: (v.candidate2_votes * 100) / v.total_votes,
+                  winner: v.winner
+                }
+              };
+            })
+            .sort(function(aS, bS) {
+              // Sort the point by state name.
+              var a = aS.y,
+                b = bS.y;
+              return a < b ? -1 : a > b ? 1 : 0;
+            });
+          return points;
+        }
+      }
+    </script>
+  </body>
+</html>

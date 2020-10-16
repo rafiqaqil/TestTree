@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Horizontal Linear Sleep Gantt Chart | JSCharting</title>
+    <meta http-equiv="content-type" content="text-html; charset=utf-8" />
+
+    <script type="text/javascript" src="../jsc/jscharting.js"></script>
+
+    <script type="text/javascript" src="../jsc/modules/types.js"></script>
+    <script type="text/javascript" src="../jsc/icons/weather/moon.js"></script>
+    <script type="text/javascript" src=" ../jsc/icons/linear/basic/alarm.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="css/default.css" />
+    <style type="text/css">
+      /*CSS*/
+    </style>
+  </head>
+  <body>
+    <div id="chartDiv" style="max-width: 740px;height: 435px;margin: 0px auto;"></div>
+
+    <script type="text/javascript">
+      /*
+Linear gauge showing sleep cycles.
+Learn how to:
+
+  - Use Gantt data on linear gauge.
+*/
+      // JS
+      var names = [],
+        colors = [];
+      var chart = JSC.chart(
+        'chartDiv',
+        {
+          debug: true,
+          type: 'gauge linear horizontal ',
+          defaultSeries_type: 'column',
+          legend: { template: '%icon %name', position: 'bottom' },
+          defaultBox_boxVisible: false,
+          xAxis: {
+            spacingPercentage: 0.6,
+            staticColumnWidth: 28,
+
+            /*Defining label object enables it.*/
+            defaultTick_label: {}
+          },
+          yAxis: {
+            orientation: 'opposite',
+            defaultTick: {
+              enabled: false,
+              gridLine: { width: 2, dashStyle: 'dash', onTop: true }
+            },
+            customTicks: [
+              {
+                value: 12,
+                label_text: '<icon name=weather/moon size=18 fill=#888987 ><br/>%valuePM'
+              },
+              {
+                value: 19,
+                label_text: '<icon name=linear/basic/alarm size=22 fill=#888987><br/>7AM'
+              }
+            ]
+          },
+          defaultSeries: {
+            defaultPoint_color: '#6199ff',
+            legendEntry_visible: false
+          },
+          defaultPoint: {
+            tooltip: tooltipFormatter,
+            legendEntry_visible: false
+          },
+          series: [
+            {
+              name: 'Monday',
+              points: [
+                { x: 'Mon/Tue', name: 'Sleep', y: [12.37, 13.82] },
+                {
+                  x: 'Mon/Tue',
+                  name: 'Deep Sleep',
+                  y: [13.82, 13.98]
+                },
+                { x: 'Mon/Tue', name: 'Sleep', y: [13.98, 14.17] },
+                {
+                  x: 'Mon/Tue',
+                  name: 'Deep Sleep',
+                  y: [14.17, 14.5]
+                },
+                { x: 'Mon/Tue', name: 'Sleep', y: [14.5, 15.17] },
+                {
+                  x: 'Mon/Tue',
+                  name: 'Deep Sleep',
+                  y: [15.17, 15.45]
+                },
+                { x: 'Mon/Tue', name: 'Sleep', y: [15.45, 15.63] },
+                {
+                  x: 'Mon/Tue',
+                  name: 'Deep Sleep',
+                  y: [15.63, 16.18]
+                },
+                { x: 'Mon/Tue', name: 'Sleep', y: [16.18, 16.7] },
+                { x: 'Mon/Tue', name: 'Awake', y: [16.7, 16.71] },
+                { x: 'Mon/Tue', name: 'Sleep', y: [16.71, 17.28] },
+                {
+                  x: 'Mon/Tue',
+                  name: 'Deep Sleep',
+                  y: [17.28, 17.68]
+                },
+                { x: 'Mon/Tue', name: 'Sleep', y: [17.68, 18.47] }
+              ]
+            },
+            {
+              name: 'Tuesday',
+              points: [
+                { x: 'Tue/Wed', name: 'Sleep', y: [11.32, 11.63] },
+                {
+                  x: 'Tue/Wed',
+                  name: 'Deep Sleep',
+                  y: [11.63, 11.88]
+                },
+                { x: 'Tue/Wed', name: 'Sleep', y: [11.88, 13.37] },
+                { x: 'Tue/Wed', name: 'Awake', y: [13.37, 13.42] },
+                { x: 'Tue/Wed', name: 'Sleep', y: [13.42, 14.82] },
+                {
+                  x: 'Tue/Wed',
+                  name: 'Deep Sleep',
+                  y: [14.82, 15.27]
+                },
+                { x: 'Tue/Wed', name: 'Sleep', y: [15.27, 15.72] },
+                {
+                  x: 'Tue/Wed',
+                  name: 'Deep Sleep',
+                  y: [15.72, 16.52]
+                },
+                { x: 'Tue/Wed', name: 'Sleep', y: [16.52, 16.85] },
+                {
+                  x: 'Tue/Wed',
+                  name: 'Deep Sleep',
+                  y: [16.85, 16.98]
+                },
+                { x: 'Tue/Wed', name: 'Sleep', y: [16.98, 17.28] },
+                {
+                  x: 'Tue/Wed',
+                  name: 'Deep Sleep',
+                  y: [17.28, 18.15]
+                },
+                { x: 'Tue/Wed', name: 'Sleep', y: [18.15, 18.67] }
+              ]
+            },
+            {
+              name: 'Wednesday',
+              points: [
+                { x: 'Wed/Thu', name: 'Sleep', y: [11.17, 11.32] },
+                {
+                  x: 'Wed/Thu',
+                  name: 'Deep Sleep',
+                  y: [11.32, 11.65]
+                },
+                { x: 'Wed/Thu', name: 'Sleep', y: [11.65, 12.57] },
+                {
+                  x: 'Wed/Thu',
+                  name: 'Deep Sleep',
+                  y: [12.57, 13.17]
+                },
+                { x: 'Wed/Thu', name: 'Sleep', y: [13.17, 13.65] },
+                {
+                  x: 'Wed/Thu',
+                  name: 'Deep Sleep',
+                  y: [13.65, 13.93]
+                },
+                { x: 'Wed/Thu', name: 'Sleep', y: [13.93, 14.05] },
+                {
+                  x: 'Wed/Thu',
+                  name: 'Deep Sleep',
+                  y: [14.05, 14.47]
+                },
+                { x: 'Wed/Thu', name: 'Sleep', y: [14.47, 15.02] },
+                {
+                  x: 'Wed/Thu',
+                  name: 'Deep Sleep',
+                  y: [15.02, 15.4]
+                },
+                { x: 'Wed/Thu', name: 'Sleep', y: [15.4, 15.6] },
+                {
+                  x: 'Wed/Thu',
+                  name: 'Deep Sleep',
+                  y: [15.6, 15.77]
+                },
+                { x: 'Wed/Thu', name: 'Sleep', y: [15.77, 18.13] },
+                {
+                  x: 'Wed/Thu',
+                  name: 'Deep Sleep',
+                  y: [18.13, 18.62]
+                },
+                { x: 'Wed/Thu', name: 'Sleep', y: [18.62, 19] },
+                { x: 'Wed/Thu', name: 'Awake', y: [19, 19.03] },
+                { x: 'Wed/Thu', name: 'Sleep', y: [19.03, 19.5] }
+              ]
+            },
+            {
+              name: 'Thursday',
+              points: [
+                { x: 'Thu/Fri', name: 'Sleep', y: [11.78, 14.22] },
+                {
+                  x: 'Thu/Fri',
+                  name: 'Deep Sleep',
+                  y: [14.22, 14.83]
+                },
+                { x: 'Thu/Fri', name: 'Sleep', y: [14.83, 15.22] },
+                {
+                  x: 'Thu/Fri',
+                  name: 'Deep Sleep',
+                  y: [15.22, 15.45]
+                },
+                { x: 'Thu/Fri', name: 'Sleep', y: [15.45, 16.03] },
+                { x: 'Thu/Fri', name: 'Awake', y: [16.03, 16.07] },
+                { x: 'Thu/Fri', name: 'Sleep', y: [16.07, 17.17] },
+                {
+                  x: 'Thu/Fri',
+                  name: 'Deep Sleep',
+                  y: [17.17, 17.37]
+                },
+                { x: 'Thu/Fri', name: 'Sleep', y: [17.37, 18.98] }
+              ]
+            },
+            {
+              name: 'Friday',
+              points: [
+                { x: 'Fri/Sat', name: 'Sleep', y: [12.23, 13.65] },
+                {
+                  x: 'Fri/Sat',
+                  name: 'Deep Sleep',
+                  y: [13.65, 14.02]
+                },
+                { x: 'Fri/Sat', name: 'Sleep', y: [14.02, 14.72] },
+                {
+                  x: 'Fri/Sat',
+                  name: 'Deep Sleep',
+                  y: [14.72, 15.1]
+                },
+                { x: 'Fri/Sat', name: 'Sleep', y: [15.1, 16.23] },
+                {
+                  x: 'Fri/Sat',
+                  name: 'Deep Sleep',
+                  y: [16.23, 16.4]
+                },
+                { x: 'Fri/Sat', name: 'Sleep', y: [16.4, 17.43] },
+                {
+                  x: 'Fri/Sat',
+                  name: 'Deep Sleep',
+                  y: [17.43, 17.6]
+                },
+                { x: 'Fri/Sat', name: 'Sleep', y: [17.6, 19.25] }
+              ]
+            },
+            {
+              name: 'Saturday',
+              points: [
+                { x: 'Sat/Sun', name: 'Sleep', y: [13.83, 14] },
+                {
+                  x: 'Sat/Sun',
+                  name: 'Deep Sleep',
+                  y: [14, 14.53]
+                },
+                { x: 'Sat/Sun', name: 'Sleep', y: [14.53, 16.63] },
+                {
+                  x: 'Sat/Sun',
+                  name: 'Deep Sleep',
+                  y: [16.63, 16.9]
+                },
+                { x: 'Sat/Sun', name: 'Sleep', y: [16.9, 17] },
+                {
+                  x: 'Sat/Sun',
+                  name: 'Deep Sleep',
+                  y: [17, 17.65]
+                },
+                { x: 'Sat/Sun', name: 'Sleep', y: [17.65, 18.2] },
+                {
+                  x: 'Sat/Sun',
+                  name: 'Deep Sleep',
+                  y: [18.2, 18.92]
+                },
+                { x: 'Sat/Sun', name: 'Sleep', y: [18.92, 20.15] },
+                {
+                  x: 'Sat/Sun',
+                  name: 'Deep Sleep',
+                  y: [20.15, 20.48]
+                }
+              ]
+            },
+            {
+              name: 'Sunday',
+              points: [
+                { x: 'Sun/Mon', name: 'Sleep', y: [12.36, 13.82] },
+                {
+                  x: 'Sun/Mon',
+                  name: 'Deep Sleep',
+                  y: [13.82, 13.98]
+                },
+                { x: 'Sun/Mon', name: 'Sleep', y: [13.98, 14.17] },
+                {
+                  x: 'Sun/Mon',
+                  name: 'Deep Sleep',
+                  y: [14.17, 14.5]
+                },
+                { x: 'Sun/Mon', name: 'Sleep', y: [14.5, 15.17] },
+                {
+                  x: 'Sun/Mon',
+                  name: 'Deep Sleep',
+                  y: [15.17, 15.45]
+                },
+                { x: 'Sun/Mon', name: 'Sleep', y: [15.45, 15.63] },
+                {
+                  x: 'Sun/Mon',
+                  name: 'Deep Sleep',
+                  y: [15.63, 16.18]
+                },
+                { x: 'Sun/Mon', name: 'Sleep', y: [16.18, 16.5] },
+                { x: 'Sun/Mon', name: 'Awake', y: [16.5, 16.52] },
+                { x: 'Sun/Mon', name: 'Sleep', y: [16.52, 17.28] },
+                {
+                  x: 'Sun/Mon',
+                  name: 'Deep Sleep',
+                  y: [17.28, 17.68]
+                },
+                { x: 'Sun/Mon', name: 'Sleep', y: [17.68, 18.47] }
+              ]
+            }
+          ]
+        },
+        function(c) {
+          /*Assign colors based on point names.*/
+          c.series()
+            .points({ name: 'Awake' })
+            .options({ color: '#faf' }, false);
+          c.series()
+            .points({ name: 'Deep Sleep' })
+            .options({ color: '#355fb5' });
+          //Generate data for custom legend entries
+          c.series()
+            .points()
+            .each(function(p) {
+              var name = p.name;
+              var color = p.options('color');
+              names.indexOf(name) === -1 && names.push(name);
+              colors.indexOf(color) === -1 && colors.push(color);
+            });
+
+          var customEntries = [];
+          for (var i = 0; i < names.length; i++) {
+            customEntries.push({
+              name: names[i],
+              icon: {
+                fill: colors[i],
+                outline_color: colors[i]
+              },
+              iconWidth: 15,
+              style_fontSize: 15
+            });
+          }
+          c.chartAreas(0).legend.options({ customEntries: customEntries });
+        }
+      );
+
+      function tooltipFormatter(point) {
+        var twoDigit = function(v) {
+          return ('0' + v).slice(-2);
+        };
+        var formatHour = function(v) {
+          var ampm = v <= 12 ? 'PM' : 'AM',
+            hour = Math.floor(v) % 12,
+            min = Math.floor((v % 1) * 60);
+          return (hour || 12) + ':' + twoDigit(min) + ampm;
+        };
+        return '<b>%name ' + '<br/>' + formatHour(point.y[0]) + ' - ' + formatHour(point.y[1]);
+      }
+    </script>
+  </body>
+</html>

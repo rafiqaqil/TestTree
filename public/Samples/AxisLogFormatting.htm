@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Logarithmic Axis Label Formatting | JSCharting</title>
+    <meta http-equiv="content-type" content="text-html; charset=utf-8" />
+
+    <script type="text/javascript" src="../jsc/jscharting.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="css/default.css" />
+    <style type="text/css">
+      /*CSS*/
+    </style>
+  </head>
+  <body>
+    <div id="chartDiv" style="max-width: 740px;height: 350px;margin: 0px auto;"></div>
+
+    <script type="text/javascript">
+      /*
+Negative and positive values on a logarithmic scale with t (ten) formatting.
+Learn how to:
+
+  - Use exponent axis label formatting.
+*/
+      // JS
+      var config = {
+        debug: true,
+        type: 'line',
+        title_label_text: 'The t format string for numbers',
+        annotations: [
+          {
+            margin: { left: 120, top: -50 },
+            position: 'inside center',
+            label_text: 'y = (x-40)<sup>3</sup>'
+          }
+        ],
+        legend_visible: false,
+        yAxis: {
+          formatString: 't2',
+          defaultTick_label: { style_fontSize: 16 },
+          scale_type: 'logarithmic'
+        },
+        defaultPoint: {
+          tooltip: 'x: %xValue<br/>y: {%yValue:n1}',
+          marker_visible: false
+        }
+      };
+      config.series = [{ points: generatePoints(80) }];
+      var chart = JSC.chart('chartDiv', config);
+
+      function generatePoints(count) {
+        var points = [];
+        for (var i = 2; i < count; i += 1) {
+          points.push([i, Math.pow(i - 40, 3)]);
+        }
+        return points;
+      }
+    </script>
+  </body>
+</html>

@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Map Capitals | JSCharting</title>
+    <meta http-equiv="content-type" content="text-html; charset=utf-8" />
+
+    <script type="text/javascript" src="../jsc/jscharting.js"></script>
+
+    <script type="text/javascript" src="../jsc/modules/toolbar.js"></script>
+    <script type="text/javascript" src="../jsc/modules/maps.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="css/default.css" />
+    <style type="text/css">
+      /*CSS*/
+    </style>
+  </head>
+  <body>
+    <div id="chartDiv" style="max-width: 740px;height: 450px;margin: 0px auto;"></div>
+
+    <script type="text/javascript">
+      /*
+A map point series loaded from a custom geoJSON file.
+Learn how to:
+
+  - Map series from point layer map files.
+  - Mapping base layers from mapCodes.
+  - Zoom map chart.
+*/
+      // JS
+      var chart = JSC.chart(
+        'chartDiv',
+        {
+          debug: true,
+          type: 'map',
+          title_label_text: 'State Capitals',
+
+          // Disable zooming
+          axisToZoom: '',
+          legend_visible: false,
+          mapping_base_layers: 'us',
+
+          // Some general padding of map visuals
+          defaultSeries_shape_padding: 0.15,
+          series: [
+            {
+              name: 'State Capitals',
+              map: 'resources/usCapitals.json.txt',
+              mouseTracking_enabled: false,
+              defaultPoint: {
+                label_text: '%name',
+                marker: { type: 'circle', size: 4 }
+              }
+            }
+          ],
+          /* Hide resetZoom button. */
+          toolbar_items_resetZoom_visible: false
+        },
+        function() {
+          // Zoom into the lower 48 states.
+          this.zoom([-119.8, 24.267, 48, 26]);
+        }
+      );
+    </script>
+  </body>
+</html>

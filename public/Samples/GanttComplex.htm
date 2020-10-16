@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Complex Gantt Chart | JSCharting</title>
+    <meta http-equiv="content-type" content="text-html; charset=utf-8" />
+
+    <script type="text/javascript" src="../jsc/jscharting.js"></script>
+
+    <script type="text/javascript" src="../jsc/modules/toolbar.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="css/default.css" />
+    <style type="text/css">
+      /*CSS*/
+    </style>
+  </head>
+  <body>
+    <div id="chartDiv" style="max-width: 740px;height: 400px;margin: 0px auto;"></div>
+
+    <script type="text/javascript">
+      /*
+Advanced Gantt chart percent complete.
+Learn how to:
+
+  - Create a gantt chart with axis markers and % complete indicators.
+*/
+      // JS
+      var config = {
+        debug: true,
+        type: 'horizontal column',
+        zAxisScaleType: 'stacked',
+        toolbar_items_export_position: 'inside bottom left',
+        title_label_text: 'Project Beta from %min to %max',
+        legend: {
+          position: 'inside right top',
+          template: '%icon %name'
+        },
+        yAxis: {
+          scale_type: 'time',
+          scale_range_padding: 0.15,
+          markers: [
+            {
+              value: '4/20/2020',
+              color: 'red',
+              label_text: 'Now'
+            },
+            {
+              value: ['5/12/2020', '6/1/2020'],
+              color: ['orange', 0.5],
+              label_text: 'Vacation'
+            }
+          ]
+        },
+        defaultPoint: {
+          tooltip: '<b>%name</b> %low - %high<br/>{days(%high-%low)} days'
+        },
+        yAxis_scale_type: 'time',
+        defaultSeries: {
+          firstPoint: {
+            outline: { color: 'darkenMore', width: 2 },
+            xAxisTick_label_text: '<b>%value</b>'
+          }
+        },
+        series: [
+          {
+            name: 'Initiate Project',
+            points: [
+              {
+                name: 'Initiate Project',
+                y: ['1/1/2020', '3/15/2020']
+              },
+              {
+                name: 'Project Assignments',
+                y: ['1/1/2020', '1/25/2020']
+              },
+              {
+                name: 'Outlines/Scope',
+                y: ['1/25/2020', '2/15/2020']
+              },
+              {
+                name: 'Business Alignment',
+                y: ['2/15/2020', '3/15/2020']
+              }
+            ]
+          },
+          {
+            name: 'Plan Project',
+            points: [
+              {
+                name: 'Plan Project',
+                y: ['3/15/2020', '5/20/2020']
+              },
+              {
+                name: 'Determine Process',
+                y: ['3/15/2020', '4/12/2020']
+              },
+              {
+                name: 'Design Layouts',
+                y: ['4/12/2020', '5/8/2020']
+              },
+              {
+                name: 'Design Structure',
+                y: ['5/8/2020', '5/20/2020']
+              }
+            ]
+          },
+          {
+            name: 'Implement Project',
+            points: [
+              {
+                name: 'Implement Project',
+                y: ['5/20/2020', '7/28/2020']
+              },
+              { name: 'Designs', y: ['5/20/2020', '6/10/2020'] },
+              {
+                name: 'Structures',
+                y: ['6/10/2020', '6/15/2020']
+              },
+              {
+                name: 'D&S Integration',
+                y: ['6/15/2020', '7/28/2020']
+              }
+            ]
+          }
+        ]
+      };
+      config.series.forEach(function(s) {
+        updateComplete(s, '4/20/2020');
+      });
+      var chart = JSC.chart('chartDiv', config);
+
+      /**
+       * Will mark the % complete value of points up to the specified date.
+       * @param series Series to update
+       * @param date Date threshold
+       */
+      function updateComplete(series, date) {
+        var threshold = norm(date);
+        series.points.forEach(function(p, i) {
+          var pRange = p.y.map(norm);
+          if (threshold > pRange[1]) {
+            p.complete = 1;
+          } else if (threshold > pRange[0]) {
+            p.complete = (threshold - pRange[0]) / (pRange[1] - pRange[0]);
+          }
+        });
+        function norm(d) {
+          return new Date(d).getTime();
+        }
+      }
+    </script>
+  </body>
+</html>

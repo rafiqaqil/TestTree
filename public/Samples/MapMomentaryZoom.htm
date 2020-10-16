@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Map Momentary Zoom | JSCharting</title>
+    <meta http-equiv="content-type" content="text-html; charset=utf-8" />
+
+    <script type="text/javascript" src="../jsc/jscharting.js"></script>
+
+    <script type="text/javascript" src="../jsc/modules/toolbar.js"></script>
+    <script type="text/javascript" src="../jsc/modules/maps.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="css/default.css" />
+    <style type="text/css">
+      /*CSS*/
+    </style>
+  </head>
+  <body>
+    <div id="chartDiv" style="max-width: 740px;height: 500px;margin: 0px auto;"></div>
+
+    <script type="text/javascript">
+      /*
+Zoom to series when legend entry clicked.
+Learn how to:
+
+  - Map series from mapCodes.
+  - Interact with map legend click events.
+  - Zoom map charts.
+*/
+      // JS
+      var zotId,
+        zoomOutDelay = 2000;
+      var chart = JSC.Chart('chartDiv', {
+        debug: true,
+        type: 'map',
+        title_label_text: 'Momentary Zoom',
+        legend: {
+          title_label_text: 'Click legend below',
+          position: 'CA'
+        },
+        defaultSeries_events: { legendEntryClick: startZoomOut },
+        series: [{ map: 'CA' }, { map: 'US' }, { map: 'MX' }, { map: 'GT' }, { map: 'HN' }],
+        toolbar_items_resetZoom_visible: false
+      });
+
+      function startZoomOut() {
+        clearTimeout(zotId);
+        zotId = setTimeout(function() {
+          chart.zoom('initial');
+        }, zoomOutDelay);
+      }
+    </script>
+  </body>
+</html>

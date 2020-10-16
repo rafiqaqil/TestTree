@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Seamless Polar Column Radar Chart | JSCharting</title>
+    <meta http-equiv="content-type" content="text-html; charset=utf-8" />
+
+    <script type="text/javascript" src="../jsc/jscharting.js"></script>
+
+    <script type="text/javascript" src="../jsc/modules/types.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="css/default.css" />
+    <style type="text/css">
+      /*CSS*/
+    </style>
+  </head>
+  <body>
+    <div id="chartDiv" style="max-width: 540px;height: 500px;margin: 0px auto;"></div>
+
+    <script type="text/javascript">
+      /*
+Radar chart with seamless column series resembling a step area type.
+Learn how to:
+
+  - Adjust column spacing on radar chart.
+*/
+      // JS
+      var chart = JSC.chart('chartDiv', {
+        debug: true,
+        type: 'radar polar column solid',
+        legend_visible: false,
+        yAxis_formatString: 'c',
+        xAxis: {
+          spacingPercentage: -0.01,
+          defaultTick_label_style_fontSize: '13px'
+        },
+        title: { position: 'center', label_text: '2020 Sales' },
+        defaultSeries: {
+          opacity: 0.7,
+          defaultPoint: {
+            outline_width: 0,
+            marker: { outline_color: 'white', size: 12 }
+          }
+        },
+        series: [
+          {
+            name: 'Annual Sales',
+            points: [
+              { name: 'Jan', y: 166 },
+              { name: 'Feb', y: 128 },
+              { name: 'Mar', y: 149 },
+              { name: 'Apr', y: 166 },
+              { name: 'May', y: 222 },
+              { name: 'Jun', y: 152 },
+              { name: 'Jul', y: 125 },
+              { name: 'Aug', y: 66 },
+              { name: 'Sep', y: 127 },
+              { name: 'Oct', y: 142 },
+              { name: 'Nov', y: 158 },
+              { name: 'Dec', y: 197 }
+            ]
+          }
+        ]
+      });
+    </script>
+  </body>
+</html>

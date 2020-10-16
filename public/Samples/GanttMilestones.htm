@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Gantt Milestone Chart | JSCharting</title>
+    <meta http-equiv="content-type" content="text-html; charset=utf-8" />
+
+    <script type="text/javascript" src="../jsc/jscharting.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="css/default.css" />
+    <style type="text/css">
+      /*CSS*/
+    </style>
+  </head>
+  <body>
+    <div id="chartDiv" style="max-width: 740px;height: 400px;margin: 0px auto;"></div>
+
+    <script type="text/javascript">
+      /*
+Advanced Gantt chart with slack time, markers, and milestones.
+Learn how to:
+
+  - Create a gantt chart with slack time, markers, and milestones.
+*/
+      // JS
+      var config = {
+        debug: true,
+        /*Typical Gantt setup. Horizontal columns by default.*/
+        type: 'horizontal column',
+        /*Make columns overlap.*/
+        zAxisScaleType: 'stacked',
+        /*Time Y Axis.*/
+        yAxis_scale_type: 'time',
+        legend_position: 'bottom',
+        title_label_text: 'Project Beta from %min to %max',
+
+        yAxis: {
+          markers: [
+            {
+              value: '4/20/2020',
+              color: '#b0be5f',
+              label_text: 'Meeting'
+            },
+            {
+              value: ['3/1/2020', '3/30/2020'],
+              color: ['orange', 0.5],
+              label_text: 'Vacation'
+            }
+          ]
+        },
+        defaultSeries: {
+          defaultPoint: {
+            legendEntry: {
+              value: '{days(%max-%min):number n0} days'
+            },
+            tooltip: '<b>%name</b> <br/>%low - %high<br/>{days(%high-%low)} days',
+            marker_type: 'diamond'
+          },
+          firstPoint: {
+            xAxisTick: { label: { text: '<b>%name</b>', style: { fontSize: '14px' } } },
+            outline: { color: 'darkenMore', width: 3 }
+          }
+        },
+        series: [
+          {
+            name: 'Initiate Project',
+            points: [
+              {
+                name: 'Initiate Project',
+                y: ['1/1/2020', '3/15/2020']
+              },
+              {
+                name: 'Project Assignments',
+                y: ['1/1/2020', '1/25/2020']
+              },
+              {
+                name: 'Outlines/Scope',
+                y: ['1/25/2020', '2/15/2020']
+              },
+              {
+                name: 'Business Alignment',
+                y: ['2/15/2020', '3/15/2020']
+              }
+            ]
+          },
+          {
+            name: 'Plan Project',
+            points: [
+              {
+                name: 'Plan Project',
+                y: ['3/15/2020', '5/20/2020']
+              },
+              {
+                name: 'Determine Process',
+                y: ['3/15/2020', '4/12/2020']
+              },
+              {
+                name: 'Design Lyouts',
+                y: ['4/12/2020', '5/8/2020']
+              },
+              {
+                name: 'Design Structure',
+                y: ['5/8/2020', '5/20/2020']
+              }
+            ]
+          },
+          {
+            name: 'Implement Project',
+            points: [
+              {
+                name: 'Implement Project',
+                y: ['5/20/2020', '7/28/2020']
+              },
+              {
+                name: 'Designs',
+                y: ['5/20/2020', '6/10/2020']
+              },
+              {
+                name: 'Structures',
+                y: ['6/10/2020', '6/15/2020']
+              },
+              {
+                name: 'D&S Integration',
+                y: ['6/15/2020', '7/28/2020']
+              }
+            ]
+          },
+          {
+            name: 'Board Review',
+            type: 'marker',
+            legendEntry_value: '',
+            defaultPoint: { tooltip: '%name Meeting Milestone' },
+            points: [
+              {
+                name: 'Plan Project',
+                y: '5/20/2020'
+              },
+              {
+                name: 'Implement Project',
+                y: '7/28/2020'
+              }
+            ]
+          }
+        ]
+      };
+      config.series.push(getRangeOverlaySeries(config.series, '3/1/2020', '3/30/2020'));
+      var chart = JSC.chart('chartDiv', config);
+
+      /**
+       * Automatically generate a series (slack time) that overlaps data points in the specified series for the given date ranges.
+       * @param series
+       * @param date1
+       * @param date2
+       * @returns {{name: string, defaultPoint: {color: string, tooltip: string}, points: Array}}
+       */
+      function getRangeOverlaySeries(series, date1, date2) {
+        date1 = normalizeValue(date1);
+        date2 = normalizeValue(date2);
+        var newSer = {
+            name: 'Slack',
+            legendEntry_value: '',
+            defaultPoint: {
+              opacity: 0.8,
+              color: 'white',
+              tooltip: '%name (slack time)'
+            },
+            points: []
+          },
+          y1,
+          y2,
+          points = newSer.points;
+        series.forEach(function(ser) {
+          ser.points.forEach(function(point) {
+            if (point.y.length) {
+              y1 = normalizeValue(point.y[0]);
+              y2 = normalizeValue(point.y[1]);
+              if (date2 > y1 && date1 < y2) {
+                points.push({ name: point.name, y: [date1 > y1 ? date1 : y1, date2 < y2 ? date2 : y2] });
+              }
+            }
+          });
+        });
+        return newSer;
+
+        function normalizeValue(v) {
+          return typeof v === 'string' ? Date.parse(v) : v;
+        }
+      }
+    </script>
+  </body>
+</html>

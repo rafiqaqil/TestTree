@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Box Positions | JSCharting</title>
+    <meta http-equiv="content-type" content="text-html; charset=utf-8" />
+
+    <script type="text/javascript" src="../jsc/jscharting.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="css/default.css" />
+    <style type="text/css">
+      /*CSS*/
+    </style>
+  </head>
+  <body>
+    <div id="chartDiv" style="width: 790px;height: 400px;margin: 0px auto;"></div>
+
+    <script type="text/javascript">
+      /*
+Many annotations showing how items are positioned and stacked around the chartArea.
+Learn how to:
+
+  - Draw annotations with specific positioned.
+*/
+      // JS
+      var positions = 'top left,top,top right,right top,right,bottom right,right bottom,bottom,bottom left,left bottom,left,left top'.split(
+        ','
+      );
+
+      var chart = JSC.chart('chartDiv', {
+        debug: true,
+        defaultBox: { outline_width: 1 },
+        chartArea_outline_width: 1,
+        defaultAnnotation: {
+          outline_color: '#b3bccf',
+          fill: ['#fff', '#e7ecf3', 90],
+          margin: 2
+        },
+        annotations: generateAnnotations(),
+        toolbar_visible: false
+      });
+
+      function generateAnnotations() {
+        var result = [
+          {
+            position: 'inside center',
+            boxVisible: false,
+
+            label: {
+              text: 'Annotation, uiItems, and legend <br>positioning layout around the chartArea.',
+              align: 'center'
+            }
+          }
+        ];
+        result = result.concat(
+          positions.map(function(pos) {
+            return { position: pos, label_text: pos };
+          })
+        );
+        positions.push('center');
+        result = result.concat(
+          positions.map(function(pos) {
+            return {
+              position: 'inside ' + pos,
+              label_text: 'inside ' + pos
+            };
+          })
+        );
+
+        //Double and Triple them
+        result = result.concat(
+          positions.map(function(pos) {
+            return { position: pos, label_text: pos };
+          })
+        );
+        result = result.concat(
+          positions.map(function(pos) {
+            return {
+              position: 'inside ' + pos,
+              label_text: 'inside ' + pos
+            };
+          })
+        );
+        return result;
+      }
+    </script>
+  </body>
+</html>

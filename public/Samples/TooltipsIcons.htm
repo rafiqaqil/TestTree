@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Tooltips Icons | JSCharting</title>
+    <meta http-equiv="content-type" content="text-html; charset=utf-8" />
+
+    <script type="text/javascript" src="../jsc/jscharting.js"></script>
+
+    <script type="text/javascript" src="../jsc/icons/material/places/all.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="css/default.css" />
+    <style type="text/css"></style>
+  </head>
+  <body>
+    <div id="chartDiv" style="max-width: 740px;height: 400px;margin: 0px auto;"></div>
+
+    <script type="text/javascript">
+      /*
+Demonstrates tooltip styling but using automatic colorizing.
+Learn how to:
+
+  - Specify default tooltip label tokens with HTML.
+  - Apply styling to the tooltip visual.
+*/
+      // JS
+      var chart = JSC.chart('chartDiv', {
+        debug: true,
+        title_label_text: 'Resort Revenue',
+        defaultSeries: {
+          type: 'column',
+          defaultPoint_tooltip:
+            '<icon name=%icon size=16 fill=%color verticalAlign=center> in %name: %yValue <br/>%percentOfSeries% of %seriesName<br/>%percentOfGroup% of %name'
+        },
+        yAxis_scale_type: 'stacked',
+        series: [
+          {
+            name: 'Breakfast',
+            legendEntry_icon: 'material/places/breakfast',
+            defaultPoint_attributes_icon: 'material/places/breakfast',
+            points: [{ name: 'Q1', y: 230 }, { name: 'Q2', y: 240 }, { name: 'Q3', y: 267 }, { name: 'Q4', y: 238 }]
+          },
+          {
+            name: 'Casino',
+            legendEntry_icon: 'material/places/casino',
+            defaultPoint_attributes_icon: 'material/places/casino',
+            points: [{ name: 'Q1', y: 325 }, { name: 'Q2', y: 367 }, { name: 'Q3', y: 382 }, { name: 'Q4', y: 371 }]
+          },
+          {
+            name: 'Spa',
+            legendEntry_icon: 'material/places/spa',
+            defaultPoint_attributes_icon: 'material/places/spa',
+            points: [{ name: 'Q1', y: 285 }, { name: 'Q2', y: 292 }, { name: 'Q3', y: 307 }, { name: 'Q4', y: 208 }]
+          },
+          {
+            name: 'Service',
+            legendEntry_icon: 'material/places/service',
+            defaultPoint_attributes_icon: 'material/places/service',
+            points: [{ name: 'Q1', y: 185 }, { name: 'Q2', y: 192 }, { name: 'Q3', y: 198 }, { name: 'Q4', y: 278 }]
+          }
+        ]
+      });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Map Filtered | JSCharting</title>
+    <meta http-equiv="content-type" content="text-html; charset=utf-8" />
+
+    <script type="text/javascript" src="../jsc/jscharting.js"></script>
+
+    <script type="text/javascript" src="../jsc/modules/maps.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="css/default.css" />
+    <style type="text/css">
+      /*CSS*/
+    </style>
+  </head>
+  <body>
+    <div id="chartDiv" style="max-width: 740px;height: 400px;margin: 0px auto;"></div>
+
+    <script type="text/javascript">
+      /*
+Points created for specific map features.
+Learn how to:
+
+  - Mapping base layers from mapCodes.
+  - Map points from mapCodes.
+*/
+      // JS
+      var borderingProvinces = 'BN,SO,CH,TM,CA,NL';
+
+      var chart = JSC.chart('chartDiv', {
+        debug: true,
+        chartArea_fill: '#b6d9ff',
+        type: 'map',
+        toolbar_visible: false,
+        legend_visible: false,
+
+        title_label_text: 'Mexico Provinces Bordering US',
+        defaultPoint_tooltip: '%name (%mapCode)',
+        mapping_base_layers: 'MX,US',
+
+        series: [
+          {
+            name: 'Bordering US',
+            color: '#7a96e0',
+            points: borderingProvinces.split(',').map(function(id) {
+              return { map: 'MX.' + id };
+            })
+          }
+        ]
+      });
+    </script>
+  </body>
+</html>

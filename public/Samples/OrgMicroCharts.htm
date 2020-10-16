@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Microchart Organizational Chart | JSCharting</title>
+    <meta http-equiv="content-type" content="text-html; charset=utf-8" />
+
+    <script type="text/javascript" src="../jsc/jscharting.js"></script>
+
+    <script type="text/javascript" src="../jsc/modules/types.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="css/default.css" />
+    <style type="text/css"></style>
+  </head>
+  <body>
+    <div id="chartDiv" style="width: 800px; height: 540px; margin: 0px auto; overflow: hidden;"></div>
+
+    <script type="text/javascript">
+      /*
+Organizational chart with microcharts.
+Learn how to:
+
+  - Use microcharts with organizational chart.
+*/
+      // JS
+      var chart;
+
+      JSC.fetch('./resources/orgData.csv')
+        .then(function(response) {
+          return response.text();
+        })
+        .then(function(text) {
+          var data = JSC.csv2Json(text);
+          chart = renderChart(makeSeries(data));
+        });
+
+      function renderChart(series) {
+        return JSC.chart('chartDiv', {
+          type: 'organization down',
+          defaultSeries: {
+            line: { width: 1, color: '#e0e0e0' }
+          },
+          defaultTooltip: { outline: 'none', zIndex: 10 },
+          defaultPoint: {
+            focusGlow_width: 0,
+            tooltip: 'Phone: <b>%phone</b><br>Email: <b>%email</b><br>Address: <b>%address</b>',
+            annotation: {
+              margin: 5,
+              label: {
+                style_fontSize: 10,
+                text:
+                  '<span style="font-size:11px;"><span style="align:center;"><span style="font-size:12px;"><b>%position</b></span><br/>' +
+                  '<img width=50 height=50 align=center margin_bottom=4 margin_top=4 src=%photo><br/>' +
+                  '%name<br/><br/></span>' +
+                  '%quality<br/>' +
+                  '%initiative<br/>' +
+                  '%cooperativee</span>',
+                maxWidth: 140,
+                style_fontWeight: 'normal',
+                align: 'left'
+              }
+            },
+            outline_width: 0,
+            color: 'white'
+          },
+          series: series
+        });
+      }
+
+      function makeSeries(data) {
+        var barColors = [
+          { value: 3, color: '#ffca28' },
+          { value: 4, color: '#d4e157' },
+          { value: 5, color: '#66bb6a' }
+        ];
+
+        function getColor(val) {
+          for (var i = 0; i < barColors.length; i++) {
+            if (val == barColors[i].value) return barColors[i].color;
+          }
+        }
+
+        return [
+          {
+            points: JSC.nest()
+              .key('name')
+              .pointRollup(function(key, val) {
+                var result = {
+                  name: key,
+                  id: val[0].id,
+                  parent: val[0].parent,
+                  attributes: {
+                    position: val[0].position,
+                    phone: val[0].phone,
+                    address: val[0].address,
+                    email: val[0].email,
+                    photo: 'images/avatar' + val[0].photo + '.png',
+                    quality:
+                      '<chart width=28 height=10 color=' +
+                      getColor(val[0].work_quality) +
+                      ' type=bar data=' +
+                      val[0].work_quality +
+                      ' max=5> - Quality of work',
+                    initiative:
+                      '<chart width=28 height=10 color=' +
+                      getColor(val[0].initiative) +
+                      ' type=bar data=' +
+                      val[0].initiative +
+                      ' max=5> - Initiative',
+                    cooperative:
+                      '<chart width=28 height=10 color=' +
+                      getColor(val[0].cooperative) +
+                      ' type=bar data=' +
+                      val[0].cooperative +
+                      ' max=5> - Cooperative'
+                  }
+                };
+                if (result.id == 'md') {
+                  result.annotation_label_text =
+                    '<span style="align:center;font-size:13px;"><img width=70 height=70 align=center margin_bottom=4 src=%photo><br/><span style="font-size:14px;"><b>%position</b></span><br/>%name<br/></span>';
+                }
+                return result;
+              })
+              .points(data)
+          }
+        ];
+      }
+    </script>
+  </body>
+</html>

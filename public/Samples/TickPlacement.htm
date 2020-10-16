@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Tick Placement | JSCharting</title>
+    <meta http-equiv="content-type" content="text-html; charset=utf-8" />
+
+    <script type="text/javascript" src="../jsc/jscharting.js"></script>
+
+    <script type="text/javascript" src="../jsc/modules/toolbar.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="css/default.css" />
+    <style type="text/css"></style>
+  </head>
+  <body>
+    <div id="chartDiv" style="max-width: 740px;height: 400px;margin: 0px auto;"></div>
+
+    <script type="text/javascript">
+      /*
+Dynamic tick placement.
+Learn how to:
+
+  - Modify axis tick placement in real-time.
+*/
+      // JS
+      var chart = JSC.chart('chartDiv', {
+        debug: true,
+        type: 'spline',
+        defaultSeries: { opacity: 0.7 },
+        legend_visible: false,
+        toolbar_items: {
+          export_visible: false,
+          'X Axis Inside Placement': {
+            position: 'ca:top',
+            type: 'checkbox',
+            label_style_fontSize: 13,
+            margin: 15,
+            events_change: changePlacementX
+          },
+          'Y Axis Inside Placement': {
+            position: 'ca:top',
+            type: 'checkbox',
+            label_style_fontSize: 13,
+            margin: 15,
+            events_change: changePlacementY
+          }
+        },
+        xAxis: { scale_type: 'time' },
+        series: [
+          {
+            name: 'Purchases',
+            points: [
+              ['1/1/2020', 29.9],
+              ['1/2/2020', 71.5],
+              ['1/3/2020', 106.4],
+              ['1/6/2020', 129.2],
+              ['1/7/2020', 144.0],
+              ['1/8/2020', 176.0]
+            ]
+          }
+        ]
+      });
+
+      function changePlacementX(val) {
+        chart.axes('x').options({
+          defaultTick_placement: val ? 'inside' : 'outside',
+          defaultMinorTick_placement: val ? 'inside' : 'outside'
+        });
+      }
+
+      function changePlacementY(val) {
+        chart.axes('y').options({
+          defaultTick: {
+            placement: val ? 'inside' : 'outside',
+            label_offset: val ? '0,-10' : '0,0'
+          }
+        });
+      }
+    </script>
+  </body>
+</html>

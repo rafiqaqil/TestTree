@@ -1,0 +1,170 @@
+<h2>Introduction</h2>
+<p>The uiItem toolbar allows adding simple controls like dropdown, radio, checkbox, and standard button to any chart
+    easily
+    through a simple API. This coupled with the
+    <a href="Tutorials.fpApi">FP API</a> allows adding controls to manipulate the easily manipulate chart features and data.
+</p>
+
+<p>By embedding UI controls inside a chart, it can add additional dimensions to the data visualization experience. Users
+    can select different aspects of the data set to visualize. UiItem labels support micro charts and can be used like
+    KPI indicators that select different data to display on the main chart.</p>
+
+<p>Some possible uses of chart uiItems include:</p>
+<ul>
+    <li>Selection of data sets to compare</li>
+    <li>Selection of data to view such as a dropdown for months of the year</li>
+    <li>Change the visualization (chart/series type).</li>
+    <li>Enable or disable features such as AxisMarkers, or labels.</li>
+</ul>
+
+<p>Let's look at a code snippet of a button that refreshes the chart data.</p>
+<span class="codeText">
+	new JSC.Chart({toolbar_items:{'Refresh':{events_click: function(){chart.options(getData())}}}});
+</span>
+<p>UiItems inherit from annotations and each uiItem can have a collection of uiItems that represent a nested hierarchy.
+    The
+    child items are defined through the items property:</p>
+
+<span class="codeText">
+	{ items:{ 'ButtonA':{/*...*/},'ButtonB':{items:{ChildOfB1:{},ChildOfB2:{}}} } }
+</span>
+
+
+<p></p>
+<p></p>
+
+<h2>UiItem Basic Properties</h2>
+<p>Each item can have a</p>
+<ul>
+    <li>Label</li>
+    <li>Icon</li>
+    <li>Type</li>
+    <li>States</li>
+    <li>Events</li>
+    <li>Items</li>
+</ul>
+
+<h3>Label</h3>
+<p>The label is defined through item.label. However, if no label or icon is defined to represent the item visually, the
+    item
+    name is used as the label text. To make the item have no visual representation, this can be overwritten with:</p>
+
+
+<span class="codeText">
+	{ items:{ 'OptionA':{label_text:''} } }
+</span>
+
+<p>This will make the item label invisible. </p>
+
+<span class="docsTip">
+	Labels can also display the item's value by using the
+	<span class="example">&#39;%value&#39;</span> token in the label text. For example, a dropdown item uses
+	<span class="example">&#39;%value&#39;</span> label text to display the selected items.
+</span>
+
+<h3>Icon</h3>
+
+<p>The icon can be used by itself to represent the item visually or in combination with a label. The icon has a position
+    property
+    that specifies its position in relation to the label. In this example, the icon will appear to the right of the label:</p>
+
+
+<span class="codeText">
+	{ label:{text:'Settings'}, icon:{ name:'system/default/settings', position:'right' } }
+</span>
+
+<p>This code will position the icon is on the right side of the label.</p>
+
+<h3>States</h3>
+<p>State properties can be set with options that the item will use when it is in the respective state.</p>
+<p>Items can have the following states:</p>
+
+<ul>
+    <li>Normal</li>
+    <li>Hover</li>
+    <li>Select</li>
+</ul>
+<p>The select state is used with items that represent a Boolean value or a button when it is depressed.</p>
+
+<h3>Type</h3>
+
+<p>The <a href="Types.uiItem.type">type property</a> specifies the item behavior and value handling. It accepts a <a href="Enums.uiItemType">uiItemType</a>. Some type settings are also used to define default
+    presets
+    that apply a number of settings for the item. See 'Shortcut Types' below.</p>
+<ul>
+    <li>select</li>
+    <li>selectMultiple</li>
+    <li>option</li>
+    <li>range</li>
+    <li>file</li>
+</ul>
+
+<p>The type
+    <span class="example">&#39;option&#39;</span> indicates an item with a Boolean value (true or false). It can exist
+    at the root of uiItems hierarchy
+    without a parent or with a parent item having type select or SelectMultiple. </p>
+<p>Select and select multiple encompasses a set of child
+    <span class="example">&#39;option&#39;</span>
+    uiItems and indicates whether their values can be mutually exclusive or not. These child items will have their type
+    set to
+    <span class="example">&#39;option&#39;</span> by default.</p>
+
+<h4>Simple dropdown example</h4>
+<span class="codeText">
+	chart.options({ toolbar:{ items:{ 'simple dropdown':{ type:'select', items:{ 'optionA':{ },'optionB':{ },'optionC':{ } }
+	} } } });
+</span>
+
+<h4>Shortcut Types</h4>
+<p>In addition to the above types, there are also these shortcuts which extend type
+    <span class="example">&#39;option&#39;</span> type with additional styling settings:
+</p>
+<ul>
+    <li>checkbox</li>
+    <li>radio</li>
+    <li>toggle</li>
+</ul>
+
+<!--<p>These types add the checkbox and radio icons to represent their true/false states.
+</p>-->
+
+<span class="docsCaution">
+	The
+	<span class="example">&#39;radio&#39;</span> type shortcut only defines the icon. It must be wrapped in a type:
+	<span class="example">&#39;select&#39;</span> parent item in order to be grouped and work as mutually exclusive select state item.
+</span>
+
+<h3>Items</h3>
+<p>Child items are defined through the items property as keyed values as shown above.</p>
+<p>These items are displayed with a box that is configured though the itemsBox property. One useful property is
+    itemsBox.visible
+    which indicates whether child items are visible by default or require a click on the parent item to display. </p>
+<p>The items can all be set at the same time by setting the shared options on the defaultItem property.</p>
+
+<h3>Events</h3>
+<p>Items are able to trigger the following event names:</p>
+<ul>
+    <li>click</li>
+    <li>change</li>
+    <li>mouseover</li>
+    <li>mouseout</li>
+</ul>
+<p>The event handlers are invoked with arguments (value, uiItem). The uiItem has a chart property which references the chart the item is part of.</p>
+<p>When a click event handler is defined it indicates that the item might be a button. If other setting do not
+    contradict this,
+    the item will take on the appearance of a button. </p>
+<span class="docsTip">
+	The mouseover and mouseout events are available, but they should not be used to control styling. Instead, use the states
+	settings.
+</span>
+<p>The change event is fired when the item value changes.</p>
+
+
+<h3>Positioning</h3>
+<p>Items can be positioned inside or outside chart area on any side or corner of chart area box by setting the item.position
+    property. See <a href="Samples.boxPositions">orientation value</a>
+    for example position values.</p>
+
+<p>Items that use the same position are stacked to prevent overlaps. Since uiItems extend annotations, they
+    utilize
+    the same positioning system.</p>

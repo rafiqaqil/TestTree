@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Data Grid Deep | JSCharting</title>
+    <meta http-equiv="content-type" content="text-html; charset=utf-8" />
+
+    <script type="text/javascript" src="../jsc/jscharting.js"></script>
+
+    <script type="text/javascript" src="../jsc/modules/datagrid.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="css/default.css" />
+    <style type="text/css">
+      /*CSS*/
+    </style>
+  </head>
+  <body>
+    <div style="max-width: 450px;margin: 0px auto;">
+      <p>Build columns using nested properties.</p>
+      <pre>
+var data = [
+  {name: {first: 'Reiss', last: 'Hughes'}, value1: 5, value2: [9,10]},
+  {name: {first: 'Louis', last: 'Vasquez'}, value1: 3, value2: [3,4]},
+   ...
+</pre
+      >
+      <div id="grid" style="max-width: 440px;margin: 0px auto;"></div>
+    </div>
+
+    <script type="text/javascript">
+      /*
+Stand-alone data grid with nested JSON values.
+Learn how to:
+
+  - Display nested JSON properties in a data grid.
+*/
+      // JS
+      var data = [
+        { name: { first: 'Reiss', last: 'Hughes' }, value1: 5, value2: [9, 10] },
+        { name: { first: 'Louis', last: 'Vasquez' }, value1: 3, value2: [3, 4] },
+        { name: { first: 'Donnie', last: 'Bates' }, value1: 2, value2: [4, 1] },
+        { name: { first: 'Nelson', last: 'Conrad' }, value1: 6, value2: [6, 5] },
+        { name: { first: 'Hira', last: 'Glass' }, value1: 7, value2: [7, 2] }
+      ];
+      var grid = new JSC.Grid('grid', {
+        data: data,
+        headerCol: true,
+        columns: [
+          { header: 'First Name', value: '%name.first' },
+          { header: 'Last Name', value: '%name.last' },
+          { header: 'Value One', value: '%value1', align: 'right' },
+          { header: 'Value Two', value: '%value2.0 and %value2.1', align: 'center' },
+          { header: 'Sum', value: '{%value1+%value2.0+%value2.1}', align: 'right' }
+        ]
+      });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Milestone Trends Chart | JSCharting</title>
+    <meta http-equiv="content-type" content="text-html; charset=utf-8" />
+
+    <script type="text/javascript" src="../jsc/jscharting.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="css/default.css" />
+    <style type="text/css">
+      /*CSS*/
+    </style>
+  </head>
+  <body>
+    <div id="chartDiv" style="max-width: 740px;height: 400px;margin: 0px auto;"></div>
+
+    <script type="text/javascript">
+      /*
+Milestone trend analysis using dual time axes.
+Learn how to:
+
+  - Use Time Y Axis.
+*/
+      // JS
+      var chart = JSC.chart('chartDiv', {
+        debug: true,
+        title_label_text: 'Milestone Trend Analysis',
+        type: 'line',
+        defaultAxis: {
+          defaultTick_gridLine_color: '#c0c0c0',
+          defaultMinorTick_gridLine_color: '#c0c0c0'
+        },
+        xAxis: {
+          scale_type: 'time',
+          label_text: 'Snapshot Date',
+          scale_range_max: '6/1/2020',
+          orientation: 'opposite'
+        },
+
+        yAxis: {
+          label_text: 'Milestone Date',
+          scale: { type: 'time', range: ['1/1/2020', '10/1/2020'] }
+        },
+
+        legend: {
+          position: 'inside right',
+          template: '%icon,%name'
+        },
+
+        series: [
+          {
+            name: 'Plan',
+            points: [
+              { x: '1/1/2020', y: '7/1/2020' },
+              { x: '2/1/2020', y: '7/1/2020' },
+              { x: '3/1/2020', y: '8/1/2020' },
+              { x: '4/1/2020', y: '9/1/2020' },
+              { x: '5/1/2020', y: '8/1/2020' }
+            ]
+          },
+          {
+            name: 'Implement',
+            points: [
+              { x: '1/1/2020', y: '6/1/2020' },
+              { x: '2/1/2020', y: '6/1/2020' },
+              { x: '3/1/2020', y: '6/15/2020' },
+              { x: '4/1/2020', y: '6/7/2020' }
+            ]
+          },
+          {
+            name: 'Test',
+            points: [
+              { x: '1/1/2020', y: '4/1/2020' },
+              { x: '2/1/2020', y: '4/16/2020' },
+              { x: '3/1/2020', y: '5/1/2020' }
+            ]
+          },
+          {
+            name: 'Clip',
+            type: 'area',
+            defaultPoint_marker_type: 'none',
+            legendEntry_visible: false,
+            color: '#ffffff',
+            points: [{ x: '1/1/2020', y: '1/1/2020' }, { x: '7/1/2020', y: '10/1/2020' }]
+          }
+        ]
+      });
+    </script>
+  </body>
+</html>

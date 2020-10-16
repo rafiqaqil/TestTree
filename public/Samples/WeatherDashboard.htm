@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Weather Calendar Dashboard | JSCharting</title>
+    <meta http-equiv="content-type" content="text-html; charset=utf-8" />
+
+    <script type="text/javascript" src="../jsc/jscharting.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="css/default.css" />
+    <style type="text/css"></style>
+  </head>
+  <body>
+    <div id="chart1" style="max-width: 680px;height: 560px;margin: 20px auto;"></div>
+    <div id="chart2" style="max-width: 680px;height: 340px;margin: 20px auto;"></div>
+    <div id="chart3" style="max-width: 680px;height: 340px;margin: 20px auto;"></div>
+
+    <script type="text/javascript">
+      /*
+Interactive Calendar based weather dashboard.
+Learn how to:
+
+  - Load csv heatmap data into a calendar chart.
+*/
+      // JS
+      var chart1, chart2, chart3, grid1, data;
+      var windToIcon = {
+        E: 90,
+        ENE: 67.5,
+        ESE: 112.5,
+        N: 0,
+        NE: 45,
+        NNE: 22.5,
+        NNW: 337.5,
+        NW: 315,
+        S: 180,
+        SE: 135,
+        SSE: 157.5,
+        SSW: 202.5,
+        SW: 225,
+        W: 270,
+        WNW: 292.5,
+        WSW: 247.5
+      };
+      var weatherToIcon = {
+        Cloudy: '<icon name=weather/cloud color=#A5D5F5 ',
+        Drizzle: '<icon name=weather/drizzle color=#77B3DB ',
+        'Light Rain': '<icon name=weather/drizzle color=#77B3DB ',
+        Fair: '<icon name=weather/sun color=#FCCE3A ',
+        Haze: '<icon name=weather/fog color=#77B3DB ',
+        Mist: '<icon name=weather/fog color=#77B3DB ',
+        'Light Drizzle': '<icon name=weather/mistyrain color=#77B3DB ',
+        'Mostly Cloudy': '<icon name=weather/variable-sun color=#C5E4F9 ',
+        'Partly Cloudy': '<icon name=weather/variable-sun color=#C5E4F9 ',
+        Rain: '<icon name=weather/rain color=#4E94C4 '
+      };
+      JSC.fetch('./resources/London_weather.csv')
+        .then(function(response) {
+          return response.text();
+        })
+        .then(function(text) {
+          data = JSC.csv2Json(text);
+          makeChart();
+          makeDayChart(new Date(2018, 0, 1));
+          made5DayChart(new Date(2018, 0, 1));
+        });
+      function getCalendarData() {
+        return JSC.nest()
+          .key({ key: 'date', pattern: 'day' })
+          .pointRollup(function(key, values) {
+            var result = {
+              date: key,
+              selected: false,
+              attributes: {
+                weatherIcon:
+                  weatherToIcon[
+                    values.map(function(a) {
+                      return a.condition;
+                    })[3]
+                  ] + 'size=26 margin_bottom=6>',
+                minTemp: JSC.min(values, 'temp'),
+                maxTemp: JSC.max(values, 'temp'),
+                condition: values.map(function(a) {
+                  return a.condition;
+                })[3]
+              },
+              label_text:
+                '<span style="align:left;font-size:11px;color:#64b5f6"><b>%name</b></span><br>' +
+                weatherToIcon[
+                  values.map(function(a) {
+                    return a.condition;
+                  })[3]
+                ] +
+                'size=26 margin_bottom=6>' +
+                '<br><span style="font-size:12px; color:#b0bec5">' +
+                values.map(function(a) {
+                  return a.condition;
+                })[3] +
+                '</span><br><span style="font-size:16px; color:#546e7a">' +
+                JSC.max(values, 'temp') +
+                '°/</span><span style="font-size:12px;color:#b0bec5">' +
+                JSC.min(values, 'temp') +
+                '°F</span>'
+            };
+            if (JSC.formatDate(key, 'd') == '1/1/2018') {
+              result.selected = true;
+            }
+            return result;
+          })
+          .series(data);
+      }
+      function makeChart() {
+        chart1 = JSC.chart('chart1', {
+          type: 'calendar month solid',
+          calendar_calculation: 'average',
+          legend_visible: false,
+          title: {
+            label_text: 'London, United Kingdom<br>January 2018',
+            style_fontSize: 16
+          },
+          calendar: {
+            range: ['1/1/2018', '1/31/2018'],
+            defaultEdgePoint: { mouseTracking: false, label_visible: false, color: 'white', outline_width: 0 }
+          },
+          defaultTooltip_enabled: false,
+
+          yAxis_visible: false,
+          xAxis_line_visible: false,
+          defaultSeries: {
+            shape_innerPadding: 3,
+            pointSelection: true,
+            defaultPoint: {
+              states_hover_fill: '#f3faff',
+              states_select_fill: '#f3faff',
+              focusGlow_width: 0,
+              outline: { width: 0, color: '#f3faff' },
+              label: {
+                align: 'center',
+                verticalAlign: 'top'
+              },
+              events_click: pointClick
+            }
+          },
+          toolbar_visible: false,
+          series: getCalendarData()
+        });
+        function pointClick() {
+          var point = this;
+          var pointDate = new Date(point.tokenValue('%date'));
+          setTimeout(function() {
+            makeDayChart(pointDate);
+            made5DayChart(pointDate);
+          }, 100);
+        }
+      }
+
+      function makeDayChart(date) {
+        var ticks = {};
+        var myNest = JSC.nest().key({
+          key: 'date',
+          pattern: { hour: '*', every: 3 },
+          range: [JSC.formatDate(date, 'd') + ' 00:00', JSC.formatDate(date, 'd') + ' 22:00']
+        });
+        var tempPoints = myNest
+          .pointRollup(function(key, values) {
+            ticks[JSC.formatDate(key, 't')] =
+              JSC.formatDate(key, 't').replace(/:00/g, '') +
+              '<br>' +
+              weatherToIcon[
+                values.map(function(a) {
+                  return a.condition;
+                })[0]
+              ] +
+              'size=40 margin=5><br><span style="font-size:12px; color:#b0bec5">' +
+              values.map(function(a) {
+                return a.condition;
+              })[0] +
+              '</span>';
+            return {
+              x: key,
+              y: values.map(function(a) {
+                return a.temp;
+              })[0],
+              tooltip: '<b>%seriesName:</b> %value°F',
+              label: {
+                visible: true,
+                text: '%value°F',
+                verticalAlign: 'top',
+                align: 'center'
+              }
+            };
+          })
+          .points(data);
+        var windPoints = myNest
+          .pointRollup(function(key, values) {
+            return {
+              x: key,
+              y: values.map(function(a) {
+                return a.wind_speed;
+              })[0],
+              tooltip:
+                '<b>%seriesName:</b> ' +
+                values.map(function(a) {
+                  return a.wind;
+                })[0] +
+                ' %value mph',
+              marker: {
+                visible: true,
+                type: 'linear/basic/paperplane',
+                size: 20,
+                rotate:
+                  windToIcon[
+                    values.map(function(a) {
+                      return a.wind;
+                    })[0]
+                  ] - 135,
+                outline_width: 0
+              }
+            };
+          })
+          .points(data);
+        var humidityPoints = myNest
+          .pointRollup(function(key, values) {
+            return {
+              x: key,
+              y: values.map(function(a) {
+                return a.humidity;
+              })[0],
+              tooltip: '<b>%seriesName:</b> %value%',
+              label: {
+                text:
+                  '<icon path="m8.1 10c.3 0 .6-.3.6-.6s-.3-.6-.6-.6-.6.2-.6.6c0 .3.3.6.6.6zm3.8 5c-.3 0-.6.3-.6.6s.3.6.6.6.6-.3.6-.6-.3-.6-.6-.6zm1.6-10.6c-1-1.3-2.1-2.7-2.9-4.1-.2-.2-.4-.3-.6-.3s-.4.1-.5.3c-.9 1.5-1.9 2.8-3 4.1-2.1 2.6-4 5.1-4 8.1 0 4.1 3.4 7.5 7.5 7.5s7.5-3.4 7.5-7.5c0-3-2-5.5-4-8.1zm-5.4 3.1c1 0 1.9.8 1.9 1.9s-.8 1.9-1.9 1.9-1.9-.8-1.9-1.9.9-1.9 1.9-1.9zm-.8 8.6c-.1.1-.3.2-.4.2s-.3-.1-.4-.2c-.2-.2-.2-.6 0-.9l6.3-6.3c.2-.2.6-.2.9 0 .2.2.2.6 0 .9zm4.6 1.4c-1 0-1.9-.8-1.9-1.9s.8-1.9 1.9-1.9 1.9.8 1.9 1.9-.9 1.9-1.9 1.9z" size=12> %value%',
+                placement: 'inside'
+              }
+            };
+          })
+          .points(data);
+
+        chart2 = JSC.chart('chart2', {
+          type: 'line spline',
+          debug: false,
+          legend_visible: false,
+          animation: false,
+          toolbar_visible: false,
+          title_label: {
+            text: JSC.formatDate(date, 'm'),
+            style_fontSize: 16
+          },
+          yAxis: [
+            {
+              id: 'y1',
+              visible: false,
+              orientation: 'left',
+              scale_range: [-20, 70]
+            },
+            {
+              id: 'y2',
+              visible: false,
+              orientation: 'right',
+              scale_range: [0, 400]
+            },
+            {
+              id: 'y3',
+              visible: false,
+              orientation: 'right',
+              scale_range: [-20, 30]
+            }
+          ],
+          palette: ['#eceff1', '#6db3f0', '#1e88e5'],
+          xAxis: {
+            defaultTick: {
+              line_visible: false,
+              gridLine_visible: false,
+              label: {
+                text: function(v) {
+                  return ticks[JSC.formatDate(v, 't')];
+                },
+                style: {
+                  color: '#546e7a',
+                  fontSize: 14
+                }
+              }
+            },
+            line_visible: false,
+            orientation: 'top',
+            crosshair: {
+              enabled: true,
+              outline_width: 0,
+              gridLine: {
+                visible: true,
+                width: 1,
+                dashStyle: 'solid',
+                color: '#dfdfdf'
+              }
+            }
+          },
+          defaultTooltip: { combined: true, label_text: '%points' },
+          defaultPoint: {
+            marker_visible: false,
+            outline_width: 0
+          },
+          series: [
+            {
+              type: 'marker',
+              yAxis: 'y3',
+              name: 'Wind',
+              points: windPoints
+            },
+            {
+              type: 'column solid',
+              yAxis: 'y2',
+              name: 'Humidity',
+              points: humidityPoints
+            },
+            {
+              name: 'Temperature',
+              yAxis: 'y1',
+              points: tempPoints
+            }
+          ]
+        });
+      }
+
+      function made5DayChart(date) {
+        var ticks1 = {};
+        var ticks2 = {};
+        var lastDay = new Date(date.getFullYear(), date.getMonth(), date.getDate() + 5);
+        if (lastDay.getMonth() == 1) {
+          lastDay = new Date(date.getFullYear(), date.getMonth() + 1, 1);
+        }
+        var points = JSC.nest()
+          .key({ key: 'date', pattern: 'day', range: [date, lastDay] })
+          .pointRollup(function(key, values) {
+            ticks1[JSC.formatDate(key, 'd')] =
+              JSC.formatDate(key, 'm') +
+              '<br>' +
+              weatherToIcon[
+                values.map(function(a) {
+                  return a.condition;
+                })[3]
+              ] +
+              'size=40 margin=5><br><span style="font-size:12px; color:#b0bec5">' +
+              values.map(function(a) {
+                return a.condition;
+              })[3] +
+              '</span>';
+            ticks2[JSC.formatDate(key, 'd')] =
+              '<br><icon path="m8.1 10c.3 0 .6-.3.6-.6s-.3-.6-.6-.6-.6.2-.6.6c0 .3.3.6.6.6zm3.8 5c-.3 0-.6.3-.6.6s.3.6.6.6.6-.3.6-.6-.3-.6-.6-.6zm1.6-10.6c-1-1.3-2.1-2.7-2.9-4.1-.2-.2-.4-.3-.6-.3s-.4.1-.5.3c-.9 1.5-1.9 2.8-3 4.1-2.1 2.6-4 5.1-4 8.1 0 4.1 3.4 7.5 7.5 7.5s7.5-3.4 7.5-7.5c0-3-2-5.5-4-8.1zm-5.4 3.1c1 0 1.9.8 1.9 1.9s-.8 1.9-1.9 1.9-1.9-.8-1.9-1.9.9-1.9 1.9-1.9zm-.8 8.6c-.1.1-.3.2-.4.2s-.3-.1-.4-.2c-.2-.2-.2-.6 0-.9l6.3-6.3c.2-.2.6-.2.9 0 .2.2.2.6 0 .9zm4.6 1.4c-1 0-1.9-.8-1.9-1.9s.8-1.9 1.9-1.9 1.9.8 1.9 1.9-.9 1.9-1.9 1.9z" size=14> ' +
+              JSC.formatNumber(JSC.mean(values, 'humidity'), 'n0') +
+              '%<br><br><icon name=linear/basic/paperplane size=14 rotate=' +
+              (windToIcon[
+                values.map(function(a) {
+                  return a.wind;
+                })[3]
+              ] -
+                45) +
+              '> ' +
+              JSC.formatNumber(JSC.mean(values, 'wind_speed'), 'n0') +
+              ' mph<br>';
+            return {
+              x: key,
+              y: [JSC.min(values, 'temp'), JSC.max(values, 'temp')],
+              label_text:
+                '<span style="font-size:14px; color:#546e7a">' +
+                JSC.max(values, 'temp') +
+                '°/</span><span style="font-size:12px;color:#b0bec5">' +
+                JSC.min(values, 'temp') +
+                '°F</span>',
+              tooltip:
+                '<b>Humidity:</b> ' +
+                JSC.formatNumber(JSC.mean(values, 'humidity'), 'n0') +
+                '%<br>' +
+                '<b>Wind:</b> ' +
+                values.map(function(a) {
+                  return a.wind;
+                })[3] +
+                ' ' +
+                JSC.formatNumber(JSC.mean(values, 'wind_speed'), 'n0') +
+                ' mph'
+            };
+          })
+          .points(data);
+        chart3 = JSC.chart('chart3', {
+          type: 'variwide solid',
+          toolbar_visible: false,
+          title_label: {
+            text: '5-day weather',
+            style_fontSize: 16
+          },
+          palette: ['#bbdefb'],
+          legend_visible: false,
+          defaultPoint: { outline_width: 0 },
+          series: [{ points: points }],
+          yAxis: {
+            visible: false,
+            scale_range: [30, 65],
+            defaultTick: {
+              line_visible: false,
+              padding: 15,
+              label: {
+                text: '%value°F',
+                color: '#546e7a',
+                style_fontSize: 14
+              }
+            }
+          },
+          xAxis: [
+            {
+              id: 'x1',
+              scale_interval_unit: 'day',
+              line_visible: false,
+              orientation: 'top',
+              defaultTick: {
+                line_visible: false,
+                gridLine_visible: false,
+                label: {
+                  text: function(v) {
+                    return ticks1[JSC.formatDate(v, 'd')];
+                  },
+                  style: {
+                    fontSize: 14,
+                    color: '#546e7a'
+                  }
+                }
+              }
+            },
+            {
+              id: 'x2',
+              scale_syncWith: 'x1',
+              scale_interval_unit: 'day',
+              line_visible: false,
+              orientation: 'bottom',
+              defaultTick: {
+                line_visible: false,
+                gridLine_visible: false,
+                label: {
+                  text: function(v) {
+                    return ticks2[JSC.formatDate(v, 'd')];
+                  },
+                  style: {
+                    fontSize: 14,
+                    color: '#546e7a'
+                  }
+                }
+              }
+            }
+          ]
+        });
+      }
+    </script>
+  </body>
+</html>

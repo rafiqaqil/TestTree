@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Ozone CSV Heatmap Calendar Chart | JSCharting</title>
+    <meta http-equiv="content-type" content="text-html; charset=utf-8" />
+
+    <script type="text/javascript" src="../jsc/jscharting.js"></script>
+
+    <script type="text/javascript" src="../jsc/modules/types.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="css/default.css" />
+    <style type="text/css">
+      /*CSS*/
+    </style>
+  </head>
+  <body>
+    <div id="chartDiv" style="max-width: 260px;height:660px;margin: 0px auto;"></div>
+
+    <script type="text/javascript">
+      /*
+Calendar chart from CSV data file with custom smartPalette and axis ticks.
+Learn how to:
+
+  - Overwrite existing calendar axis ticks.
+  - Use custom smartPalette ranges and legend entries.
+*/
+      // JS
+      var weekdayLabels = 'S,M,T,W,T,F,S'.split(',');
+      var chart = JSC.chart('chartDiv', {
+        debug: true,
+        type: 'horizontal calendar year solid',
+        data: './resources/ozone2017.csv',
+        defaultSeries: {
+          legendEntry_visible: false,
+          defaultPoint_tooltip: '<b>%name</b><br> %zValue PPM'
+        },
+        annotations: [
+          {
+            label: {
+              text: '2017 Daily Max 8-hour<br>Ozone Concentration (ppm)',
+              style_fontWeight: 'bold'
+            },
+            position: 'top'
+          }
+        ],
+        toolbar_visible: false,
+        yAxis: {
+          //Custom ticks are added to replace existing calendar day tick values.
+          customTicks: weekdayLabels.map(function(v, i) {
+            return { value: i, label_text: v };
+          })
+        },
+        palette: {
+          defaultRange_legendEntry_value: '{%min:n3} - {%max:n3}',
+          ranges: [
+            { value: [0, 0.018], color: '#8ce99a' },
+            { value: [0.019, 0.036], color: '#51cf66' },
+            { value: [0.037, 0.054], color: '#37b24d' },
+            { value: [0.055, 0.059], color: '#ffff8d', legendEntry_lineAbove: true },
+            { value: [0.06, 0.065], color: '#ffff00' },
+            { value: [0.066, 0.07], color: '#ffea00' },
+            { value: [0.017, 0.075], color: '#ffd180', legendEntry_lineAbove: true },
+            { value: [0.076, 0.08], color: '#ffab40' },
+            { value: [0.081, 0.085], color: '#ff9100' },
+            { value: [0.086, 0.092], color: '#ff8a80', legendEntry_lineAbove: true },
+            { value: [0.093, 0.098], color: '#ff5252' },
+            { value: [0.099, 0.105], color: '#ff1744' },
+            { value: [0.106, 0.2], color: '#880e4f', legendEntry_lineAbove: true }
+          ]
+        }
+      });
+    </script>
+  </body>
+</html>

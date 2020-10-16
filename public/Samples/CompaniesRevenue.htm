@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Multi Line Chart Comparison | JSCharting</title>
+    <meta http-equiv="content-type" content="text-html; charset=utf-8" />
+
+    <script type="text/javascript" src="../jsc/jscharting.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="css/default.css" />
+    <style type="text/css"></style>
+  </head>
+  <body>
+    <div id="mainWrapper" style="width: 100%;display:flex;flex-wrap:wrap;justify-content:center">
+      <h2 style="width: 100%;text-align:center;font-family: tahoma, geneva, sans-serif;">
+        Top 4 Largest Technology Companies
+      </h2>
+      <div id="chartDiv1" style="width: 250px;height: 200px;"></div>
+      <div id="chartDiv2" style="width: 250px;height: 200px;"></div>
+      <div id="chartDiv3" style="width: 250px;height: 200px;"></div>
+      <div id="chartDiv4" style="width: 250px;height: 200px;"></div>
+    </div>
+
+    <script type="text/javascript">
+      /*
+Multiple charts comparing company gross and net revenues.
+Learn how to:
+
+  - Multiple line charts with muted series.
+*/
+      // JS
+      var chart1, chart2, chart3, chart4;
+      var config = {
+        defaultSeries: {
+          color: '#dfdfdf',
+          mouseTracking_enabled: false,
+          line: { width: 3, color: 'currentColor' }
+        },
+        defaultPoint: {
+          label: { style_fontWeight: 'bold', color: 'currentColor' },
+          marker: {
+            visible: false,
+            type: 'circle',
+            fill: 'currentColor',
+            outline_width: 0
+          }
+        },
+        yAxis: {
+          alternateGridFill: 'none',
+          defaultTick_gridLine_visible: false,
+          scale_interval: 150000
+        },
+        xAxis: {
+          crosshair: { enabled: true, gridLine_visible: true },
+          defaultTick: { gridLine_visible: false },
+          formatString: 'yyyy',
+          scale: {
+            type: 'time',
+            range_padding: 0.1,
+            interval_unit: 'year'
+          }
+        },
+        toolbar_visible: false,
+        legend_visible: false
+      };
+      JSC.fetch('./resources/top4LargestCompanies.csv')
+        .then(function(response) {
+          return response.text();
+        })
+        .then(function(text) {
+          var data = JSC.csv2Json(text);
+          chart1 = renderChart1(makeSeries(data, 'Apple Inc.', true));
+          chart2 = renderChart2(makeSeries(data, 'Samsung Electronics'));
+          chart3 = renderChart3(makeSeries(data, 'Amazon'));
+          chart4 = renderChart4(makeSeries(data, 'Foxconn'));
+        });
+
+      function renderChart1(series) {
+        return JSC.chart('chartDiv1', JSC.merge({ title_label_text: 'Apple Inc.', series: series }, config));
+      }
+
+      function renderChart2(series) {
+        return JSC.chart('chartDiv2', JSC.merge({ title_label_text: 'Samsung Electronics', series: series }, config));
+      }
+
+      function renderChart3(series) {
+        return JSC.chart('chartDiv3', JSC.merge({ title_label_text: 'Amazon', series: series }, config));
+      }
+
+      function renderChart4(series) {
+        return JSC.chart('chartDiv4', JSC.merge({ title_label_text: 'Foxconn', series: series }, config));
+      }
+
+      function makeSeries(data, company, isFirst) {
+        // Visible series
+        var series1 = {
+          color: '#FE6535',
+          mouseTracking_enabled: true,
+          defaultPoint_tooltip: '%icon <b>{%yValue:c0}</b>',
+          points: JSC.nest()
+            .key('year')
+            .pointRollup(function(key, val) {
+              var values = val[0];
+              var result = {
+                x: values.year.toString(),
+                y: values.revenue
+              };
+              return result;
+            })
+            .points(
+              data.filter(function(x) {
+                return x.company == company;
+              })
+            )
+        };
+        // Visible series
+        var series2 = {
+          color: '#049DFF',
+          mouseTracking_enabled: true,
+          defaultPoint_tooltip: '%icon <b>{%yValue:c0}B</b>',
+          points: JSC.nest()
+            .key('year')
+            .pointRollup(function(key, val) {
+              var values = val[0];
+              var result = {
+                x: values.year.toString(),
+                y: values.net_income
+              };
+              return result;
+            })
+            .points(
+              data.filter(function(x) {
+                return x.company == company;
+              })
+            )
+        };
+        var series3 = JSC.nest()
+          .key('company')
+          .key('year')
+          .pointRollup(function(key, val) {
+            var values = val[0];
+            var result = {
+              x: values.year.toString(),
+              y: values.revenue
+            };
+            return result;
+          })
+          .series(
+            data.filter(function(x) {
+              return x.company != company;
+            })
+          );
+        var series4 = JSC.nest()
+          .key('company')
+          .key('year')
+          .pointRollup(function(key, val) {
+            var values = val[0];
+            var result = {
+              x: values.year.toString(),
+              y: values.net_income
+            };
+            return result;
+          })
+          .series(
+            data.filter(function(x) {
+              return x.company != company;
+            })
+          );
+        var series = [].concat(series3, series4, [series1, series2]);
+
+        //Add labels for the first chart
+        if (isFirst) {
+          series1.firstPoint_label_text = 'Revenue';
+          series2.firstPoint_label_text = 'Net Income';
+        }
+
+        return series.map(function(s) {
+          return JSC.merge(s, {
+            firstPoint: { marker: { visible: true, size: 8 } },
+            lastPoint: { marker: { visible: true, size: 8 } }
+          });
+        });
+      }
+    </script>
+  </body>
+</html>

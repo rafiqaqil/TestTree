@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Variable Arc Slice Lengths Donut Chart | JSCharting</title>
+    <meta http-equiv="content-type" content="text-html; charset=utf-8" />
+
+    <script type="text/javascript" src="../jsc/jscharting.js"></script>
+
+    <script type="text/javascript" src="../jsc/modules/types.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="css/default.css" />
+    <style type="text/css">
+      /*CSS*/
+    </style>
+  </head>
+  <body>
+    <div id="chartDiv" style="width: 740px;height: 400px;margin: 0px auto;"></div>
+
+    <script type="text/javascript">
+      /*
+Donut series with arcs relative to each others sums and varying negative z values.
+Learn how to:
+
+  - Draw related pie arc series.
+  - Draw pie with varying negative slice lengths.
+*/
+      // JS
+      var chart = JSC.chart('chartDiv', {
+        debug: true,
+        title: {
+          position: 'center',
+          label_text: 'Greatest Outbound Population Migration by Country'
+        },
+        legend: {
+          position: 'bottom',
+          template: '%zValue,%icon,%name',
+          header: 'Migration<br/> per 1000, ,Country',
+          headerStyle: { fontWeight: 'normal' }
+        },
+        zAxis_formatString: 'n2',
+        annotations: [
+          {
+            position: 'inside top left',
+            margin: [10, 60],
+            label_text: 'Top 3 Outbound Migration Countries'
+          }
+        ],
+        defaultSeries: {
+          type: 'pie donut',
+          angle_sweep: '%PercentOfTotal%',
+          shape_size: '68%',
+          defaultPoint: {
+            label_text: '<b>%name</b>',
+            tooltip:
+              '<b>%name</b><br/>Population: <b>{%yValue/1000000:n2}M</b> %percentOfTotal%<br/>Net Migration Rate: <b>%zValue%</b>'
+          }
+        },
+        series: [
+          {
+            name: 'Most Migrated',
+            angle_orientation: -90,
+            shape_center: '25%,55%',
+            points: [
+              { name: 'Syria', y: 22457336, z: -113.51 },
+              { name: 'American Samoa', y: 54719, z: -21.64 },
+              { name: 'Tonga', y: 106322, z: -17.85 }
+            ]
+          },
+          {
+            name: 'Series 1',
+            angle_orientation: 90,
+            shape_center: '65%,55%',
+            points: [
+              { name: 'Nauru', y: 9434, z: -14.12 },
+              { name: 'Maldives', y: 393988, z: -12.67 },
+              { name: 'Samoa', y: 195476, z: -10.12 },
+              { name: 'Moldova', y: 3619925, z: -9.8 },
+              { name: 'Guyana', y: 739903, z: -9.67 },
+              { name: 'Saint Vincent', y: 103220, z: -9.6 },
+              { name: 'Somalia', y: 10251568, z: -9.51 }
+            ]
+          }
+        ]
+      });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Web Font Loading | JSCharting</title>
+    <meta http-equiv="content-type" content="text-html; charset=utf-8" />
+
+    <script type="text/javascript" src="../jsc/jscharting.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="css/default.css" />
+    <style type="text/css">
+      /*CSS*/
+    </style>
+  </head>
+  <body>
+    <link
+      href="https://fonts.googleapis.com/css?family=Lato|Montserrat|Open+Sans|Oswald|Merriweather|Raleway|Roboto|Roboto+Condensed|Roboto+Slab|Source+Sans+Pro&display=swap"
+      rel="stylesheet"
+    />
+    <div id="chartDiv" style="width: 800px;height: 400px;margin: 0px auto;"></div>
+
+    <script type="text/javascript">
+      /*
+Uses the JSC.fontsReady() function to ensure 3rd party fonts are loaded before rendering the chart.
+Learn how to:
+
+  - Style charts with fonts loaded from 3rd party.
+*/
+      // JS
+      var config = {
+        legend_visible: false,
+        type: 'horizontal column solid',
+        title_label: {
+          text: 'Top 10 Most Viewed Google Fonts in 2019',
+          style_fontSize: 16
+        },
+        chartArea_fill: 'none',
+        palette: ['#7AB1FF'],
+        defaultAxis_defaultTick_line_visible: false,
+        yAxis: {
+          scale_range: [0, 3800000000000],
+          alternateGridFill: 'none'
+        },
+        annotations: [
+          {
+            label: {
+              text:
+                '<span style="width:120px">Designer</span><span style="width:65px">Category</span><span style="width:65px">Released</span><span style="width:100px">Views</span>',
+              style_fontWeight: 'bold'
+            },
+            position: '-5,10',
+            boxVisible: false
+          }
+        ],
+        toolbar_visible: false,
+        defaultPoint: {
+          outline_width: 0,
+          xAxisTick_label_text:
+            '<span style="width:120px">%designer</span><span style="width:65px">%category</span><span style="width:65px">%releaseYear</span><span style="width:100px">%yvalue</span>',
+          label: { text: '%name', placement: 'outside' }
+        },
+        series: [
+          {
+            name: 'Fonts',
+            points: [
+              {
+                name: 'Roboto',
+                y: 3289493679178,
+                attributes: { designer: 'Christian Robertson', releaseYear: '2011', category: 'Sans-serif' }
+              },
+              {
+                name: 'Open Sans',
+                y: 1467560488060,
+                attributes: { designer: 'Steve Matteson', releaseYear: '2011', category: 'Sans-serif' }
+              },
+              {
+                name: 'Lato',
+                y: 464644537152,
+                attributes: { designer: 'Łukasz Dziedzic', releaseYear: '2010', category: 'Sans-serif' }
+              },
+              {
+                name: 'Montserrat',
+                y: 278213779794,
+                attributes: { designer: 'Julieta Ulanovsky', releaseYear: '2011', category: 'Sans-serif' }
+              },
+              {
+                name: 'Roboto Condensed',
+                y: 228634471138,
+                attributes: { designer: 'Christian Robertson', releaseYear: '2011', category: 'Sans-serif' }
+              },
+              {
+                name: 'Source Sans Pro',
+                y: 206523396021,
+                attributes: { designer: 'Paul D. Hunt', releaseYear: '2012', category: 'Sans-serif' }
+              },
+              {
+                name: 'Oswald',
+                y: 198563929625,
+                attributes: { designer: 'Vernon Adams', releaseYear: '2011', category: 'Sans-serif' }
+              },
+              {
+                name: 'Raleway',
+                y: 142815612485,
+                attributes: { designer: 'Multiple Designers', releaseYear: '2012', category: 'Sans-serif' }
+              },
+              {
+                name: 'Merriweather',
+                y: 97590777624,
+                attributes: { designer: 'Sorkin Type', releaseYear: '2011', category: 'Serif' }
+              },
+              {
+                name: 'Roboto Slab',
+                y: 92640946904,
+                attributes: { designer: 'Christian Robertson', releaseYear: '2013', category: 'Serif' }
+              }
+            ]
+          }
+        ]
+      };
+      JSC.ready(document).then(function(result) {
+        console.log('DOM content loaded: ' + result.ok);
+        chartDiv.innerHTML = 'Web Fonts loading ...';
+
+        JSC.fontsReady([
+          'Roboto',
+          'Open Sans',
+          'Lato',
+          'Oswald',
+          'Merriweather',
+          'Roboto Condensed',
+          'Montserrat',
+          'Source Sans Pro',
+          'Raleway',
+          'Roboto Slab'
+        ]).then(function(result) {
+          console.log('Fonts loaded: ' + result.ok);
+          config.series[0].points.map(function(point) {
+            point.label_style_fontFamily = point.name;
+            point.tooltip =
+              ' <span style="font-family:' +
+              point.name +
+              '; font-size:14px">The quick brown fox jumps over a lazy dog</span><br>';
+          });
+          JSC.chart('chartDiv', config);
+        });
+      });
+    </script>
+  </body>
+</html>

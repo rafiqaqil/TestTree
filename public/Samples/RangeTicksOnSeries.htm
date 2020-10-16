@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Range Ticks On Series | JSCharting</title>
+    <meta http-equiv="content-type" content="text-html; charset=utf-8" />
+
+    <script type="text/javascript" src="../jsc/jscharting.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="css/default.css" />
+    <style type="text/css"></style>
+  </head>
+  <body>
+    <div id="chartDiv" style="max-width: 740px;height: 400px;margin: 0px auto;"></div>
+
+    <script type="text/javascript">
+      /*
+Custom range ticks that are offset onto the chart area.
+Learn how to:
+
+  - Custom Axis Ticks.
+  - Axis Range Ticks offset from chartArea.
+*/
+      // JS
+      var chart;
+      JSC.fetch('./resources/appleProductsSales.csv')
+        .then(function(response) {
+          return response.text();
+        })
+        .then(function(text) {
+          renderChart(JSC.csv2Json(text));
+        });
+      function renderChart(data) {
+        var series = [
+          {
+            name: 'Comulative Devices sold',
+            type: 'area',
+            points: JSC.nest()
+              .key('date')
+              .rollup('total_units_sold')
+              .points(data)
+          },
+          {
+            name: 'Active Devices',
+            type: 'line',
+            color: 'lightgray',
+            points: JSC.nest()
+              .key('date')
+              .rollup('active_devices')
+              .points(data)
+          }
+        ];
+        chart = JSC.chart('chartDiv', {
+          debug: true,
+          title: {
+            label: { text: 'Cumulative Devices (thousands)' },
+            position: 'center'
+          },
+          defaultPoint_marker_type: 'none',
+          legend_visible: false,
+          xAxis: [
+            {
+              id: 'mainX',
+              defaultTick: {
+                label_rotate: 90,
+                gridLine_visible: false
+              }
+            },
+            {
+              // Distance from the chart area edge. Negative values offset the axis towards the middle of the chart area.
+              caOffset: -50,
+              scale_syncWith: 'mainX',
+              defaultTick_enabled: false,
+              customTicks: [
+                {
+                  value: ['Q4 2013', 'Q4 2018'],
+                  rangeMode: 'measure',
+                  label: { text: 'LIFESPAN', color: 'white' },
+                  line_color: 'white'
+                }
+              ]
+            }
+          ],
+          yAxis: [
+            {
+              defaultTick: {
+                enabled: false,
+                rangeMode: 'measure',
+                gridLine_visible: false
+              },
+              alternateGridFill: 'none',
+              id: 'mainY',
+              orientation: 'opposite',
+              // Distance from the chart area edge. Negative values offset the axis towards the middle of the chart area.
+              caOffset: -55,
+              customTicks: [
+                {
+                  value: 1471.63,
+                  label_text: 'Active'
+                },
+                {
+                  value: 2443.54,
+                  label_text: 'Sold'
+                },
+                {
+                  value: [1471.63, 2443.54],
+                  label_text: 'Retired'
+                }
+              ]
+            },
+            {
+              scale_syncWith: 'mainY',
+              defaultTick_line_visible: false
+            }
+          ],
+          series: series
+        });
+      }
+    </script>
+  </body>
+</html>

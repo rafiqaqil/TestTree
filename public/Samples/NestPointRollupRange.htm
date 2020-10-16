@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Nest Point Rollup Range | JSCharting</title>
+    <meta http-equiv="content-type" content="text-html; charset=utf-8" />
+
+    <script type="text/javascript" src="../jsc/jscharting.js"></script>
+
+    <script type="text/javascript" src="../jsc/modules/toolbar.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="css/default.css" />
+    <style type="text/css">
+      /*CSS*/
+    </style>
+  </head>
+  <body>
+    <div id="chartDiv" style="max-width: 740px; height: 250px; margin: 0px auto;"></div>
+
+    <script type="text/javascript">
+      /*
+Custom pointRollup() call that maps a range of values to y low/high.
+Learn how to:
+
+  - Use data nesting with a custom pointRollup.
+*/
+      // JS
+      // Custom pointRollup() call that maps a range of values to y low/high
+      var data = [
+        { product: 'Hammer', rating: 2 },
+        { product: 'Hammer', rating: 3 },
+        { product: 'Hammer', rating: 4 },
+        { product: 'Hammer', rating: 3 },
+        { product: 'Hammer', rating: 2 },
+        { product: 'Ladder', rating: 3 },
+        { product: 'Ladder', rating: 4 },
+        { product: 'Ladder', rating: 5 },
+        { product: 'Ladder', rating: 4 }
+      ];
+
+      var series = JSC.nest()
+        // X Values
+        .key('product')
+        // Custom point configuration
+        .pointRollup(function(key, vals) {
+          return {
+            x: key,
+            y: JSC.mean(vals, 'rating'),
+            subvalue_range: [JSC.min(vals, 'rating'), JSC.max(vals, 'rating')]
+          };
+        })
+        .series(data);
+
+      var chart = JSC.chart('chartDiv', {
+        type: 'marker',
+        debug: true,
+        toolbar_visible: false,
+        title_label_text: 'Point rollup range',
+        xAxis_label_text: 'Product',
+        yAxis_label_text: 'Rating',
+        defaultSeries_palette: 'default',
+        series: series
+      });
+    </script>
+  </body>
+</html>

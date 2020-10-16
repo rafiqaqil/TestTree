@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Finance Pattern Scale Breaks Chart | JSCharting</title>
+    <meta http-equiv="content-type" content="text-html; charset=utf-8" />
+
+    <script type="text/javascript" src="../jsc/jscharting.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="css/default.css" />
+    <style type="text/css"></style>
+  </head>
+  <body>
+    <div id="chartDiv" style="max-width: 740px;height: 350px;margin: 0px auto;"></div>
+
+    <script type="text/javascript">
+      /*
+Calendar pattern scaleBreaks removing weekends from the timeline.
+Learn how to:
+
+  - Draw a finance candlestick chart calendar pattern scale breaks.
+*/
+      // JS
+
+      var data, series, chart;
+
+      function renderCharts() {
+        chart = JSC.chart('chartDiv', {
+          debug: true,
+          type: 'candlestick',
+          legend_visible: false,
+          title_label_text: 'Timeline without weekends',
+          yAxis_formatString: 'c',
+          xAxis: {
+            crosshair: { enabled: true },
+            scale: {
+              type: 'time',
+              defaultBreak: { type: 'hidden' },
+              breaks: [
+                {
+                  weekday: [0, 6],
+                  offset: { unit: 'day', multiplier: -0.5 }
+                }
+              ]
+            }
+          },
+          series: getSeries()
+        });
+      }
+
+      // Load CSV data and convert to JSON
+      JSC.fetch('./resources/snp6mo.csv')
+        .then(function(response) {
+          return response.text();
+        })
+        .then(function(text) {
+          data = JSC.csv2Json(text);
+
+          renderCharts();
+        });
+
+      function getSeries() {
+        /*
+         * Group entries by age_group, map year and birth_numbers to point x,y values.
+         * */
+        return JSC.nest()
+          .key('Date')
+          .pointRollup(function(key, val) {
+            let values = val[0];
+            return {
+              x: parseInt(key),
+              open: values.Open,
+              high: values.High,
+              low: values.Low,
+              close: values.Close
+            };
+          })
+          .series(data);
+      }
+    </script>
+  </body>
+</html>

@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Chart Box | JSCharting</title>
+    <meta http-equiv="content-type" content="text-html; charset=utf-8" />
+
+    <script type="text/javascript" src="../jsc/jscharting.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="css/default.css" />
+    <style type="text/css"></style>
+  </head>
+  <body>
+    <div id="chartDiv" style="max-width: 740px;height: 400px;margin: 0px auto;"></div>
+
+    <script type="text/javascript">
+      /*
+Specifies chart box and background visual settings.
+Learn how to:
+
+  - Style the chart background.
+  - Style a box around the chart.
+  - Style the chart box radius.
+*/
+      // JS
+      var chart = JSC.chart('chartDiv', {
+        debug: true,
+
+        type: 'column',
+        legend_visible: false,
+        yAxis_label_text: 'USD',
+        title_label_text: 'Sales by quarter',
+        yAxis_formatString: 'c',
+        box: {
+          padding: 10,
+          outline: { color: '#5B9AE3', width: 2 },
+          radius: 5,
+          fill: '#e5f6ff'
+        },
+        defaultSeries_firstPoint: {
+          label: { text: '%seriesName', placement: 'inside' }
+        },
+        series: [
+          {
+            name: 'Gross',
+            points: [
+              { name: 'Q1', y: 50120 },
+              { name: 'Q2', y: 53465 },
+              { name: 'Q3', y: 62165 },
+              { name: 'Q4', y: 52156 }
+            ]
+          },
+          {
+            name: 'Net',
+            points: [
+              { name: 'Q1', y: 32654 },
+              { name: 'Q2', y: 35645 },
+              { name: 'Q3', y: 42651 },
+              { name: 'Q4', y: 30153 }
+            ]
+          }
+        ]
+      });
+    </script>
+  </body>
+</html>

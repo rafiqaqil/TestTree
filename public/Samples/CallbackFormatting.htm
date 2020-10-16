@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Callback Formatting | JSCharting</title>
+    <meta http-equiv="content-type" content="text-html; charset=utf-8" />
+
+    <script type="text/javascript" src="../jsc/jscharting.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="css/default.css" />
+    <style type="text/css"></style>
+  </head>
+  <body>
+    <div id="chartDiv" style="max-width: 740px;height: 400px;margin: 0px auto;"></div>
+
+    <script type="text/javascript">
+      /*
+Using the JSC formatting methods in callback function.
+Learn how to:
+
+  - Format data values in label callback functions.
+*/
+      // JS
+
+      var chart = JSC.chart('chartDiv', {
+        debug: true,
+        type: 'column',
+        title_label_text: 'Hover data for formatted tooltips.',
+        legend_visible: false,
+        xAxis_defaultTick_gridLine_width: 0,
+        defaultPoint: { label_visible: true, tooltip: tooltipCallback },
+        series: [
+          {
+            name: 'Representatives',
+            points: [
+              {
+                name: 'Currency',
+                y: 3,
+                attributes: { start: '1/1/2020' },
+                label_text: 'Currency & <br/>Short Date'
+              },
+              {
+                name: 'Integer',
+                y: 8,
+                attributes: { start: '1/1/2020' },
+                label_text: 'Integer & <br/>Long Date'
+              },
+              {
+                name: 'Decimal',
+                y: 5,
+                attributes: { start: '1/1/2020' },
+                label_text: 'Decimal & <br/>Month/Day Pattern'
+              },
+              {
+                name: 'Percent',
+                y: 6,
+                attributes: { start: '1/1/2020' },
+                label_text: 'Percentage & <br/>Short Time Pattern'
+              }
+            ]
+          }
+        ]
+      });
+
+      function tooltipCallback(point) {
+        var fDate = JSC.formatDate;
+        var fNum = JSC.formatNumber;
+        var pointStart = point.options('attributes.start');
+        var pointName = point.options('name');
+        var y = point.options('y');
+
+        switch (pointName) {
+          case 'Currency':
+            return pointName + ': ' + bold(fNum(y, 'c')) + '<br/>Short Date: ' + bold(fDate(pointStart, 'd'));
+          case 'Integer':
+            return pointName + ': ' + bold(fNum(y, 'n0')) + '<br/>Long Date: ' + bold(fDate(pointStart, 'D'));
+          case 'Decimal':
+            return pointName + ': ' + bold(fNum(y, 'n2')) + '<br/>Month/Day Pattern: ' + bold(fDate(pointStart, 'M'));
+          case 'Percent':
+            return pointName + ': ' + bold(fNum(y, 'p')) + '<br/>Short Time Pattern: ' + bold(fDate(pointStart, 't'));
+        }
+        return '';
+        function bold(txt) {
+          return '<b>' + txt + '</b>';
+        }
+      }
+    </script>
+  </body>
+</html>

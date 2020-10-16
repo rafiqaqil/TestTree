@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Donut Chart Slice Length Variations | JSCharting</title>
+    <meta http-equiv="content-type" content="text-html; charset=utf-8" />
+
+    <script type="text/javascript" src="../jsc/jscharting.js"></script>
+
+    <script type="text/javascript" src="../jsc/modules/types.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="css/default.css" />
+    <style type="text/css">
+      /*CSS*/
+    </style>
+  </head>
+  <body>
+    <div id="chartDiv" style="max-width: 740px;height: 300px;margin: 0px auto;"></div>
+
+    <script type="text/javascript">
+      /*
+Differing positive and negative pie z values.
+Learn how to:
+
+  - Draw pie with varying positive and negative slice lengths.
+*/
+      // JS
+      var chart = JSC.chart('chartDiv', {
+        debug: true,
+        title_label_text: 'Differing positive and negative pie z values',
+        legend_visible: false,
+        defaultSeries: {
+          type: 'pie donut',
+          shape: {
+            innerSize: '30%',
+            padding: 0.03,
+            offset: '0,30'
+          }
+        },
+        zAxis_label_text: 'Z Value',
+        defaultAnnotation: { label_style: { fontSize: '15px' } },
+        annotations: [
+          {
+            position: 'inside 50,20',
+            label_text: 'Positive Values'
+          },
+          {
+            position: 'inside 290,20',
+            label_text: 'Negative Values'
+          },
+          {
+            position: 'inside 480,20',
+            label_text: 'Positive and Negative Values'
+          },
+          {
+            position: 'inside bottom',
+            label_text: 'Same Data with varying options.'
+          }
+        ],
+        series: [
+          {
+            name: 'Positive Z Values',
+            points: [
+              { name: 'Alexander', y: 22, z: 152 },
+              { name: 'Chase', y: 22, z: 137 },
+              { name: 'Isaiah', y: 23, z: 114 },
+              { name: 'Anthony', y: 23, z: 97 },
+              { name: 'Liam', y: 22, z: 85 }
+            ]
+          },
+          {
+            name: 'Negative Z Values',
+            points: [
+              { name: 'Alexander', y: 22, z: -152 },
+              { name: 'Chase', y: 22, z: -137 },
+              { name: 'Isaiah', y: 23, z: -114 },
+              { name: 'Anthony', y: 23, z: -97 },
+              { name: 'Liam', y: 22, z: -85 }
+            ]
+          },
+          {
+            name: 'Positive and Negative Z Values',
+            points: [
+              { name: 'Alexander', y: 22, z: 152 },
+              { name: 'Chase', y: 22, z: 107 },
+              { name: 'Isaiah', y: 23, z: 54 },
+              { name: 'Anthony', y: 23, z: -44 },
+              { name: 'Liam', y: 22, z: -131 }
+            ]
+          }
+        ]
+      });
+    </script>
+  </body>
+</html>

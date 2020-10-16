@@ -1,0 +1,499 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>CSV Blackout Days Date Range Picker Chart | JSCharting</title>
+    <meta http-equiv="content-type" content="text-html; charset=utf-8" />
+
+    <script type="text/javascript" src="../jsc/jscharting.js"></script>
+
+    <script type="text/javascript" src="../jsc/icons/material/hardware/keyboard-arrow-left.js"></script>
+    <script type="text/javascript" src="../jsc/icons/material/hardware/keyboard-arrow-right.js"></script>
+    <script type="text/javascript" src="../jsc/modules/types.js"></script>
+    <script type="text/javascript" src="../jsc/modules/toolbar.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="css/default.css" />
+    <style type="text/css">
+      /*CSS*/
+      .inputEl {
+        width: 122px;
+        display: inline-block;
+        font-family: arial;
+        font-size: 14px;
+        background-color: #f7f7f7;
+
+        border: 0px solid gray;
+        border-radius: 4px;
+        height: 20px;
+        padding: 5px;
+        margin: 1px;
+      }
+      .inputsWrapper {
+        margin-left: 32px;
+        height: 23px;
+
+        border: 1px solid gray;
+        border-radius: 5px;
+        padding: 5px;
+        width: 290px;
+      }
+      #picker {
+        display: none;
+        margin-top: 5px;
+        margin-left: -9px;
+        z-index: 1;
+        position: absolute;
+        width: 368px;
+      }
+      #pickerContainer {
+        width: 350px;
+        margin-left: 10px;
+
+        padding: 9px;
+      }
+      .opened {
+        background-color: #ffffff;
+        height: 275px;
+      }
+      .activeEl {
+        background-color: #c6d4ff;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="pickerContainer">
+      <div class="inputsWrapper">
+        <input id="startDate" autocomplete="off" class="inputEl" type="text" value="Check in" />
+        <input id="endDate" autocomplete="off" class="inputEl" style="margin-left:10px" type="text" value="Check out" />
+      </div>
+      <div id="picker">
+        <div id="chartDiv" style="max-width: 300px;height: 300px;margin: 0px auto;"></div>
+      </div>
+      <div></div>
+    </div>
+
+    <script type="text/javascript">
+      /*
+A fully functional calendar date range picker with blackout dates loaded from CSV file.
+Learn how to:
+
+  - Implement a date range picker with blackout dates.
+*/
+      // JS
+      var chart = undefined,
+        titleAnnotation = undefined,
+        dateRange = [new Date('1/1/2019'), new Date('12/31/2019')],
+        curDate = dateRange[0],
+        picking,
+        chartConfig = {
+          debug: true,
+          type: 'calendar month solid',
+          width: 300,
+          height: 250,
+          animation_duration: 150,
+          defaultTooltip_enabled: false,
+          box_fill: 'none',
+          calendar: { range: dateRange.slice(0) },
+          annotations: [
+            {
+              width: 200,
+              label: {
+                align: 'center',
+                text: formatTitle(dateRange[0]),
+                style_fontSize: 15
+              },
+              position: 'top'
+            }
+          ],
+          yAxis_visible: false,
+
+          legend: {
+            visible: false,
+            position: 'bottom',
+            template: '%name',
+            boxVisible: false,
+            defaultEntry_style: { fontSize: 13, width: 25 }
+          },
+          highlights: [
+            {
+              pattern: { weekday: [0, 6] },
+              fill: '#ffedc4',
+              outline_color: '#bcbcbc',
+              outline_width: 0
+            }
+          ],
+          defaultSeries: {
+            shape_innerPadding: 0,
+            opacity: 0.5,
+            defaultPoint: {
+              events: {
+                click: pointClick,
+                mouseOver: pointOver
+              }
+            }
+          },
+
+          toolbar_items: {
+            export_visible: false,
+            backward: {
+              position: 'top left',
+              fill: 'white',
+              icon_name: 'material/hardware/keyboard-arrow-left',
+              events_click: function() {
+                var d = new Date(curDate);
+                zoomTo(d.setMonth(d.getMonth() - 1));
+              }
+            },
+            forward: {
+              position: 'top right',
+              fill: 'white',
+              icon_name: 'material/hardware/keyboard-arrow-right',
+              events_click: function() {
+                var d = new Date(curDate);
+                zoomTo(d.setMonth(d.getMonth() + 1));
+              }
+            },
+            reset: {
+              label: {
+                text: 'Clear Dates',
+                color: '#e34e2f'
+              },
+              margin: 5,
+              boxVisible: false,
+              position: 'bottom right',
+              visible: false,
+              events_click: function() {
+                reset();
+              }
+            }
+          }
+        };
+
+      //Note: HTML elements must be rendered before making references..
+      var elementRefs = {
+          startDate: document.getElementById('startDate'),
+          endDate: document.getElementById('endDate'),
+          pickerContainer: document.getElementById('pickerContainer'),
+          picker: document.getElementById('picker')
+        },
+        datesPicked = { start: undefined, end: undefined },
+        selectorColor = '#5264cb',
+        //Blackout dates loaded from csv file.
+        bookingData = undefined;
+
+      initPicker();
+
+      function initPicker() {
+        chart = JSC.chart('chartDiv', chartConfig);
+        JSC.fetch('./resources/hotelReservations.csv').then(function(response) {
+          if (response.ok) {
+            response
+              .text()
+              .then(function(text) {
+                var rows = text.split(/\r?\n/);
+                var dataRows = rows.map(function(r, i) {
+                  return r.split(',');
+                });
+                //Remove header row
+                dataRows.shift();
+                return dataRows;
+              })
+              .then(function(data) {
+                bookingData = data.slice(0);
+                updateAvailability(chart);
+              });
+          } else {
+            console.error('Problem loading csv data.');
+          }
+        });
+
+        elementRefs.pickerContainer.addEventListener('click', function(ev) {
+          ev.stopPropagation();
+        });
+        window.addEventListener('click', function() {
+          highlightInput();
+          closePicker();
+        });
+      }
+
+      /**
+       * Date Utils
+       */
+      function toDate(v) {
+        return new Date(v);
+      }
+      function formatTitle(date) {
+        return new Date(date).toLocaleDateString('en', { month: 'long', year: 'numeric' });
+      }
+      function addOneDay(date) {
+        var d = toDate(date);
+        return new Date(d.getFullYear(), d.getMonth(), d.getDate() + 1).getTime();
+      }
+      function formatDate(d) {
+        return JSC.formatDate(d, 'd');
+      }
+
+      /**
+       * Picked dates utils
+       */
+      function reset() {
+        datesPicked = { start: undefined, end: undefined };
+        picking = 'start';
+        highlightInput(elementRefs.startDate);
+        updateInputs();
+        highlightDates();
+        updateAvailability(chart);
+        updateReset();
+      }
+      function pickedDates() {
+        var dates = [];
+        datesPicked.start && dates.push(datesPicked.start);
+        datesPicked.end && dates.push(datesPicked.end);
+        return dates;
+      }
+      function pickedCount() {
+        var count = 0;
+        datesPicked.end && count++;
+        datesPicked.start && count++;
+        return count;
+      }
+
+      /**
+       * Chart event handlers
+       */
+
+      function pointClick() {
+        var point = this;
+        var clickedDate = point.tokenValue('%date');
+        if (picking === 'end') {
+          datesPicked.end = clickedDate;
+          if (pickedCount() < 2) {
+            highlightInput(elementRefs.startDate);
+            picking = 'start';
+          } else {
+            picking = 'none';
+            highlightDates();
+          }
+        } else {
+          datesPicked.start = clickedDate;
+          highlightInput(elementRefs.endDate);
+          highlightDates();
+          picking = 'end';
+        }
+        updateInputs();
+        if (picking == 'none') {
+          //Clear highligh
+          highlightInput();
+          closePicker();
+        }
+        updateAvailability(chart);
+        updateReset();
+
+        //Disable any default point click behavior.
+        return false;
+      }
+      function pointOver() {
+        var point = this;
+        var pointDate = point.tokenValue('%date');
+        //If another point is hovered while only one date is selected, update the highlight
+        if (pickedCount() === 1) {
+          highlightDates(pointDate);
+        }
+      }
+
+      /**
+       * Update chart functions
+       */
+      //Update possible checkout dates
+      function updateAvailability(chartRef) {
+        var isRepickingFirst = picking === 'start' && !datesPicked.end;
+        if (!isRepickingFirst && picking !== 'none' && pickedCount() !== 0) {
+          var setDate = datesPicked[picking == 'start' ? 'end' : 'start'];
+          //If a startDate is selected, generate points for all days within range and make only possible dates clickable
+          var cur = dateRange[0].getTime();
+          var endDate = dateRange[1].getTime();
+          var points = [];
+          var firstBookedAfter,
+            firstBookedBefore = 0;
+          //Find first booked date before and after setDates
+          for (var i = 0; i < bookingData.length; i++) {
+            var bookingStart = toDate(bookingData[i][0]);
+            var bookingEnd = toDate(bookingData[i][1]);
+            if (bookingEnd < setDate && bookingEnd > firstBookedBefore) {
+              firstBookedBefore = bookingEnd;
+            }
+            if (bookingStart > setDate) {
+              firstBookedAfter = bookingStart;
+              break;
+            }
+          }
+          //Generate point configs
+          while (cur < endDate) {
+            var clickable = true;
+
+            if (picking == 'end') {
+              if (cur < setDate) {
+                clickable = false;
+              } else if (cur >= firstBookedAfter) {
+                clickable = false;
+              }
+            } else {
+              if (cur > setDate) {
+                clickable = false;
+              } else if (cur < firstBookedBefore) {
+                clickable = false;
+              }
+            }
+            points.push(
+              clickable
+                ? { date: cur }
+                : {
+                    date: cur,
+                    hatch: {
+                      style: 'light-upward-diagonal',
+                      color: '#b6b6b6'
+                    },
+                    label_style: {
+                      textDecoration: 'line-through',
+                      color: '#cdcdcd'
+                    },
+                    mouseTracking: false
+                  }
+            );
+            cur = addOneDay(cur);
+          }
+          chart.options({ series: [{ points: points }] });
+        } else {
+          chart.options({
+            series: [
+              {
+                points: bookingData.map(function(row) {
+                  return {
+                    date: [row[0], row[1]],
+                    hatch: {
+                      style: 'light-upward-diagonal',
+                      color: '#b6b6b6'
+                    },
+                    label_style: {
+                      textDecoration: 'line-through',
+                      color: '#cdcdcd'
+                    },
+                    mouseTracking: false
+                  };
+                })
+              }
+            ]
+          });
+        }
+      }
+      function getHighlightCfg(hoverDate) {
+        var cfg,
+          dateVal,
+          dates = pickedDates(),
+          isFinalRange = dates.length === 2;
+
+        //Include hoverDate in highlight range
+        hoverDate && dates.push(hoverDate) && dates.sort();
+        cfg = {
+          id: 'selection',
+          fill: isFinalRange ? selectorColor : '#c3d2ff',
+          outline: { color: selectorColor, dashStyle: isFinalRange ? 'solid' : 'dash' }
+        };
+
+        //Highlight date or range
+        dateVal = dates.length === 1 ? dates[0] : { range: dates };
+        if (dates.length) {
+          cfg.pattern = { date: dateVal };
+        }
+        return cfg;
+      }
+      function highlightDates(hoverDate) {
+        var hl, //dates = selectedDates,
+          updateOptions = hoverDate ? { animation: { duration: 0 } } : {};
+        hl = chart.highlights('selection');
+        if (pickedCount() || hoverDate) {
+          let config = getHighlightCfg(hoverDate);
+          if (hl) {
+            hl.options(config, updateOptions);
+          } else {
+            chart.highlights.add(config, updateOptions);
+          }
+        } else if (hl) {
+          hl.remove();
+        }
+      }
+      function zoomTo(d) {
+        var d = new Date(d);
+        if (d >= dateRange[0] && d <= dateRange[1] && d.getMonth() != curDate.getMonth()) {
+          titleAnnotation = titleAnnotation || chart.annotations(0);
+          titleAnnotation.options({ label_text: formatTitle(d) }, { animation: { duration: 0 } });
+          chart.zoom(d);
+          curDate = d;
+        }
+      }
+      function updateReset() {
+        chart.uiItems('reset').options({ visible: !!pickedCount() });
+      }
+
+      /**
+       * Update HTML Elements
+       */
+      function updateInputs() {
+        elementRefs.startDate.value = datesPicked.start ? formatDate(datesPicked.start) : 'Check in';
+        elementRefs.endDate.value = datesPicked.end ? formatDate(datesPicked.end) : 'Check out';
+      }
+      function updateDatePicker(el) {
+        if (el === startDate) {
+          datesPicked.start = new Date(elementRefs.startDate.value).getTime();
+        } else {
+          datesPicked.end = new Date(elementRefs.endDate.value).getTime();
+        }
+        highlightDates();
+      }
+      function inputClicked(el) {
+        clickedInput = el;
+        picking = el === elementRefs.startDate ? 'start' : 'end';
+        highlightInput(el);
+        openPicker();
+        //Zoom chart to date in clicked text input.
+        zoomTo(el.value);
+        updateAvailability(chart);
+      }
+      function highlightInput(el) {
+        if (el !== elementRefs.startDate) {
+          elementRefs.startDate.classList.remove('activeEl');
+        }
+        if (el !== elementRefs.endDate) {
+          elementRefs.endDate.classList.remove('activeEl');
+        }
+        if (el) {
+          el.classList.add('activeEl');
+        }
+      }
+      function openPicker() {
+        elementRefs.picker.style.display = 'block';
+        elementRefs.pickerContainer.classList.add('opened');
+      }
+      function closePicker() {
+        elementRefs.picker && (elementRefs.picker.style.display = 'none');
+        elementRefs.pickerContainer.classList.remove('opened');
+      }
+
+      (function attachEvents() {
+        var startDateInp = document.getElementById('startDate');
+        var endDateInp = document.getElementById('endDate');
+        startDateInp.addEventListener('keyup', function() {
+          return updateDatePicker(startDateInp);
+        });
+        startDateInp.addEventListener('click', function() {
+          return inputClicked(startDateInp);
+        });
+        endDateInp.addEventListener('keyup', function() {
+          return updateDatePicker(endDateInp);
+        });
+        endDateInp.addEventListener('click', function() {
+          return inputClicked(endDateInp);
+        });
+      })();
+    </script>
+  </body>
+</html>

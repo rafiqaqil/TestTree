@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Label Formatting | JSCharting</title>
+    <meta http-equiv="content-type" content="text-html; charset=utf-8" />
+
+    <script type="text/javascript" src="../jsc/jscharting.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="css/default.css" />
+    <style type="text/css"></style>
+  </head>
+  <body>
+    <div id="chartDiv" style="max-width: 740px;height: 400px;margin: 0px auto;"></div>
+
+    <script type="text/javascript">
+      /*
+Demonstrates specifying the data formatting using a single setting.
+Learn how to:
+
+  - Define label formatting used by axes, data, title, and legend labels.
+*/
+      // JS
+      var chart = JSC.chart('chartDiv', {
+        debug: true,
+        yAxis: { formatString: 'c' },
+        title_label_text: 'Total Cost: %sum',
+        defaultPoint_label_text: '%yValue',
+        toolbar_visible: false,
+        legend_position: 'bottom',
+        annotations: [
+          {
+            position: 'inside top left',
+            label_text:
+              'By setting the y axis format String : (yAxis_formatString: "c") <br/> all y values on the chart including the title, legend, point labels will inherit the formatting.'
+          }
+        ],
+        xAxis_scale_type: 'time',
+        series: [
+          {
+            name: 'Brand A',
+            points: [
+              ['2014/01/02', 71.5],
+              ['2014/01/03', 106.4],
+              ['2014/01/06', 129.2],
+              ['2014/01/07', 144],
+              ['2014/01/08', 176]
+            ]
+          },
+          {
+            name: 'Brand B',
+            points: [
+              ['2014/01/02', 98.5],
+              ['2014/01/03', 135],
+              ['2014/01/06', 148.7],
+              ['2014/01/07', 164],
+              ['2014/01/08', 276]
+            ]
+          }
+        ]
+      });
+    </script>
+  </body>
+</html>

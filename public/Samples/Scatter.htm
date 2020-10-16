@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Classic Scatter Chart | JSCharting</title>
+    <meta http-equiv="content-type" content="text-html; charset=utf-8" />
+
+    <script type="text/javascript" src="../jsc/jscharting.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="css/default.css" />
+    <style type="text/css"></style>
+  </head>
+  <body>
+    <div id="chartDiv" style="max-width: 740px;height: 400px;margin: 0px auto;"></div>
+
+    <script type="text/javascript">
+      /*
+Scatter chart.
+Learn how to:
+
+  - Draw a scatter chart.
+*/
+      // JS
+      var chart;
+
+      JSC.fetch('./resources/GPDAndEnergyUse.csv')
+        .then(function(response) {
+          return response.text();
+        })
+        .then(function(text) {
+          var data = JSC.csv2Json(text);
+          chart = renderChart(data);
+        });
+      function renderChart(data) {
+        var key = JSC.nest().key('country');
+        var series = [
+          {
+            name: 'GDP',
+            type: 'marker',
+            points: key
+              .pointRollup(function(key, val) {
+                var values = val[0];
+                return { x: values.energy_use, y: values.gdp, attributes_country: values.country };
+              })
+              .points(data)
+          }
+        ];
+        return JSC.chart('chartDiv', {
+          title_label_text: 'Correlation of energy consumption and GDP per person',
+          defaultPoint: {
+            tooltip: '<b>%country</b><br>Energy use: <b>%xValue</b><br>GDP per capita: <b>%yValue</b>',
+            opacity: 0.8,
+            marker: {
+              type: 'circle',
+              outline_width: 0,
+              size: 12
+            }
+          },
+          axisToZoom: 'xy',
+          legend_visible: false,
+          defaultAxis_scale_zoomLimit: 5000,
+          yAxis: {
+            label_text: 'GDP per capita, PPP (current international $)',
+            alternateGridFill: 'none'
+          },
+          xAxis: {
+            label_text: 'Energy use (kg of oil equivalent per capita)'
+          },
+          series: series
+        });
+      }
+    </script>
+  </body>
+</html>

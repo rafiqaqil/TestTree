@@ -1,0 +1,441 @@
+<h2>Introduction</h2>
+<p>MicroCharts are miniature versions of actual charts, designed to help viewers understand complex relationships
+    between data in repetitive scenarios such as data grids. MicroCharts are defined using a markup syntax inside chart
+    label text. This means that anywhere a label is used, a microChart can easily be embedded. With the use of tokens,
+    microCharts can be setup using default properties and will automatically represent the label's parent objects token
+    values. </p>
+
+
+<h3>Basic Usage</h3>
+<p>To use a microChart in a label, the syntax starts with <span class="example">&#39;&lt;chart&#39;</span> then other
+    options
+    ending with a closing <span class="example">&#39;&gt&#39;</span> character. Attributes must be specified using a
+    format like <span class="example">param=&#39;value&#39;</span> however quotes are optional if the value doesn't have
+    spaces. </p>
+
+<span class="codeText">
+	{ title_label_text:'&lt;chart type="bar" value="5" max="10"&gt;' }
+</span>
+
+<h3>MicroChart Types</h3>
+
+<table>
+    <tr>
+        <tb>
+
+            <ul class="simpleKvpList">
+
+
+                <li><em><img width="80" height="20" src="tutorials/images/microcharts/AreaLine.png"/> AreaLine <a
+                        href="Samples.MicroTypeArea">AreaLine Options Sample</a></em><br>
+
+                    <span class="example">&lt;chart type="arealine" data="2,4,0,3"&gt;</span>
+                    <section>Similar to sparkline but draws an area under the line.
+                    </section>
+                </li>
+
+
+                <li><em><img width="80" height="20" src="tutorials/images/microcharts/Bar.png"/> Bar <a
+                        href="Samples.MicroTypeBar">Bar Options Sample</a></em><br>
+                    <span class="example">&lt;chart type="bar" data="5" min="0" max="10"&gt;</span>
+                    <section>Draws a basic horizontal bar. Usually used with a max attribute so it lines up with
+                        other bars in a grid format.
+                    </section>
+                </li>
+
+                <li><em><img width="80" height="20" src="tutorials/images/microcharts/BarFull.png"/> BarFull <a
+                        href="Samples.MicroTypeBarFull">BarFull Options Sample</a></em><br>
+                    <span class="example">&lt;chart type="barFull" data="5" min="0" max="10"&gt;</span>
+                    <section>Draws stacked horizontal bars.
+                    </section>
+                </li>
+
+                <li><em><img width="80" height="20" src="tutorials/images/microcharts/Bullet.png"/> Bullet <a
+                        href="Samples.MicroTypeBullet">Bullet Options Sample</a></em><br>
+                    <span class="example">&lt;chart type="bullet" data="20,18,8,13" max="25" &gt;</span>
+                    <section>The bullet type shows a value (bar) a target (vertical line segment) and AxisMarker bands
+                        indicate additional target or status.
+                    </section>
+                </li>
+
+
+                <li><em><img width="80" height="20" src="tutorials/images/microcharts/Column.png"/> Column <a
+                        href="Samples.MicroTypeColumn">Column Options Sample</a></em><br>
+                    <span class="example">&lt;chart type="column" data="10,7,3,2,7,4,0,0,0,-5,-6,-3,-2" &gt;</span>
+                    <section>Draws a series of columns based on specified values.
+                    </section>
+                </li>
+
+
+                <li><em><img width="80" height="20" src="tutorials/images/microcharts/Heatmap.png"/> Heatmap <a
+                        href="Samples.MicroTypeHeatmap">Heatmap Options Sample</a></em><br>
+                    <span class="example">&lt;chart type="heatmap" cells="3x3" data="10,14,15,-6,-12,-14,19,11,-5" &gt;</span>
+                    <section>Draws a heatmap with the specified number of rows and columns or rows/column arrangement is
+                        determined
+                        automatically if not specified.
+                    </section>
+                </li>
+
+                <li><em><img width="20" height="20" src="tutorials/images/microcharts/Pie.png"/> Pie <a
+                        href="Samples.MicroTypePie">Pie Options Sample</a></em><br>
+                    <span class="example">&lt;chart type="pie" data="10,14,5,6" &gt;</span>
+                    <section>A simple pie microChart.
+                    </section>
+                </li>
+
+                <li><em><img width="80" height="20" src="tutorials/images/microcharts/Progress.png"/> Progress <a
+                        href="Samples.MicroTypeProgress">Progress Options Sample</a></em><br>
+                    <span class="example">&lt;chart type="progress" data="5" min="0" max="10"&gt;</span>
+                    <section>This type is similar to Bar except the bar is drawn in segments.
+                    </section>
+                </li>
+                <li><em><img width="80" height="20" src="tutorials/images/microcharts/Scale.png"/> Scale <a
+                        href="Samples.MicroTypeScale">Scale Options Sample</a></em><br>
+                    <span class="example">&lt;chart type="scale" min="0" max="10"&gt;</span>
+                    <section>The scale micro chart is designed to be used in a header of a column that will show micro
+                        charts based on that scale range. By specifying the same width for the scale and subsequent
+                        charts, it will ensure the charts in that column line up with each other and the scale. Using a
+                        scale also requires that the same max parameter value is set for all the charts so the values of
+                        each chart correspond to the values indicated by the scale. In some cases, the min parameter may
+                        also be required.
+                    </section>
+                </li>
+                <li><em><img width="80" height="20" src="tutorials/images/microcharts/Sparkline.png"/> Sparkline <a
+                        href="Samples.MicroTypeSparkline">Sparkline Options Sample</a></em><br>
+                    <span class="example">&lt;chart type="sparkline" data="2,4,0,3,5,4,3,2"&gt;</span>
+                    <section>A sparkline is similar to a line chart but without the extras like grid lines.
+                    </section>
+                </li>
+
+            </ul>
+        </tb>
+        <tb></tb>
+    </tr>
+</table>
+
+
+<h3>MicroChart Common Attributes</h3>
+
+<ul class="simpleKvpList">
+    <li><em>type</em>
+        <section>The microchart type.</section>
+    </li>
+    <li><em>data</em>
+        <section>The value or comma delimited list of values to chart.</section>
+    </li>
+    <li><em>color</em>
+        <section>Specifies a color for micro charts that display a single value. For some cases it is used for a
+            simpleColor feature described in more detail below.
+        </section>
+    </li>
+    <li><em>colors</em>
+        <section>Used to specify the colors used on the chart.</section>
+    </li>
+    <li><em>min / max</em>
+        <section>Specifies the minimum and maximum scale values.</section>
+    </li>
+    <li><em>width / height</em>
+        <section>Specifies the width or height of the micro chart in pixels.</section>
+    </li>
+    <li><em>size</em>
+        <section>A simpler way to specify the size with <span class="example">size=80x20</span> or for cases like pie:
+            <span class="example">size=50</span></section>
+    </li>
+    <li><em>margin</em>
+        <section>Specifies the margin around the microchart.</section>
+    </li>
+    <li><em>shading</em>
+        <section>Takes a number between 1 and 5 and specifies the shading effect mode to use on the micro chart.
+        </section>
+    </li>
+    <li><em>axisMarker</em>
+        <section>Takes a single value to draw a reference line or two values that specify a range to
+            highlight similar to range axis markers on regular charts.
+            Sparkline, AreaLine, and Column support this feature.
+        </section>
+    </li>
+    <li><em>tooltip</em>
+        <section>A simple html tooltip for the microchart visual.</section>
+    </li>
+    <li><em>rotate</em>
+        <section>Rotates the microchart by the specified angle in degrees.</section>
+    </li>
+</ul>
+
+<h3>MicroChart Type Specific Attributes</h3>
+
+<h4>heatmap</h4>
+<ul class="simpleKvpList">
+    <li><em>cellSize</em>
+        <section>When set, each cell with take this size and the resulting size will depend on the number of data
+            values. Example: <span class="example">cellSize=25</span></section>
+    </li>
+    <li><em>cells</em>
+        <section>Specifies the number of rows and columns the cells will fill. Example: <span
+                class="example">cells=10x5</span></section>
+    </li>
+    <li><em>antialias</em>
+        <section>Disables pixel snapping. Can be set with a 'true' value or just the attribute name by itself. Example:
+            <span class="example">antialias</span></section>
+    </li>
+</ul>
+<h4>scale</h4>
+<ul class="simpleKvpList">
+    <li><em>orientation</em>
+        <section>The default orientation of the scale is <span class="example">&#39;top&#39;</span>. When set to <span
+                class="example">&#39;bottom&#39;</span> the scale render the axis line on top of labels.
+        </section>
+    </li>
+    <li><em>value</em>
+        <section>Use to modify the axis tick labels with additional characters. Usage: <span class="example">&#39;$%value&#39;</span>
+            can result in <span class="example">&#39;$500&#39;</span></section>
+    </li>
+    <li><em>interval</em>
+        <section>Used to define a tick interval.</section>
+    </li>
+</ul>
+<h4>column</h4>
+<ul class="simpleKvpList">
+    <li><em>antialias</em>
+        <section>Disables pixel snapping. Can be set with a 'true' value or just the attribute name by itself. Example:
+            <span class="example">antialias</span></section>
+    </li>
+</ul>
+<h3>Sizing</h3>
+<p>All microCharts have predefined default sizes. Types like Pie use 30x30. Heatmap depends on cell sizes and value
+    count but allows different sizing options. Others use 80x20. The size can be specified with the width and height
+    settings
+    but a size setting can also be used and it applied that value to both width and height.</p>
+
+<h3>Shading</h3>
+<p>A number of micro charts support shading effect modes. These can be specified with the 'shading' parameter which
+    takes a number from 1 to 5 indicating the shading effect mode to use. The micro charts that support shading are:</p>
+<ul class="simpleKvpList">
+    <li><em>bar</em>
+        <section></section>
+    </li>
+    <li><em>bullet</em>
+        <section></section>
+    </li>
+    <li><em>pie</em>
+        <section></section>
+    </li>
+    <li><em>progress</em>
+        <section></section>
+    </li>
+</ul>
+
+<h3>Setting Axis Range</h3>
+<p>The scale micro chart provides a means to describe other horizontal based micro charts. When other micro charts
+    are stacked vertically with a scale in the header row they must sync the scales in order to visualize the
+    information correctly. The scale range can be specified through the min and max attributes. The following
+    micro chart types support the min/max axis range attributes:</p>
+
+<ul class="simpleKvpList">
+    <li><em>bar</em>
+        <section></section>
+    </li>
+    <li><em>areaLine</em>
+        <section></section>
+    </li>
+    <li><em>column</em>
+        <section></section>
+    </li>
+    <li><em>bullet</em>
+        <section></section>
+    </li>
+    <li><em>pie</em>
+        <section></section>
+    </li>
+    <li><em>progress</em>
+        <section></section>
+    </li>
+    <li><em>scale</em>
+        <section></section>
+    </li>
+    <li><em>sparkline</em>
+        <section></section>
+    </li>
+    <li><em>heatmap</em>
+        <section>With heatmaps, the min/max scale describes the smartPalette range.</section>
+    </li>
+</ul>
+
+<h3>Data and Colors usage</h3>
+
+<table class="useDocsTable">
+    <tr>
+        <th>Type</th>
+        <th>Data</th>
+        <th>Color</th>
+    </tr>
+    <tr>
+        <td>AreaLine</td>
+        <td><u>data</u>: attribute takes a comma delimited list of values <span class="example">data="2,3,6,2"</span>
+        </td>
+        <td><u>colors</u> attribute:<br>
+            1st Color: Line<br>
+            2nd Color: Line start/end points<br>
+            3rd Color: Max/Min points<br>
+            4th Color: AxisMarker color<br><br>
+
+            The word 'none' can be used to hide an element. Colors can be omitted to use the default colors.
+        </td>
+    </tr>
+    <tr>
+        <td>Bar</td>
+        <td><u>data</u>: attribute specifies the bar value <span class="example">data="5"</span></td>
+        <td><u>color</u> attribute: Sets the bar color.<br><br>
+            <u>colors</u> attribute:<br>
+            1st color: Bar<br>
+            2nd color: Bar (negative)<br>
+            3rd color: Background<br>
+            4th color: Border<br><br>
+
+            The word 'none' can be used to hide an element. Colors can be omitted to use the default colors.
+        </td>
+    </tr>
+
+    <tr>
+        <td>BarFull</td>
+        <td><u>data</u>: attribute specifies bar values <span class="example">data="5,10,2"</span></td>
+        <td><u>colors</u> attribute:<br>
+            1st color: Border<br>
+            2, 3, ... : defines each color applied to bars<br><br>
+            <u>color</u> <b>SimpleColor Feature</b>: One color internally creates a palette of colors with similar hues.<br>
+        </td>
+    </tr>
+
+    <tr>
+        <td>Bullet</td>
+        <td><u>data</u>: the sequence of values specify: Value, Target, 1st, 2nd, ...defines axis markers positions.<br><br>
+            If the 3rd value is larger than the 4th. The axis marker colors fill in the opposite direction.
+            <span class="example">data="15,10,4,8"</span></td>
+        <td>
+            <u>colors</u> attribute:<br>
+            1st Color: Bar<br>
+            2nd Color: Target<br>
+            3rd Color: Shade 1<br>
+            4th Color: Shade 2<br>
+            5th Color: Background<br>
+            6th Color: Border<br><br>
+
+            <u>color</u> <b>SimpleColor Feature</b>: One color internally creates a palette of colors with similar hues.<br>
+
+        </td>
+    </tr>
+    <tr>
+        <td>Column</td>
+        <td><u>data</u>: attribute takes a comma delimited list of values. <span class="example">data="2,3,6,2"</span>
+        </td>
+        <td>
+            <u>colors</u> attribute:<br>
+            1st Color: (+) Columns<br>
+            2nd Color: (-) Columns<br>
+            3rd Color: AxisMarker<br><br>
+
+        </td>
+    </tr>
+    <tr>
+        <td>Heatmap</td>
+        <td><u>data</u>: attribute takes a comma delimited list of values. <span class="example">data="10,14,15,-6,-12,-14,19,11,-5"</span>
+        </td>
+        <td>
+            <u>colors</u> attribute defines a gradient smartPalette with 3 colors:<br>
+            1st Color: (-) Min Value<br>
+            2nd Color: (zero) <br>
+            3rd Color: (+) Max Value<br><br>
+
+        </td>
+    </tr>
+    <tr>
+        <td>Pie</td>
+        <td><u>data</u>: attribute takes a comma delimited list of values. <span class="example">data="10,14,15,-6,-12,-14,19,11,-5"</span>
+        </td>
+        <td>
+            <u>colors</u> attribute:<br>
+            1st color: Border<br>
+            2, 3, ... : defines each color applied to pie slices<br><br>
+            <u>color</u> <b>SimpleColor Feature</b>: One color internally creates a palette of colors with similar hues.<br>
+
+        </td>
+    </tr>
+    <tr>
+        <td>Progress</td>
+        <td><u>data</u>: attribute specifies the bar value <span class="example">data="5"</span></td>
+        <td><u>color</u> attribute: Sets the bar color.<br><br>
+            <u>colors</u> attribute:<br>
+            1st color: Bar<br>
+            2nd color: Bar (negative)<br>
+            3rd color: Background<br>
+            4th color: Border<br><br>
+
+            The word 'none' can be used to hide an element. Colors can be omitted to use the default colors.
+        </td>
+    </tr>
+    <tr>
+        <td>Scale</td>
+        <td><u>data</u>: a comma delimited list of string labels to place on the axis. ex:
+            <span class="example">data="Bad,Good,Great"</span></td>
+        <td><u>colors</u> attribute:<br>
+            1st Color: Applies to line and labels<br>
+            2nd Color: Line only<br><br>
+
+            The word 'none' can be used to hide an element. Colors can be omitted to use the default colors.
+        </td>
+    </tr>
+    <tr>
+        <td>Sparkline</td>
+        <td><u>data</u>: attribute takes a comma delimited list of values <span class="example">data="2,3,6,2"</span>
+        </td>
+        <td><u>colors</u> attribute:<br>
+            1st Color: Line<br>
+            2nd Color: Line start/end points<br>
+            3rd Color: Max/Min points<br>
+            4th Color: AxisMarker color<br><br>
+
+            The word 'none' can be used to hide an element. Colors can be omitted to use the default colors.
+        </td>
+    </tr>
+
+</table>
+
+<span class="docsTip">
+    <b>SimpleColor Feature</b>
+By setting the color attribute for charts that support this feature, multiple colors will be created for all elements
+    based on the specified color. This can allow the ability to quickly apply a primary color of your page to ensure
+    the MicroCharts style fits.
+</span>
+
+<h3>Useful Microchart Tokens</h3>
+<p>A number of tokens that list values associated with a point, series or series collections are available and can be
+    used
+    to populate microchart data values.</p>
+
+<table class="useDocsTable">
+    <tr>
+        <th>Type</th>
+        <th>Token</th>
+    </tr>
+    <tr>
+        <td>Point</td>
+        <td>%subvalueList - Comma delimited list of point subvalue values</td>
+    </tr>
+    <tr>
+        <td>Series</td>
+        <td>
+            %yValueList - A comma delimited list of y values for each point in this series.<br/>
+            %xValueList - A comma delimited list of x values for each point in this series.<br/>
+            %zValueList - A comma delimited list of z values for each point in this series.
+        </td>
+    </tr>
+    <tr>
+        <td>Series Collection</td>
+        <td>
+            %ySumList - A comma delimited list of y value sums for each series on the chart.<br/>
+            %xSumList - A comma delimited list of x value sums for each series on the chart.<br/>
+            %zSumList - A comma delimited list of z value sums for each series on the chart.
+        </td>
+    </tr>
+</table>
+

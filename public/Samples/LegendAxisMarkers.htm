@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Legend Axis Markers | JSCharting</title>
+    <meta http-equiv="content-type" content="text-html; charset=utf-8" />
+
+    <script type="text/javascript" src="../jsc/jscharting.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="css/default.css" />
+    <style type="text/css"></style>
+  </head>
+  <body>
+    <div id="chartDiv" style="max-width: 740px;height: 400px;margin: 0px auto;"></div>
+
+    <script type="text/javascript">
+      /*
+AxisMarker legend entry customization with attributes.
+Learn how to:
+
+  - Customize axisMarker legend entry column text.
+*/
+      // JS
+      var chart = JSC.chart('chartDiv', {
+        debug: true,
+        type: 'line',
+        title_label_text: 'Acme Tool Sales',
+        legend: {
+          template: '%name %icon %value %average',
+          header: 'Product,,Value,Avg',
+          customEntries: [
+            {
+              sortOrder: 19,
+              /*Text for name column*/
+              name: 'Markers',
+              /*Blank text for value and average columns*/
+              value: ' ',
+              attributes_average: ' ',
+              icon: 'none',
+              style_fontWeight: 'bold'
+            }
+          ]
+        },
+        yAxis: {
+          label_text: 'Units Sold',
+          /*Default AxisMarker options*/
+          defaultMarker_legendEntry: {
+            /*Set blank text for average column*/
+            attributes_average: ' ',
+            style_color: '#414159',
+            sortOrder: 20,
+            style_fontStyle: 'italic'
+          },
+          markers: [
+            { value: [230, 267], color: '#a6bce3', legendEntry_name: 'Saw Range' },
+            { value: 392, color: '#02a423', legendEntry_name: 'Max Quarter', line_width: 2 }
+          ]
+        },
+        xAxis: { label_text: 'Quarter' },
+        series: [
+          {
+            name: 'Saw',
+            id: 's1',
+            points: [['Q1', 230], ['Q2', 240], ['Q3', 267], ['Q4', 238]]
+          },
+          {
+            name: 'Hammer',
+            points: [['Q1', 325], ['Q2', 347], ['Q3', 392], ['Q4', 371]]
+          },
+          {
+            name: 'Grinder',
+            points: [['Q1', 285], ['Q2', 292], ['Q3', 327], ['Q4', 158]]
+          },
+          {
+            name: 'Drill',
+            points: [['Q1', 185], ['Q2', 192], ['Q3', 198], ['Q4', 318]]
+          }
+        ]
+      });
+    </script>
+  </body>
+</html>

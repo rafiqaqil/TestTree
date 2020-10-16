@@ -1,0 +1,111 @@
+<h1>Calendar Patterns</h1>
+<p>Calendar patterns are a collection of time related rules and provide a way to specify complex date patterns such
+    as specific days in a week, year, and even time intervals. For example:</p>
+
+<span class="codeText">
+    // The fifth of February.
+{month:2, day:5}
+</span>
+
+<p>See the <a href="Types.calendarPattern">calendarPattern API</a> for a complete list of available filters.
+</p>
+
+<h2>Filter Settings
+</h2>
+    <p>The month filter is used below to demonstrate values all filters accept. </p>
+
+    <h3>Value</h3>
+    <span class="codeText">
+        // Matches February.
+    {month:2}
+    </span>
+
+    <h3>Date</h3>
+    <span class="codeText">
+         // This is equivalent to the value 2 because
+        // only the month part extracted from it.
+    {month:'2/1/20'}
+    </span>
+
+    <h3>Multiple Values</h3>
+    <span class="codeText">
+        // February and May.
+    {month:[2,5]}
+    </span>
+
+    <h3>Range</h3>
+    <span class="codeText">
+         // February , March, April, and May.
+    {month_range:[2,5]}
+    </span>
+
+    <h3>Asterisk</h3>
+    <span class="codeText">
+        // Means every month and puts the pattern into interval mode.
+    {month:'*'}
+    </span>
+
+    <h3>Function</h3>
+    <span class="codeText">
+       // A custom function to match months of given dates.
+    {
+        month:function(date){
+        /*return true if date matches*/
+        }
+        }
+
+    </span>
+    <p>In addition to filters, there are also two properties: every and inclusive that are described in more detail below.</p>
+
+<h1>Usage</h1>
+    <p>The API for these patterns is robust and easy to read. For example,  a pattern that covers weekends can be defined as:</p>
+
+    <span class="codeText">
+    {weekday:[0,6]}
+    </span>
+
+    <p>Multiple filters can be used to restrict the pattern range. The addition of the month filter changes the meaning
+        to weekends in January.
+    </p>
+
+    <span class="codeText">
+    {weekday:[0,6], month:1}
+    </span>
+
+
+    <p>Alternatively, extra filters can expand the pattern by adding the inclusive property. The pattern below describes
+        all weekends and all days in January.</p>
+    <span class="codeText">
+    {weekday:[0,6], month:1, inclusive:false}
+    </span>
+
+    <p>A more complex example is defining a pattern that marks the first Sunday of every month:</p>
+    <span class="codeText">
+    {day_range:[1,7], weekday:6}
+    </span>
+
+    <p>If a matching pattern is too difficult to define, a custom function can be used as well:</p>
+    <span class="codeText">
+    {date:function(date){/*Match date*/}}
+    </span>
+
+<h1>Intervals</h1>
+
+        <p>An interval pattern that refers to months (every month) can be specified like so:</p>
+        <span class="codeText">
+        {month:'*'}
+        </span>
+
+
+        <p>This interval pattern covers 100% of any time span but is useful with calendar heatmaps to outline specific date groupings.</p>
+        <span class="codeText">
+        {month:'*', every:3}
+        </span>
+
+    <h3>Rules</h3>
+        <p>Filters with '*' value can be mixed with other filters, but only one filter can have a '*' value.</p>
+
+
+
+
+

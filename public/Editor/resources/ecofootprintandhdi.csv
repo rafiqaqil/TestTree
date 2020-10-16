@@ -1,0 +1,173 @@
+country,hdi,footprint,region
+Afghanistan,0.46,0.79,Middle East/Central Asia
+Albania,0.73,2.21,Northern/Eastern Europe
+Algeria,0.73,2.12,Africa
+Angola,0.52,0.93,Africa
+Antigua and Barbuda,0.78,5.38,Latin America
+Argentina,0.83,3.14,Latin America
+Armenia,0.73,2.23,Middle East/Central Asia
+Australia,0.93,9.31,Asia-Pacific
+Austria,0.88,6.06,European Union
+Azerbaijan,0.75,2.31,Middle East/Central Asia
+Bahamas,0.78,6.84,Latin America
+Bahrain,0.82,7.49,Middle East/Central Asia
+Bangladesh,0.56,0.72,Asia-Pacific
+Barbados,0.79,4.48,Latin America
+Belarus,0.8,5.09,Northern/Eastern Europe
+Belgium,0.89,7.44,European Union
+Benin,0.48,1.41,Africa
+Bhutan,0.59,4.84,Asia-Pacific
+Bolivia,0.65,2.96,Latin America
+Bosnia and Herzegovina,0.73,3.12,Northern/Eastern Europe
+Botswana,0.69,3.83,Africa
+Brazil,0.75,3.11,Latin America
+Brunei Darussalam,0.85,4.06,Asia-Pacific
+Bulgaria,0.78,3.32,European Union
+Burkina Faso,0.39,1.21,Africa
+Burundi,0.39,0.8,Africa
+Cabo Verde,0.64,2.52,Africa
+Cambodia,0.55,1.21,Asia-Pacific
+Cameroon,0.5,1.17,Africa
+Canada,0.91,8.17,North America
+Central African Republic,0.37,1.24,Africa
+Chad,0.39,1.46,Africa
+Chile,0.83,4.36,Latin America
+China,0.72,3.38,Asia-Pacific
+Colombia,0.72,1.87,Latin America
+Comoros,0.5,1.03,Africa
+Congo,0.57,1.29,Africa
+"Congo, Democratic Republic of",0.42,0.82,Africa
+Costa Rica,0.76,2.84,Latin America
+Croatia,0.82,3.92,Northern/Eastern Europe
+Cuba,0.77,1.95,Latin America
+Cyprus,0.85,4.21,European Union
+Czech Republic,0.87,5.19,European Union
+Denmark,0.92,5.51,European Union
+Djibouti,0.46,2.19,Africa
+Dominica,0.72,2.57,Latin America
+Dominican Republic,0.71,1.53,Latin America
+Ecuador,0.73,2.17,Latin America
+Egypt,0.69,2.15,Africa
+El Salvador,0.66,2.07,Latin America
+Equatorial Guinea,0.58,3.97,Africa
+Eritrea,0.39,0.42,Africa
+Estonia,0.85,6.86,European Union
+Ethiopia,0.43,1.02,Africa
+Fiji,0.72,2.9,Asia-Pacific
+Finland,0.88,5.87,European Union
+France,0.89,5.14,European Union
+Gabon,0.67,2.02,Africa
+Gambia,0.44,1.03,Africa
+Georgia,0.75,1.58,Middle East/Central Asia
+Germany,0.91,5.3,European Union
+Ghana,0.57,1.97,Africa
+Greece,0.86,4.38,European Union
+Grenada,0.74,2.98,Latin America
+Guatemala,0.62,1.89,Latin America
+Guinea,0.41,1.41,Africa
+Guinea-Bissau,0.42,1.53,Africa
+Guyana,0.63,3.07,Latin America
+Haiti,0.48,0.61,Latin America
+Honduras,0.61,1.68,Latin America
+Hungary,0.82,2.92,European Union
+India,0.6,1.16,Asia-Pacific
+Indonesia,0.68,1.58,Asia-Pacific
+"Iran, Islamic Republic of",0.76,2.79,Middle East/Central Asia
+Iraq,0.65,1.88,Middle East/Central Asia
+Ireland,0.91,5.57,European Union
+Israel,0.89,6.22,Middle East/Central Asia
+Italy,0.87,4.61,European Union
+Jamaica,0.72,1.89,Latin America
+Japan,0.89,5.02,Asia-Pacific
+Jordan,0.75,2.1,Middle East/Central Asia
+Kazakhstan,0.78,5.55,Middle East/Central Asia
+Kenya,0.54,1.03,Africa
+"Korea, Republic of",0.89,5.69,Asia-Pacific
+Kuwait,0.82,8.13,Middle East/Central Asia
+Kyrgyzstan,0.65,1.91,Middle East/Central Asia
+Lao People's Democratic Republic,0.56,1.22,Asia-Pacific
+Latvia,0.81,6.29,European Union
+Lebanon,0.76,3.84,Middle East/Central Asia
+Lesotho,0.48,1.66,Africa
+Liberia,0.42,1.21,Africa
+Libyan Arab Jamahiriya,0.74,3.69,Africa
+Lithuania,0.83,5.83,European Union
+Luxembourg,0.89,15.82,European Union
+Macedonia TFYR,0.74,3.26,Northern/Eastern Europe
+Madagascar,0.51,0.99,Africa
+Malawi,0.43,0.81,Africa
+Malaysia,0.77,3.71,Asia-Pacific
+Mali,0.41,1.53,Africa
+Mauritania,0.5,2.54,Africa
+Mauritius,0.77,3.46,Africa
+Mexico,0.75,2.89,Latin America
+Moldova,0.68,1.78,Northern/Eastern Europe
+Mongolia,0.71,6.08,Asia-Pacific
+Montenegro,0.8,3.78,Northern/Eastern Europe
+Morocco,0.62,1.68,Africa
+Mozambique,0.41,0.87,Africa
+Myanmar,0.53,1.43,Asia-Pacific
+Namibia,0.62,2.48,Africa
+Nepal,0.54,0.98,Asia-Pacific
+Netherlands,0.92,5.28,European Union
+New Zealand,0.91,5.6,Asia-Pacific
+Nicaragua,0.63,1.39,Latin America
+Niger,0.34,1.56,Africa
+Nigeria,0.5,1.16,Africa
+Norway,0.94,4.98,Northern/Eastern Europe
+Oman,0.79,7.52,Middle East/Central Asia
+Pakistan,0.53,0.79,Asia-Pacific
+Panama,0.77,2.79,Latin America
+Papua New Guinea,0.5,1.91,Asia-Pacific
+Paraguay,0.67,4.16,Latin America
+Peru,0.73,2.28,Latin America
+Philippines,0.66,1.1,Asia-Pacific
+Poland,0.84,4.44,European Union
+Portugal,0.83,3.88,European Union
+Qatar,0.85,10.8,Middle East/Central Asia
+Romania,0.79,2.71,European Union
+Russian Federation,0.79,5.69,Northern/Eastern Europe
+Rwanda,0.48,0.87,Africa
+Saint Kitts and Nevis,0.74,4.94,Latin America
+Saint Lucia,0.73,2.45,Latin America
+Saint Vincent and Grenadines,0.72,3.11,Latin America
+Samoa,0.7,2.77,Asia-Pacific
+Sao Tome and Principe,0.55,1.49,Africa
+Saudi Arabia,0.83,5.61,Middle East/Central Asia
+Senegal,0.46,1.21,Africa
+Serbia,0.76,2.7,Northern/Eastern Europe
+Sierra Leone,0.4,1.24,Africa
+Singapore,0.91,7.97,Asia-Pacific
+Slovakia,0.84,4.06,European Union
+Slovenia,0.88,5.81,European Union
+Solomon Islands,0.5,1.29,Asia-Pacific
+South Africa,0.66,3.31,Africa
+Spain,0.87,3.67,European Union
+Sri Lanka,0.75,1.32,Asia-Pacific
+Suriname,0.71,4.25,Latin America
+Swaziland,0.53,2.01,Africa
+Sweden,0.9,7.25,European Union
+Switzerland,0.93,5.79,Northern/Eastern Europe
+Syrian Arab Republic,0.62,1.51,Middle East/Central Asia
+Tajikistan,0.62,0.91,Middle East/Central Asia
+"Tanzania, United Republic of",0.51,1.32,Africa
+Thailand,0.72,2.66,Asia-Pacific
+Timor-Leste,0.6,0.48,Asia-Pacific
+Togo,0.47,1.13,Africa
+Tonga,0.72,2.7,Asia-Pacific
+Trinidad and Tobago,0.77,7.92,Latin America
+Tunisia,0.72,2.34,Africa
+Turkey,0.76,3.33,Middle East/Central Asia
+Turkmenistan,0.68,5.47,Middle East/Central Asia
+Uganda,0.48,1.24,Africa
+Ukraine,0.74,2.84,Northern/Eastern Europe
+United Kingdom,0.9,4.94,European Union
+United Arab Emirates,0.83,7.93,Middle East/Central Asia
+United States of America,0.91,8.22,North America
+Uruguay,0.79,2.91,Latin America
+Uzbekistan,0.67,2.32,Middle East/Central Asia
+"Venezuela, Bolivarian Republic of",0.763846,3.57,Latin America
+Viet Nam,0.66,1.65,Asia-Pacific
+Yemen,0.5,1.03,Middle East/Central Asia
+Zambia,0.58,0.99,Africa
+Zimbabwe,0.49,1.37,Africa

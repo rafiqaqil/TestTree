@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Inverted Cone Chart | JSCharting</title>
+    <meta http-equiv="content-type" content="text-html; charset=utf-8" />
+
+    <script type="text/javascript" src="../jsc/jscharting.js"></script>
+
+    <script type="text/javascript" src="../jsc/modules/types.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="css/default.css" />
+    <style type="text/css">
+      /*CSS*/
+    </style>
+  </head>
+  <body>
+    <div id="chartDiv" style="max-width: 480px;height: 400px;margin: 0px auto;"></div>
+
+    <script type="text/javascript">
+      /*
+Inverted cone chart.
+Learn how to:
+
+  - Draw a cone.
+  - Draw an inverted cone.
+*/
+      // JS
+      var chart = JSC.chart('chartDiv', {
+        debug: true,
+        type: 'coneInverted',
+        legend: { position: 'inside bottom', outline_width: 0 },
+        title: {
+          label_text: '2020 Operations Cost',
+          position: 'center'
+        },
+
+        /*These y axis settings  describe the point y values.*/
+        yAxis: {
+          /*Used in tooltips.*/
+          label_text: 'Cost',
+          formatString: 'c'
+        },
+        defaultSeries: {
+          /*Gaps between cone section.*/
+          shape_innerPadding: 6,
+          defaultPoint: { label_text: '%name' }
+        },
+        series: [
+          {
+            name: 'Costs',
+            palette: 'default',
+            points: [
+              { name: 'R&D', y: 183 },
+              { name: 'Shipping', y: 140 },
+              { name: 'Marketing', y: 136 },
+              { name: 'Manufacturing', y: 80 },
+              { name: 'Retail', y: 50 }
+            ]
+          }
+        ]
+      });
+    </script>
+  </body>
+</html>

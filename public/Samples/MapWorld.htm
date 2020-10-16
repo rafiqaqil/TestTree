@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>World Map Chart | JSCharting</title>
+    <meta http-equiv="content-type" content="text-html; charset=utf-8" />
+
+    <script type="text/javascript" src="../jsc/jscharting.js"></script>
+
+    <script type="text/javascript" src="../jsc/modules/maps.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="css/default.css" />
+    <style type="text/css">
+      /*CSS*/
+    </style>
+  </head>
+  <body>
+    <div id="chartDiv" style="max-width: 740px;height: 400px;margin: 0px auto;"></div>
+
+    <script type="text/javascript">
+      /*
+A map of world countries.
+Learn how to:
+
+  - Draw a simple world map.
+*/
+      // JS
+      var chart = JSC.chart('chartDiv', {
+        debug: true,
+        type: 'map',
+        legend_visible: false,
+        mapping_projection: false,
+        series: [
+          {
+            map: 'world',
+            palette: JSC.colorToPalette('rgb(251, 204, 155)', { hue: 0.1, saturation: 0.4, lightness: 0.3 }, 200, 1),
+            opacity: 0.8,
+            defaultPoint: {}
+          }
+        ]
+      });
+    </script>
+  </body>
+</html>

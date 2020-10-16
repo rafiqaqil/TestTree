@@ -1,0 +1,132 @@
+<h2>Scale Types</h2>
+
+<p>The axis scale can be set through the <a href="Types.axis.scale.type">axis.scale.type</a> property using one of the options defined by <a href="Enums.scale">scale</a>.</p>
+<ul class="simpleKvpList">
+	<li><em>Auto</em><section>Automatically Determined.</section></li>
+	<li><em>Time</em><section>When set, values can be specified as strings, numbers, or date objects..</section></li>
+	<li><em>Logarithmic</em><section>Logarithmic scale.</section></li>
+	<li><em>Stacked</em><section>Stacks data points.</section></li>
+	<li><em>StackedLogarithmic</em><section>Stacks data points on a logarithmic scale.</section></li>
+	<li><em>StackedFull</em><section>Stacks points on a percentage scale ranging from 0 to 100%</section></li>
+
+</ul>
+
+<h2>Scales & Chart Types</h2>
+<p>Axis scales are related to chart types because some scale types are used to define options often associated with chart types
+	like stacked columns. Column is a series type, but stacked is a value (Y) axis scale type.
+</p>
+<p>Bars are stacked on the position (X) axis by default. This basically means they are drawn side by side.
+	Setting the value (Y) axis scale to stacked, stacks bars vertically. If the tertiary (Z) axis scale type is set to stacked,
+	they are arranged one in front of the other. This is useful for cases such as gantt.
+</p>
+
+<h2>Scales & Data</h2>
+<p>There are 3 fundamental types of data and scales.
+</p>
+<ul>
+	<li>Numeric </li>
+	<li>Time</li>
+	<li>Category</li>
+</ul>
+<span class="docsNote">
+ Both x and y axes support all these scales.
+</span>
+
+<p>Numeric scales are common and the default behavior when datapoint x, and y properties are set with numeric values.
+</p>
+<p>Time scales require the axis scale types to be set to 'time' or use date objects for point values.
+	When a scale type is time, the respective data point property numbers are converted to dates, and string date values are parsed by Date().
+</p>
+<p>The position (X) axis supports numbers, time, and category values.
+	A smart category pattern matching algorithm allows series with missing category
+	points to be reconstructed back to the original category order if sufficient category
+	data is available across all series.
+</p>
+<span class="docsReference">Samples.SmartCategoryGrouping</span>
+
+<h2>Intervals</h2>
+<p>Tick intervals are automatically chosen by default but they can also be specified manually.
+</p>
+<p>On numeric scales, intervals are specified using a numeric value. On time scales, the intervals can be set using a number representing a time span in milliseconds, or a time span object configuration.
+	The object configuration makes it more readable and simpler to define a time span rather than calculating the milliseconds.
+	Intervals are specified through the <a href="Types.axis.scale.interval">interval</a> and <a href="Types.axis.scale.minorInterval">minorInterval</a> properties.
+</p>
+<p>This is a snippet and sample demonstrating time span object intervals.</p>
+
+<span class="codeText">
+	{
+	xAxis: {
+    scale: {
+      interval: {
+
+/* One week interval.*/
+        unit: 'week',
+        multiplier: 1
+      },
+      minorInterval: {
+
+/* Two days interval. */
+        unit: 'day',
+        multiplier: 2
+      }
+    }
+  }
+}</span>
+<span class="docsReference">Samples.AxisIntervals</span>
+
+
+<h2>Scale Ranges</h2>
+
+<p>While data points determine the visible axis ranges, there are a number of scenarios and properties that affect this range.
+	For instance, in some scenarios the axis start and end snap to axis ticks.
+</p>
+<p>When column series are used, the axis snaps to 0 unless positive and negative columns are used.
+</p>
+<p>The axis range min and max values can be set manually through the <a href="Types.axis.scale.range">range</a> property.
+	When one of these are set, the axis does not attempt to snap to tick positions.
+</p>
+<span class="codeText">
+
+	{
+	xAxis: {
+    scale: {
+	/*Define an axis range of 0-100*/
+	range:[0,100]
+	}
+	}
+	}
+
+</span>
+<p>Range properties can also be set with an object that includes more options and the ability to specify only the min or only the max range value.</p>
+
+<p>The scale can be padded by setting the <a href="Types.axis.scale.range.padding">scale.range.padding</a> property with a value between 0-1 indicating the percentage of the scale range to pad.
+</p>
+<span class="codeText">
+
+	{
+	xAxis: {
+    scale: {
+	/*Define an axis range of 0-100*/
+	range:{min:0, max:100,padding:.1}
+	}
+	}
+	}
+
+</span>
+
+<h2>Scale Breaks</h2>
+<p>Scale breaks are discontinuities in an axis' scale. They are useful when there is a large difference between low and high data point values.
+	By removing parts of an axis range, the variations between other data points is more pronounced.
+	The chart is able to determine whether scale breaks can improve the readability of plotted data automatically if
+	the <a href="Types.axis.scale.breaks.limit">axis.scale.breaks.limit</a> is set with an integer (count) value of 1 or more. This indicates how many scale breaks
+	the chart can utilize automatically. Scale breaks can also be specified manually with start and end values.</p>
+
+<p>This code snippet specifies breaking the axis between 5-10 and between 12-20.</p>
+<span class="codeText">
+{
+scale:{breaks:[[5,10], [12,20]]}
+}
+</span>
+<span class="docsReference">Samples.ScaleBreaks | Samples.ScaleBreaksAuto</span>
+
+<p></p>

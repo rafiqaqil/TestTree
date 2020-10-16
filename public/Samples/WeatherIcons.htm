@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Weather Icons | JSCharting</title>
+    <meta http-equiv="content-type" content="text-html; charset=utf-8" />
+
+    <script type="text/javascript" src="../jsc/jscharting.js"></script>
+
+    <script type="text/javascript" src="../jsc/icons/weather/variable-sun.js"></script>
+    <script type="text/javascript" src="../jsc/icons/weather/rain.js"></script>
+    <script type="text/javascript" src="../jsc/icons/weather/variable-sun.js"></script>
+    <script type="text/javascript" src="../jsc/icons/weather/sun.js"></script>
+    <script type="text/javascript" src="../jsc/icons/weather/variable-sun.js"></script>
+    <script type="text/javascript" src="../jsc/icons/weather/storm-sun.js"></script>
+    <script type="text/javascript" src="../jsc/icons/weather/rain.j"></script>
+
+    <link rel="stylesheet" type="text/css" href="css/default.css" />
+    <style type="text/css"></style>
+  </head>
+  <body>
+    <div id="chartDiv" style="max-width: 600px;height: 200px;margin: 0px auto;"></div>
+
+    <script type="text/javascript">
+      /*
+Demonstrates using dynamic icons in axis tick labels.
+Learn how to:
+
+  - Use axis tick labels with dynamic icons.
+*/
+      // JS
+      var weatherIcons = [
+        'weather/variable-sun',
+        'weather/rain',
+        'weather/variable-sun',
+        'weather/sun',
+        'weather/variable-sun',
+        'weather/storm-sun',
+        'weather/rain'
+      ];
+      var names = [];
+      var days = ['SAT', 'SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI'];
+      weatherIcons.forEach(function(v, i) {
+        names.push(
+          days[i] +
+            ' ' +
+            (i + 1) +
+            '<br><icon name=' +
+            weatherIcons[i] +
+            ' size=34 verticalAlign=center margin_right=4 color=#cfd8dc>'
+        );
+      });
+
+      var chart = JSC.chart('chartDiv', {
+        type: 'line spline',
+        yAxis_visible: false,
+        xAxis: {
+          defaultTick: {
+            gridLine_visible: false,
+            line_visible: false,
+            label: {
+              text: tickLabelText,
+              style: {
+                fontWeight: 'bold',
+                color: '#546e7a',
+                fontSize: 14
+              }
+            }
+          },
+          line_visible: false,
+          orientation: 'top'
+        },
+        legend_visible: false,
+        defaultPoint: {
+          label: {
+            visible: true,
+            text: '%value°C',
+            align: 'center'
+          },
+          marker: { size: 8, type: 'circle', outline_width: 0 }
+        },
+        defaultSeries_mouseTracking_enabled: false,
+        palette: ['#ffb74d', '#64b5f6'],
+        series: [
+          {
+            points: [
+              { x: 'SAT 1', y: 31 },
+              { x: 'SUN 2', y: 31 },
+              { x: 'MON 3', y: 29 },
+              { x: 'TUE 4', y: 29 },
+              { x: 'WED 5', y: 30 },
+              { x: 'THU 6', y: 29 },
+              { x: 'FRI 7', y: 30 }
+            ]
+          },
+          {
+            defaultPoint_label: { verticalAlign: 'top' },
+            points: [
+              { x: 'SAT 1', y: 24 },
+              { x: 'SUN 2', y: 23 },
+              { x: 'MON 3', y: 22 },
+              { x: 'TUE 4', y: 23 },
+              { x: 'WED 5', y: 23 },
+              { x: 'THU 6', y: 23 },
+              { x: 'FRI 7', y: 24 }
+            ]
+          }
+        ],
+        toolbar_visible: false
+      });
+
+      function tickLabelText(v) {
+        return names[v];
+      }
+    </script>
+  </body>
+</html>

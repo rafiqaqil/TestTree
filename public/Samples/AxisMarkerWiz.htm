@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Axis Marker Wiz | JSCharting</title>
+    <meta http-equiv="content-type" content="text-html; charset=utf-8" />
+
+    <script type="text/javascript" src="../jsc/jscharting.js"></script>
+
+    <script type="text/javascript" src="../jsc/modules/toolbar.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="css/default.css" />
+    <style type="text/css"></style>
+  </head>
+  <body>
+    <div id="chartDiv" style="max-width: 740px;height: 400px;margin: 0px auto;"></div>
+
+    <script type="text/javascript">
+      /*
+Demonstrates many axis marker styling features.
+Learn how to:
+
+  - Style range and value axis markers.
+  - Add and style axis markers.
+*/
+      // JS
+      var chart = JSC.chart('chartDiv', {
+        debug: true,
+        legend_visible: false,
+
+        /*Y Axis Marker*/
+        yAxis_markers: [
+          {
+            /*Value*/
+            id: 'range',
+            value: { low: 40000, high: 70000 },
+
+            /*Apperance*/
+            color: 'rgba(88,219,81,.8)',
+            opacity: 0.8,
+            onTop: false,
+
+            /*Label*/
+            label: {
+              text: 'my Axis Marker',
+              style: {
+                color: 'black',
+                fontSize: '8pt',
+                fontFamily: 'Arial, Helvetica, sans-serif'
+              },
+              align: 'left',
+              rotate: -90
+            }
+          },
+          { value: 30000, id: 'val', line: { width: 3 } }
+        ],
+        toolbar_items: {
+          export_enabled: false,
+          BringToFront: {
+            type: 'checkbox',
+            events_change: function(val) {
+              updateMarker('range', { onTop: val });
+            }
+          },
+          'Opacity:': { boxVisible: false },
+          Opacity: {
+            type: 'select',
+            items: '0.2,0.4,0.6,0.8,1.0',
+            value: '0.8',
+            events_change: function(val) {
+              updateMarker('range', { opacity: parseFloat(val) });
+            }
+          },
+          DashStyle: {
+            type: 'select',
+            position: 'inside bottom right',
+            items: 'enum_dashStyle',
+            events_change: function(val) {
+              updateMarker('val', { line_dashStyle: val });
+            }
+          }
+        },
+        yAxis_label_text: 'USD',
+        title_label_text: 'Sales by quarter ',
+        yAxis_formatString: 'c',
+        series: [
+          {
+            name: 'Gross Sales',
+            points: [['Q1', 50120], ['Q2', 53465], ['Q3', 62165], ['Q4', 52156]]
+          },
+          {
+            name: 'Net Sales',
+            points: [['Q1', 32654], ['Q2', 35645], ['Q3', 42651], ['Q4', 30153]]
+          }
+        ]
+      });
+
+      function updateMarker(id, config) {
+        chart
+          .axes()
+          .markers(id)
+          .options(config);
+      }
+    </script>
+  </body>
+</html>

@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Grid Microchart Bars | JSCharting</title>
+    <meta http-equiv="content-type" content="text-html; charset=utf-8" />
+
+    <script type="text/javascript" src="../jsc/jscharting.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="css/default.css" />
+    <style type="text/css">
+      .jscGrid .dataTable thead th {
+        background-color: white;
+        color: #424242;
+        text-align: left;
+        font-size: 14px;
+        font-weight: bold;
+      }
+      .jscGrid .dataTable tr {
+        background-color: white !important;
+      }
+      .jscGrid .dataTable td {
+        font-family: tahoma, geneva, sans-serif;
+        font-size: 12px;
+        vertical-align: middle !important;
+        font-weight: 300;
+        border: none;
+        padding: 4px;
+      }
+    </style>
+  </head>
+  <body>
+    <p style="text-align:center;font-weight:bold; color:#424242;font-family: tahoma, geneva, sans-serif;">
+      Worldwide PC Vendor Unit Shipment (Thousands of Units)
+    </p>
+    <div id="gridDiv" style="width: 700px;margin: 0px auto;"></div>
+
+    <script type="text/javascript">
+      /*
+A grid with microchart bars and labels using the &#x3C;absolute&#x3E; tag.
+Learn how to:
+
+  - Overlay labels on top of microcharts.
+*/
+      // JS
+      var grid,
+        palette = ['#81d4fa', '#80cbc4', '#c5e1a5', '#ffe082', '#ffab91', '#f48fb1', '#9fa8da'];
+      var maxValues = [17000, 17000, 11000, 6000, 6000, 5000, 18000];
+
+      JSC.fetch('./resources/PCSales.csv')
+        .then(function(response) {
+          return response.text();
+        })
+        .then(function(text) {
+          var data = JSC.csv2Json(text);
+          grid = renderGrid(data);
+        });
+
+      function renderGrid(data) {
+        var gridData = JSC.nest()
+          .key('date')
+          .pointRollup(function(key, val) {
+            var vendorData = { ' ': key };
+            for (var i = 0; i < val.length; i++) {
+              vendorData[val[i].vendor] =
+                '<absolute><chart type=bar size=70x24 max=' +
+                maxValues[i] +
+                ' data=' +
+                val[i].sales +
+                ' colors=' +
+                palette[i] +
+                ',,none>' +
+                '<span style="width:40px; margin:5px 3px; color:#424242;">' +
+                JSC.formatNumber(val[i].sales, 'n0') +
+                '</span></absolute>';
+            }
+            return vendorData;
+          })
+          .points(data);
+
+        return JSC.Grid('gridDiv', { data: gridData, className: 'dataTable' });
+      }
+    </script>
+  </body>
+</html>

@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Polar Column Radar Arcs | JSCharting</title>
+    <meta http-equiv="content-type" content="text-html; charset=utf-8" />
+
+    <script type="text/javascript" src="../jsc/jscharting.js"></script>
+
+    <script type="text/javascript" src="../jsc/modules/types.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="css/default.css" />
+    <style type="text/css">
+      /*CSS*/
+    </style>
+  </head>
+  <body>
+    <div id="chartDiv" style="max-width: 407px;height: 450px;margin: 0px auto;"></div>
+
+    <script type="text/javascript">
+      /*
+Radars with partial arcs.
+Learn how to:
+
+  - Render radar charts that are not full circles.
+*/
+      // JS
+      var chart = JSC.chart('chartDiv', {
+        debug: true,
+        xAxis: { spacingPercentage: 0 },
+        legend_visible: false,
+        defaultSeries: {
+          type: 'radar polar column',
+          angle_sweep: 180,
+          shape: { label: { text: '%name' }, padding: 0 }
+        },
+
+        /*Let columns from both series occupy same x axis positions.*/
+        zAxis_scale_type: 'stacked',
+        series: [
+          {
+            angle: { start: -180 },
+            shape_label_verticalAlign: 'bottom',
+            name: 'Others',
+            points: [['Values', 3], ['Expectations', 8], ['Teamwork', 5], ['Leadership', 3], ['Results', 6]]
+          },
+          {
+            angle: { start: 0 },
+            shape_label_verticalAlign: 'top',
+            name: 'Self',
+            points: [['Values', 9], ['Expectations', 5], ['Teamwork', 3], ['Leadership', 4], ['Results', 6]]
+          }
+        ]
+      });
+    </script>
+  </body>
+</html>

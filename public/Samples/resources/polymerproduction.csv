@@ -1,0 +1,57 @@
+sector,polymer_type,number
+Transportation,PET,0
+Transportation,HDPE,2.784
+Transportation,PVC,1.044
+Transportation,LDPE,0.348
+Transportation,PP,9.048
+Transportation,PS,0
+Transportation,Other,4.872
+Transportation,PUR,5.568
+Packaging,PET,35.148
+Packaging,HDPE,32.364
+Packaging,PVC,3.132
+Packaging,LDPE,46.98
+Packaging,PP,28.536
+Packaging,PS,8.004
+Packaging,Other,0.348
+Packaging,PUR,0.696
+Building and Construction,PET,0
+Building and Construction,HDPE,11.484
+Building and Construction,PVC,28.188
+Building and Construction,LDPE,3.828
+Building and Construction,PP,4.176
+Building and Construction,PS,7.656
+Building and Construction,Other,1.74
+Building and Construction,PUR,8.352
+Electrical /Electronic,PET,0
+Electrical /Electronic,HDPE,0.696
+Electrical /Electronic,PVC,1.392
+Electrical /Electronic,LDPE,1.74
+Electrical /Electronic,PP,3.132
+Electrical /Electronic,PS,2.088
+Electrical /Electronic,Other,3.48
+Electrical /Electronic,PUR,1.392
+Consumer & Institutional Products,PET,0
+Consumer & Institutional Products,HDPE,5.916
+Consumer & Institutional Products,PVC,2.088
+Consumer & Institutional Products,LDPE,10.092
+Consumer & Institutional Products,PP,13.224
+Consumer & Institutional Products,PS,6.264
+Consumer & Institutional Products,Other,0.696
+Consumer & Institutional Products,PUR,3.48
+Industrial Machinery,PET,0
+Industrial Machinery,HDPE,0.348
+Industrial Machinery,PVC,0
+Industrial Machinery,LDPE,0.696
+Industrial Machinery,PP,0.696
+Industrial Machinery,PS,0
+Industrial Machinery,Other,0
+Industrial Machinery,PUR,1.044
+Other,PET,0
+Other,HDPE,3.132
+Other,PVC,4.872
+Other,LDPE,5.916
+Other,PP,14.616
+Other,PS,2.436
+Other,Other,5.916
+Other,PUR,8.7

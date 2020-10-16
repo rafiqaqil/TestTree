@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Circular Gantt Chart | JSCharting</title>
+    <meta http-equiv="content-type" content="text-html; charset=utf-8" />
+
+    <script type="text/javascript" src="../jsc/jscharting.js"></script>
+
+    <script type="text/javascript" src="../jsc/modules/types.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="css/default.css" />
+    <style type="text/css">
+      /*CSS*/
+    </style>
+  </head>
+  <body>
+    <div id="chartDiv" style="max-width: 700px;height: 420px;margin: 0px auto;"></div>
+
+    <script type="text/javascript">
+      /*
+Circular gantt chart with a custom legend.
+Learn how to:
+
+  - Draw a circular gantt chart.
+  - Dynamically generate custom legend entries.
+*/
+      // JS
+      var names = [],
+        colors = [],
+        colorByName = {
+          Sleep: '#6d699a',
+          Walking: '#fcf3be',
+          Work: '#fac494',
+          'Morning routine': '#cbedbe',
+          Lunch: '#ff8383',
+          Workout: '#6d699a',
+          Dinner: '#ff9c9c',
+          'Family time': '#a5cf94'
+        },
+        chartOptions = {
+          debug: true,
+          title: {
+            position: 'center',
+            label: {
+              text: 'Circular Gantt: 24hr Breakdown',
+              style_fontSize: 18
+            }
+          },
+          legend: {
+            position: 'inside bottom',
+            template: '%name %icon'
+          },
+          xAxis: {
+            defaultTick_gridLine_width: 0,
+            spacingPercentage: 0.1
+          },
+          yAxis: {
+            formatString: 'n0',
+            line_width: 0,
+            defaultTick: {
+              padding: 5,
+              line: { width: 2, length: 4, color: '#aaa69d' },
+              label_style: {
+                fontSize: 15,
+                color: '#9c9890',
+                fontWeight: 'bold'
+              }
+            },
+            scale: { range: [0, 12], interval: 1 }
+          },
+
+          defaultSeries: {
+            legendEntry_visible: false,
+            defaultPoint: {
+              tooltip: tooltipFormatter,
+              legendEntry_visible: false
+            },
+            angle: { start: -90, sweep: 360 },
+            type: 'gauge column',
+            shape_label: {
+              text: '%name',
+              style: { fontSize: 34, color: '#9c9890' },
+              verticalAlign: 'middle'
+            }
+          },
+          series: [
+            {
+              name: 'AM',
+              points: [
+                {
+                  name: 'Sleep',
+                  x: 'am',
+                  y: [0, 6.5]
+                },
+                {
+                  name: 'Morning routine',
+                  x: 'am',
+                  y: [6.5, 7]
+                },
+                {
+                  name: 'Walking',
+                  x: 'am',
+                  y: [7, 8]
+                },
+                {
+                  name: 'Work',
+                  x: 'am',
+                  y: [8, 12]
+                }
+              ]
+            },
+            {
+              name: 'PM',
+              points: [
+                {
+                  name: 'Work',
+                  x: 'pm',
+                  y: [0, 1.5]
+                },
+                {
+                  name: 'Lunch',
+                  x: 'pm',
+                  y: [1.5, 2]
+                },
+                {
+                  name: 'Work',
+                  x: 'pm',
+                  y: [2, 5]
+                },
+                {
+                  name: 'Walking',
+                  x: 'pm',
+                  y: [5, 5.5]
+                },
+                {
+                  name: 'Workout',
+                  x: 'pm',
+                  y: [5.5, 7]
+                },
+                {
+                  name: 'Walking',
+                  x: 'pm',
+                  y: [7, 7.5]
+                },
+                {
+                  name: 'Dinner',
+                  x: 'pm',
+                  y: [7.5, 8.25]
+                },
+                {
+                  name: 'Family time',
+                  x: 'pm',
+                  y: [8.25, 11.75]
+                },
+                {
+                  name: 'Sleep',
+                  x: 'pm',
+                  y: [11.75, 12]
+                }
+              ]
+            }
+          ]
+        };
+
+      //Assign colors to points
+      chartOptions.series.forEach(function(s) {
+        s.points.forEach(function(p) {
+          p.color = colorByName[p.name];
+        });
+      });
+
+      // Generate legend entries
+      chartOptions.legend.customEntries = Object.keys(colorByName).map(function(k) {
+        return { name: k, icon_color: colorByName[k] };
+      });
+
+      var chart = JSC.chart('chartDiv', chartOptions);
+
+      function tooltipFormatter(point) {
+        var val = point.tokenValue('%yRange');
+        var formatSpan = function(v) {
+          var twoDigit = function(v) {
+            return ('0' + v).slice(-2);
+          };
+          var hour = Math.floor(v) % 12,
+            min = Math.floor((v % 1) * 60);
+          return ((hour || 12) + ' hr ' + twoDigit(min) + ' min').replace('00 min', '').trim();
+        };
+        return point.tokenValue('%name') + ' ' + formatSpan(val);
+      }
+    </script>
+  </body>
+</html>

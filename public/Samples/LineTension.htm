@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Spline Tension Chart | JSCharting</title>
+    <meta http-equiv="content-type" content="text-html; charset=utf-8" />
+
+    <script type="text/javascript" src="../jsc/jscharting.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="css/default.css" />
+    <style type="text/css">
+      /*CSS*/
+    </style>
+  </head>
+  <body>
+    <div id="chartDiv" style="max-width: 740px;height: 400px;margin: 0px auto;"></div>
+
+    <script type="text/javascript">
+      /*
+Demonstrates line tension options of spline series type.
+Learn how to:
+
+  - Adjust spline series tenison.
+*/
+      // JS
+      var chart = JSC.chart('chartDiv', {
+        debug: true,
+        type: 'spline',
+        title_label: { text: 'Line tension', style_fontSize: 15 },
+        legend: {
+          template: '%icon %name',
+          position: 'inside top left'
+        },
+        xAxis: { scale_type: 'time' },
+        defaultSeries: {
+          line_width: 3,
+          defaultPoint_marker_visible: false
+        },
+        series: [
+          {
+            name: 'Tension: 0.3',
+            line_tension: 0.3,
+            points: [
+              ['1/1/2020', 129],
+              ['2/1/2020', 71],
+              ['3/1/2020', 106],
+              ['4/1/2020', 66],
+              ['6/1/2020', 169],
+              ['7/1/2020', 144],
+              ['8/1/2020', 226]
+            ]
+          },
+          {
+            name: 'Tension: 0.8',
+            line_tension: 0.8,
+            points: [
+              ['1/1/2020', 129],
+              ['2/1/2020', 71],
+              ['3/1/2020', 106],
+              ['4/1/2020', 66],
+              ['6/1/2020', 169],
+              ['7/1/2020', 144],
+              ['8/1/2020', 226]
+            ]
+          }
+        ],
+        toolbar_visible: false
+      });
+    </script>
+  </body>
+</html>

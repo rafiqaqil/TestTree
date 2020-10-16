@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Zooming Time | JSCharting</title>
+    <meta http-equiv="content-type" content="text-html; charset=utf-8" />
+
+    <script type="text/javascript" src="../jsc/jscharting.js"></script>
+
+    <script type="text/javascript" src="../jsc/modules/toolbar.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="css/default.css" />
+    <style type="text/css"></style>
+  </head>
+  <body>
+    <div id="chartDiv" style="max-width: 740px;height: 400px;margin: 0px auto;"></div>
+
+    <script type="text/javascript">
+      /*
+Demonstrates zooming a time series.
+Learn how to:
+
+  - Zooming a time data series.
+  - Sets a limit on zooming interactivity.
+*/
+      // JS
+      var chart = JSC.chart('chartDiv', {
+        debug: true,
+        legend_visible: false,
+        axisToZoom: 'x',
+
+        /*X Axis Time Zoom limit*/
+        xAxis: {
+          scale_zoomLimit: { unit: 'hour', multiplier: 5 }
+        },
+        annotations: [
+          {
+            position: 'inside top',
+            margin: 5,
+            label_text: 'Click-Drag the chart area to zoom.'
+          }
+        ],
+        xAxis_scale_type: 'time',
+        series: [
+          {
+            name: 'Purchases',
+            points: [
+              [new Date(2020, 0, 1), 29.9],
+              [new Date(2020, 0, 2), 71.5],
+              [new Date(2020, 0, 3), 106.4],
+              [new Date(2020, 0, 6), 129.2],
+              [new Date(2020, 0, 7), 144.0],
+              [new Date(2020, 0, 8), 176.0],
+              [new Date(2020, 0, 9), 123],
+              [new Date(2020, 0, 10), 112],
+              [new Date(2020, 0, 11), 89],
+              [new Date(2020, 0, 12), 72],
+              [new Date(2020, 0, 13), 95],
+              [new Date(2020, 0, 14), 110],
+              [new Date(2020, 0, 15), 85],
+              [new Date(2020, 0, 16), 68],
+              [new Date(2020, 0, 17), 56],
+              [new Date(2020, 0, 18), 64],
+              [new Date(2020, 0, 19), 85],
+              [new Date(2020, 0, 20), 102],
+              [new Date(2020, 0, 21), 128],
+              [new Date(2020, 0, 22), 120],
+              [new Date(2020, 0, 23), 125],
+              [new Date(2020, 0, 24), 113],
+              [new Date(2020, 0, 25), 105],
+              [new Date(2020, 0, 26), 85],
+              [new Date(2020, 0, 27), 56],
+              [new Date(2020, 0, 28), 43],
+              [new Date(2020, 0, 29), 56],
+              [new Date(2020, 0, 30), 78]
+            ]
+          }
+        ]
+      });
+    </script>
+  </body>
+</html>

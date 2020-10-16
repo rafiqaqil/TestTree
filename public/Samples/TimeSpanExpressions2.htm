@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Time Span Expressions 2 | JSCharting</title>
+    <meta http-equiv="content-type" content="text-html; charset=utf-8" />
+
+    <script type="text/javascript" src="../jsc/jscharting.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="css/default.css" />
+    <style type="text/css"></style>
+  </head>
+  <body>
+    <div id="chartDiv" style="max-width: 710px;height: 300px;margin: 0px auto;"></div>
+
+    <script type="text/javascript">
+      /*
+Demonstrates using token expressions to calculate time spans in days shown in legend.
+Learn how to:
+
+  - Use token expressions in labels to calculate time spans.
+  - Format label token expression results.
+*/
+      // JS
+      var chart = JSC.chart('chartDiv', {
+        debug: true,
+        type: 'line',
+        toolbar_visible: false,
+        title_label_text: 'Usage Over Time (2020)',
+        legend: {
+          title_label_text: 'Calculate series time span in days.',
+          fill: 'white',
+          position: 'inside left bottom',
+          header: ' ,Country,Total Usage,Duration',
+          template: '%icon,%name,<b>{%sum/1000:n2}</b> GB,<b>{days(%xmax-%xmin):n1}</b> days'
+        },
+        yAxis_label_text: 'Usage (MB)',
+        xAxis: { formatString: 'MMM dd', scale_type: 'time' },
+        series: [
+          {
+            name: 'China',
+            points: [
+              ['3/8/2020', 1180],
+              ['3/9/2020', 1138],
+              ['3/10/2020', 1105],
+              ['3/11/2020', 1121],
+              ['3/12/2020', 1129],
+              ['3/13/2020', 1128],
+              ['3/14/2020', 1167],
+              ['3/15/2020', 1118],
+              ['3/16/2020', 1064],
+              ['3/17/2020', 1030],
+              ['3/18/2020', 1043],
+              ['3/19/2020', 1108],
+              ['3/20/2020', 1095],
+              ['3/21/2020', 1164],
+              ['3/22/2020', 1112],
+              ['3/23/2020', 1098],
+              ['3/24/2020', 1135],
+              ['3/25/2020', 1182],
+              ['3/26/2020', 1179],
+              ['3/27/2020', 1186]
+            ]
+          },
+          {
+            name: 'India',
+            points: [
+              ['3/19/2020', 931],
+              ['3/20/2020', 946],
+              ['3/21/2020', 980],
+              ['3/22/2020', 991],
+              ['3/23/2020', 1047],
+              ['3/24/2020', 1082],
+              ['3/25/2020', 1072],
+              ['3/26/2020', 1090],
+              ['3/27/2020', 1105]
+            ]
+          },
+          {
+            name: 'Europe',
+            points: [
+              ['3/15/2020', 1122],
+              ['3/16/2020', 1144],
+              ['3/17/2020', 1148],
+              ['3/18/2020', 1148],
+              ['3/19/2020', 1153],
+              ['3/20/2020', 1145],
+              ['3/21/2020', 1200],
+              ['3/22/2020', 1170],
+              ['3/23/2020', 1159],
+              ['3/24/2020', 1133],
+              ['3/25/2020', 1107],
+              ['3/26/2020', 1054],
+              ['3/27/2020', 1038]
+            ]
+          }
+        ]
+      });
+    </script>
+  </body>
+</html>

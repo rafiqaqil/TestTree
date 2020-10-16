@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Export Prog | JSCharting</title>
+    <meta http-equiv="content-type" content="text-html; charset=utf-8" />
+
+    <script type="text/javascript" src="../jsc/jscharting.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="css/default.css" />
+    <style type="text/css">
+      .labels {
+        display: inline-block;
+        width: 100px;
+        vertical-align: top;
+      }
+      .field {
+        width: 180px;
+        padding: 3px;
+      }
+      .attr {
+        margin: 16px;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="chartDiv" style="max-width: 740px;height: 400px;margin: 0px auto;"></div>
+    <div style="width:340px;margin: 0px auto;">
+      <b>Export options:</b>
+      <div class="attr">
+        <div class="labels">Image format:</div>
+        <select id="imgFormat">
+          <option>application/pdf</option>
+          <option>image/png</option>
+          <option>image/jpeg</option>
+          <option>image/svg+xml</option>
+        </select>
+      </div>
+      <div id="title" class="attr">
+        <div class="labels"><label for="titleField">Title:</label></div>
+        <input class="field" id="titleField" type="text" placeholder="My Chart" />
+      </div>
+      <div id="author" class="attr">
+        <div class="labels"><label for="authorField">Author:</label></div>
+        <input class="field" id="authorField" type="text" placeholder="JSCharting" />
+      </div>
+      <div id="subject" class="attr">
+        <div class="labels"><label for="subjectField">Subject:</label></div>
+        <input class="field" id="subjectField" type="text" />
+      </div>
+      <div id="keywords" class="attr">
+        <div class="labels"><label for="keywordsField">Keywords:</label></div>
+        <input class="field" id="keywordsField" type="text" />
+      </div>
+      <div id="comment" class="attr">
+        <div class="labels"><label for="commentField">Comment:</label></div>
+        <textarea class="field" id="commentField"></textarea>
+      </div>
+      <div id="rating" class="attr">
+        <div class="labels">Rating:</div>
+        <label><input name="ratingField" type="radio" /> 1</label>
+        <label><input name="ratingField" type="radio" /> 2</label>
+        <label><input name="ratingField" type="radio" /> 3</label>
+        <label><input name="ratingField" type="radio" /> 4</label>
+        <label><input name="ratingField" type="radio" checked /> 5</label>
+      </div>
+      <div>
+        <input id="exportBtn" type="button" value="Export Image" />
+        <input id="printBtn" type="button" value="Print Chart" />
+      </div>
+    </div>
+
+    <script type="text/javascript">
+      /*
+Demonstrates how to export or print a chart programmatically.
+Learn how to:
+
+  - Export a chart programmatically.
+  - Print a chart programmatically.
+  - Customize image EFIX data.
+*/
+      // JS
+      var chart = JSC.chart('chartDiv', {
+        debug: true,
+        yAxis: { label_text: 'Units Sold' },
+        xAxis: { label_text: 'Quarter' },
+        title_label_text: 'Acme Tool Sales',
+        series: [
+          {
+            name: 'Saw',
+            id: 's1',
+            points: [['Q1', 230], ['Q2', 240], ['Q3', 267], ['Q4', 238]]
+          },
+          {
+            name: 'Hammer',
+            points: [['Q1', 325], ['Q2', 347], ['Q3', 392], ['Q4', 371]]
+          },
+          {
+            name: 'Grinder',
+            points: [['Q1', 285], ['Q2', 292], ['Q3', 327], ['Q4', 158]]
+          },
+          {
+            name: 'Drill',
+            points: [['Q1', 185], ['Q2', 192], ['Q3', 198], ['Q4', 318]]
+          }
+        ]
+      });
+
+      var titleField = document.getElementById('titleField');
+      var authorField = document.getElementById('authorField');
+      var subjectField = document.getElementById('subjectField');
+      var keywordsField = document.getElementById('keywordsField');
+      var commentField = document.getElementById('commentField');
+      var ratingField = document.getElementsByName('ratingField');
+      var imageFormatElement = document.getElementById('imgFormat');
+      hideFields(imageFormatElement.options[0].text);
+      imageFormatElement.addEventListener('change', function() {
+        hideFields(this.options[this.selectedIndex].text);
+      });
+
+      function hideFields(text) {
+        var title = document.getElementById('title');
+        var author = document.getElementById('author');
+        var subject = document.getElementById('subject');
+        var keywords = document.getElementById('keywords');
+        var comment = document.getElementById('comment');
+        var rating = document.getElementById('rating');
+        if (text == 'image/png' || text == 'image/svg+xml') {
+          title.style.display = 'none';
+          author.style.display = 'none';
+          subject.style.display = 'none';
+          keywords.style.display = 'none';
+          comment.style.display = 'none';
+          rating.style.display = 'none';
+        }
+        if (text == 'application/pdf') {
+          title.style.display = 'block';
+          author.style.display = 'block';
+          subject.style.display = 'block';
+          keywords.style.display = 'block';
+          comment.style.display = 'none';
+          rating.style.display = 'none';
+        }
+        if (text == 'image/jpeg') {
+          title.style.display = 'block';
+          author.style.display = 'block';
+          subject.style.display = 'block';
+          keywords.style.display = 'block';
+          comment.style.display = 'block';
+          rating.style.display = 'block';
+        }
+      }
+      function exportImg() {
+        if (chart) {
+          for (var i = 0; i < ratingField.length; i++) {
+            if (ratingField[i].checked) {
+              var rating = i + 1;
+            }
+          }
+          var text = imageFormatElement.options[imageFormatElement.selectedIndex].text;
+          chart.exportImage({
+            imageType: text,
+            title: titleField.value == '' ? titleField.placeholder : titleField.value,
+            author: authorField.value == '' ? authorField.placeholder : authorField.value,
+            subject: subjectField.value,
+            keywords: keywordsField.value,
+            comment: commentField.value,
+            rating: rating
+          });
+        }
+      }
+      function printChart() {
+        if (chart) {
+          chart.print();
+        }
+      }
+
+      function attachEvents() {
+        var exportBtn = document.getElementById('exportBtn');
+        var printBtn = document.getElementById('printBtn');
+
+        exportBtn.addEventListener('click', exportImg);
+        printBtn.addEventListener('click', printChart);
+      }
+
+      attachEvents();
+    </script>
+  </body>
+</html>

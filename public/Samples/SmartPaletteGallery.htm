@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Smart Palette Gallery | JSCharting</title>
+    <meta http-equiv="content-type" content="text-html; charset=utf-8" />
+
+    <script type="text/javascript" src="../jsc/jscharting.js"></script>
+
+    <script type="text/javascript" src="../jsc/modules/toolbar.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="css/default.css" />
+    <style type="text/css">
+      #colorsDiv {
+        font-family: 'Arial';
+      }
+      #colorsDiv table {
+        margin: 0px auto;
+        font-size: 10px;
+        color: #616161;
+        border-spacing: 2px 0px;
+      }
+      #colorsDiv table td {
+        padding: 5px 2px;
+      }
+      .pDiv {
+        width: 98px;
+        height: 90px;
+        margin: 6px;
+        display: inline-block;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        text-align: center;
+        font-family: 'Arial';
+        box-shadow: 0 0 8px rgba(176, 190, 197, 0.3);
+        -webkit-box-shadow: 0 0 8px rgba(176, 190, 197, 0.3);
+        -moz-box-shadow: 0 0 8px rgba(176, 190, 197, 0.3);
+        transition: box-shadow 0.5s;
+        -ms-transform: box-shadow 0.5s;
+        -webkit-transform: box-shadow 0.5s;
+        -o-transform: box-shadow 0.5s;
+        -moz-transform: box-shadow 0.5s;
+      }
+      .active {
+        font-weight: bold;
+        box-shadow: 0 0 14px rgba(69, 90, 100, 0.5);
+        -webkit-box-shadow: 0 0 14px rgba(69, 90, 100, 0.5);
+        -moz-box-shadow: 0 0 14px rgba(69, 90, 100, 0.5);
+      }
+      .pDiv:hover {
+        box-shadow: 0 0 14px rgba(69, 90, 100, 0.5);
+        -webkit-box-shadow: 0 0 14px rgba(69, 90, 100, 0.5);
+        -moz-box-shadow: 0 0 14px rgba(69, 90, 100, 0.5);
+      }
+      .pDiv div {
+        width: 100%px;
+        height: 50px;
+        border: none;
+        border-radius: 5px 5px 0 0;
+        cursor: pointer;
+      }
+      .pDiv p {
+        font-size: 12px;
+        color: #616161;
+      }
+      #txtArea {
+        border-radius: 5px;
+      }
+      #txtArea:focus {
+        outline: none;
+        border-color: rgba(3, 155, 229, 0.5);
+        box-shadow: 0 0 8px rgba(3, 155, 229, 0.5);
+        -webkit-box-shadow: 0 0 8px rgba(3, 155, 229, 0.5);
+        -moz-box-shadow: 0 0 8px rgba(3, 155, 229, 0.5);
+      }
+    </style>
+  </head>
+  <body>
+    <div id="gradients" style="width: 660px;margin: 0px auto;">
+      <p>Click a palette below to apply it to the chart.</p>
+    </div>
+    <div id="chartDiv" style="max-width: 680px;height: 400px;margin: 0px auto;"></div>
+    <div id="colorsDiv" style="width:800px; margin: 0px auto; text-align:left"></div>
+    <br />
+    <form style="width:680px; margin: 0px auto;text-align:right;">
+      <textarea id="txtArea" style="width:680px; height:70px;margin: 0px auto;display:block"></textarea>
+      <input id="copyBtn" type="button" value="Copy" id="copyBtn" style="margin:5px;" />
+    </form>
+
+    <script type="text/javascript">
+      /*
+Pre-defined palettes gallery.
+Learn how to:
+
+  - Browse smartPalettes colors.
+*/
+      // JS
+      var palettes = [
+        {
+          name: 'Parula',
+          colors: [
+            '#3e26a8',
+            '#4538d7',
+            '#484ff2',
+            '#4367fd',
+            '#2f80fa',
+            '#2797eb',
+            '#1caadf',
+            '#00b9c7',
+            '#29c3aa',
+            '#48cb86',
+            '#81cc59',
+            '#bbc42f',
+            '#eaba30',
+            '#fec735',
+            '#f5e128',
+            '#f9fb15'
+          ]
+        },
+        {
+          name: 'Jet',
+          colors: [
+            '#000099',
+            '#0000cc',
+            '#0000ff',
+            '#0033ff',
+            '#0066ff',
+            '#0099ff',
+            '#00ccff',
+            '#00ffff',
+            '#33ffcc',
+            '#66ff99',
+            '#99ff66',
+            '#ccff33',
+            '#ffff00',
+            '#ffcc00',
+            '#ff9900',
+            '#ff6600',
+            '#ff3300',
+            '#ff0000',
+            '#cc0000',
+            '#990000'
+          ]
+        },
+        {
+          name: 'Hsv',
+          colors: [
+            '#ff0000',
+            '#ff6000',
+            '#ffbf00',
+            '#dfff00',
+            '#80ff00',
+            '#20ff00',
+            '#00ff40',
+            '#00ff9f',
+            '#00ffff',
+            '#009fff',
+            '#0040ff',
+            '#2000ff',
+            '#8000ff',
+            '#df00ff',
+            '#ff00bf',
+            '#ff0060'
+          ]
+        },
+        {
+          name: 'Hot',
+          colors: [
+            '#400000',
+            '#800000',
+            '#bf0000',
+            '#ff0000',
+            '#ff4000',
+            '#ff8000',
+            '#ffbf00',
+            '#ffff00',
+            '#ffff40',
+            '#ffff80',
+            '#ffffbf',
+            '#ffffff'
+          ]
+        },
+        {
+          name: 'Cool',
+          colors: ['#00ffff', '#24dbff', '#49b6ff', '#6d92ff', '#926dff', '#b649ff', '#db24ff', '#ff00ff']
+        },
+        {
+          name: 'Spring',
+          colors: ['#ff00ff', '#ff24db', '#ff49b6', '#ff6d92', '#ff926d', '#ffb649', '#ffdb24', '#ffff00']
+        },
+        {
+          name: 'Summer',
+          colors: ['#008066', '#249266', '#49a466', '#6db666', '#92c866', '#b6db66', '#dbed66', '#ffff66']
+        },
+        {
+          name: 'Autumn',
+          colors: ['#ff0000', '#ff2400', '#ff4900', '#ff6d00', '#ff9200', '#ffb600', '#ffdb00', '#ffff00']
+        },
+        {
+          name: 'Winter',
+          colors: ['#0000ff', '#0024ed', '#0049db', '#006dc8', '#0092b6', '#00b6a4', '#00db92', '#00ff80']
+        },
+        {
+          name: 'Gray',
+          colors: ['#000000', '#242424', '#494949', '#6d6d6d', '#929292', '#b6b6b6', '#dbdbdb', '#ffffff']
+        },
+        {
+          name: 'Bone',
+          colors: ['#00000b', '#202035', '#404060', '#606a80', '#80959f', '#9fbfbf', '#cfdfdf', '#ffffff']
+        },
+        {
+          name: 'Copper',
+          colors: ['#000000', '#2e1c12', '#5b3924', '#895536', '#b67248', '#e48e5b', '#ffab6d', '#ffc77f']
+        },
+        {
+          name: 'Pink',
+          colors: ['#550000', '#904f4f', '#b96f6f', '#c9a188', '#d8c69d', '#e5e5b0', '#f3f3db', '#ffffff']
+        },
+        {
+          name: 'Rainbow 1',
+          colors: ['#8b0000', '#ff0000', '#ffa500', '#fefe20', '#00e700', '#00008b', '#4b0082', '#ee82ee']
+        },
+        {
+          name: 'Rainbow 2',
+          colors: [
+            '#0000E3',
+            '#0047FF',
+            '#00ABFF',
+            '#0FFFEF',
+            '#43FFBB',
+            '#73FF8B',
+            '#A7FF57',
+            '#FFEF00',
+            '#FF8B00',
+            '#FF5700',
+            '#FF2300',
+            '#ED0000',
+            '#830000'
+          ]
+        },
+        {
+          name: 'Rainbow 3',
+          colors: ['#000080', '#0000ff', '#ffff00', '#ff0000', '#8b0000']
+        },
+        {
+          name: 'Rainbow 4',
+          colors: ['#006400', '#00ff00', '#ffff00', '#ff0000', '#8b0000']
+        },
+        {
+          name: 'Rainbow 5',
+          colors: ['#00008b', '#0000ff', '#ffff00', '#00ff00', '#006400']
+        },
+        {
+          name: 'Rainbow 6',
+          colors: ['#0000ff', '#006400', '#00ff00', '#ff0000', '#8b0000']
+        },
+        {
+          name: 'Smooth 1',
+          colors: ['#ffffcc', '#ffeda0', '#fed976', '#feb24c', '#fd8d3c', '#fc4e2a', '#e31a1c', '#bd0026', '#b00026']
+        },
+        {
+          name: 'Smooth 2',
+          colors: ['#fff7ec', '#fee8c8', '#fdd49e', '#fdbb84', '#fc8d59', '#ef6548', '#d7301f', '#b30000', '#7f0000']
+        },
+        {
+          name: 'Smooth 3',
+          colors: ['#ffffe5', '#fff7bc', '#fee391', '#fec44f', '#fe9929', '#ec7014', '#cc4c02', '#993404', '#662506']
+        },
+        {
+          name: 'Smooth 4',
+          colors: ['#ffffff', '#ffff00', '#ffa500', '#8b0000', '#000000']
+        },
+        {
+          name: 'Smooth 5',
+          colors: ['#F8C1A8', '#EF9198', '#E8608A', '#C0458A', '#8F3192', '#63218F', '#4B186C', '#33104A']
+        },
+        {
+          name: 'Smooth 6',
+          colors: ['#f7fcfd', '#e0ecf4', '#bfd3e6', '#9ebcda', '#8c96c6', '#8c6bb1', '#88419d', '#810f7c', '#4d004b']
+        },
+        {
+          name: 'Smooth 7',
+          colors: ['#ffffd9', '#edf8b0', '#c7e9b4', '#7fcdbb', '#41b6c3', '#1d91c0', '#225ea8', '#253494', '#081d58']
+        },
+        {
+          name: 'Smooth 8',
+          colors: ['#fff7fb', '#ece7f2', '#d0d1e6', '#a6bddb', '#74a9cf', '#3690c0', '#0570b0', '#045a8d', '#023858']
+        },
+        {
+          name: 'Smooth 9',
+          colors: ['#f7fcfd', '#e5f5f9', '#ccece6', '#99d8c9', '#66c2a4', '#41ae76', '#238b45', '#006d2c', '#00441b']
+        },
+        {
+          name: 'White Center 1',
+          colors: ['#b35806', '#e08214', '#fdb863', '#fee0b6', '#f7f7f7', '#d8daeb', '#b2abd2', '#8073ac', '#542788']
+        },
+        {
+          name: 'White Center 2',
+          colors: ['#8c510a', '#bf812d', '#dfc27d', '#f6e8c3', '#f5f5f5', '#c7eae5', '#80cdc1', '#35978f', '#01665e']
+        },
+        {
+          name: 'White Center 3',
+          colors: ['#b2182b', '#d6604d', '#f4a582', '#fddbc7', '#f7f7f7', '#d1e5f0', '#92c5de', '#4393c3', '#2166ac']
+        },
+        {
+          name: 'White Center 4',
+          colors: ['#b2182b', '#d6604d', '#f4a582', '#fddbc7', '#ffffff', '#e0e0e0', '#bababa', '#878787', '#4d4d4d']
+        },
+        {
+          name: 'White Center 5',
+          colors: ['#d73027', '#f46d43', '#fdae61', '#fee08b', '#ffffdf', '#d9ef8b', '#a6d96a', '#66bd63', '#1a9850']
+        }
+      ];
+
+      var options = {
+        debug: true,
+        type: 'column',
+        legend: {
+          position: 'bottom',
+          defaultEntry_iconWidth: 10
+        },
+        defaultSeries_defaultPoint_tooltip: '%color',
+        title: {
+          label: {
+            text: 'SmartPalette Gallery',
+            style_fontSize: 16
+          },
+          position: 'center'
+        },
+        xAxis: { defaultTick_gridLine_visible: false },
+        yAxis: { alternateGridFill: 'none' },
+        annotations: [
+          {
+            id: 'paletteName',
+            label_text: 'Rainbow 1',
+            position: 'inside top'
+          }
+        ],
+        toolbar_items: {
+          Reverse: { type: 'checkbox', events_change: setReverse },
+          Ranges: { type: 'checkbox', events_change: setRanges }
+        }
+      };
+      var reverse, ranges;
+      options.series = [{ points: generatePointArray(50, 100, 40) }];
+      options.palette = clonePalette(palettes[0]);
+      updatePalette.i = 0;
+
+      var chart = JSC.chart('chartDiv', options, function(c) {
+        updateTextDivs(options.palette);
+      });
+      createDivs();
+      colorInDivs();
+      bindPaletteEvents();
+      selectPalette();
+
+      function generatePointArray(pCount, maxY, start) {
+        var startVal = 10;
+        if (typeof start !== 'undefined') {
+          startVal = start;
+        }
+
+        var curY = startVal;
+        var step = (maxY - startVal) / pCount;
+        var result = [];
+        for (var i = 0; i < pCount; i++) {
+          result[i] = [i, curY];
+          curY += step;
+        }
+        return result;
+      }
+
+      function setReverse(val) {
+        reverse = val;
+        updatePalette();
+        colorInDivs();
+      }
+
+      function setRanges(val) {
+        ranges = val;
+        updatePalette();
+      }
+
+      function updatePalette(id) {
+        var pal;
+        if (typeof id === 'undefined') {
+          id = updatePalette.i;
+        }
+
+        pal = clonePalette(palettes[id]);
+        pal.invert = !!reverse;
+        if (ranges) {
+          pal.ranges = { min: 40, max: 100, interval: 10 };
+          pal.defaultRange = { legendEntry: { name: '', value: '{%min:n0} - {%max:n0}' } };
+          pal.pointValue = '%yValue';
+        }
+        updatePalette.i = id;
+        chart.annotations('paletteName').options({ label_text: pal.name });
+        chart.options({ palette: pal });
+        updateTextDivs(pal);
+      }
+
+      function updateTextDivs(pal) {
+        var colorDivs = '',
+          colorStr = '',
+          textAreacolors = '';
+        var colorsDiv = document.getElementById('colorsDiv');
+        var textArea = document.getElementById('txtArea');
+        if (!pal.invert) {
+          for (var i = 0; i < pal.colors.length; i++) {
+            colorDivs += '<td style="height:30px;background-color:' + pal.colors[i] + '"></td>';
+            colorStr += '<td>' + pal.colors[i] + '</td>';
+          }
+          textAreacolors = JSON.stringify(pal.colors);
+        } else {
+          for (var i = pal.colors.length - 1; i >= 0; i--) {
+            colorDivs += '<td style="height:30px;background-color:' + pal.colors[i] + '"></td>';
+            colorStr += '<td>' + pal.colors[i] + '</td>';
+          }
+          textAreacolors = JSON.stringify(pal.colors.reverse());
+        }
+        textArea.value = textAreacolors;
+        colorsDiv.innerHTML = '<table>' + '<tr>' + colorDivs + '</tr><tr>' + colorStr + '</table>';
+      }
+
+      function clonePalette(p) {
+        var ret = { name: p.name, pointValue: '{%percentOfSeriesRange}' };
+        if (p.colors) {
+          ret.colors = p.colors.slice(0);
+        }
+        if (p.stops) {
+          ret.stops = p.stops.slice(0);
+        }
+        return ret;
+      }
+      function createDivs() {
+        for (var i = 0; i < palettes.length; i++) {
+          var div = document.createElement('div');
+          div.classList.add('pDiv');
+          var gradientDiv = document.createElement('div');
+          gradientDiv.id = 'gradient' + (i + 1);
+          var gradientP = document.createElement('p');
+          document.getElementById('gradients').appendChild(div);
+          document.getElementsByClassName('pDiv')[i].appendChild(gradientDiv);
+          document.getElementsByClassName('pDiv')[i].appendChild(gradientP);
+        }
+        document.getElementById('gradient1').parentElement.classList.add('active');
+      }
+      function colorInDivs() {
+        for (var i = 0, iLen = palettes.length; i < iLen; i++) {
+          var pal = clonePalette(palettes[i]);
+          pal.invert = !!reverse;
+          var css = JSC.smartPalette.getPaletteCSS(pal);
+          var div = document.getElementById('gradient' + (i + 1));
+          div.setAttribute('style', css);
+          div.parentNode.getElementsByTagName('p')[0].innerHTML = pal.name;
+        }
+      }
+
+      function bindPaletteEvents() {
+        var paletteElements = document.getElementsByClassName('pDiv');
+        for (var i = 0; i < paletteElements.length; i++) {
+          var paletteElement = paletteElements[i];
+          paletteElement.onclick = function(e) {
+            var id = this.firstChild.id;
+            id = parseInt(id.replace(/^\D+/g, ''));
+            updatePalette(id - 1);
+          };
+        }
+      }
+
+      function copyPalArr() {
+        var textArea = document.getElementById('txtArea');
+        textArea.select();
+        document.execCommand('copy');
+        document.getElementById('copyBtn').focus();
+      }
+
+      function selectPalette() {
+        var btns = document.getElementsByClassName('pDiv');
+        for (var i = 0; i < btns.length; i++) {
+          btns[i].addEventListener('click', function() {
+            var current = document.getElementsByClassName('active');
+            current[0].className = current[0].className.replace(' active', '');
+            this.className += ' active';
+          });
+        }
+      }
+
+      (function attachEvents() {
+        document.getElementById('copyBtn').addEventListener('click', function() {
+          return copyPalArr();
+        });
+      })();
+    </script>
+  </body>
+</html>

@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Pie Layout | JSCharting</title>
+    <meta http-equiv="content-type" content="text-html; charset=utf-8" />
+
+    <script type="text/javascript" src="../jsc/jscharting.js"></script>
+
+    <script type="text/javascript" src="../jsc/modules/types.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="css/default.css" />
+    <style type="text/css"></style>
+  </head>
+  <body>
+    <div id="chartDiv" style="max-width: 740px;height: 330px;margin: 0px auto;"></div>
+
+    <script type="text/javascript">
+      /*
+Demonstrates different  pie layout options and interactivity.
+Learn how to:
+
+  - Interact with pie slices making them clickable.
+  - Modify Pies/Donuts layout.
+  - Offset pie labels.
+  - Specify pie center position.
+  - Adjust pie layout with size percentage.
+  - Modify pie layout by applying an offset percentage.
+  - Adjust pie layout with inner size percentage.
+*/
+      // JS
+      var chart = JSC.chart('chartDiv', {
+        debug: true,
+        defaultSeries: {
+          type: 'pie donut',
+          palette: 'default',
+          pointSelection: true,
+          explodeOffset: 10
+        },
+        series: [
+          {
+            /*Labels*/
+            defaultPoint: {
+              label: {
+                visible: true,
+                placement: 'outside',
+                line: { color: '#cbcac9', width: 2 }
+              }
+            },
+
+            /*Positions*/
+            shape: {
+              center: '25%,45%',
+              size: '40%',
+              innerSize: '20%',
+              offset: '5%,5%'
+            },
+            name: 'Gross Sales',
+            points: [['Q1', 50120], ['Q2', 53465], ['Q3', 62165], ['Q4', 52156]]
+          },
+          {
+            name: 'Net Sales',
+            points: [['Q1', 32654], ['Q2', 35645], ['Q3', 42651], ['Q4', 30153]]
+          }
+        ],
+        yAxis_label_text: 'USD',
+        title_label_text: 'Sales by quarter ',
+        yAxis_formatString: 'c'
+      });
+    </script>
+  </body>
+</html>

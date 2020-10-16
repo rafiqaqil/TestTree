@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Inverted Polar Column Radar Chart | JSCharting</title>
+    <meta http-equiv="content-type" content="text-html; charset=utf-8" />
+
+    <script type="text/javascript" src="../jsc/jscharting.js"></script>
+
+    <script type="text/javascript" src="../jsc/modules/types.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="css/default.css" />
+    <style type="text/css">
+      /*CSS*/
+    </style>
+  </head>
+  <body>
+    <div id="chartDiv" style="max-width: 540px;height: 500px;margin: 0px auto;"></div>
+
+    <script type="text/javascript">
+      /*
+Radar chart with inverted column series.
+Learn how to:
+
+  - Draw radar with inverted column.
+*/
+      // JS
+      var chart = JSC.chart('chartDiv', {
+        debug: true,
+        type: 'radar polar column',
+        yAxis_scale_invert: true,
+        legend_visible: false,
+        title: {
+          position: 'center',
+          label: {
+            text: '2020 Sales ',
+            style: { fontSize: 15, fontWeight: 'normal' }
+          }
+        },
+        defaultSeries_opacity: 0.7,
+        series: [
+          {
+            name: 'William',
+            points: [
+              { name: 'Jan', y: 196 },
+              { name: 'Feb', y: 178 },
+              { name: 'Mar', y: 169 },
+              { name: 'Apr', y: 166 },
+              { name: 'May', y: 172 },
+              { name: 'Jun', y: 132 },
+              { name: 'Jul', y: 95 },
+              { name: 'Aug', y: 66 },
+              { name: 'Sep', y: 127 },
+              { name: 'Oct', y: 142 },
+              { name: 'Nov', y: 158 },
+              { name: 'Dec', y: 197 }
+            ]
+          }
+        ]
+      });
+    </script>
+  </body>
+</html>

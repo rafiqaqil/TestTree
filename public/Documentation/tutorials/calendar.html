@@ -1,0 +1,252 @@
+
+<span class="tutorialImage">
+<img src="tutorials/images/calendar/example.png"/>
+
+</span>
+    <p>Calendar charts can be useful for visualizing long spans of time in a compact format as heatmaps and offer
+        additional detail with microcharts such as sparklines.
+    </p>
+    <p>The calendar type requires a date range or heatmap data in order to render.
+        Heatmap data takes date/value pair input and processes it into a specified view or if not specified,
+        a view will automatically be chosen based on input data.
+    </p>
+
+
+
+<h2>Overview</h2>
+
+    <p>Calendar charts are similar to mapping charts in how they work. Mapping allows a specific country map to be
+        defined like USA, and if series points with map property values are specified, they bind to state/province
+        shapes with styling options. With calendar charts a view like month (traditional calendar) and a date range
+        renders a calendar with cells for each day and does not require series points to be specified. Internally
+        series points are generated that represent the cells, however additional points with date values can be
+        specified in chart options that will bind to cells that match the date property. Since point.date
+        properties accept calendar pattern values, a single point can apply to multiple calendar cells.
+        Additionally, multiple points can bind to a single cell and a mechanism is available that can merge
+        details of each point into the target cell. The month view shows one month at a time but additional
+        month can be part of the same chart. Each month is a series. The legend allows clicking the series to
+        navigate to them. Heatmap data for calendar charts is set using the chart.data property. Highlights
+        with calendar patterns can be added to outline specific points on the chart in real-time. </p>
+
+    <p>Calendar charts are fully dynamic and all aspects can be updated as needed to provide interactive
+        behaviors. This allows using calendar charts to be used as UI controls as date or date range pickers.
+    </p>
+
+<h2>First Calendar Chart</h2>
+
+    <p>A calendar chart doesn't require Heatmap data and can simply show an empty calendar view with code such as:</p>
+    <span class="codeText">
+        var chart = new JSC.Chart('targetDiv',{
+     type:'calendar month solid',
+        calendar_range:['1/1/19','1/31/19']
+    })
+    </span>
+
+
+    <span class="tutorialImage">
+    <img src="tutorials/images/calendar/first.png"/>
+    <em>Figure 1.</em><section>First calendar chart.</section>
+    </span>
+
+<h2>Loading Heatmap data</h2>
+    <p>The chart.data property can be set with an array of [date, value] items to populate calendar heatmaps.
+        However, csv data files can also be easily loaded through the same data property by
+        specifying the csv file name or csv file content as a single string.
+    </p>
+
+<h3>Filename</h3>
+    <p>Requires that the csv data rows contain [date,value] pairs.</p>
+    <span class="codeText">
+    var chart = new JSC.Chart('targetDiv',{
+     type:'calendar month',
+        data:'filename.csv'
+    })
+    </span>
+
+<h3>Using JSC.fetch() &amp; JSC.parseCsv()</h3>
+    <p>In more complicated situations, the fetch and parseCsv functions can be used with any data sources that are not
+        in the [date,value] format.</p>
+    <span class="codeText">
+        JSC.fetch('fileName.csv') .then(function(response) {
+                response.text().then(function(text) {
+        var parsedResult = JSC.parseCsv(text).data;
+        var chart = new JSC.Chart('targetDiv',{
+
+     type:'calendar month',
+        data:data.map(function(row){return [row[0],row[3]]})
+    }
+        );
+	} );
+});
+    </span>
+
+
+    <span class="tutorialImage">
+    <img src="tutorials/images/calendar/heatData.png"/>
+    <em>Figure 2.</em><section>Heatmap data.</section>
+    </span>
+<h2>Views and Date Groupings</h2>
+
+    <p>Data is grouped based on the x and y axis intervals and an additional subvalue grouping for each cell defined by
+        the calendar view.
+    </p>
+    <p> For example, the month view groups items by day of week on the x axis and week of year on the y axis.
+        Each cell (point) represents a day and contains up to 24 subvalues representing the hour of day. Input
+        data can be irregular and at second intervals but the chart will group all the values into these intervals.</p>
+
+    <p>Subvalue groupings can be accessed using the '%subvalueList' token.<!-- and can be  used to create microcharts.--></p>
+
+    <p>Date value pairs that apply to each Heatmap cell (series points) are grouped into smaller time intervals.
+        For example the month view has cells that represent days but subvalues that make up the cell get grouped into hours.
+        When calendar_calculation is 'sum' (default setting), the automatic tooltip will display a sparkline of
+        the 24 hour groupings if enough hour groups are populated by source data. If the source data has values
+        for every 2 hour interval, the resulting sparkline of 24 points will have spikes for every value and zero
+        values for each hour without data. However, setting calendar_interpolateSubvalues to true will interpolate
+        those data gaps and result in a smoother line without spikes.  Outer data groupings without data will still be set to zero.
+    </p>
+    <p>When calculation 'average' is used,  data groupings without data will be interpolated automatically
+        without the need of additional setting. </p>
+
+    <span class="tutorialImage">
+    <img src="tutorials/images/calendar/tooltips.png"/>
+    <em>Figure 3.</em><section>Sparkline tooltip chart.</section>
+    </span>
+    <!--Microcharts can be used with any label text associated with points such as point label or point tooltip. For more information on microcharts, please see this tutorial:
+    [microcharts tutorial]-->
+
+<h2>Point Types</h2>
+
+    <p>There are 3 different types of points that can be used on calendars. The defaultPoint is the normal point type that
+        will apply to regular calendar cells.
+    </p>
+
+<h3>calendar.defaultEmptyPoint </h3>
+    <p>When the chart has data given through chart.data property, it will populate calendar cells with data. However, if
+        there are calendar cells visible that do not have any data, the defaultEmptyPoint styling is used for those cells.
+    </p>
+
+    <span class="docsNote">
+     When chart data is not supplied, defaultEmptyPoint is not used.
+    </span>
+
+<h3>calendar.defaultEdgePoint</h3>
+
+    <span class="tutorialImage">
+    <img src="tutorials/images/calendar/edgePoints.png"/>
+    <em>Figure 4.</em><section>Edge points.</section>
+    </span>
+    <p>Some calendar views such as month, quarter, and year will have irregular cell positions. When looking at a standard
+        calendar month view, there are some cells from the previous or next month that fill in the blanks because the month
+        may start late or end early before all cells are populated. This property controls the styling of these edge points.
+
+    </p>
+
+    <p>By default, these edge points are clickable and will change the current series to show that month when clicked.
+        Setting defaultEdgePoint.events.click with a function that returns false will disable this behavior.
+    </p>
+
+<h2>Point Binding</h2>
+    <p>Points can be added to a series of the chart and their properties applied to one or more cells by setting the
+        point.date property to a specific date, a [startDate, endDate] range array  or a calendar pattern. Only styling
+        and label properties  are recommended for use with this method vs any value settings like x, y, or z.  These are
+        used internally to position the cells and based on Heatmap data populated by the chart.data property.
+    </p>
+
+    <p>Point binding is useful when styling specific calendar cells or creating an events calendar.</p>
+
+    <span class="docsNote">
+     Updating points to bind in real-time must be done through chart.options({series:[{points:[/*New list of points*/]}]}).
+        The series on the chart refer to the actual calendar cells.
+    </span>
+
+<h3>Navgation</h3>
+
+    <p>When calendar charts have data that spans more than the specified calendar view, multiple series are generated but only one series is visible at a time. Clicking  series in the legend makes them visible and is the default way to navigate across the available series on the chart. Navigating to different series can also be done programmatically in a number of ways.
+    </p>
+<h4>Zooming to a series that contains a specific date:</h4>
+    <span class="codeText">
+    chart.zoom('2/1/2020')
+    </span>
+
+<h4>Specifying the initial visible series:</h4>
+    <span class="codeText">
+{        calendar_initial:'2/1/20'}
+
+
+    </span>
+
+<h4>Navigating to the initial date:    </h4>
+    <span class="codeText">
+ chart.zoom('initial') // or without an argument
+    </span>
+
+<h3>Events Calendar Example</h3>
+
+    <p>An event calendar doesn't require Heatmap data though it can be used if needed. For this explanation we will
+        assume Heatmap data is not available. To setup the chart, the calendar type, view and date range must be specified.
+    </p>
+
+    <span class="codeText">
+    {
+        type:'calendar month',
+        calendar_range:['1/1/19','1/31/19']
+    }
+    </span>
+
+    <p>Next the events are added through series points.</p>
+
+    <span class="codeText">
+    {
+        type:'calendar month',
+        calendar_range:['1/1/19','1/31/19'],
+        series:[
+        {
+            points:[
+        {
+            date:['1/3/19','1/4/19'],
+            color:'green'
+    }
+        ]
+        }
+        ]
+    }
+    </span>
+
+    <p>Points with calendar pattern ranges can be added and multiple points can bind to a single cell date.
+        In this scenario there is a mechanism that allows including labels of each point to accumulate
+        in the cells. The recommended approach is to populate point attributes with text values
+        inside arrays as shown in the eventInfo attributes below. </p>
+
+    <span class="codeText">
+    {
+    type: 'calendar month',
+    calendar_range: ['1/1/19', '1/31/19'],
+    defaultPoint: {
+        //Each point will list eventInfo details by default.
+        //The '%name' token below identifies the cell with day of month if a month view.
+        label_text: '%name&lt;br /&gt; %eventInfo',
+        //Make cells without eventInfo blank.
+        attributes_eventInfo: ''
+    },
+    series: [{
+        points: [{
+            //The point date property as an array indicates a start/end time
+            date: ['1/3/19', '1/5/19'],
+            color: 'lightgreen',
+            attributes: {
+                eventInfo: ['-Traveling out of state &lt;br /&gt;']
+            }
+        }, {
+            date: ['1/3/19 12:00', '1/3/19 13:00'],
+            attributes: {
+                eventInfo: ['-Meet Client&lt;br /&gt;']
+            }
+        }]
+    }]
+}
+    </span>
+
+    <span class="tutorialImage">
+    <img src="tutorials/images/calendar/events.png"/>
+    <em>Figure 5.</em><section>Events calendar .</section>
+    </span>

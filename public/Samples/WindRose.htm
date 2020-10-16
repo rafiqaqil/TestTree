@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Wind Rose Chart | JSCharting</title>
+    <meta http-equiv="content-type" content="text-html; charset=utf-8" />
+
+    <script type="text/javascript" src="../jsc/jscharting.js"></script>
+
+    <script type="text/javascript" src="../jsc/modules/types.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="css/default.css" />
+    <style type="text/css">
+      /*CSS*/
+    </style>
+  </head>
+  <body>
+    <div id="chartDiv" style="max-width: 500px;height: 560px;margin: 0px auto;"></div>
+
+    <script type="text/javascript">
+      /*
+Radar with stacked columns. Also known as wind rose.
+Learn how to:
+
+  - Draw a radar with stacked columns.
+  - Draw a WindRose chart.
+*/
+      // JS
+      var chart;
+
+      JSC.fetch('./resources/windRoseData.csv')
+        .then(function(response) {
+          return response.text();
+        })
+        .then(function(text) {
+          var data = JSC.csv2Json(text);
+          chart = renderChart(data);
+        });
+      function renderChart(data) {
+        return JSC.chart('chartDiv', {
+          debug: true,
+          type: 'radar column',
+          animation_duration: 1000,
+          title: { label_text: 'Wind Rose Chart', position: 'center' },
+          legend: {
+            title_label_text: 'Wind Speed (in mph)',
+            position: 'bottom',
+            template: '%icon %name',
+            reversed: true
+          },
+          annotations: [
+            {
+              label: {
+                text: 'Calm: 17%<br>Avg speed: 7.9 mph',
+                style_fontSize: 14
+              },
+              position: 'inside bottom right'
+            }
+          ],
+          defaultSeries_shape_padding: 0.02,
+          yAxis: {
+            defaultTick_label_text: '%value%',
+            scale: { type: 'stacked' },
+            alternateGridFill: 'none'
+          },
+          xAxis: {
+            scale: { range: [0, 360], interval: 45 },
+            customTicks: [
+              { value: 360, label_text: 'N' },
+              { value: 45, label_text: 'NE' },
+              { value: 90, label_text: 'E' },
+              { value: 135, label_text: 'SE' },
+              { value: 180, label_text: 'S' },
+              { value: 225, label_text: 'SW' },
+              { value: 270, label_text: 'W' },
+              { value: 315, label_text: 'NW' }
+            ]
+          },
+          palette: ['#c62828', '#ff7043', '#fff176', '#aed581', '#80cbc4', '#bbdefb'],
+          defaultPoint: { tooltip: '<b>%seriesName</b> %xValue° %yValue%' },
+          series: JSC.nest()
+            .key('speed')
+            .key('angle')
+            .rollup('percent')
+            .series(data)
+            .reverse()
+        });
+      }
+    </script>
+  </body>
+</html>

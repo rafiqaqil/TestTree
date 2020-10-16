@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Axis Shadowing | JSCharting</title>
+    <meta http-equiv="content-type" content="text-html; charset=utf-8" />
+
+    <script type="text/javascript" src="../jsc/jscharting.js"></script>
+
+    <script type="text/javascript" src="../jsc/icons/weather/snowflake.js"></script>
+    <script type="text/javascript" src=" ../jsc/icons/weather/sun.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="css/default.css" />
+    <style type="text/css"></style>
+  </head>
+  <body>
+    <div id="chartDiv" style="max-width: 740px;height: 400px;margin: 0px auto;"></div>
+
+    <script type="text/javascript">
+      /*
+Defines multiple axes sharing common gridlines while using different units on each axis.
+Learn how to:
+
+  - Use multiple axes for unit conversion with different formatting.
+  - Draw axis markers.
+  - Use a callback function for axis tick labels.
+  - Use dynamic tooltips with tokens.
+  - Use calculation tokens in the title box label.
+*/
+      // JS
+
+      var chart = JSC.chart('chartDiv', {
+        debug: true,
+        type: 'line spline',
+        palette: ['crimson', '#03bbfb'],
+        legend: {
+          position: 'inside top left',
+          template: '%icon %name'
+        },
+        title: {
+          label: {
+            text: 'Average Temperatures (Chicago)  |  Range %min°F–%max°F    Average: %average°F',
+            style_fontSize: '16px'
+          }
+        },
+        defaultAxis: { defaultTick_label_style_fontSize: '13px' },
+        yAxis: [
+          {
+            id: 'mainY',
+            label_text: '(°F) Fahrenheit',
+            defaultTick_label_text: '%value°F',
+            defaultMarker: {
+              legendEntry_visible: false,
+              label_style_fontSize: 14
+            },
+            markers: [
+              {
+                value: [0, 32],
+                label_text: '<icon name=weather/snowflake size=15 verticalAlign=center margin_right=4> Freezing',
+                color: ['#65affb', 0.5]
+              },
+              {
+                value: 72,
+                label_text: '<icon name=weather/sun size=18 verticalAlign=center margin_right=4> Perfect (72°F)',
+                line_width: 3,
+                color: ['#fcc348', 0.5]
+              }
+            ]
+          },
+          {
+            scale_syncWith: 'mainY',
+            orientation: 'right',
+            formatString: 'n2',
+            label_text: '(°C) Celcius',
+            defaultTick_label_text: '{(%Value-32)*5/9:n1}°C'
+          }
+        ],
+        xAxis: {
+          crosshair_enabled: true,
+          formatString: 'MMM',
+          scale: { type: 'time', interval_unit: 'month' }
+        },
+        defaultPoint: {
+          tooltip: '%seriesName: <b>%yValue°F</b>  ({(%yValue-32)*5/9:n1}°C)',
+          marker: {
+            size: 9,
+            type: 'circle',
+            fill: 'white',
+            outline_width: 2
+          }
+        },
+        toolbar_visible: false,
+        series: [
+          {
+            name: 'Average High',
+            points: [
+              ['1/1/2020', 30],
+              ['2/1/2020', 35],
+              ['3/1/2020', 47],
+              ['4/1/2020', 60],
+              ['5/1/2020', 71],
+              ['6/1/2020', 80],
+              ['7/1/2020', 83],
+              ['8/1/2020', 81],
+              ['9/1/2020', 75],
+              ['10/1/2020', 63],
+              ['11/1/2020', 48],
+              ['12/1/2020', 34]
+            ]
+          },
+          {
+            name: 'Average Low',
+            points: [
+              ['1/1/2020', 15],
+              ['2/1/2020', 18],
+              ['3/1/2020', 27],
+              ['4/1/2020', 37],
+              ['5/1/2020', 46],
+              ['6/1/2020', 56],
+              ['7/1/2020', 61],
+              ['8/1/2020', 60],
+              ['9/1/2020', 51],
+              ['10/1/2020', 40],
+              ['11/1/2020', 30],
+              ['12/1/2020', 19]
+            ]
+          }
+        ]
+      });
+    </script>
+  </body>
+</html>

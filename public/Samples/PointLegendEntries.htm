@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Point Legend Entries | JSCharting</title>
+    <meta http-equiv="content-type" content="text-html; charset=utf-8" />
+
+    <script type="text/javascript" src="../jsc/jscharting.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="css/default.css" />
+    <style type="text/css"></style>
+  </head>
+  <body>
+    <div id="chartDiv" style="max-width: 740px;height: 350px;margin: 0px auto;"></div>
+
+    <script type="text/javascript">
+      /*
+Show legend entries for each data point.
+Learn how to:
+
+  - Show points in legend.
+*/
+      // JS
+      var chart = JSC.chart('chartDiv', {
+        debug: true,
+        title_label_text: 'World Populations',
+        defaultSeries_type: 'marker',
+        toolbar_visible: false,
+        yAxis_visible: false,
+        // Because the position specifies right before top, it implies vertical layout of legend entries.
+        legend_position: 'inside right top',
+        defaultPoint: { label_visible: true, marker_size: 30 },
+        series: [
+          {
+            // Setting a palette for a series make a legend entry for each point.
+            palette: 'default',
+            name: 'Top Country Populations',
+            points: [
+              { name: 'US', y: 311591917 },
+              { name: 'Canada', y: 34482779 },
+              { name: 'Mexico', y: 112336538 },
+              { name: 'UK', y: 62641000 }
+            ]
+          }
+        ]
+      });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Percent Complete Column Radar Chart | JSCharting</title>
+    <meta http-equiv="content-type" content="text-html; charset=utf-8" />
+
+    <script type="text/javascript" src="../jsc/jscharting.js"></script>
+
+    <script type="text/javascript" src="../jsc/modules/types.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="css/default.css" />
+    <style type="text/css">
+      /*CSS*/
+    </style>
+  </head>
+  <body>
+    <div id="chartDiv" style="max-width: 540px;height: 500px;margin: 0px auto;"></div>
+
+    <script type="text/javascript">
+      /*
+Radar column chart with complete data.
+Learn how to:
+
+  - Complete data on radar columns.
+*/
+      // JS
+      var chart = JSC.chart('chartDiv', {
+        debug: true,
+        type: 'radar column',
+        yAxis_alternateGridFill: '#f4f4f4',
+        legend_visible: false,
+        title: {
+          position: 'center',
+          label: {
+            text: 'Sales By Representative',
+            style: { fontSize: 15, fontWeight: 'normal' }
+          }
+        },
+        defaultSeries: {
+          opacity: 0.7,
+          defaultPoint_complete: {
+            fill: ['white', 0.3],
+            hatch_style: 'dotted-grid'
+          }
+        },
+        series: [
+          {
+            name: 'William',
+            points: [
+              { name: 'Jan', y: 196, complete_y: 0.5 },
+              { name: 'Feb', y: 178, complete_y: 0.7 },
+              { name: 'Mar', y: 169, complete_y: 0.8 },
+              { name: 'Apr', y: 166, complete_y: 0.3 },
+              { name: 'May', y: 110, complete_y: 0.6 },
+              { name: 'Jun', y: 162, complete_y: [0.8, 1] }
+            ]
+          }
+        ]
+      });
+    </script>
+  </body>
+</html>

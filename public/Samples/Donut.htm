@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Basic Donut Chart | JSCharting</title>
+    <meta http-equiv="content-type" content="text-html; charset=utf-8" />
+
+    <script type="text/javascript" src="../jsc/jscharting.js"></script>
+
+    <script type="text/javascript" src="../jsc/modules/types.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="css/default.css" />
+    <style type="text/css"></style>
+  </head>
+  <body>
+    <div id="chartDiv" style="max-width: 450px;height: 360px;margin: 0px auto;"></div>
+
+    <script type="text/javascript">
+      /*
+A donut chart with labels.
+Learn how to:
+
+  - Draw a donut chart.
+  - Label a donut chart.
+*/
+      // JS
+      var chart = JSC.chart('chartDiv', {
+        debug: true,
+        legend: {
+          position: 'inside left bottom',
+          template: '%value {%percentOfTotal:n1}% %icon %name'
+        },
+        title_position: 'center',
+        defaultSeries_type: 'pieDonut',
+        defaultPoint_label_text: '<b>%name</b>',
+        title_label_text: 'Countries GDP',
+        yAxis: { label_text: 'GDP', formatString: 'n' },
+        series: [
+          {
+            name: 'Countries',
+            points: [
+              { name: 'United States', y: 5452500 },
+              { name: 'Canada', y: 786052 },
+              { name: 'United Kingdom', y: 477338 },
+              { name: 'Mexico', y: 155313 }
+            ]
+          }
+        ]
+      });
+    </script>
+  </body>
+</html>

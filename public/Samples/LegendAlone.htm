@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Legend Alone | JSCharting</title>
+    <meta http-equiv="content-type" content="text-html; charset=utf-8" />
+
+    <script type="text/javascript" src="../jsc/jscharting.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="css/default.css" />
+    <style type="text/css"></style>
+  </head>
+  <body>
+    <div id="chartDiv" style="max-width: 640px;height: 280px;margin: 0px auto;"></div>
+
+    <script type="text/javascript">
+      /*
+Chart with only a legend dataGrid.
+Learn how to:
+
+  - Chart with a solo legend and no chart.
+*/
+      // JS
+      var chart = JSC.chart('chartDiv', {
+        debug: true,
+        type: 'line',
+        legend: {
+          position: 'inside center',
+          header: 'Destination,Country,Language,Tourists,Population,Currency,Currency',
+          template: '%name,%country,%language,%value,{%density:n0},%currency,%code',
+          defaultEntry: {
+            icon: 'none',
+            /* Make all attributes blank by default*/
+            attributes: { name: '', value: '', country: '', language: '', density: '', currency: '', code: '' }
+          },
+          customEntries: [
+            {
+              attributes: { name: 'Europe' },
+              style_fontWeight: 'bold',
+              lineAbove: true,
+              sortOrder: 1
+            },
+            {
+              attributes: {
+                name: 'Paris',
+                value: 16,
+                country: 'France',
+                language: 'French',
+                density: 21283,
+                currency: 'Euro',
+                code: 'EUR'
+              },
+              sortOrder: 1
+            },
+            {
+              attributes: {
+                name: 'London',
+                value: 17.4,
+                country: 'UK',
+                language: 'English',
+                density: 5173,
+                currency: 'Pound sterling',
+                code: 'GBR'
+              },
+              sortOrder: 1
+            },
+            {
+              attributes: { name: 'Asia' },
+              style_fontWeight: 'bold',
+              sortOrder: 2
+            },
+            {
+              attributes: {
+                name: 'Bangkok',
+                value: 18.4,
+                country: 'Thailand',
+                language: 'Thai',
+                density: 3617,
+                currency: 'Baht',
+                code: 'THB'
+              },
+              sortOrder: 2
+            },
+            {
+              attributes: {
+                name: 'Singapore',
+                value: 11.9,
+                country: 'Singapore',
+                language: 'English, Malay, Huayu',
+                density: 7437,
+                currency: 'Singapore dollar',
+                code: 'SGD'
+              },
+              sortOrder: 2
+            },
+            {
+              attributes: {
+                name: 'Istanbul',
+                value: 12.3,
+                country: 'Turkey',
+                language: 'Turkish',
+                density: 2480,
+                currency: 'Turkish lira',
+                code: 'TRY'
+              },
+              sortOrder: 2
+            },
+            {
+              attributes: {
+                name: 'Dubai',
+                value: 14,
+                country: 'UAE',
+                language: 'Arabic',
+                density: 408,
+                currency: 'UAE dirham',
+                code: 'AED'
+              },
+              sortOrder: 2
+            },
+            {
+              attributes: { name: 'North America' },
+              style_fontWeight: 'bold',
+              sortOrder: 3
+            },
+            {
+              attributes: {
+                name: 'New York',
+                value: 12.3,
+                country: 'USA',
+                language: 'English',
+                density: 10654,
+                currency: 'United States dollar',
+                code: 'USD'
+              },
+              sortOrder: 3
+            },
+            {
+              attributes: { name: 'Africa' },
+              style_fontWeight: 'bold',
+              sortOrder: 4
+            },
+            {
+              attributes: {
+                name: 'Marrakesh',
+                value: 9.2,
+                country: 'Morocco',
+                language: 'Arabic, Berber',
+                density: 600,
+                currency: 'Moroccan dirham',
+                code: 'MAD'
+              },
+              sortOrder: 4
+            }
+          ]
+        },
+
+        toolbar_visible: false
+      });
+    </script>
+  </body>
+</html>

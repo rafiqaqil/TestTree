@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Title Box | JSCharting</title>
+    <meta http-equiv="content-type" content="text-html; charset=utf-8" />
+
+    <script type="text/javascript" src="../jsc/jscharting.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="css/default.css" />
+    <style type="text/css"></style>
+  </head>
+  <body>
+    <div id="chartDiv" style="max-width: 740px;height: 400px;margin: 0px auto;"></div>
+
+    <script type="text/javascript">
+      /*
+Applies styling properties to the title box.
+Learn how to:
+
+  - Style title box.
+  - Style title box label.
+  - Specify title layout and position.
+  - Style title box radius.
+  - Make title label clickable.
+*/
+      // JS
+      var chart = JSC.chart('chartDiv', {
+        debug: true,
+        type: 'column',
+        toolbar_visible: false,
+        legend_visible: false,
+        title: {
+          position: 'full',
+          padding: 7,
+          fill: ['#effcff', '#f8edff', 45],
+          opacity: 0.7,
+          boxVisible: true,
+          radius: 7,
+          outline: { color: '#a0d4ef', width: 1 },
+          label: {
+            text: 'Sales by Representative',
+            style: {
+              color: '#000',
+              fontSize: '14px',
+              fontFamily: 'Tahoma, Geneva, sans-serif',
+              fontStyle: 'normal',
+              fontWeight: 'normal'
+            },
+            align: 'right'
+          }
+        },
+        yAxis: { label_text: 'Sales (USD)', formatString: 'c' },
+        series: [
+          {
+            name: 'Representatives',
+            points: [
+              {
+                name: 'Angie',
+                y: 32165,
+                attributes: { img: 'Org1.png' }
+              },
+              {
+                name: 'Chris',
+                y: 28651,
+                attributes: { img: 'Org2.png' }
+              },
+              {
+                name: 'Arthur',
+                y: 18563,
+                attributes: { img: 'Org3.png' }
+              },
+              {
+                name: 'David',
+                y: 35698,
+                attributes: { img: 'Org4.png' }
+              },
+              {
+                name: 'Mike',
+                y: 27659,
+                attributes: { img: 'Org5.png' }
+              },
+              {
+                name: 'Laura',
+                y: 28684,
+                attributes: { img: 'Org6.png' }
+              },
+              {
+                name: 'Michelle',
+                y: 25684,
+                attributes: { img: 'Org7.png' }
+              },
+              {
+                name: 'Joseph',
+                y: 38654,
+                attributes: { img: 'Org8.png' }
+              }
+            ]
+          }
+        ]
+      });
+    </script>
+  </body>
+</html>

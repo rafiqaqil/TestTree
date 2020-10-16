@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Multi Linear Columns Gauge | JSCharting</title>
+    <meta http-equiv="content-type" content="text-html; charset=utf-8" />
+
+    <script type="text/javascript" src="../jsc/jscharting.js"></script>
+
+    <script type="text/javascript" src="../jsc/modules/types.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="css/default.css" />
+    <style type="text/css">
+      /*CSS*/
+    </style>
+  </head>
+  <body>
+    <div id="chartDiv" style="max-width: 340px;height: 300px;margin: 0px auto;"></div>
+
+    <script type="text/javascript">
+      /*
+Linear gauge chart.
+Learn how to:
+
+  - Draw linear gauge chart.
+*/
+      // JS
+      var chart = JSC.chart('chartDiv', {
+        debug: true,
+        defaultSeries_type: 'gauge linear',
+        legend_visible: false,
+        xAxis: {
+          spacingPercentage: 0.2,
+          defaultTick: { label_padding_top: 15 }
+        },
+        yAxis: { scale_range: [0, 10000], visible: false },
+        defaultSeries_shape: { label: { text: '%name' } },
+        series: [
+          {
+            defaultPoint_tooltip: 'Steps: %yValue',
+            type: 'column roundCaps',
+            name: 'Daily Steps',
+            color: '#fb504d',
+            points: [['Mo', 3516], ['Tu', 6854], ['We', 9461], ['Th', 7523], ['Fr', 5256], ['Sa', 2546], ['Su', 3425]]
+          }
+        ],
+        toolbar_visible: false
+      });
+    </script>
+  </body>
+</html>

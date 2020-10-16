@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Restaurant Rating | JSCharting</title>
+    <meta http-equiv="content-type" content="text-html; charset=utf-8" />
+
+    <script type="text/javascript" src="../jsc/jscharting.js"></script>
+
+    <script type="text/javascript" src="../jsc/modules/toolbar.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="css/default.css" />
+    <style type="text/css"></style>
+  </head>
+  <body>
+    <div id="chartDiv" style="max-width: 260px;height: 260px;margin: 0px auto;"></div>
+
+    <script type="text/javascript">
+      /*
+Slider UI controls with a visualization using markers.
+Learn how to:
+
+  - Use slider uiItems.
+*/
+      // JS
+      var chartConfig = {
+        debug: true,
+        toolbar_items: {
+          export_visible: false,
+          Food: {
+            id: 'Food',
+            margin: [10, 53],
+            label_text: '',
+            itemsBox: { visible: true, boxVisible: false },
+            boxVisible: false,
+            items: {
+              label1: {
+                label_text: 'Food',
+                boxVisible: false,
+                margin: [0, 20]
+              },
+              slider1: {
+                type: 'range',
+                width: 100,
+                value: 5,
+                min: 1,
+                max: 5,
+                events_change: getEvHandler('foodRate')
+              },
+              label2: {
+                id: 'foodRate',
+                label_text: '5',
+                label_style_fontWeight: 'bold',
+                boxVisible: false,
+                margin: [0, 20]
+              }
+            }
+          },
+          Service: {
+            id: 'Service',
+            margin: [10, 41],
+            label_text: '',
+            itemsBox: { visible: true, boxVisible: false },
+            boxVisible: false,
+            items: {
+              label1: {
+                label_text: 'Service',
+                boxVisible: false,
+                margin: [0, 20]
+              },
+              slider1: {
+                type: 'range',
+                width: 100,
+                value: 5,
+                min: 1,
+                max: 5,
+                events_change: getEvHandler('serviceRate')
+              },
+              label2: {
+                id: 'serviceRate',
+                label_text: '5',
+                label_style_fontWeight: 'bold',
+                boxVisible: false,
+                margin: [0, 20]
+              }
+            }
+          },
+          Cleanliness: {
+            id: 'Cleanliness',
+            margin: [10, 20],
+            label_text: '',
+            itemsBox: { visible: true, boxVisible: false },
+            boxVisible: false,
+            items: {
+              label1: {
+                label_text: 'Cleanliness',
+                boxVisible: false,
+                margin: [0, 20]
+              },
+              slider1: {
+                type: 'range',
+                width: 100,
+                value: 5,
+                min: 1,
+                max: 5,
+                events_change: getEvHandler('cleanlinessRate')
+              },
+              label2: {
+                id: 'cleanlinessRate',
+                label_text: '5',
+                label_style_fontWeight: 'bold',
+                boxVisible: false,
+                margin: [0, 20]
+              }
+            }
+          },
+          Ambiance: {
+            id: 'Ambiance',
+            margin: [10, 27],
+            label_text: '',
+            itemsBox: { visible: true, boxVisible: false },
+            boxVisible: false,
+            items: {
+              label1: {
+                label_text: 'Ambiance',
+                boxVisible: false,
+                margin: [0, 20]
+              },
+              slider1: {
+                type: 'range',
+                width: 100,
+                value: 5,
+                min: 1,
+                max: 5,
+                events_change: getEvHandler('ambianceRate')
+              },
+              label2: {
+                id: 'ambianceRate',
+                label_text: '5',
+                label_style_fontWeight: 'bold',
+                boxVisible: false,
+                margin: [0, 20]
+              }
+            }
+          },
+          Price: {
+            id: 'Price',
+            margin: [10, 53],
+            label_text: '',
+            itemsBox: { visible: true, boxVisible: false },
+            boxVisible: false,
+            items: {
+              label1: {
+                label_text: 'Price',
+                boxVisible: false,
+                margin: [0, 20]
+              },
+              slider1: {
+                type: 'range',
+                width: 100,
+                value: 5,
+                min: 1,
+                max: 5,
+                events_change: getEvHandler('priceRate')
+              },
+              label2: {
+                id: 'priceRate',
+                label_text: '5',
+                label_style_fontWeight: 'bold',
+                boxVisible: false,
+                margin: [0, 20]
+              }
+            }
+          },
+          Summary: {
+            id: 'Summary',
+            margin: [10, 90],
+            label_text: getStarsText(5),
+            boxVisible: false
+          }
+        }
+      };
+      var values = { priceRate: 5, ambianceRate: 5, cleanlinessRate: 5, serviceRate: 5, foodRate: 5 };
+      var chart = JSC.chart('chartDiv', chartConfig);
+
+      function getEvHandler(uiId) {
+        var id = uiId;
+        return function(value) {
+          chart.uiItems(id).options({ label_text: '' + Math.round(value) });
+          values[id] = value;
+          updateSummaryRate();
+        };
+      }
+      function updateSummaryRate() {
+        var summary = Math.round(
+          (values.foodRate + values.serviceRate + values.cleanlinessRate + values.ambianceRate + values.priceRate) / 5
+        );
+        chart.uiItems('Summary').options({ label_text: getStarsText(summary) });
+      }
+      function getStarsText(count) {
+        function star(color) {
+          return '<icon name=material/toggle/star size=28 color=' + color + '>';
+        }
+        var result = '';
+        for (var i = 0; i < 5; i++) {
+          result += star(i < count ? '#fdd835' : '#e0e0e0');
+        }
+        return result;
+      }
+    </script>
+  </body>
+</html>

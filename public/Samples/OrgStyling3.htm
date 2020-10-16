@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Stacked HTML Node Organizational Chart | JSCharting</title>
+    <meta http-equiv="content-type" content="text-html; charset=utf-8" />
+
+    <script type="text/javascript" src="../jsc/jscharting.js"></script>
+
+    <script type="text/javascript" src="../jsc/modules/types.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="css/default.css" />
+    <style type="text/css">
+      .department {
+        white-space: pre-wrap;
+        width: 110px;
+        padding: 5px;
+        color: #424242;
+        font-weight: normal;
+      }
+      .units {
+        white-space: pre-wrap;
+        width: 120px;
+        height: 200px;
+        color: #212121;
+        font-weight: normal;
+        text-align: center;
+        font-size: 10px;
+      }
+      .units li {
+        list-style-type: none;
+        padding: 5px;
+        margin: 4px 0;
+        border-radius: 5px;
+      }
+      .units ul {
+        padding: 0;
+      }
+      .units hr {
+        border: none;
+        background: white;
+        width: 40px;
+        height: 1px;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="chartDiv" style="width: 810px;height: 430px;margin: 0px auto;"></div>
+
+    <script type="text/javascript">
+      /*
+Organizational chart with HTML annotations.
+Learn how to:
+
+  - Create complex organizational charts.
+*/
+      // JS
+      var config = {
+        type: 'organization down',
+        defaultPoint: {
+          outline_width: 0,
+          annotation: {
+            asHTML: true,
+            label: {
+              text: '<div class="department" style="border-bottom:5px solid %color;"><b>%position</b>%name%units</div>',
+              align: 'center'
+            }
+          }
+        },
+        defaultSeries: {
+          mouseTracking_enabled: false,
+          line: { width: 1, color: '#e0e0e0' }
+        },
+        series: [
+          {
+            points: [
+              {
+                name: 'Ellis Davidson',
+                id: 'dhr',
+                attributes: {
+                  position: 'Director of Human Resources<br>',
+                  units: ''
+                },
+                label_style_fontSize: 14,
+                color: 'white'
+              },
+              {
+                name: 'Leroy Gonzalez',
+                id: 'ca',
+                parent: 'dhr',
+                attributes: {
+                  position: 'Compensation Analysis<br>',
+                  units: ''
+                },
+                label_style_fontSize: 12,
+                color: '#ba68c8'
+              },
+              {
+                name: '',
+                id: 'ca_',
+                parent: 'ca',
+                attributes: {
+                  position: '',
+                  units:
+                    '<ul><li><b>Job Evaluation</b><br>Martha Butler</li><li><b>Salary Board</b><br>Jacquelyn Aguilar</li><li><b>Merit Admin</b><br>Gregory Floyd</li><li><b>Attendance Incentive</b><br>Devin Wells</li><li><b>HRIS</b><br>Lauren Thornton</li></ul>'
+                },
+                label_style_fontSize: 10,
+                color: '#ce93d8',
+                annotation_label_text: '<div class="units"><b>%position</b>%name%units</div>'
+              },
+              {
+                name: 'Dana Payne',
+                id: 'ba',
+                parent: 'dhr',
+                attributes: {
+                  position: 'Benefits Administration<br>',
+                  units: ''
+                },
+                label_style_fontSize: 12,
+                color: '#f06292'
+              },
+              {
+                name: '',
+                id: 'ba_',
+                parent: 'ba',
+                attributes: {
+                  position: '',
+                  units:
+                    "<ul><li><b>Flex Benefits</b><br>Kathleen Lynch</li><li><b>Worker's Comp</b><br>Grant Foster</li><li><b>LTD</b><br>Edwin Carson</li><li><b>Open Enrollment</b><br>Vickie Price</li></ul>"
+                },
+                label_style_fontSize: 10,
+                color: '#f48fb1',
+                annotation_label_text: '<div class="units"><b>%position</b>%name%units</div>'
+              },
+              {
+                name: 'Kristen Hughes',
+                id: 'rm',
+                parent: 'dhr',
+                attributes: {
+                  position: 'Risk Management<br>',
+                  units: ''
+                },
+                label_style_fontSize: 12,
+                color: '#64b5f6'
+              },
+              {
+                name: '',
+                id: 'rm_',
+                parent: 'rm',
+                attributes: {
+                  position: '',
+                  units:
+                    '<ul><li><b>Property Insurance</b><br>Florence Mcguire</li><li><b>General Liability</b><br>Brandi Russell</li><li><b>Professional Liability</b><br>Jill Todd</li><li><b>Emergency Procedures</b><br>Lola Ramos</li><li><b>Safety Program</b><br>Ismael Jenkins</li></ul>'
+                },
+                label_style_fontSize: 10,
+                color: '#90caf9',
+                annotation_label_text: '<div class="units"><b>%position</b>%name%units</div>'
+              },
+              {
+                name: 'Sheri Tate',
+                id: 't',
+                parent: 'dhr',
+                attributes: {
+                  position: 'Training<br>',
+                  units: ''
+                },
+                label_style_fontSize: 12,
+                color: '#4db6ac'
+              },
+              {
+                name: '',
+                id: 't_',
+                parent: 't',
+                attributes: {
+                  position: '',
+                  units:
+                    '<ul><li><b>Training Partnership</b><br>Fannie Chandler</li><li><b>Course Procedure</b><br>Frankie Clark</li><li><b>Workforce Committee</b><br>Amos Wong</li><li><b>Program Development</b><br>Israel Edwards</li></ul>'
+                },
+                label_style_fontSize: 10,
+                color: '#80cbc4',
+                annotation_label_text: '<div class="units"><b>%position</b>%name%units</div>'
+              },
+              {
+                name: 'Dolores Robbins',
+                id: 'er',
+                parent: 'dhr',
+                attributes: {
+                  position: 'Employee Relations<br>',
+                  units: ''
+                },
+                label_style_fontSize: 12,
+                color: '#aed581'
+              },
+              {
+                name: '',
+                id: 'er_',
+                parent: 'er',
+                attributes: {
+                  position: '',
+                  units:
+                    '<ul><li><b>Client Consultations</b><br>Victoria Robertson</li><li><b>Grievance Procedure</b><br>Opal Sparks</li><li><b>FMLA Administration</b><br>Lorena Larson</li><li><b>Unemployment Comp</b><br>Wade King</li><li><b>EEO</b><br>Rene Ellis</li></ul>'
+                },
+                label_style_fontSize: 10,
+                color: '#c5e1a5',
+                annotation_label_text: '<div class="units"><b>%position</b>%name%units</div>'
+              },
+              {
+                name: 'Lance Mendoza',
+                id: 's',
+                parent: 'dhr',
+                attributes: {
+                  position: 'Staffing<br>',
+                  units: ''
+                },
+                label_style_fontSize: 12,
+                color: '#ffd54f'
+              },
+              {
+                name: '',
+                id: 's_',
+                parent: 's',
+                attributes: {
+                  position: '',
+                  units:
+                    '<ul><li><b>Job Postings</b><br>Randal Schultz</li><li><b>Applicant Sourcing</b><br>Lydia Holt</li><li><b>Summer Employment</b><br>John Alvarado</li><li><b>Applicant Screening</b><br>Ralph Meyer</li></ul>'
+                },
+                label_style_fontSize: 10,
+                color: '#ffe082',
+                annotation_label_text: '<div class="units"><b>%position</b>%name%units</div>'
+              }
+            ]
+          }
+        ]
+      };
+
+      config.series[0].points.forEach(function(point) {
+        point.attributes.units = point.attributes.units.replace(/<li>/g, '<li style="background-color: %color;">');
+      });
+
+      var chart = JSC.chart('chartDiv', config);
+    </script>
+  </body>
+</html>

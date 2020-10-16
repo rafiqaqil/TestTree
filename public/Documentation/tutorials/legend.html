@@ -1,0 +1,238 @@
+﻿<h2>Introduction</h2>
+<p>The JSCharting legend is a powerful and fully customizable data grid that allows customizing columns with data attributes
+	and calculations through the use of expressions. Custom entries can be used to populate the legend with any data or information.
+	Some of the legend features include:</p>
+<ul>
+	<li>Flexible and automated positioning</li>
+	<li>Legend title
+	</li>
+	<li>Data columns with expressions
+	</li>
+	<li>Column headers</li>
+	<li>AxisMarker entries</li>
+	<li>Custom entries
+	</li>
+	<li>SmartPalette legend with ColorBar or ranges
+	</li>
+	<li>Entry icon customization</li>
+	<li>Interactivity events</li>
+	<li>Chart with only a legend:
+		<a href="Samples.LegendAlone">LegendAlone</a>
+	</li>
+</ul>
+<h2>Layout / Position</h2>
+	<p>The legend can be positioned anywhere around the chart area by setting the legend.position property.
+		<span class="docsReference">Types.legend.position:Detailed inforation on how to use the legend.position options..</span>
+
+	<!--<p>Legend positioning system is closely tied to annotation and uiItem positioning and offers the following features:
+	</p>
+
+	<ul>
+		<li>Outside the chartArea on any side.</li>
+		<li>Absolute floating x,y position.</li>
+		<li>Relative to chartArea origin.</li>
+		<li>Docked inside the chartArea.</li>
+
+	</ul>
+
+	&lt;!&ndash;<span class="docsReference">Enums.orientation: A complete list of orientation settings.</span>&ndash;&gt;
+<h3>Around the chart</h3>
+<span class="codeText">chartOptions.legend_position = &#39;topLeft&#39;;</span>
+
+<p>This positioning can also be used in conjunction with the offset property to make small adjustments:</p>
+
+<span class="codeText">chartOptions.legend_offset = &#39;5,5&#39;;
+</span>
+<p>A margin property is available to specify the distance between the chartArea and legend when using docked positioning:</p>
+
+<span class="codeText">chartOptions.legend_margin = 5;
+	<br/>
+</span>
+<h3>Absolute Positioning</h3>
+<p>When absolute positioning is used, the legend will not affect layout of any chart visuals, hence the legend will float on
+	top of the chart and position at the specified x,y coordinates relative to the top left of the chart image.
+</p>
+
+<span class="codeText">
+	//Chart Config: chartOptions.legend_position = &#39;20,10&#39;; //Real-time chart.legends(0).options({position:'100,2'})
+</span>
+<h3>ChartArea offset</h3>
+<p>This is similar to absolute positioning except the 0,0 coordinates refer to the top left corner of the chartArea. For example
+	'CA:0,0'. Setting this value to 'CA' will have the same effect. Including x,y coordinates is not required in this case because
+	the margin property can be set to indicate the offset amount.</p>
+
+<span class="codeText">
+	//Chart Config: chartOptions.legend = {position:'CA', margin:5}; //Real-time chart.legends(0).options({position:'CA', margin:5})
+</span>
+<h3>Docked Positioning</h3>
+To position the legend inside the chartArea docked to a side or corner use:
+
+<span class="codeText">
+	//Chart Config: chartOptions.legend_position = &#39;CA:bottomRight&#39;; //Real-time chart.legends(0).options({position:'CA:bottomRight'})
+</span>
+-->
+
+<h3>Legend Entry Orientation</h3>
+<p>When using a position name such as &#39;topLeft&#39; the legend entries are automatically laid out either vertically or horizontally
+	depending on the position. However, with absolute or relative positioning, this setting should be specified with the legend.layout
+	property:</p>
+
+<span class="codeText">chartOptions.legend_layout = &#39;horizontal&#39;;
+	<br/>
+</span>
+<!--A static width can be specified for the legend:
+
+<span class="codeText">chartOptions.legend_width = 20;</span>
+-->
+
+<h2>Styling</h2>
+
+Styling the legendbox is similar to styling the title and annotations. Properties such as
+<a href="Types.legend.fill">fill</a>,
+<a href="Types.legend.outline">outline</a>,
+<a href="Types.legend.radius">radius</a>,
+<a href="Types.legend.shadow">shadow</a> are all available.
+
+<span class="docsReference">Types.legend: Legend object properties.</span>
+
+<span class="docsSample">LegendStyling</span>
+<span class="docsTasks">
+	Tasks.Legend.Styling
+</span>
+<h2>Entries</h2>
+Legend entries represent data on the chart. Series have individual legendEntry properties but the legend object has a defaultEntry
+property that specifies the defaults for all entries and is recommended unless entry specific customization is required.
+
+<span class="docsSample">SeriesLegendEntry: Specifies series specific legend entry properties.</span>
+<h2>Data Grid</h2>
+<p>The
+	<a href="Types.legend.template">legend.template</a> property can be populated with a space or comma delimited string of expressions and tokens that define
+	the data shown for each column.</p>
+
+<p>The legendEntry value and name properties can contain tokens and expressions as well. By default, when the legend template
+	includes
+	<span class="example">&#39;%name&#39;</span> or
+	<span class="example">&#39;%value&#39;</span>, it refers to these properties rather than
+	<span class="example">&#39;%name&#39;</span> and
+	<span class="example">&#39;%value&#39;</span> of the actual target item. The default values of these properties are
+	<span class="codeText">
+		{name:'%name', value:'%sum'}
+	</span>
+	These properties are useful because they allow customizing the data shown for each legend column on a per entry basis. Items
+	represented by the legend are not necessarily of the same type. For example, the legend can contain series and point entries
+	at the same time.</p>
+
+<span class="docsSample">LegendDataGrid</span>
+
+
+<p>The
+	<a href="Types.legend.header">legend.header</a> property can be used to specify labels for each column defined in
+	<a href="Types.legend.template">legend.template</a> property. It too is delimited by spaces or commas if commas are found in the string. The header property
+	must contain the same number of items as the template.</p>
+
+<p>Arbitrary token values can also be used in the template and custom text for those tokens can be specified for each legend
+	entry like so:</p>
+
+<span class="codeText">
+	{template:'%name %icon %value %customVal', name:'%name', value:'%sum', attributes:{'customVal':'Custom Text'}}
+</span>
+
+
+<h3>Data series and points</h3>
+<p>By default, each series gets an entry in the legend. However when a series has a palette property set, a legend entry for
+	each point of the series is added in place of the series legend entry.</p>
+<p>When series have entries in the legend a particular point entry can be added to the legend by setting the points legendEntry_visible
+	to true. Similarly, any series legend entry can be removed from the legend by setting its legendEntry_visible to false.</p>
+<h3>SmartPalette</h3>
+<p>When a chart.palette property is set with a smartPalette config object, the legend will show a ColorBar by default. If the
+	smartPalette options define color ranges, the legend will display these ranges instead.</p>
+<h3>AxisMarkers</h3>
+<p>AxisMarkers entries are added to the legend by default as well. These can be removed by setting their legendEntry_visible
+	property to false.</p>
+<h3>Custom entries</h3>
+<p>Custom legend entries can be added to the legend through the legend.customEntries property. Tokens used with custom entries
+	are evaluated using the series collection token list which refers to series on the chart. </p>
+<h2>Customizing Entries</h2>
+<h3>Column Text</h3>
+<p>Legend template property defines columns for a legend that apply to all entries. Custom entries can define custom text for
+	columns by adding them to the entry.attributes property. </p>
+<span class="docsSample">LegendAxisMarkers</span>
+<h3>Icon</h3>
+<p>The legend entry icon is fully customizable. Any icon from the icon library can be specified, or even an svg path can be
+	specified. The chart will scale the given path to the appropriate size to fit it in the legend.</p>
+<span class="docsReference">Samples.BarMarkerIconsInLegend</span>
+
+<p></p>
+
+
+<!--<h2>Labels</h2>
+Legend entry labels support series tokens providing the ability
+to describe the data in a robust way without using label callback
+functions or series specific legend entry settings.
+
+<span class="codeText">chartOptions.legend_defaultEntry_text = &#39;%name (%sum)&#39;;</span>
+
+<span class="docsSample">LegendTokens</span>
+
+<span class="docsReference">Tutorials.tokenReference: A complete list of available tokens.</span>
+<span class="docsTasks">
+    Tasks.Legend.Label
+</span>-->
+<!--<h2>Layout</h2>
+As mentioned previously, legend entries can be laid out either
+vertically or horizontally. A width can be specified for each entry as
+well as entry <a href="Types.legendEntry.padding">padding</a> and
+<a href="Types.legendEntry.iconWidth">iconWidth</a>. This can be used to achieve a
+multi-column grid layout of entries. When entries lay out horizontally but legend
+width is set and not sufficient for all entries, they wrap to the next
+line. By setting a static width for each entry, a width for the legend
+and using horizontal layout, a grid layout can be achieved as
+demonstrated in the following sample:
+
+<span class="___Sample">LegendBoxGrid</span>
+<span class="docsTasks">
+    Tasks.Legend.Layout
+</span>-->
+<h2>Sorting</h2>
+Legend entries are listed in the order their series are added to the chart. However, setting legend.reverse reverses the
+order of the entries. A custom sort order can also be implemented by setting the
+<a href="Types.legendEntry.sortOrder">sortOrder</a>
+property of individual series legend entries.
+
+<span class="docsSample">LegendEntryOrder</span>
+
+<h2>Events &amp; Interactivity</h2>
+<p>By default, legend entries are interactive and when clicked they provide a useful action depending on what the entry represents.
+	These behavior can also be disabled by adding a click event handler that returns false.</p>
+<p>In general, legend entries represent series and in standard charts clicking the legend entry toggles the corresponding series
+	visibility. However, legend entries can also show points, axis marker, and custom entries.
+</p>
+<p>Point entry click event action can differ between chart types. For example, a pie chart where entries represent slices can
+	highlight or explode the pie slice. With standard types like line, column and zooming enabled or with organizational type,
+	clicking a point entry can scroll the point into view.
+</p>
+<p>Entries can also be customized with event handlers to perform any desired actions. With custom legend entry icons, legend
+	entries can even be used as clickable buttons similar to uiItems. Sample
+	<a href="Samples.MapEntryZoom">MapEntryZoom</a> demonstrates this using a custom entry to reset zoom that appears after a country entry is clicked. It
+	also demonstrates how clicked entries can be highlighted (made bold) programmatically.
+</p>
+<p></p>
+<span class="docsSample">LegendEvents: Hooks into the legend entry click and confirms whether the default show/hide series behavior should be executed.</span>
+
+<h2>States</h2>
+Legend entries are clickable and therefore visual states are provided to indicate when mouse hovers or the entry is disabled.
+The two entry states are named &#39;hover&#39; and &#39;hidden&#39;.
+
+<span class="docsSample">LegendStyling: Demonstrates styling of legend entry states.</span>
+
+Legend entries support cascading states which means that if a setting is applied to the normal state, it will affect subsequent
+states like hover and hidden. Internally this cascading processes higher level setting and modifies it to reflect the new
+state more accurately unless otherwise specified. This may help reduce the amount of code necessary to achieve an obviously
+desired effect. For example, setting a font propagates that font to subsequent states.
+
+<span class="docsReference">Tutorials.States:See the Cascading States tutorial for more info.
+</span>
+<h3>All legend related tasks</h3>
+<span class="docsTasks">
+	Tasks.Legend
+</span>

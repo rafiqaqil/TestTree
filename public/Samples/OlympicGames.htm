@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Olympic Games Infographic | JSCharting</title>
+    <meta http-equiv="content-type" content="text-html; charset=utf-8" />
+
+    <script type="text/javascript" src="../jsc/jscharting.js"></script>
+
+    <script type="text/javascript" src="../jsc/modules/types.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="css/default.css" />
+    <style type="text/css">
+      .mainWrapper {
+        width: 800px;
+        height: 1000px;
+        background: url('images/Games.png');
+        background-size: cover;
+        background-repeat: no-repeat;
+        margin-left: auto;
+        margin-right: auto;
+        position: relative;
+        left: -25px;
+      }
+
+      #cc1 {
+        position: absolute;
+        margin-top: 140px;
+        margin-left: 0px;
+        width: 345px;
+        height: 352px;
+      }
+      #cc2 {
+        position: absolute;
+        margin-top: 140px;
+        margin-left: 470px;
+        width: 345px;
+        height: 352px;
+      }
+      #cc3 {
+        position: absolute;
+        margin-top: 440px;
+        margin-left: 48px;
+        width: 260px;
+        height: 300px;
+      }
+      #cc4 {
+        position: absolute;
+        margin-top: 440px;
+        margin-left: 490px;
+        width: 260px;
+        height: 300px;
+      }
+      #cc5 {
+        position: absolute;
+        margin-top: 750px;
+        margin-left: 48px;
+        width: 260px;
+        height: 230px;
+      }
+      #cc6 {
+        position: absolute;
+        margin-top: 750px;
+        margin-left: 490px;
+        width: 260px;
+        height: 230px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="mainWrapper">
+      <div id="cc1"></div>
+      <div id="cc2"></div>
+      <div id="cc3"></div>
+      <div id="cc4"></div>
+      <div id="cc5"></div>
+      <div id="cc6"></div>
+    </div>
+
+    <script type="text/javascript">
+      /*
+Olympic games infographic using JavaScript charts.
+Learn how to:
+
+  - Create an infographic with overlaying charts.
+  - Use template for charts on the same page.
+*/
+      // JS
+      var template = {
+        legend_visible: false,
+        box_fill: 'none',
+        xAxis: {
+          defaultTick: {
+            gridLine_color: 'none',
+            label_style: { fontSize: 10, fontFamily: 'Arial' }
+          },
+          alternateGridFill: 'none'
+        },
+        yAxis: {
+          formatString: 'n0',
+          defaultTick: {
+            label: {
+              text: '%Value',
+              style: {
+                fontSize: 10,
+                fontFamily: 'Arial'
+              }
+            },
+            gridLine_color: 'none'
+          },
+          alternateGridFill: 'none'
+        },
+        toolbar_visible: false
+      };
+      var chart = new JSC.Chart('cc1', {
+        debug: true,
+        type: 'pie',
+        template: template,
+        defaultPoint: {
+          label_text: '<b>%name</b>',
+          tooltip: '%name: <b>%value</b> Summer Olympic Games'
+        },
+        series: [
+          {
+            shape_size: 170,
+            palette: ['#7a913c', '#b7d959', '#a2c14f', '#8ea946', '#caf064', '#667932'],
+            points: [
+              { name: 'US', y: 5 },
+              { name: 'UK', y: 3 },
+              { name: 'France', y: 3 },
+              { name: 'Australia', y: 2 },
+              { name: 'Japan', y: 2 },
+              { name: 'DE', y: 2 }
+            ]
+          }
+        ]
+      });
+
+      var chart2 = new JSC.Chart('cc2', {
+        debug: true,
+        type: 'pie',
+        template: template,
+        defaultPoint: {
+          label_text: '<b>%name</b>',
+          tooltip: '%name: <b>%value</b> Summer Olympic Games'
+        },
+        series: [
+          {
+            shape_size: 170,
+            palette: ['#2a5cb7', '#3677ee', '#326ddb', '#2f64c9', '#3c7eff', '#2653a5'],
+            points: [
+              { name: 'US', y: 4 },
+              { name: 'France', y: 3 },
+              { name: 'Canada', y: 2 },
+              { name: 'Austria', y: 2 },
+              { name: 'Norway', y: 2 },
+              { name: 'Italy', y: 2 }
+            ]
+          }
+        ]
+      });
+      var chart3 = new JSC.Chart('cc3', {
+        debug: true,
+        type: 'column',
+        template: template,
+        defaultPoint_tooltip: '%name: <b>%value</b> medals',
+        series: [
+          {
+            defaultPoint_marker: { visible: true, size: 30 },
+
+            palette: ['#8ea946', '#7a913c', '#a2c14f'],
+            points: [
+              { name: 'UK', y: 847, marker_type: 'url(images/champion1.png)' },
+              { name: 'US', y: 2520, marker_type: 'url(images/champion2.png)' },
+              { name: 'France', y: 713, marker_type: 'url(images/champion3.png)' }
+            ]
+          }
+        ]
+      });
+
+      var chart4 = new JSC.Chart('cc4', {
+        debug: true,
+        type: 'column',
+        template: template,
+        yAxis_scale_range_max: 400,
+        defaultPoint_tooltip: '%name: <b>%value</b> medals',
+        series: [
+          {
+            defaultPoint_marker: { visible: true, size: 30 },
+
+            palette: ['#2653a5', '#3c7eff', '#326ddb'],
+            points: [
+              { name: 'US', y: 282, marker_type: 'url(images/champion4.png)' },
+              { name: 'Norway', y: 329, marker_type: 'url(images/champion5.png)' },
+              { name: 'Austria', y: 218, marker_type: 'url(images/champion6.png)' }
+            ]
+          }
+        ]
+      });
+
+      var chart5 = new JSC.Chart('cc5', {
+        debug: true,
+        type: 'column',
+        template: template,
+        defaultPoint: {
+          tooltip: '<b>%name</b> Olympic Games<br> cost <b>$%valueM</b>',
+          label: { text: '<b>%name</b>' }
+        },
+        xAxis_defaultTick_enabled: false,
+        yAxis_defaultTick_label_text: '$%valueM',
+        series: [
+          {
+            color: '#667932',
+            points: [
+              { name: 'London', y: 14.96 },
+              { name: 'Barcelona', y: 9.69 },
+              { name: 'Beijing', y: 6.81 },
+              { name: 'Sydney', y: 5.03 },
+              { name: 'Rio de Janeiro', y: 4.58 },
+              { name: 'Atlanta', y: 4.14 },
+              { name: 'Athens', y: 2.94 }
+            ]
+          }
+        ]
+      });
+
+      var chart6 = new JSC.Chart('cc6', {
+        debug: true,
+        type: 'column',
+        template: template,
+        defaultPoint: {
+          tooltip: '<b>%name</b> Olympic Games<br> cost <b>$%valueM</b>',
+          label: { text: '<b>%name</b>' }
+        },
+        xAxis_defaultTick_enabled: false,
+        yAxis_defaultTick_label_text: '$%valueM',
+        series: [
+          {
+            color: '#2653a5',
+            points: [
+              { name: 'Sochi', y: 21.89 },
+              { name: 'Turin', y: 4.37 },
+              { name: 'Vancouver', y: 2.54 },
+              { name: 'Salt Lake City', y: 2.52 },
+              { name: 'Nagano', y: 2.23 },
+              { name: 'Lillehammer', y: 2.23 }
+            ]
+          }
+        ]
+      });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Cooking Infographic | JSCharting</title>
+    <meta http-equiv="content-type" content="text-html; charset=utf-8" />
+
+    <script type="text/javascript" src="../jsc/jscharting.js"></script>
+
+    <script type="text/javascript" src="../jsc/modules/types.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="css/default.css" />
+    <style type="text/css">
+      .mainWrapper {
+        width: 890px;
+        height: 1359px;
+        background: url('images/food.gif');
+        background: rgba(255, 255, 255, 0) url('images/food.svg');
+        background-size: cover;
+        background-repeat: no-repeat;
+        margin-left: auto;
+        margin-right: auto;
+        position: relative;
+        left: -25px;
+      }
+
+      #cc1 {
+        position: absolute;
+        margin-top: 220px;
+        margin-left: 60px;
+        width: 240px;
+      }
+      #cc2 {
+        position: absolute;
+        margin-top: 415px;
+        margin-left: 405px;
+        width: 150px;
+      }
+      #cc3 {
+        position: absolute;
+        margin-top: 415px;
+        margin-left: 657px;
+        width: 150px;
+      }
+      #cc4 {
+        position: absolute;
+        margin-top: 695px;
+        margin-left: 625px;
+        width: 260px;
+      }
+      #cc5 {
+        position: absolute;
+        margin-top: 1053px;
+        margin-left: 127px;
+        width: 62px;
+      }
+      #cc6 {
+        position: absolute;
+        margin-top: 1063px;
+        margin-left: 565px;
+        width: 62px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="mainWrapper">
+      <div id="cc1"></div>
+      <div id="cc2"></div>
+      <div id="cc3"></div>
+      <div id="cc4"></div>
+      <div id="cc5"></div>
+      <div id="cc6"></div>
+    </div>
+
+    <script type="text/javascript">
+      /*
+Cooking dashboard using JavaScript charts.
+Learn how to:
+
+  - Create an infographic with overlaying charts.
+  - Use template for charts on the same page.
+*/
+      // JS
+      /*Shared settings for all charts.*/
+      var template = {
+        box_fill: '#c2b59b',
+
+        legend_visible: false,
+        toolbar_visible: false,
+        chartArea: { fill: 'none', outline_color: 'none' },
+        xAxis: {
+          line_width: 0,
+          defaultTick_gridLine_color: 'none',
+          alternateGridFill: 'none'
+        },
+        yAxis: {
+          visible: false,
+          line_width: 0,
+          defaultTick_enabled: false,
+          defaultTick_gridLine_color: 'none',
+          alternateGridFill: 'none'
+        }
+      };
+      var chart1 = new JSC.Chart('cc1', {
+        debug: true,
+        type: 'horizontal column',
+        height: 135,
+        width: 240,
+        margin_bottom: -1,
+        template: template,
+        palette: ['#f5bd8c'],
+        xAxis_defaultTick: {
+          line_length: 0,
+          placement: 'inside',
+          label: {
+            style: {
+              color: 'white',
+              fontSize: 14,
+              fontWeight: 'bold'
+            }
+          }
+        },
+        series: [
+          {
+            name: 'Total',
+            points: [
+              { name: 'Home', y: 45 },
+              { name: 'Restaurant', y: 30 },
+              { name: 'Gifts', y: 20 },
+              { name: 'Production', y: 30 },
+              { name: 'Sustenance', y: 40 }
+            ]
+          }
+        ]
+      });
+      var chart2 = new JSC.Chart('cc2', {
+        debug: true,
+        defaultSeries_type: 'pie',
+        palette: ['#ed6d4b', '#f29854', '#f5bd8c', '#fffcd9'],
+        height: 150,
+        width: 150,
+        template: template,
+        series: [
+          {
+            name: 'Total',
+            shape: { size: '90%' },
+            points: [
+              { name: 'Gifts', y: 15 },
+              { name: 'Home', y: 20 },
+              { name: 'Restaurant', y: 25 },
+              { name: 'Grown', y: 30 }
+            ]
+          }
+        ]
+      });
+      var chart3 = new JSC.Chart('cc3', {
+        debug: true,
+        template: template,
+        defaultSeries_type: 'pie',
+        palette: ['#ed6d4b', '#f29854', '#f5bd8c', '#fffcd9'],
+        height: 150,
+        width: 150,
+        series: [
+          {
+            name: 'Total',
+            shape: { size: '90%' },
+            points: [
+              { name: 'Gifts', y: 15 },
+              { name: 'Home', y: 20 },
+              { name: 'Restaurant', y: 25 },
+              { name: 'Grown', y: 30 }
+            ]
+          }
+        ]
+      });
+
+      var chart4 = new JSC.Chart('cc4', {
+        debug: true,
+        type: 'horizontal column',
+        palette: ['#f5bd8c'],
+        height: 245,
+        template: template,
+        xAxis: {
+          spacingPercentage: 0.1,
+          defaultTick: {
+            placement: 'inside',
+            line_length: 0,
+            label: {
+              style: {
+                color: 'white',
+                fontSize: 14,
+                fontWeight: 'bold'
+              }
+            }
+          }
+        },
+
+        defaultPoint: {
+          label: {
+            text: '%yValue',
+            color: 'white',
+            style_fontSize: 15
+          }
+        },
+        series: [
+          {
+            name: 'Total',
+            points: [{ name: 'Gifts', y: 10 }, { name: 'Home Baking', y: 35 }, { name: 'Restaurants', y: 16 }]
+          }
+        ]
+      });
+
+      var chart5 = new JSC.Chart('cc5', {
+        debug: true,
+        defaultSeries: { type: 'pie', mouseTracking_enabled: false },
+        box_fill: 'none',
+        palette: ['#ed6d4b', '#f29854', '#f5bd8c', '#fffcd9'],
+        height: 62,
+        defaultTooltip_enabled: false,
+        defaultPoint_label_text: '%yValue',
+
+        template: template,
+
+        margin_left: 3,
+        margin_top: 0,
+
+        series: [
+          {
+            shape: { size: '99%' },
+            points: [{ name: '15', y: 15 }, { name: '20', y: 20 }]
+          }
+        ]
+      });
+      var chart6 = new JSC.Chart('cc6', {
+        debug: true,
+        defaultSeries: { type: 'pie', mouseTracking_enabled: false },
+        box_fill: 'none',
+        palette: ['#ed6d4b', '#f29854', '#f5bd8c', '#fffcd9'],
+        height: 62,
+        defaultTooltip_enabled: false,
+        defaultPoint_label_text: '%yValue',
+
+        template: template,
+
+        margin_left: 3,
+        margin_top: 0,
+        series: [
+          {
+            shape: { size: '99%' },
+            points: [{ name: '45', y: 45 }, { name: '20', y: 20 }]
+          }
+        ]
+      });
+    </script>
+  </body>
+</html>

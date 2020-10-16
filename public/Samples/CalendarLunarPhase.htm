@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Monthly Lunar Phase Calendar Chart | JSCharting</title>
+    <meta http-equiv="content-type" content="text-html; charset=utf-8" />
+
+    <script type="text/javascript" src="../jsc/jscharting.js"></script>
+
+    <script type="text/javascript" src="../jsc/icons/weather/all.js"></script>
+    <script type="text/javascript" src="../jsc/modules/types.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="css/default.css" />
+    <style type="text/css">
+      /*CSS*/
+    </style>
+  </head>
+  <body>
+    <div id="chartDiv" style="width: 600px;height: 370px;margin: 0px auto;"></div>
+
+    <script type="text/javascript">
+      /*
+Lunar phase icons calendar chart loaded from CSV.
+Learn how to:
+
+  - Load CSV data and map them to icons.
+*/
+      // JS
+      var chart,
+        chartConfig = {
+          debug: true,
+          type: 'calendar month solid',
+          title_label_text: '2020 Lunar Phases',
+          legend: {
+            template: '%name',
+            defaultEntry_style_fontSize: 15
+          },
+          calendar: {
+            range: ['1/1/2020', '12/31/2020'],
+            defaultEmptyPoint: { label_color: 'gray', hatch: 'none' }
+          },
+          defaultSeries: {
+            shape_innerPadding: 0,
+            defaultPoint: {
+              label: {
+                autoHide: false,
+                text: '<span style="align:right"><b>%name</b></span><br>%phase',
+                style_fontSize: 11,
+                align: 'center',
+                verticalAlign: 'top',
+                padding: 5,
+                color: 'gray'
+              },
+              attributes_phase: ''
+            }
+          },
+          yAxis_visible: false,
+          toolbar_visible: false
+        };
+
+      var phaseToIcon = {
+        'Full Moon': 'weather/fullmoon',
+        'New Moon': 'weather/newmoon',
+        'First Quarter': 'weather/first-quarter',
+        'Last Quarter': 'weather/last-quarter',
+        'Waxing gibbous': 'weather/waxing-gibbous',
+        'Waning gibbous': 'weather/waning-gibbous',
+        'Waning crescent': 'weather/waning-cresent',
+        'Waxing crescent': 'weather/waxing-cresent'
+      };
+
+      function renderChart(data) {
+        chartConfig.series = [
+          {
+            points: data.map(function(row) {
+              return {
+                date: row[0],
+                tooltip: '<b>{%date:date d}</b><br>' + row[1],
+                attributes_phase: '<icon name=' + (phaseToIcon[row[1]] || 'weather/fullmoon') + ' size=30 fill=#156787>'
+              };
+            })
+          }
+        ];
+        chart = JSC.chart('chartDiv', chartConfig);
+      }
+
+      JSC.fetch('./resources/MoonPhases_2020.csv')
+        .then(function(response) {
+          return response.text();
+        })
+        .then(function(text) {
+          var parsedData = JSC.parseCsv(text);
+          renderChart(parsedData.data);
+        })
+        .catch(function(err) {
+          console.error(err);
+        });
+    </script>
+  </body>
+</html>

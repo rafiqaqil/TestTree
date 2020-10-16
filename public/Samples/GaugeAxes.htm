@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Gauge Axes | JSCharting</title>
+    <meta http-equiv="content-type" content="text-html; charset=utf-8" />
+
+    <script type="text/javascript" src="../jsc/jscharting.js"></script>
+
+    <script type="text/javascript" src="../jsc/modules/types.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="css/default.css" />
+    <style type="text/css">
+      /*CSS*/
+    </style>
+  </head>
+  <body>
+    <div id="chartDiv" style="max-width: 740px;height: 350px;margin: 0px auto;"></div>
+
+    <script type="text/javascript">
+      /*
+Gauges representing two series with separate axis settings.
+Learn how to:
+
+  - Draw a multiple gauge chart.
+*/
+      // JS
+      var chart = JSC.chart('chartDiv', {
+        debug: true,
+        defaultSeries_type: 'gauge',
+        legend: { position: 'inside top', boxVisible: false },
+        yAxis: [
+          {
+            scale_range: [0, 80],
+            defaultTick_label_color: '#ad4506',
+            line: { width: 5, color: '#99a4b0', breaks_gap: 0.02 }
+          },
+          {
+            id: 'y2',
+            scale_range: [0, 200],
+            defaultTick_label_color: '#022f9c',
+            markers: [{ value: [150, 200], color: '#ff596b' }]
+          }
+        ],
+        defaultTooltip_enabled: false,
+        series: [{ points: [{ y: 65 }] }, { yAxis: 'y2', points: [{ y: 45 }] }]
+      });
+    </script>
+  </body>
+</html>

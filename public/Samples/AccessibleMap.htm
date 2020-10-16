@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Accessible Map | JSCharting</title>
+    <meta http-equiv="content-type" content="text-html; charset=utf-8" />
+
+    <script type="text/javascript" src="../jsc/jscharting.js"></script>
+
+    <script type="text/javascript" src="../jsc/modules/maps.js"></script>
+    <script type="text/javascript" src="../jsc/modules/accessibility.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="css/default.css" />
+    <style type="text/css">
+      /*CSS*/
+    </style>
+  </head>
+  <body>
+    <div id="chartDiv" style="max-width: 540px; height: 500px;margin: 0px auto;"></div>
+
+    <script type="text/javascript">
+      /*
+Accessible map chart using series from one map code and different property filters.
+Learn how to:
+
+  - Use accessibility options with map charts.
+*/
+      // JS
+      var chart = JSC.chart('chartDiv', {
+        type: 'map',
+        toolbar_items_export_description: 'export menu',
+        title_label_text: 'Americas',
+        mapping_projection: false,
+        description: 'Two series from one map code and different property filters',
+        legend: {
+          position: 'inside left top',
+          defaultEntry: { description: '%name' }
+        },
+        title_description: 'Americas',
+        defaultPoint_description: '%name',
+        series: [
+          {
+            name: 'North America',
+            map: 'americas.continent:North America'
+          },
+          {
+            map: 'americas.continent:South America',
+            name: 'South America'
+          }
+        ],
+        toolbar_items_resetZoom_position: 'inside bottom left'
+      });
+    </script>
+  </body>
+</html>

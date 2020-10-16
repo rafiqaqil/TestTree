@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Bar Mekko Ranges Chart | JSCharting</title>
+    <meta http-equiv="content-type" content="text-html; charset=utf-8" />
+
+    <script type="text/javascript" src="../jsc/jscharting.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="css/default.css" />
+    <style type="text/css">
+      /*CSS*/
+    </style>
+  </head>
+  <body>
+    <div id="chartDiv" style="max-width: 840px;height: 400px;margin: 0px auto;"></div>
+
+    <script type="text/javascript">
+      /*
+Range ticks with variwide (bar mekko) columns.
+Learn how to:
+
+  - Draw variwide chart with ranges.
+*/
+      // JS
+      var chart = JSC.chart('chartDiv', {
+        debug: true,
+        type: 'variwide',
+        defaultBox_boxVisible: false,
+        legend_visible: false,
+        margin_right: 50,
+        yAxis: {
+          scale_range_max: 15,
+          alternateGridFill: 'none',
+          line_width: 0,
+          label: {
+            text: 'Per capita carbon emissions<br/>(tCO<sub>2</sub> per person per year)',
+            style_fontSize: 10
+          }
+        },
+        xAxis: [
+          { id: 'mainX', label_text: 'Population by income' },
+          {
+            orientation: 'opposite',
+            scale_syncWith: 'mainX',
+            line_width: 0,
+            defaultTick: {
+              line_width: 2,
+              rangeMode: 'measure',
+              label: { placement: 'outside', rotate: 0 }
+            },
+            customTicks: [
+              {
+                value: ['High income', 'Upper-middle income'],
+                line_color: '#e52232',
+                label: {
+                  color: '#e52232',
+                  text: '51% of population<br/>86% of global CO<sub>2</sub>'
+                }
+              },
+              {
+                value: ['Lower-middle income', 'Low income'],
+                label: {
+                  text: '49% of population<br/>14% of global CO<sub>2</sub>'
+                }
+              },
+              {
+                value: 'High income',
+                line_color: '#2469e5',
+                label: {
+                  color: '#2469e5',
+                  text: '16% of population<br/>38% of global CO<sub>2</sub>'
+                }
+              },
+              {
+                value: 'Low income',
+                line_color: '#20a042',
+                label: {
+                  color: '#20a042',
+                  text: '9% of population<br/>0.5% of global CO<sub>2</sub>'
+                }
+              }
+            ]
+          }
+        ],
+        series: [
+          {
+            palette: ['#2469e5', '#e52232', 'gray', '#20a042'],
+            defaultPoint: {
+              tooltip: '<b>%xValue</b><br/>%zValue billion people<br/>%yValue tCO<sub>2</sub>/person/y',
+              label: {
+                autoHide: false,
+                style_fontSize: 10,
+                text: '%zValue billion people<br/>%yValue tCO<sub>2</sub>/person/y'
+              }
+            },
+            points: [
+              { x: 'High income', y: 11.3, z: 1.2 },
+              { x: 'Upper-middle income', y: 6.4, z: 2.6 },
+              { x: 'Lower-middle income', y: 1.6, z: 3 },
+              { x: 'Low income', y: 0.26, z: 0.7 }
+            ]
+          }
+        ]
+      });
+    </script>
+  </body>
+</html>

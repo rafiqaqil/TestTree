@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Column Marker Combination Chart | JSCharting</title>
+    <meta http-equiv="content-type" content="text-html; charset=utf-8" />
+
+    <script type="text/javascript" src="../jsc/jscharting.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="css/default.css" />
+    <style type="text/css"></style>
+  </head>
+  <body>
+    <div id="chartDiv" style="max-width: 740px;height: 300px;margin: 0px auto;"></div>
+
+    <script type="text/javascript">
+      /*
+A combination of stacked bars and markers.
+Learn how to:
+
+  - Draw a combo chart with different series types.
+*/
+      // JS
+      var chart;
+
+      JSC.fetch('./resources/AustraliaFootprintData.csv')
+        .then(function(response) {
+          return response.text();
+        })
+        .then(function(text) {
+          var data = JSC.csv2Json(text);
+          chart = renderChart(makeSeries(data));
+        });
+      function makeSeries(data) {
+        var key = JSC.nest().key('year');
+        var series = [
+          { name: 'Biocapacity', type: 'marker', points: key.rollup('biocapacity').points(data) },
+          { name: 'Ecological Footprint', type: 'column', points: key.rollup('footprint').points(data) }
+        ];
+        return series;
+      }
+      function renderChart(series) {
+        return JSC.chart('chartDiv', {
+          title_label_text: 'Australia: Ecological Footprint and Biocapacity (per person)',
+          legend_visible: false,
+          // Combined tooltip text
+          defaultTooltip_label_text: '<b>%xValue</b><br>%points',
+          // Each point tooltip text.
+          defaultPoint_tooltip: '%SeriesName: <b>%yValue gha</b>',
+          defaultAxis_alternateGridFill: 'none',
+          yAxis: [
+            { id: 'mainY' },
+            {
+              id: 'secondY',
+              defaultTick: { enabled: false, gridLine_visible: false },
+              orientation: 'opposite',
+              scale_syncWith: 'mainY'
+            }
+          ],
+          xAxis: {
+            scale: { type: 'time', interval: { unit: 'year', multiplier: 5 } },
+            formatString: 'yyyy',
+            crosshair_enabled: true
+          },
+          defaultSeries: {
+            lastPoint_yAxisTick: { axisId: 'secondY', label_text: '%icon%seriesName' }
+          },
+          series: series
+        });
+      }
+    </script>
+  </body>
+</html>

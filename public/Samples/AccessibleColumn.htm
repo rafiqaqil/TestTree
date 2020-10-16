@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Accessible Column | JSCharting</title>
+    <meta http-equiv="content-type" content="text-html; charset=utf-8" />
+
+    <script type="text/javascript" src="../jsc/jscharting.js"></script>
+
+    <script type="text/javascript" src="../jsc/modules/accessibility.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="css/default.css" />
+    <style type="text/css"></style>
+  </head>
+  <body>
+    <div id="chartDiv" style="max-width: 740px;height: 400px;margin: 0px auto;"></div>
+    <div id="labelDiv1" style="margin: 10px;"></div>
+
+    <script type="text/javascript">
+      /*
+Column chart with hatch patterns and accessibility features.
+Learn how to:
+
+  - Use accessibility options with column charts.
+*/
+      // JS
+      var chart = JSC.chart('chartDiv', {
+        defaultSeries_type: 'column',
+        description: '%type chart with hatch patterns for accessibility',
+        legend_description: 'chart legend',
+        legend_defaultEntry_description: '%name',
+        toolbar_items_export_description: 'export menu',
+        defaultPoint_description: '%name %value',
+        series: [
+          {
+            name: 'Team',
+            hatchPalette: true,
+            defaultPoint_hatch_color: 'black',
+            palette: 'colorVision4',
+            points: [
+              { name: 'Julian', y: 91 },
+              { name: 'Jeremiah', y: 118 },
+              {
+                name: 'Eli',
+                hatch_style: 'dashed-downward-diagonal',
+                y: 136
+              },
+              { name: 'Tyler', y: 130 },
+              { name: 'Ryan', y: 123 }
+            ]
+          }
+        ]
+      });
+      JSC.label(
+        'labelDiv1',
+        '<span tabindex="101" description="Online support questions and corresponding howTos shown"><b>Online support questions and corresponding howTos shown</b></span>'
+      );
+    </script>
+  </body>
+</html>

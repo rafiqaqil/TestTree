@@ -1,0 +1,64 @@
+name,position,department,id,parent,number
+Leland Cortez,,Chief of Police,cp,,0
+Loretta Mcgee,Executive Asst. Chief,Strategic Operations,sto,cp,1
+Kristin Peterson,Executive Asst. Chief,Investigative Operations,io,cp,2
+Matt Turner,Executive Asst. Chief,Field Operations,fo,cp,3
+Nicole Olson,Executive Asst. Chief,Support Operations,so,cp,4
+Grace Bishop,Assistant Chief,Homeland Security Command,hsc,sto,5
+Agnes Rice,Captain,Air Support,hsc1,hsc,6
+Santiago Adams,Captain,Airport,hsc2,hsc,7
+Faith Jackson,Captain,Criminal Intelligence,hsc3,hsc,8
+Jodi Joseph,Captain,Special Operations,hsc4,hsc,9
+Tamara Torres,Captain,Tactical Operations,hsc5,hsc,10
+Angie Richards,Assistant Chief,Professional Standards Command,psc,sto,11
+Amanda Davis,Captain,Inspections,psc1,psc,12
+Valerie Roberts,Captain,Internal Affairs / Central Intake Office,psc2,psc,13
+Lorena Bush,Captain,Psychological Services,psc3,psc,14
+Kristina Cole,Captain,Training,psc4,psc,15
+Cecil Clarke,Assistant Chief,Special Investigations Command,sic,io,16
+Karl Fowler,Captain,Auto Theft,sic1,sic,17
+Michelle Smith,Captain,Gang,sic2,sic,18
+Charlene Gill,Captain,Major Offenders,sic3,sic,19
+Richard Brock,Captain,Narcotics,sic4,sic,20
+Freddie Davidson,Captain,Vehicular Crimes,sic5,sic,21
+Santos Payne,Captain,Vice,sic6,sic,22
+Sam Johnston,Assistant Chief,Criminal Investigations Command,cic,io,23
+Sonja Simon,Captain,Burglary and Theft,cic1,cic,24
+Samantha Christensen,Captain,Homicide,cic2,cic,25
+Jerald Allison,Captain,Investigative First Responder,cic3,cic,26
+Connie Palmer,Captain,Juvenile,cic4,cic,27
+Virginia Wong,Captain,Robbery,cic5,cic,28
+Stuart Ray,Captain,Special Crimes,cic6,cic,29
+Danny Ferguson,Assistant Chief,North Central Patrol Command,ncpc,fo,30
+Elias Steele,Captain,Night Commander,ncpc1,ncpc,31
+Bertha Flowers,Captain,Central,ncpc2,ncpc,32
+Sheri Gutierrez,Captain,North,ncpc3,ncpc,33
+Carlton Moran,Captain,Northwest,ncpc4,ncpc,34
+Garrett Conner,Assistant Chief,North Patrol Command,npc,fo,35
+Gloria Simmons,Captain,Kingwood,npc1,npc,36
+Raymond Patrick,Captain,Northeast,npc2,npc,37
+Gretchen Burgess,Captain,Traffic Enforcement,npc3,npc,38
+Ann Quinn,Assistant Chief,East Patrol Command,epc,fo,39
+Luis George,Captain,Clear Lake,epc1,epc,40
+Josephine Bowen,Captain,Eastside,epc2,epc,41
+Alton Cross,Captain,South Central,epc3,epc,42
+Marcella Patton,Captain,Southeast,epc4,epc,43
+Chelsea Fletcher,Assistant Chief,West Patrol Command,wpc,fo,44
+Jimmy Alexander,Captain,Fondren,wpc1,wpc,45
+Pat Perry,Captain,Midwest,wpc2,wpc,46
+Stephen Crawford,Captain,Southwest,wpc3,wpc,47
+Phillip Schmidt,Captain,Westside,wpc4,wpc,48
+Sylvester Martinez,Assistant Chief,Administrative Services Command,asc,so,49
+Willie Gray,Acting Administrator,Communications Management,asc1,asc,50
+Ernest Matthews,Assistant Director,Fleet Management,asc2,asc,51
+Wilson Griffith,Captain,Human Resources,asc3,asc,52
+Cassandra Holmes,Captain,Jail,asc4,asc,53
+Jermaine Cunningham,Deputy Director,Planning,asc5,asc,54
+Gerald Hines,Assistant Director,Neighborhood Protection Corps,asc6,asc,55
+Kenny Thornton,Assistant Chief,Information Services Command,isc,so,56
+Ernesto Miles,Captain,Crime Analysis and Command Center,isc1,isc,57
+Amy Holloway,Assistant Director,Crime Lab,isc2,isc,58
+Irma Munoz,Captain,Emergency Communications,isc3,isc,59
+Dominic Rowe,Acting Administrator,Identification,isc4,isc,60
+Yolanda Blake,Police Administrator,Records,isc5,isc,61
+Angelina Schwartz,Captain,Property and Supply,isc6,isc,62

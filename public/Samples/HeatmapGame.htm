@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Interactive Game Heatmap Chart | JSCharting</title>
+    <meta http-equiv="content-type" content="text-html; charset=utf-8" />
+
+    <script type="text/javascript" src="../jsc/jscharting.js"></script>
+
+    <script type="text/javascript" src="../jsc/modules/types.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="css/default.css" />
+    <style type="text/css">
+      /*CSS*/
+    </style>
+  </head>
+  <body>
+    <div id="chartDiv" style="width: 400px; height: 400px;margin: 0px auto;"></div>
+
+    <script type="text/javascript">
+      /*
+A simple game of 15 implementation using heatmap chart type.
+Learn how to:
+
+  - Implement a game with heatmap chart.
+*/
+      // JS
+      var points = [],
+        emptyPoint,
+        chart = JSC.chart(
+          'chartDiv',
+          {
+            debug: true,
+            width: 400,
+            height: 400,
+            type: 'heatmapCushion',
+            chartArea_fill: '#e1e1e1',
+            title: {
+              label: { text: 'Game of Fifteen', align: 'center' },
+              position: 'full'
+            },
+            legend_visible: false,
+            defaultTooltip_visible: false,
+            defaultPoint: {
+              label: {
+                text: '%name',
+                color: 'white',
+                style: { fontSize: '16px', fontWeight: 'bold' }
+              },
+              events_click: pointClick
+            },
+            xAxis_visible: false,
+            yAxis_visible: false,
+            toolbar_visible: false,
+            series: [{ points: [] }]
+          },
+          init
+        );
+
+      function shuffle(a) {
+        for (var i = a.length - 1; i > 0; i--) {
+          var j = Math.floor(Math.random() * (i + 1));
+          var tmp = a[i];
+          a[i] = a[j];
+          a[j] = tmp;
+        }
+        return a;
+      }
+
+      function pointClick(point) {
+        var target = findPointByName(points, point.currentTarget.name);
+
+        if (
+          target &&
+          ((target.x - emptyPoint.x === 0 && Math.abs(target.y - emptyPoint.y) === 1) ||
+            (target.y - emptyPoint.y === 0 && Math.abs(target.x - emptyPoint.x) === 1))
+        ) {
+          targetPoint = { x: target.x, y: target.y };
+
+          target.x = emptyPoint.x;
+          target.y = emptyPoint.y;
+          emptyPoint.x = targetPoint.x;
+          emptyPoint.y = targetPoint.y;
+
+          target['color'] = getColor(target.x, target.y, target.name);
+
+          chart.series(0).points(points);
+        }
+      }
+
+      function findPointByName(points, name) {
+        for (var i = 0, l = points.length; i < l; i++) {
+          if (points[i].name === name) {
+            return points[i];
+          }
+        }
+      }
+
+      function copyPoint(p) {
+        return { x: p.x, y: p.y, z: p.z, color: p.color, label: p.label, name: p.name };
+      }
+
+      function getColor(x, y, name) {
+        var targetValue = parseInt(name);
+        if (targetValue === (3 - y) * 4 + x + 1) {
+          return 'green';
+        } else {
+          return 'steelblue';
+        }
+      }
+
+      function init(c) {
+        for (var i = 0; i < 4; i++) {
+          for (var j = 0; j < 4; j++) {
+            points.push({ x: i, y: j, z: 1 });
+          }
+        }
+
+        points = shuffle(points);
+
+        for (var i = 0; i < 16; i++) {
+          points[i].name = '' + (i + 1);
+          points[i]['color'] = getColor(points[i].x, points[i].y, points[i].name);
+        }
+
+        emptyPoint = points.pop();
+
+        emptyPoint['color'] = 'rgba(0,0,0,0)';
+        emptyPoint['label_color'] = 'rgba(0,0,0,0)';
+
+        c.series(0).points(points);
+      }
+    </script>
+  </body>
+</html>

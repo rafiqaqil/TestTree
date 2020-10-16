@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Grid Custom Icons | JSCharting</title>
+    <meta http-equiv="content-type" content="text-html; charset=utf-8" />
+
+    <script type="text/javascript" src="../jsc/jscharting.js"></script>
+
+    <script type="text/javascript" src="../jsc/modules/datagrid.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="css/default.css" />
+    <style type="text/css">
+      .sampleHead {
+        color: #37474f;
+        text-align: center;
+        font-family: Arial;
+      }
+
+      .brandLogo svg {
+        width: 56px;
+      }
+
+      .jscGrid table td {
+        vertical-align: middle !important;
+      }
+    </style>
+  </head>
+  <body>
+    <h2 class="sampleHead">Most popular car brands in US</h2>
+    <div id="gridDiv"></div>
+
+    <script type="text/javascript">
+      /*
+Demonstrate using SVG images in data grids.
+Learn how to:
+
+  - Customize data grid columns.
+  - Use SVG images in data grids.
+  - Customize data grid with CSS.
+*/
+      // JS
+      var data = [
+        { prod: 56, dis: 242, '2013': 2403542, '2014': 2376841, '2015': 2501855, '2016': 2487487, '2017': 2464041 },
+        { prod: 52, dis: 174, '2013': 1893874, '2014': 2004373, '2015': 2098545, '2016': 2106332, '2017': 2129177 },
+        { prod: 51, dis: 153, '2013': 1947125, '2014': 2033442, '2015': 2125347, '2016': 2096508, '2017': 2065879 },
+        { prod: 26, dis: 149, '2013': 1359876, '2014': 1373029, '2015': 1409386, '2016': 1476582, '2017': 1486827 },
+        { prod: 45, dis: 144, '2013': 1131965, '2014': 1269565, '2015': 1351420, '2016': 1426130, '2017': 1440049 },
+        { prod: 9, dis: 26, '2013': 490454, '2014': 692348, '2015': 865028, '2016': 929446, '2017': 828522 },
+        { prod: 35, dis: 94, '2013': 720783, '2014': 725718, '2015': 761710, '2016': 768057, '2017': 664943 },
+        { prod: 18, dis: 54, '2013': 424683, '2014': 513693, '2015': 582675, '2016': 615132, '2017': 647956 },
+        { prod: 32, dis: 58, '2013': 535179, '2014': 580234, '2015': 625818, '2016': 647598, '2017': 589668 }
+      ];
+      var grid, fullData;
+      JSC.fetch('./resources/carLogos.json.txt')
+        .then(function(response) {
+          return response.json();
+        })
+        .then(function(json) {
+          fullData = JSC.merge(json, data);
+          grid = new JSC.Grid('gridDiv', {
+            data: fullData,
+            defaultColumn: { align: 'center' },
+            columns: [
+              { header: 'Brand Logo', value: '<icon size=55 color=%color d="%path">', className: 'brandLogo' },
+              { header: 'In Production', value: '%prod' },
+              { header: 'Discontinued', value: '%dis' },
+              { header: 'Sales in 2013', value: '{%2013:n0}' },
+              { header: 'Sales in 2014', value: '{%2014:n0}' },
+              { header: 'Sales in 2015', value: '{%2015:n0}' },
+              { header: 'Sales in 2016', value: '{%2016:n0}' },
+              { header: 'Sales in 2017', value: '{%2017:n0}' },
+              {
+                header: 'Sales Trends',
+                value:
+                  '<chart width="100" height="28" margin="5" type="sparkline" data=""%2013,%2014,%2015,%2016,%2017" colors="#7085b9,#7085b9,#c44831" tooltip="Total: {%2013+%2014+%2015+%2016+%2017}">'
+              }
+            ]
+          });
+        });
+    </script>
+  </body>
+</html>

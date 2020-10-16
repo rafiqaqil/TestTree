@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Marimekko Chart | JSCharting</title>
+    <meta http-equiv="content-type" content="text-html; charset=utf-8" />
+
+    <script type="text/javascript" src="../jsc/jscharting.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="css/default.css" />
+    <style type="text/css"></style>
+  </head>
+  <body>
+    <div id="chartDiv" style="max-width: 740px;height: 400px;margin: 0px auto;"></div>
+
+    <script type="text/javascript">
+      /*
+Marimekko variwide chart with full stacked y axis.
+Learn how to:
+
+  - Draw basic variwide  mekko with full stacked y axis.
+*/
+      // JS
+      var chart = JSC.chart('chartDiv', {
+        debug: true,
+        type: 'variwide',
+        defaultBox_boxVisible: false,
+        yAxis: {
+          scale_type: 'stackedFull',
+          label_text: 'Passenger cars'
+        },
+        palette: 'fiveColor4',
+        legend: {
+          title: {
+            label_text: '<b>Fuel types</b>',
+            label_align: 'center'
+          },
+          template: '{%value:n0} %icon %name'
+        },
+        xAxis_label_text: 'Countries',
+        title_label_text: 'New passenger cars in 2017 by fuel type',
+        defaultPoint_tooltip:
+          '<b>Passenger %seriesName cars in %name</b>: {%yValue:n0}<br>%percentOfGroup% of all passenger cars in %name',
+        series: [
+          {
+            name: 'APV other than electric',
+            points: [
+              { name: 'France', y: 2110 },
+              { name: 'Germany', y: 6882 },
+              { name: 'UK', y: 2540 },
+              { name: 'Italy', y: 161580 },
+              { name: 'Spain', y: 4939 }
+            ]
+          },
+          {
+            name: 'Hybrid',
+            points: [
+              { name: 'France', y: 69654 },
+              { name: 'Germany', y: 55060 },
+              { name: 'UK', y: 68596 },
+              { name: 'Italy', y: 63055 },
+              { name: 'Spain', y: 55571 }
+            ]
+          },
+          {
+            name: 'Electrically-chargeable',
+            points: [
+              { name: 'France', y: 35882 },
+              { name: 'Germany', y: 55060 },
+              { name: 'UK', y: 48271 },
+              { name: 'Italy', y: 3940 },
+              { name: 'Spain', y: 7409 }
+            ]
+          },
+          {
+            name: 'Diesel',
+            points: [
+              { name: 'France', y: 998383 },
+              { name: 'Germany', y: 1331768 },
+              { name: 'UK', y: 1067059 },
+              { name: 'Italy', y: 1109389 },
+              { name: 'Spain', y: 597706 }
+            ]
+          },
+          {
+            name: 'Petrol',
+            points: [
+              { name: 'France', y: 1004716 },
+              { name: 'Germany', y: 1992490 },
+              { name: 'UK', y: 1354148 },
+              { name: 'Italy', y: 630559 },
+              { name: 'Spain', y: 569303 }
+            ]
+          }
+        ]
+      });
+    </script>
+  </body>
+</html>

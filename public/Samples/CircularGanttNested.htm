@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Circular Nested Gantt Chart | JSCharting</title>
+    <meta http-equiv="content-type" content="text-html; charset=utf-8" />
+
+    <script type="text/javascript" src="../jsc/jscharting.js"></script>
+
+    <script type="text/javascript" src="../jsc/modules/types.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="css/default.css" />
+    <style type="text/css">
+      /*CSS*/
+    </style>
+  </head>
+  <body>
+    <div id="chartDiv" style="max-width: 400px;height: 430px;margin: 0px auto;"></div>
+
+    <script type="text/javascript">
+      /*
+Nested circular gantt chart with a custom legend.
+Learn how to:
+
+  - Draw a nested circular gantt chart.
+  - Custom legend entries.
+*/
+      // JS
+      var chart = JSC.chart(
+        'chartDiv',
+        {
+          debug: true,
+          legend: {
+            template: '%icon %name',
+            position: 'inside bottom',
+            customEntries: [
+              { name: 'Swimming', icon: { color: '#34ace0' } },
+              { name: 'Cycling', icon: { color: '#ff5252' } },
+              { name: 'Running', icon: { color: '#33d9b2' } }
+            ]
+          },
+          xAxis: {
+            defaultTick: {
+              padding: 10,
+              gridLine_color: '#e3e3e3',
+              label: {}
+            },
+            scale_invert: true,
+            spacingPercentage: 0.4
+          },
+          yAxis: {
+            defaultTick_label_text: '%value min',
+            line: { color: 'lightgray' },
+            scale: { range: [0, 150], interval: 30 }
+          },
+          defaultSeries: {
+            type: 'gauge column',
+            shape: { padding: 0.08, offset: '0,-20' },
+            angle: { start: -90, sweep: 270 },
+            defaultPoint_tooltip:
+              '<b>%xValue:</b><br>%name {Math.floor(%yRange):n0} min {{60*{{%yRange:d}-{Math.floor(%yRange)}}}:n0} sec'
+          },
+          series: [
+            {
+              legendEntry_visible: false,
+              shape_label: {
+                text: 'Triathlon at the 2016 Summer Olympics',
+                style_fontSize: 14,
+                offset: '0,-10'
+              },
+              points: [
+                {
+                  name: 'Swimming',
+                  x: 'Alistair Brownlee',
+                  y: [0, 17.4]
+                },
+                {
+                  name: 'Cycling',
+                  x: 'Alistair Brownlee',
+                  y: [18.4, 72.46]
+                },
+                {
+                  name: 'Running',
+                  x: 'Alistair Brownlee',
+                  y: [73.4, 103.62]
+                },
+                {
+                  name: 'Swimming',
+                  x: 'Pierre Le Corre',
+                  y: [0, 17.47]
+                },
+                {
+                  name: 'Cycling',
+                  x: 'Pierre Le Corre',
+                  y: [18.47, 74.5]
+                },
+                {
+                  name: 'Running',
+                  x: 'Pierre Le Corre',
+                  y: [75.5, 107.22]
+                },
+                {
+                  name: 'Swimming',
+                  x: 'Faquan Bai',
+                  y: [0, 17.52]
+                },
+                {
+                  name: 'Cycling',
+                  x: 'Faquan Bai',
+                  y: [18.52, 77.34]
+                },
+                {
+                  name: 'Running',
+                  x: 'Faquan Bai',
+                  y: [78.34, 116.71]
+                }
+              ]
+            }
+          ]
+        },
+        function(c) {
+          c.series()
+            .points({ name: 'Swimming' })
+            .options({ color: '#34ace0' }, { animation: false });
+          c.series()
+            .points({ name: 'Cycling' })
+            .options({ color: '#ff5252' }, { animation: false });
+          c.series()
+            .points({ name: 'Running' })
+            .options({ color: '#33d9b2' }, { animation: false });
+        }
+      );
+    </script>
+  </body>
+</html>

@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Stacked Column Pie Combination Chart | JSCharting</title>
+    <meta http-equiv="content-type" content="text-html; charset=utf-8" />
+
+    <script type="text/javascript" src="../jsc/jscharting.js"></script>
+
+    <script type="text/javascript" src="../jsc/modules/types.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="css/default.css" />
+    <style type="text/css">
+      /*CSS*/
+    </style>
+  </head>
+  <body>
+    <div id="chartDiv" style="width: 700px;height: 400px;margin: 0px auto;"></div>
+
+    <script type="text/javascript">
+      /*
+A combination of bar and pie series.
+Learn how to:
+
+  - Draw a combo chart with different series types.
+*/
+      // JS
+      var chart = undefined;
+      JSC.fetch('./resources/carProduction.csv')
+        .then(function(response) {
+          return response.text();
+        })
+        .then(function(text) {
+          var data = JSC.csv2Json(text);
+          chart = renderChart(makeSeries(data));
+        });
+      function renderChart(series) {
+        return JSC.chart('chartDiv', {
+          debug: true,
+          defaultSeries_type: 'column',
+          palette: 'midTones',
+          title_label_text: 'World Passenger Car Production',
+          defaultAxis_defaultTick_gridLine_visible: false,
+          yAxis: {
+            orientation: 'opposite',
+            alternateGridFill: 'none',
+            label_text: 'Cars Produced',
+            scale: {
+              type: 'stacked',
+              range: [0, 150000000]
+            }
+          },
+          xAxis: {
+            scale: { type: 'time', interval: { unit: 'year' } },
+            formatString: 'yyyy'
+          },
+          annotations: [
+            {
+              label_text: '<b>2018</b>',
+              position: 'inside 139,93'
+            }
+          ],
+
+          defaultPoint: { tooltip: '%seriesName: <b>%value</b>' },
+          legend_visible: false,
+          series: series
+        });
+      }
+      function makeSeries(data) {
+        data.reverse();
+        var columnSeries = JSC.nest()
+          .key('country')
+          .key('year')
+          .pointRollup(function(key, val) {
+            return { x: key, y: val[0].cars };
+          })
+          .series(data);
+        var pieSeries = [
+          {
+            name: 'Summary',
+            shape: { center: '25%,30%', size: '40%', innerSize: '50%' },
+            defaultPoint: {
+              tooltip: '%name: <b>%value</b>',
+              label_text: '%name {%percentOfSeries:n0}%'
+            },
+            type: 'pie donut',
+            points: JSC.nest()
+              .key('country')
+              .pointRollup(function(key, val) {
+                return { x: key, y: val[0].cars };
+              })
+              .points(data)
+          }
+        ];
+        var series = columnSeries.concat(pieSeries);
+        return series;
+      }
+    </script>
+  </body>
+</html>

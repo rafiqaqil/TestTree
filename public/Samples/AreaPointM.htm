@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Missing Points Area Line Chart | JSCharting</title>
+    <meta http-equiv="content-type" content="text-html; charset=utf-8" />
+
+    <script type="text/javascript" src="../jsc/jscharting.js"></script>
+
+    <script type="text/javascript" src="../jsc/modules/toolbar.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="css/default.css" />
+    <style type="text/css"></style>
+  </head>
+  <body>
+    <div id="chartDiv" style="max-width: 740px;height: 400px;margin: 0px auto;"></div>
+
+    <script type="text/javascript">
+      /*
+An area line series with missing points.
+Learn how to:
+
+  - Draw area line chart with missing points.
+*/
+      // JS
+      var chart = JSC.chart('chartDiv', {
+        debug: true,
+        type: 'area',
+        title_label_text: 'Missing Point Options',
+        animation: false,
+        legend_visible: false,
+        defaultPoint_marker: { fill: 'white', outline_width: 3 },
+        series: [
+          {
+            name: 'Transactions',
+            points: [
+              { x: 2, y: 32165 },
+              { x: 5, y: 28651 },
+              { x: 8, y: 35698 },
+              { x: 10, y: null },
+              { x: 15, y: 27659 },
+              { x: 18, y: 28684 },
+              { x: 22, y: 25684 },
+              { x: 23, y: 38654 }
+            ]
+          }
+        ],
+        toolbar_items_EmptyPointMode: {
+          type: 'select',
+          tooltip: 'Empty Point Mode',
+          items: 'enum_emptyPointMode',
+          events_change: setMode
+        }
+      });
+
+      function setMode(val) {
+        chart.series().options({ emptyPointMode: val });
+      }
+    </script>
+  </body>
+</html>

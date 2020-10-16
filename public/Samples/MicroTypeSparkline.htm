@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Sparkline Microchart Options | JSCharting</title>
+    <meta http-equiv="content-type" content="text-html; charset=utf-8" />
+
+    <script type="text/javascript" src="../jsc/jscharting.js"></script>
+
+    <script type="text/javascript" src="../jsc/modules/types.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="css/default.css" />
+    <style type="text/css"></style>
+  </head>
+  <body>
+    <div id="chartDiv" style="max-width:385px; height: 420px;margin: 0px auto;"></div>
+
+    <script type="text/javascript">
+      /*
+Demonstrates sparkline type microchart options.
+Learn how to:
+
+  - Customize sparkline microchart options.
+*/
+      // JS
+
+      var examples = [
+        ['Plain sparkline', '<chart margin=8 type="sparkline" data="2,4,0,3">'],
+        ['Sparkline empty values', '<chart margin=8 type="sparkline" data="2,4,,,,0,3">'],
+        ['Sparkline +/- data', '<chart margin=8 type="sparkline" data="-1,3,-2,3">'],
+        ['Sparkline with ends', '<chart margin=8 type="sparkline" data="2,4,0,3" colors="black,blue">'],
+        ['Sparkline with ends and min/max', '<chart margin=8 type="sparkline" data="2,4,0,3" colors="black,blue,red">'],
+        ['Sparkline with min/max', '<chart margin=8 type="sparkline" data="2,4,0,3" colors="black,none,red">'],
+        ['Colored sparkline', '<chart margin=8 type="sparkline" color="steelblue" data="2,4,0,3">'],
+        ['Sparkline with AxisMarker line', '<chart margin=8 type="sparkline" axisMarker=2 data="2,4,0,3">'],
+        [
+          'Sparkline with colored range AxisMarker',
+          '<chart margin=8 type="sparkline" axisMarker="1,3" colors="black,none,none,mediumpurple" data="2,4,0,3">'
+        ]
+      ];
+
+      function makeText(title) {
+        var result = '<span style="font-size: 14px; font-weight: bold;">' + title + '</span>	<hr><ul>';
+
+        result += examples
+          .map(function(entry) {
+            return entry.length === 1
+              ? '</ul><br><b>' + entry[0] + '</b><hr><ul>'
+              : '<li><span style="width:220px; verticalAlign: middle;">' + entry[0] + '</span>' + entry[1] + '</li>';
+          })
+          .join('');
+
+        result += '</ul></span>';
+        return result;
+      }
+
+      var chart = JSC.chart('chartDiv', {
+        toolbar_visible: false,
+        margin_bottom: 30,
+        defaultBox_boxVisible: false,
+        annotations: [
+          {
+            position: 'inside center',
+            label_text: makeText('Spark Line Types and Options')
+          }
+        ]
+      });
+    </script>
+  </body>
+</html>

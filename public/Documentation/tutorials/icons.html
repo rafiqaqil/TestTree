@@ -1,0 +1,95 @@
+<!--<h2>Icon Library</h2>
+<p>The <a href="Types.icon">icon</a> visual can be defined from a list of predefined icons included with this bundle.</p>
+<span class="todo">
+    icons bundle info
+</span>-->
+<h3>System icons</h3>
+<p>There are a number of system icons that are bundled with JSCharting including generic system specific icons. For example,
+	iOS and android both have export icons with the same meaning, but different visuals.</p>
+<p>The bundle includes these icons for the following OS'es:
+</p>
+<ul>
+	<li>iOS</li>
+	<li>Android</li>
+	<li>Windows Phone</li>
+	<li>Default</li>
+</ul>
+<span class="tutorialImage">
+<img src="tutorials/images/osIcons.png"/>
+<em>Figure 1.</em><section>OS specific export icons</section>
+</span>
+<p>The export icon will automatically display a version that correspond to the end users OS.</p>
+
+<span class="tutorialImage">
+<img src="tutorials/images/systemIcons.png"/>
+<em>Figure 2.</em><section>All system icons listed below</section>
+</span>
+<ul>
+	<li>system/android/export</li><li>system/default/check</li><li>system/default/checkbox</li><li>system/default/checkbox_blank</li><li>system/default/close</li><li>system/default/expand-less</li><li>system/default/expand-more</li><li>system/default/export</li><li>system/default/jpg</li><li>system/default/pdf</li><li>system/default/png</li><li>system/default/svg</li><li>system/default/print</li><li>system/default/radio_button</li><li>system/default/radio_button_blank</li><li>system/default/settings</li><li>system/default/play</li><li>system/default/pause</li><li>system/default/add</li><li>system/default/remove</li><li>system/default/toggle_off</li><li>system/default/toggle_on</li><li>system/default/zoom/arrow_down</li><li>system/default/zoom/arrow_left</li><li>system/default/zoom/arrow_right</li><li>system/default/zoom/arrow_up</li><li>system/default/zoom/zoom_out</li><li>system/default/info</li><li>system/ios/export</li><li>system/winphone/export</li>
+</ul>
+<h3>3rd Party Library</h3>
+<p>Also included is a vast collection of 3rd party icon libraries located under
+	the JSC/ folder that can be referenced  in script tags.
+	When they are referenced, they will be accessible  through the icon.name property.</p>
+
+<h4>Icons Browser</h4>
+<p>The icons browser can be used to find or browse the available icons library. When an icon is clicked, the path for the icon is shown at the top.
+	This path can be used to specify the selected icon in chart configuration.</p>
+
+<span class="tutorialImage">
+<img src="tutorials/images/IconsBrowser.png"/>
+	<em>Figure 3.</em><section>The <a href="Samples.iconsBrowser">icons browser</a> interface.</section>
+</span>
+<p>When using icons, the chart will add a note to console that specifies the icon can be added to the page in a &lt;script&gt; tag like so:</p>
+<span class="htmlText">
+&lt;script type=&quot;text/javascript&quot; src=&quot;../JSC/icons/material/hardware/keyboard-arrow-left.js&quot;&gt;&lt;/script&gt;
+</span>
+
+<p>If many icons from the same category are used, it is best to include them all as one file like so:</p>
+<span class="htmlText">
+&lt;script type=&quot;text/javascript&quot; src=&quot;../JSC/icons/material/hardware/all.js&quot;&gt;&lt;/script&gt;
+</span>
+
+<span class="docsTip">
+Setting debug configuration option to false will disable these warning messages.
+</span>
+
+<h3>Custom</h3>
+<p>In addition to the predefined icons, a custom icon can also be used by setting the icon.path property with an SVG path string. The chart will handle any resizing and other manipulation as needed.
+</p>
+
+<span class="docsTip">
+<h4>Using custom icons</h4>
+	<ul>
+	<li>Use custom paths with closed shapes which terminate with a 'z' character. </li>
+	<li>Multiple paths can be combined by simply concatenating them into a single path string.</li>
+</ul>
+</span>
+
+<span class="docsCaution">
+Do not use paths with overlapping shapes.
+</span>
+
+<h3>Icon Features</h3>
+<p>Common styling features such as fill, outline, margins, and sizing are all available with icons. </p>
+<h4>Outer Shape</h4>
+<p>The <a href="Types.icon.outerShape">icon.outerShape</a> property can be set with a chart markerType such as circle square etc. This will modify the icon by cutting the icon path out of the outer shape. The padding property provides control over the spacing between the icon and outer shape.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Axis Markers Scatter Chart | JSCharting</title>
+    <meta http-equiv="content-type" content="text-html; charset=utf-8" />
+
+    <script type="text/javascript" src="../jsc/jscharting.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="css/default.css" />
+    <style type="text/css"></style>
+  </head>
+  <body>
+    <div id="chartDiv" style="max-width: 740px;height: 400px;margin: 0px auto;"></div>
+
+    <script type="text/javascript">
+      /*
+Scatter chart with multiple series and axis markers.
+Learn how to:
+
+  - Use gradient color axisMarkers.
+*/
+      // JS
+      var chart;
+
+      JSC.fetch('./resources/EcoFootprintAndHDI.csv')
+        .then(function(response) {
+          return response.text();
+        })
+        .then(function(text) {
+          var data = JSC.csv2Json(text);
+          chart = renderChart(data);
+        });
+      function renderChart(data) {
+        return JSC.chart('chartDiv', {
+          title_label_text: 'Correlation of Ecological Footprint and the Human Development Index 2016',
+          defaultPoint: {
+            tooltip: '<b>%country</b><br>HDI: <b>%xValue</b><br>Footprint: <b>%yValue gha</b>',
+            opacity: 0.8,
+            marker: {
+              type: 'circle',
+              outline_width: 0,
+              size: 12
+            }
+          },
+          legend: {
+            template: '%icon %name',
+            position: 'inside left top'
+          },
+          palette: ['#ffee58', '#81d4fa', '#f9a825', '#ec407a', '#7cb342', '#1e88e5', '#3949ab'],
+          defaultSeries_type: 'marker',
+          yAxis: {
+            label_text: 'Ecological Footprint per Person (gha)',
+            alternateGridFill: 'none',
+            markers: [
+              {
+                value: [1.63, 17.5],
+                label_text: 'Ecological Deficit',
+                color: ['yellow', 'red', -90],
+                opacity: 0.1,
+                legendEntry_visible: false
+              },
+              {
+                value: [0, 1.63],
+                label_text: 'Ecological reserve',
+                color: ['green', 'yellow', -90],
+                opacity: 0.1,
+                legendEntry_visible: false
+              },
+              {
+                value: 1.63,
+                label_text: 'World Biocapacity',
+                line: { width: 2, color: '#9e9e9e' },
+                label_visible: false
+              }
+            ]
+          },
+          xAxis: {
+            label_text: 'Human Development Index',
+            formatString: 'n1',
+            markers: [
+              {
+                value: 0.555,
+                label_text: 'Medium HDI',
+                line: { dashStyle: 'LongDash', color: '#9e9e9e' },
+                legendEntry_visible: false
+              },
+              {
+                value: 0.7,
+                label_text: 'High HDI',
+                line: { dashStyle: 'LongDash', color: '#9e9e9e' },
+                legendEntry_visible: false
+              },
+              {
+                value: 0.8,
+                label_text: 'Very high HDI',
+                line: { dashStyle: 'LongDash', color: '#9e9e9e' },
+                legendEntry_visible: false
+              }
+            ]
+          },
+          series: JSC.nest()
+            .key('region')
+            .key('country')
+            .pointRollup(function(key, val) {
+              var values = val[0];
+              return { x: values.hdi, y: values.footprint, attributes_country: values.country };
+            })
+            .series(data)
+        });
+      }
+    </script>
+  </body>
+</html>

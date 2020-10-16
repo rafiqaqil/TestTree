@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Hatched Pattern Pie Chart | JSCharting</title>
+    <meta http-equiv="content-type" content="text-html; charset=utf-8" />
+
+    <script type="text/javascript" src="../jsc/jscharting.js"></script>
+
+    <script type="text/javascript" src="../jsc/modules/types.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="css/default.css" />
+    <style type="text/css">
+      /*CSS*/
+    </style>
+  </head>
+  <body>
+    <div id="chartDiv" style="max-width: 405px;height: 380px;margin: 0px auto;"></div>
+
+    <script type="text/javascript">
+      /*
+Draw pie hatch palette to improve accessibility.
+Learn how to:
+
+  - Draw pie chart using hatch patterns.
+*/
+      // JS
+      var chart = JSC.chart('chartDiv', {
+        debug: true,
+        title: {
+          label_text: 'Top country GDP',
+          position: 'center'
+        },
+        legend_position: 'inside left bottom',
+        defaultSeries: { type: 'pie', hatchPalette: true },
+        defaultPoint: { label_text: '<b>%name</b>' },
+        title_label_text: 'Countries GDP',
+        yAxis: { label_text: 'GDP', formatString: 'n' },
+        series: [
+          {
+            name: 'Countries',
+            points: [
+              { name: 'United States', y: 5452500 },
+              { name: 'Canada', y: 786052 },
+              { name: 'United Kingdom', y: 477338 },
+              { name: 'Mexico', y: 155313 }
+            ]
+          }
+        ]
+      });
+    </script>
+  </body>
+</html>

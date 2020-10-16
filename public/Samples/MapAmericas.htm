@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Americas Map Chart | JSCharting</title>
+    <meta http-equiv="content-type" content="text-html; charset=utf-8" />
+
+    <script type="text/javascript" src="../jsc/jscharting.js"></script>
+
+    <script type="text/javascript" src="../jsc/modules/toolbar.js"></script>
+    <script type="text/javascript" src="../jsc/modules/maps.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="css/default.css" />
+    <style type="text/css">
+      /*CSS*/
+    </style>
+  </head>
+  <body>
+    <div id="chartDiv" style="max-width: 540px; height: 500px;margin: 0px auto;"></div>
+
+    <script type="text/javascript">
+      /*
+Two series from one map code and different property filters.
+Learn how to:
+
+  - Map property filter.
+*/
+      // JS
+      var chart = JSC.chart('chartDiv', {
+        debug: true,
+        type: 'map',
+        title_label_text: 'Americas',
+        legend_position: 'inside left top',
+        mapping_projection: false,
+        series: [
+          {
+            name: 'North America',
+            map: 'americas.continent:North America'
+          },
+          {
+            map: 'americas.continent:South America',
+            name: 'South America'
+          }
+        ],
+        toolbar_items_resetZoom_position: 'inside bottom left'
+      });
+    </script>
+  </body>
+</html>

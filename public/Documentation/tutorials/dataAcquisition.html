@@ -1,0 +1,150 @@
+
+
+<h2 id="gettingdata">Getting Data</h2>
+
+<p>JSC.fetch() is an alias for vanilla JS
+    <a href="https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch">fetch()</a> function but includes
+    a polyfill for IE11. This function makes it easy to get data for the chart. Especially if the data source is
+    already stored in JSON format.</p>
+
+<span class="codeText">JSC.fetch('./data.json')
+    .then(response =&gt; response.json())
+    .then(json =&gt; {
+        //Use JSON to populate the chart.
+    });
+</span>
+
+<span class="codeText">JSC.fetch('./data.csv')
+    .then(response =&gt; response.text())
+    .then(text =&gt; {
+        //Use CSV text
+    });
+</span>
+
+<h2 id="delimiterseparatedvalues">Delimiter Separated Values</h2>
+
+<p>Delimiter separated values are often used to reduce the size of data for transfer between
+    the server and browser. These utility functions enable converting between CSV
+    and JSON to facilitate charting the data regardless of data format. The most
+    common formats are comma delimited values (CSV) and tab delimited values (TSV). </p>
+
+<h4 id="csv">CSV</h4>
+
+<p>Consider the following CSV content</p>
+
+<span class="codeText">"Date,Actual,Goal 1/1/2018,4535,5000"
+</span>
+
+<p>Converting CSV to JSON</p>
+
+<span class="codeText">let data = JSC.csv2Json('Date,Actual,Goal\n1/1/2018,4535,5000');
+</span>
+
+<h4 id="tsv">TSV</h4>
+
+<p>Another popular delimiter format uses the tab character which is useful when data contains commas.</p>
+
+<span class="codeText">let data = JSC.tsv2Json('Date\tActual\tGoal\n1/1/2018\t4535\t5000');
+</span>
+
+<h4 id="dsv">DSV</h4>
+
+<p>An arbitrary delimiter character can also be used. The example below demonstrates using the
+    pipe | character as the delimiter.</p>
+
+<span class="codeText">let data = JSC.dsv2Json('Date|Actual|Goal\n1/1/2018|4535|5000', '|');
+</span>
+
+<p>The resulting JavaScript array in all three cases is:</p>
+
+<span class="codeText"> [{Date: 1514786400000, Actual: 4535, Goal: 5000}]
+</span>
+
+<p><strong>Note:</strong> The resulting array also includes two properties <em>columns</em> and <em>types</em>:</p>
+
+<span class="codeText">{
+columns:  ["Date", "Actual", "Goal"],
+types: ["date", "number", "number"]
+}
+</span>
+
+<h2 id="optionsconvertingtojson">Options Converting to JSON</h2>
+
+<p>The examples above provide a convenient way to quickly convert DSV data into JSON objects. There are a few options that
+    can be used to enahnace or modify the conversion process when necessary. </p>
+
+<h4 id="renamingproperties">Renaming properties</h4>
+
+<p>The resulting JSON object property names can be defined manually overwriting the existing header or when a header row
+    does not exist. Property names can also be renamed using the map option. </p>
+
+<p>Custom columns can be specified using the columns property:</p>
+
+<span class="codeText">
+    let data = JSC.csv2Json('Date,Actual,Goal\n1/1/2018,4535,5000',{
+    columns: ['date', 'steps', 'goal']
+});
+</span>
+
+<p>Or a mapping function can be used to define the property renaming:</p>
+
+<span class="codeText">let data = JSC.csv2Json('Date,Actual,Goal\n1/1/2018,4535,5000',{
+    map: (d,i)=&gt;{return {date: d.Date, steps: d.Actual, goal: d.Goal};}
+});
+</span>
+
+<p>In both cases the resulting JavaScript array is:</p>
+
+<span class="codeText">[{date: 1514786400000, steps: 4535, goal: 5000}]
+</span>
+
+<h4 id="customcoercion">Custom Coercion</h4>
+
+<p>By default the utility will attempt to detect and coerce the data types to native values, however, this can be
+    done manually as well. The coerce option accepts a function that receives the row JSON object with all
+    property values as strings. This function can also be used to rename properties if needed but the automatic
+    data type coersion is omited when this option is specified. </p>
+
+<p>The coerce function arguments are (row, index, types). Types are the automatically detected types for each column.</p>
+
+<span class="codeText">let data = JSC.dsv2Json('Year|Sales\n2017|2315\n2018|3423', '|', {
+    coerce:(d, i, types)=&gt;{ return {date: new Date(+d.Year,0,1), sales: +d.Sales};}
+});
+</span>
+
+<p>The resulting array of JSON objects is the equivalent of:</p>
+
+<span class="codeText">[
+{
+    date: new Date(2017,0,1),
+    sales: 2315
+},
+{
+    date: new Date(2018,0,1),
+    sales: 3423
+}
+]
+</span>
+
+<p><strong>Note:</strong> When both <em>map</em> and <em>coerce</em> options are specified, the row argument passed to the coerce function
+    will be the result of the map function.  </p>
+
+<h2 id="convertingtodsv">Converting to DSV</h2>
+
+<p>Converting an array of objects back into delimiter separated values can be achieved using
+    similar utility functions as described above. </p>
+
+<span class="codeText">JSC.json2Csv([{date: 1514786400000, steps: 4535, goal: 5000}]) // "date,steps,goal\n1514786400000,4535,5000"
+</span>
+
+<p>The map option can be used to perform any modification of the row values or property names. In this example
+    the same data row is converted back to the original pipe delimited format and property names using the
+    <a href="https://jscharting.com/documentation/#node=Home.API.js.JSC.formatDate()">JSC.formatDate()</a> function for the date values..</p>
+
+<span class="codeText">JSC.json2Dsv([{date: 1514786400000, steps: 4535, goal: 5000}],'|',{
+    map:(d,i)=&gt;{
+        return {Date: JSC.formatDate(d.date,'d'), Actual:d.steps, Goal:d.goal};
+    }
+})
+// "Date|Actual|Goal\n1/1/2018|4535|5000"
+</span>

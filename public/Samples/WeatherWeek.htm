@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Weather Range Column Chart | JSCharting</title>
+    <meta http-equiv="content-type" content="text-html; charset=utf-8" />
+
+    <script type="text/javascript" src="../jsc/jscharting.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="css/default.css" />
+    <style type="text/css">
+      /*CSS*/
+    </style>
+  </head>
+  <body>
+    <div id="chartDiv" style="max-width: 740px;height: 400px;margin: 0px auto;"></div>
+
+    <script type="text/javascript">
+      /*
+Use column complete values to display percent chance of rain.
+Learn how to:
+
+  - Use column complete values.
+*/
+      // JS
+      var chart = JSC.chart('chartDiv', {
+        debug: true,
+        title: {
+          position: 'center',
+          label: {
+            align: 'center',
+            text:
+              '<b>Upcoming Week</b><br/>Rain on Friday through Sunday, with temperatures peaking at %maxº on %maxPointName.',
+            style_fontWeight: 'normal'
+          }
+        },
+        legend_visible: false,
+        yAxis: {
+          scale_range_min: 50,
+          defaultTick_label_text: '%valueº',
+          alternateGridFill: 'none'
+        },
+        xAxis: {
+          defaultTick: { gridLine_width: 0, line_length: 0 }
+        },
+        defaultPoint: {
+          label_text: '%lowº–%highº',
+          tooltip: '<b>%xValue</b><br/> %lowº–%highº <br/>%complete chance of rain.'
+        },
+        series: [
+          {
+            defaultPoint: {
+              color: '#d3d4d1',
+              complete: { fill: ['#81D2FF', 0.5], hatch_style: 'none' }
+            },
+            name: 'Upcoming Week',
+            points: [
+              { name: 'Today', y: [53, 73], complete_y: 0.04 },
+              { name: 'May 31', y: [52, 71], complete_y: 0 },
+              { name: 'Jun 1', y: [52, 77], complete_y: 0 },
+              { name: 'Jun 2', y: [58, 85], complete_y: 0.2 },
+              { name: 'Jun 3', y: [68, 84], complete_y: 0.75 },
+              { name: 'Jun 4', y: [58, 70], complete_y: 0.85 },
+              { name: 'Jun 5', y: [55, 70], complete_y: 0.05 }
+            ]
+          }
+        ],
+        type: 'column'
+      });
+    </script>
+  </body>
+</html>

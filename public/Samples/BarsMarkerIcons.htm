@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>SVG Icon Column Chart | JSCharting</title>
+    <meta http-equiv="content-type" content="text-html; charset=utf-8" />
+
+    <script type="text/javascript" src="../jsc/jscharting.js"></script>
+
+    <script type="text/javascript" src="../jsc/icons/material/hardware/all.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="css/default.css" />
+    <style type="text/css"></style>
+  </head>
+  <body>
+    <div id="chartDiv" style="max-width: 740px;height: 400px;margin: 0px auto;"></div>
+
+    <script type="text/javascript">
+      /*
+Columns with icon markers.
+Learn how to:
+
+  - Use icons with column data points.
+*/
+      // JS
+      var chart = JSC.chart('chartDiv', {
+        debug: true,
+        type: 'column',
+        title_label_text: 'Device Availability And Personal Use',
+        legend_visible: false,
+        yAxis_defaultTick_label_text: '%value%',
+        xAxis: {
+          defaultTick: {
+            placement: 'inside',
+            label: {
+              color: 'white',
+              style: { fontWeight: 'bold', fontSize: 16 }
+            }
+          }
+        },
+        series: [
+          {
+            defaultPoint: {
+              tooltip: '<b>%yValue%</b> of users have<br>access to <b>%name</b>',
+              marker: { visible: true, size: 40, fill: 'azure' },
+              label_text: '%value%'
+            },
+            name: 'Users with access',
+            points: [
+              {
+                name: 'Smartphone',
+                y: 78,
+                marker_type: 'material/hardware/smartphone'
+              },
+              {
+                name: 'Tablet',
+                y: 39,
+                marker_type: 'material/hardware/tablet'
+              },
+              {
+                name: 'Laptop',
+                y: 49,
+                marker_type: 'material/hardware/laptop'
+              },
+              {
+                name: 'Desktop',
+                y: 61,
+                marker_type: 'material/hardware/desktop-windows'
+              }
+            ]
+          }
+        ]
+      });
+    </script>
+  </body>
+</html>

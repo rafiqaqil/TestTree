@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Interactive Map Projections | JSCharting</title>
+    <meta http-equiv="content-type" content="text-html; charset=utf-8" />
+
+    <script type="text/javascript" src="../jsc/jscharting.js"></script>
+
+    <script type="text/javascript" src="../jsc/modules/toolbar.js"></script>
+    <script type="text/javascript" src="../jsc/modules/maps.js"></script>
+    <script type="text/javascript" src="../jsc/icons/material/maps/all.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="css/default.css" />
+    <style type="text/css">
+      /*CSS*/
+    </style>
+  </head>
+  <body>
+    <div id="chartDiv" style="width: 740px; height: 400px;margin: 0px auto;"></div>
+
+    <script type="text/javascript">
+      /*
+World regions shown with and without projection.
+Learn how to:
+
+  - Projection,projections.
+*/
+      // JS
+
+      var chartConfig = {
+        debug: true,
+        type: 'map',
+        animation_duration: 1000,
+        legend_visible: false,
+        title: { position: 'full', label_text: 'Projections' },
+        mapping_projection: { type: 'lambertConformalConic' },
+        series: [{ map: 'asia', palette: 'fiveColor41' }]
+      };
+
+      var fromPoint = [104, 1];
+      var destinations = [[72, 19], [114, 22], [74, 51], [139, 35]];
+      var tooltips = ['Mumbai', 'Hong Kong', 'Astana', 'Tokyo'];
+      var colors = ['#4285F4', '#EA4335', '#34A853', '#7B0099'];
+
+      destinations.forEach(function(dest, i) {
+        var from = fromPoint;
+        chartConfig.series.push({
+          type: 'spline',
+          points: [from, dest],
+          line_width: 1.5,
+          color: colors[i],
+          defaultPoint_marker: { visible: false, zIndex: 120 }
+        });
+      });
+
+      chartConfig.series.push({
+        type: 'marker',
+        defaultPoint_marker: {
+          type: 'material/maps/place',
+          offset: '0,-14',
+          size: 24
+        },
+        defaultPoint_tooltip: 'Singapore',
+        points: [fromPoint],
+        color: 'white'
+      });
+
+      destinations.forEach(function(dest, i) {
+        chartConfig.series.push({
+          type: 'marker',
+          defaultPoint_marker: {
+            type: 'material/maps/flight',
+            size: 24
+          },
+          defaultPoint_tooltip: tooltips[i],
+          points: [dest],
+          color: colors[i]
+        });
+      });
+
+      chartConfig.toolbar = {
+        items: {
+          zoom_visible: false,
+          resetZoom_position: 'inside bottom left',
+          Projection: {
+            type: 'select',
+            value: 'lambertConformalConic',
+            items: {
+              none: {},
+              mercator: {},
+              lambertConformalConic: {},
+              lambertAzimuthalEqualArea: {},
+              stereographic: {},
+              orthographic: {}
+            },
+            events_change: function(val) {
+              setProjection(val);
+            }
+          }
+        }
+      };
+
+      chart = JSC.Chart('chartDiv', chartConfig);
+
+      function setProjection(val) {
+        chart.options({ mapping_projection_type: val });
+      }
+    </script>
+  </body>
+</html>

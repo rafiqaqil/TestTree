@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Map Thematic Sales | JSCharting</title>
+    <meta http-equiv="content-type" content="text-html; charset=utf-8" />
+
+    <script type="text/javascript" src="../jsc/jscharting.js"></script>
+
+    <script type="text/javascript" src="../jsc/modules/maps.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="css/default.css" />
+    <style type="text/css">
+      /*CSS*/
+    </style>
+  </head>
+  <body>
+    <div id="chartDiv" style="max-width: 740px;height: 480px;margin: 0px auto;"></div>
+
+    <script type="text/javascript">
+      /*
+Thematic mapping bound to data.
+Learn how to:
+
+  - Make thematic maps.
+  - Map points from mapCodes.
+  - Show a SmartPalette in the legend.
+  - Set Default Map Padding.
+*/
+      // JS
+      var mapData = [
+        ['AL', 130],
+        ['AK', 140],
+        ['AZ', 155],
+        ['AR', 145],
+        ['CA', 141],
+        ['CO', 150],
+        ['CT', 146],
+        ['DE', 131],
+        ['FL', 129],
+        ['GA', 117],
+        ['HI', 124],
+        ['ID', 124],
+        ['IL', 119],
+        ['IN', 132],
+        ['IA', 146],
+        ['KS', 144],
+        ['KY', 125],
+        ['LA', 136],
+        ['ME', 126],
+        ['MD', 133],
+        ['MA', 134],
+        ['MI', 148],
+        ['MN', 166],
+        ['MS', 148],
+        ['MO', 161],
+        ['MT', 156],
+        ['NE', 175],
+        ['NV', 170],
+        ['NH', 167],
+        ['NJ', 186],
+        ['NM', 176],
+        ['NY', 172],
+        ['NC', 190],
+        ['ND', 199],
+        ['OH', 168],
+        ['OK', 175],
+        ['OR', 178],
+        ['PA', 179],
+        ['RI', 171],
+        ['SC', 168],
+        ['SD', 178],
+        ['TN', 183],
+        ['TX', 193],
+        ['UT', 173],
+        ['VT', 182],
+        ['VA', 184],
+        ['WA', 193],
+        ['WV', 190],
+        ['WI', 178],
+        ['WY', 178]
+      ];
+
+      var chart = JSC.chart('chartDiv', {
+        debug: true,
+        type: 'map',
+        title_label_text: 'Unit Sales by State. (Unit Price:$37)',
+        palette: {
+          /* A function to get the point value performs better. */
+          pointValue: function(p) {
+            return p.options('z');
+          },
+          colors: ['#ffffcc', '#ffeda0', '#fed976', '#feb24c', '#fd8d3c', '#fc4e2a', '#e31a1c', '#bd0026', '#b00026'],
+          ranges: { min: 100, max: 200, interval: 20 }
+        },
+        legend_title_label_text: 'Units Sold',
+
+        defaultPoint: {
+          label_text: '%stateCode',
+          tooltip: '<b>%name<b/> <br/>Units Sold: %zValue <br/>Total Value: {%zValue*37:c}'
+        },
+
+        /* Pad the map data points for separation from the chart area boundary. */
+        defaultSeries_shape_padding: 0.02,
+        series: [
+          {
+            map: 'us',
+            points: mapData.map(function(arrItem) {
+              return {
+                map: 'US.' + arrItem[0],
+                z: arrItem[1]
+              };
+            })
+          }
+        ]
+      });
+    </script>
+  </body>
+</html>

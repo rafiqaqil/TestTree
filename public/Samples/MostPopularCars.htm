@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Heatmap KPI Dashboard | JSCharting</title>
+    <meta http-equiv="content-type" content="text-html; charset=utf-8" />
+
+    <script type="text/javascript" src="../jsc/jscharting.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="css/default.css" />
+    <style type="text/css"></style>
+  </head>
+  <body>
+    <div id="chartDiv" style="max-width: 700px;height: 430px;margin: 0px auto;"></div>
+
+    <script type="text/javascript">
+      /*
+A heatmap with point labels that appear as KPI indicators.
+Learn how to:
+
+  - Use a heatmap to create dashboard KPIs.
+*/
+      // JS
+      var chart;
+
+      JSC.fetch('./resources/popularCarModelsUS.csv')
+        .then(function(response) {
+          return response.text();
+        })
+        .then(function(text) {
+          var data = JSC.csv2Json(text);
+          chart = renderChart(makeSeries(data));
+        });
+      function renderChart(series) {
+        return JSC.chart('chartDiv', {
+          type: 'heatmap',
+          title: {
+            label: {
+              text: 'Most popular car models in US',
+              style_fontSize: 20
+            },
+            position: 'center'
+          },
+          defaultAxis_visible: false,
+          yAxis_scale_invert: true,
+          palette: {
+            colors: ['#3BB6F8', '#24BEB8', '#83E599'],
+            pointValue: '{%zValue}'
+          },
+          defaultSeries_shape_innerPadding: 0.02,
+          defaultPoint: {
+            tooltip:
+              '<span style="font-size:14px">%xValue %model</span><br>Class: <b>%class</b><br>Production: <b>%production - present</b><br><b>{%amount:n0}</b> units sold from 2000 to 2018',
+            outline_color: 'none',
+            label: {
+              color: 'black',
+              style_fontSize: 5,
+              align: 'left',
+              verticalAlign: 'top',
+              padding: 15
+            }
+          },
+          legend_visible: false,
+          toolbar_visible: false,
+          series: series
+        });
+      }
+
+      function makeSeries(data, type) {
+        minValue = JSC.min(data, 'sales');
+        maxValue = JSC.max(data, 'sales');
+        var series = JSC.nest()
+          .key('model')
+          .pointRollup(function(key, val) {
+            return {
+              x: val[0].brand,
+              y: val[0].col + '',
+              z: val[18].sales,
+              label_text:
+                '<span style="font-size:20px;">%xValue %model<br><br><b>' +
+                val[18].sales +
+                '</b></span><br><span style="font-size:13px;">units sold in 2018</span><br>' +
+                '<chart width=190 height=50 align=center min=' +
+                minValue +
+                ' max=' +
+                maxValue +
+                ' margin_top=15 verticalAlign=middle type=sparkline data=' +
+                val
+                  .map(function(a) {
+                    return a.sales;
+                  })
+                  .join(',') +
+                ' color=black><br>' +
+                '<chart type=scale margin_top=5 align=center verticalAlign=middle orientation=bottom width=190 height=20 min=2000 max=2018 interval=6 color=black>',
+              attributes: {
+                model: key,
+                amount: JSC.sum(val, 'sales'),
+                class: val[0].class,
+                production: val[0].production
+              }
+            };
+          })
+          .series(data);
+
+        return series;
+      }
+    </script>
+  </body>
+</html>

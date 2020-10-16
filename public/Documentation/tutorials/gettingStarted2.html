@@ -1,0 +1,242 @@
+﻿<h2>Install</h2>
+
+<h3>Using CDN</h3>
+<p>Visit the <a href="https://code.jscharting.com/">CDN index</a> for a list of available releases.</p>
+
+
+<span class="htmlText">
+&#x3C;script src=&#x22;https://code.jscharting.com/latest/jscharting.js&#x22;&#x3E;&#x3C;/script&#x3E;
+</span>
+
+
+<h3>Download</h3>
+
+<p>The latest release can be <a href="https://jscharting.com/download/">downloaded here</a>.</p>
+
+
+<h3 id="usingnpm">Using npm</h3>
+
+<p>See <a href="https://www.npmjs.com/package/jscharting">npm package</a> page for more information.</p>
+<span class="output">npm install --save jscharting
+</span>
+
+
+<!--<h4 id="npmusage">Working with a local copy of JSCharting</h4>
+
+<p>The npm package folder <strong>jscharting/dist/</strong> includes all the necessary charting JavaScript files and
+    resources such as icons, polyfills, and mapping data files. The chart loads these resources dynamically as needed.
+    The content of this folder should be accessible through http, so when building, copy this folder to a destination in
+    the output website. </p>
+
+<p>If the chart detects a script tag pointing to the main jscharting.js file, it will assume the rest of the resources
+    are
+    located in the same place and will load them from there.</p>
+
+<p>If the <strong>JSC</strong> namespace is imported from the <strong>jscharting.js</strong> file as a module, the chart
+    will not know where resources
+    are located and will load them from the CDN. If <strong>debug:true</strong> chart option is set, a warning message
+    will note that the
+    chart is using the CDN. In order to use local resources, point the chart baseUrl option to the location of the local
+    copy of the <strong>jscharting/dist/</strong> folder.</p>
+
+<p>To avoid setting the baseUrl property on every chart instance, it can be set as a global default like so:</p>
+
+<span class="codeText">JSC.defaults({ baseUrl: './js/jsc/' });
+</span>
+
+<p>A wrapper module can be used to apply the baseUrl and any other default options that should be used globally such as
+    debug, or styling options. All subsequent charts can import this wrapper instead of the chart itself to ensure the
+    default options are always applied. </p>
+
+<span class="codeText">import * as JSC from "jscharting";
+
+JSC.defaults({ baseUrl: './js/jsc/' });
+
+export default JSC;
+</span>-->
+
+<h2>First Chart</h2>
+<p>A target div element is required in the page for the chart to render in.</p>
+
+<span class="htmlText">&#x3C;div id=&#x22;chartDiv&#x22; style=&#x22;width: 100%; height: 400px;&#x22;&#x3E;&#x3C;/div&#x3E;</span>
+
+<span class="docsNote">
+The chart will automatically conform to the container size by default.
+</span>
+
+<p>Instantiate a chart with some static data. </p>
+
+<span class="codeText">
+JSC.Chart('chartDiv', {
+    series:[{
+        points:[{x:'A',y:10},{x:'B',y:5}]
+    }],
+});
+</span>
+
+<h2>Get Data</h2>
+
+<p>JSC.fetch() is an alias for vanilla JS
+    <a href="https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch">fetch()</a> function but includes
+    a polyfill for IE11. This function makes it easy to get data for the chart.</p>
+
+<span class="codeText">
+
+JSC.fetch('./data.csv')
+    .then(response => response.text())
+    .then(text => {
+        //Use csv text
+    });
+
+</span>
+<p>If data is transferred as csv, tsv or any delimiter separated values it can be converted to JSON format. See <a
+        href="Tutorials.gettingData">fetch()/CSV Tutorial</a>.</p>
+
+<span class="codeText">
+
+let data = JSC.csv2Json(
+'date,actual,goal\n1/1/2018,5409,7000\n1/2/2018,4893,7000'
+)
+// ->
+//[{date: 1514786400000, actual: 5409, goal: 7000},
+//{date: 1514872800000, actual: 4893, goal: 7000}]
+
+</span>
+
+<h3>Map data to chart points</h3>
+
+<span class="codeText">
+
+let points = data.map(d => { return { x: d.date, y: d.actual }; });
+//-> [{ x: 1514786400000, y: 5409 }, { x: 1514872800000, y: 4893 }]
+
+</span>
+
+<h3>Render a chart using data</h3>
+<span class="codeText">
+
+const chart = new JSC.Chart('chartDiv', {
+    // Pass points to the series
+    series:[{ points:points }],
+    // Set the x axis scale to time.
+    xAxis_scale_type:'time'
+});
+
+</span>
+
+
+<h2>Crash Course</h2>
+
+<p>(5 min read to hit the ground running)</p>
+
+<p>The JSCharting API is designed with ease of use in mind. The chart attempts to select
+    default options that are obvious to reduce the need to customize. </p>
+
+<h3>Chart Types</h3>
+<p>
+    Chart types can be set easily through options such as:
+</p>
+
+<span class="codeText">
+
+ const chart = new JSC.Chart('divId', { type:'line step' });
+
+</span>
+
+<p>Examples of chart type settings:</p>
+
+<ul class="simpleKvpList">
+    <li><em>'horizontal column aqua'</em>
+        <section>Horizontal columns with aqua shading</section>
+    </li>
+    <li><em>'gauge linear horizontal'</em>
+        <section>Horizontal linear gauges</section>
+    </li>
+    <li><em>'radar polar column'</em>
+        <section>Polar radar chart with columns</section>
+    </li>
+</ul>
+
+<span class="docsReference">Tutorials.chartTypesOverview:Chart Types Overview</span>
+
+<h3>Chart Options</h3>
+
+<p>Chart options are set in the chart constructor</p>
+<span class="codeText">
+const chart = new JSC.Chart('divId', { /*options*/ });
+</span>
+<p> Or at any time after the chart is rendered with</p>
+<span class="codeText">
+chart.options({ /*options*/ });
+</span>
+<h3>Property Expansion</h3>
+<p>JSCharting offers a declarative API with options such as</p>
+<span class="codeText">
+chart.options({ title: { label: { text: 'title text' }}});
+</span>
+<p>However, property paths can be combined into single property names as follows:</p>
+<span class="codeText">
+chart.options({ title_label_text: 'title text' });
+</span>
+<span class="docsReference">Tutorials.codeExpansion:More details on property expansion</span>
+
+<h3>Hide Legend</h3>
+<span class="codeText">
+chart.options({ legend_visible: false });
+</span>
+<h3>
+    Legend Columns
+</h3>
+<span class="codeText">
+// Less Detail
+chart.options({ legend_template: '%icon %name' });
+// More Detail
+chart.options({ legend_template: '%average %sum %icon %name' });
+</span>
+
+<h3>Legend Entries for Points</h3>
+<p>The following code snippet sets a series palette which causes each point in a series to have an entry in the legend
+    box.</p>
+<span class="codeText">
+chart.options({ defaultSeries_palette: 'default' });
+</span>
+
+<span class="docsReference">Tutorials.legend:Legend Tutorial</span>
+
+<h3>Labels
+</h3>
+<span class="codeText">
+chart.options({
+    // Title text
+    title_label_text:'Title text',
+    //Axis label text
+    xAxis_label_text:'Time',
+    yAxis_label_text:'Steps',
+    // Point labels
+    defaultPoint_label_text:'%yValue',
+    // Annotations
+    annotations:[{
+        position:'top',
+        label_text:'Annotation text'
+    }]
+});
+</span>
+<span class="docsReference">Tutorials.labels:Using Labels</span>
+<h3>Chart with a button</h3>
+<p>Quickly add UI elements to make charts more interactive.</p>
+<span class="codeText">
+JSC.Chart('chartDiv', {
+    toolbar_items: {
+        'Click Me': {
+            events_click: function(){ alert('Button clicked');}
+        }}
+});
+</span>
+
+<span class="docsReference">Tutorials.uiItems</span>
+<!--<h3>Disable box visuals</h3>-->
+<!--<span class="codeText">-->
+<!--chart.options({ defaultBox_boxVisible: false });-->
+<!--</span>-->
+
+

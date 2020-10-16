@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Stacked Bar Mekko Chart | JSCharting</title>
+    <meta http-equiv="content-type" content="text-html; charset=utf-8" />
+
+    <script type="text/javascript" src="../jsc/jscharting.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="css/default.css" />
+    <style type="text/css"></style>
+  </head>
+  <body>
+    <div id="chartDiv" style="max-width: 740px;height: 400px;margin: 0px auto;"></div>
+
+    <script type="text/javascript">
+      /*
+Variwide chart with stacked y axis.
+Learn how to:
+
+  - Draw variwide chart with stacked y axis.
+*/
+      // JS
+      var chart = JSC.chart('chartDiv', {
+        debug: true,
+        defaultSeries_type: 'variwide',
+        yAxis: {
+          scale_type: 'stacked',
+          label_text: 'Thousands of Units Sold'
+        },
+        xAxis_label_text: 'Vendors',
+        title_label_text: 'Worldwide Smartphone Sales to End Users by Vendor',
+        defaultPoint_tooltip: '<b>%name %seriesName</b><br>Units Sold: %yValue<br>Market Share: %zValue%',
+        series: [
+          {
+            name: '4Q14',
+            points: [
+              { name: 'Samsung', y: 73031, z: 19.9 },
+              { name: 'Apple', y: 74831, z: 20.4 },
+              { name: 'Huawei', y: 21038, z: 5.7 },
+              { name: 'Xiaomi', y: 18581, z: 5.1 }
+            ]
+          },
+          {
+            name: '4Q15',
+            points: [
+              { name: 'Samsung', y: 83437, z: 20.7 },
+              { name: 'Apple', y: 71525, z: 17.7 },
+              { name: 'Huawei', y: 32116, z: 8 },
+              { name: 'Xiaomi', y: 18216, z: 4.5 }
+            ]
+          },
+          {
+            name: '4Q16',
+            points: [
+              { name: 'Samsung', y: 76782, z: 17.8 },
+              { name: 'Apple', y: 77038, z: 17.8 },
+              { name: 'Huawei', y: 40803, z: 9.4 },
+              { name: 'Xiaomi', y: 15751, z: 3.6 }
+            ]
+          },
+          {
+            name: '4Q17',
+            points: [
+              { name: 'Samsung', y: 74026, z: 18.2 },
+              { name: 'Apple', y: 73175, z: 17.9 },
+              { name: 'Huawei', y: 43887, z: 10.8 },
+              { name: 'Xiaomi', y: 28187, z: 6.9 }
+            ]
+          }
+        ]
+      });
+    </script>
+  </body>
+</html>

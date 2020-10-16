@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>HTML Node Tooltip Styling Organizational Chart | JSCharting</title>
+    <meta http-equiv="content-type" content="text-html; charset=utf-8" />
+
+    <script type="text/javascript" src="../jsc/jscharting.js"></script>
+
+    <script type="text/javascript" src="../jsc/modules/types.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="css/default.css" />
+    <style type="text/css">
+      .personDescription {
+        background-color: #eeeeee;
+        padding: 6px;
+        border-radius: 6px;
+        margin-top: -4px;
+      }
+
+      .tooltipBox {
+        background-color: #666666;
+        color: white;
+        border-radius: 4px;
+        padding: 4px;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="chartDiv" style="width: 750px; height: 400px; margin: 0px auto; overflow: hidden;"></div>
+
+    <script type="text/javascript">
+      /*
+Organizational chart with HTML annotations and tooltips.
+Learn how to:
+
+  - Use HTML annotations and tooltips.
+*/
+      // JS
+      var chart;
+
+      JSC.fetch('./resources/orgData.csv')
+        .then(function(response) {
+          return response.text();
+        })
+        .then(function(text) {
+          var data = JSC.csv2Json(text);
+          chart = renderChart(makeSeries(data));
+        });
+
+      function renderChart(series) {
+        return JSC.chart('chartDiv', {
+          type: 'organization down',
+          defaultSeries: {
+            line: { width: 1, color: '#e0e0e0' }
+          },
+          defaultTooltip: {
+            asHTML: true,
+            outline: 'none',
+            zIndex: 10
+          },
+          defaultPoint: {
+            focusGlow_width: 0,
+            tooltip:
+              '<div class="tooltipBox">Phone: <b>%phone</b><br>Email: <b>%email</b><br>Address: <b>%address</b></div>',
+            annotation: {
+              padding: 3,
+              asHTML: true,
+              margin: 2,
+              label: {
+                text:
+                  '<img width=64 height=64 margin_bottom=4 src=%photo><br/><div class="personDescription"><b>%position</b><br/>%name<br/></div>',
+                autoWrap: false,
+                align: 'center'
+              }
+            },
+            outline_width: 0,
+            color: '#333333'
+          },
+          series: series
+        });
+      }
+
+      function makeSeries(data) {
+        return [
+          {
+            points: JSC.nest()
+              .key('name')
+              .pointRollup(function(key, val) {
+                return {
+                  name: key,
+                  id: val[0].id,
+                  parent: val[0].parent,
+                  attributes: {
+                    position: '<span style="font-size:13px;">' + val[0].position + '</span>',
+                    phone: val[0].phone,
+                    address: val[0].address,
+                    email: val[0].email,
+                    photo: 'images/avatar' + val[0].photo + '.png'
+                  }
+                };
+              })
+              .points(data)
+          }
+        ];
+      }
+    </script>
+  </body>
+</html>

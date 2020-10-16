@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Linear Gauge Shape Labels | JSCharting</title>
+    <meta http-equiv="content-type" content="text-html; charset=utf-8" />
+
+    <script type="text/javascript" src="../jsc/jscharting.js"></script>
+
+    <script type="text/javascript" src="../jsc/modules/types.js"></script>
+    <script type="text/javascript" src="../jsc/icons/material/image/brightness-4.js"></script>
+    <script type="text/javascript" src=" ../jsc/icons/material/image/color-lens.js"></script>
+    <script type="text/javascript" src=" ../jsc/icons/material/image/blur-on.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="css/default.css" />
+    <style type="text/css">
+      /*CSS*/
+    </style>
+  </head>
+  <body>
+    <div id="chartDiv" style="max-width: 360px;height: 340px;margin: 0px auto;"></div>
+
+    <script type="text/javascript">
+      /*
+Linear gauges with multiple shape labels and icons.
+Learn how to:
+
+  - Multiple instances of shape label on same series shape.
+*/
+      // JS
+      var chart = JSC.chart('chartDiv', {
+        debug: true,
+        defaultSeries_type: 'gauge linear horizontal',
+        legend_visible: false,
+        xAxis: { staticColumnWidth: 10 },
+        yAxis: { scale_range: [0, 100], visible: false },
+        defaultSeries: {
+          color: '#fb504d',
+          shape: {
+            size: '300,105',
+            label: [
+              {
+                offset: '0,-10',
+                align: 'left',
+                text:
+                  '<icon verticalAlign=bottom name=%icon size=55 outerShape=square padding=10 fill=#b32d25 margin_bottom=0>'
+              },
+              {
+                align: 'left',
+                margin: [0, 10],
+                text: "<span style='color:#838281;'>%name</span><br/> <span style='fontSize: 42'>%sum</span>",
+                style: { fontSize: 13 }
+              }
+            ]
+          }
+        },
+        series: [
+          {
+            type: 'column roundCaps',
+            name: 'Brightness',
+            attributes_icon: 'material/image/brightness-4',
+            points: [['brightness', 80]]
+          },
+          {
+            type: 'column roundCaps',
+            name: 'Saturation',
+            attributes_icon: 'material/image/color-lens',
+            points: [['Saturation', 50]]
+          },
+          {
+            type: 'column roundCaps',
+            name: 'Blur',
+            attributes_icon: 'material/image/blur-on',
+            points: [['Blur', 2]]
+          }
+        ],
+        toolbar_visible: false
+      });
+    </script>
+  </body>
+</html>

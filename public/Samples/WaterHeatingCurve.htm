@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Water Heating Curve | JSCharting</title>
+    <meta http-equiv="content-type" content="text-html; charset=utf-8" />
+
+    <script type="text/javascript" src="../jsc/jscharting.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="css/default.css" />
+    <style type="text/css">
+      /*CSS*/
+    </style>
+  </head>
+  <body>
+    <div id="chartDiv" style="max-width: 740px;height: 400px;margin: 0px auto;"></div>
+
+    <script type="text/javascript">
+      /*
+Using superscript and subscript label tags to display formulas.
+Learn how to:
+
+  - Formatting labels with superscript and subscript HTML tags.
+*/
+      // JS
+      var chart = JSC.chart('chartDiv', {
+        debug: true,
+        type: 'line',
+        title: {
+          label: {
+            text: 'Heating Curve for Water',
+            style_fontSize: 16
+          },
+          position: 'center'
+        },
+        legend_visible: false,
+        annotations: [
+          {
+            label_text:
+              '<b>Q</b> - the quantity of heat<br>' +
+              '<b>m</b> - mass of the water<br>' +
+              '<b>С</b> - specific heat<br>' +
+              '<b>ΔT</b> - temperature change<br>' +
+              '<b>ΔH<sub>f/v</sub></b> - heat of fusion and vaporization',
+            position: 'inside bottom right',
+            outline_visible: false,
+            fill: ['white', 0.7],
+            margin: [10, 20]
+          }
+        ],
+        defaultAxis_label_style_fontWeight: 'bold',
+        yAxis: {
+          label_text: 'Temperature (℃)',
+          scale_interval: 100,
+          alternateGridFill: 'none',
+          line: {
+            width: 2,
+            caps: {
+              start_type: 'circle',
+              end_type: 'arrow'
+            }
+          }
+        },
+        xAxis: [
+          {
+            id: 'x1',
+            label_text: 'Energy (kJ)',
+            scale_range_min: 0,
+            defaultTick: { enabled: false, rangeMode: 'curly', label_placement: 'outside', line_width: 2 },
+            line: {
+              width: 2,
+              caps: {
+                start_type: 'none',
+                end_type: 'arrow'
+              }
+            },
+            customTicks: [
+              {
+                value: [0, 15],
+                label_text: 'Q<sub>1</sub> = m*C*ΔT'
+              },
+              {
+                value: [15, 45],
+                label_text: 'Q<sub>2</sub> = m*ΔH<sub>fusion</sub>'
+              },
+              {
+                value: [45, 60],
+                label_text: 'Q<sub>3</sub> = m*C*ΔT'
+              },
+              {
+                value: [60, 90],
+                label_text: 'Q<sub>4</sub> = m*ΔH<sub>vaporization</sub>'
+              },
+              {
+                value: [90, 105],
+                label_text: 'Q<sub>5</sub> = m*C*ΔT'
+              },
+              {
+                value: [0, 105],
+                label_text:
+                  'Q<sub>total</sub> = Q<sub>1</sub> + Q<sub>2</sub> + Q<sub>3</sub> + Q<sub>4</sub> + Q<sub>5</sub>'
+              }
+            ],
+            markers: [
+              {
+                value: [0, 15],
+                label_text: 'ice',
+                color: ['#90caf9', 0.6]
+              },
+              {
+                value: [15, 45],
+                label_text: 'ice + water',
+                color: ['#42a5f5', 0.6]
+              },
+              {
+                value: [45, 60],
+                label_text: 'water',
+                color: ['#1e88e5', 0.6]
+              },
+              {
+                value: [60, 90],
+                label_text: 'water + steam',
+                color: ['#7e57c2', 0.6]
+              },
+              {
+                value: [90, 105],
+                label_text: 'steam',
+                color: ['#ab47bc', 0.6]
+              }
+            ]
+          }
+        ],
+        series: [
+          {
+            name: 'Water Phases',
+            defaultPoint_marker_visible: false,
+            mouseTracking_enabled: false,
+            line_width: 3,
+            points: [[0, -90], [15, 0], [45, 0], [60, 100], [90, 100], [105, 190]]
+          }
+        ]
+      });
+    </script>
+  </body>
+</html>

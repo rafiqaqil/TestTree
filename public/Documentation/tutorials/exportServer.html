@@ -1,0 +1,54 @@
+
+
+<span class="docsNote">
+NOTE: It is not required to install the export server locally. Charts use the JSCharting export server by default and user chart images are not stored.
+</span>
+
+<h3 id="howtoinstall">How to install</h3>
+
+<ul>
+    <li>Download the export server <a href="https://jscharting.com/ExportServer.zip">here</a>.</li>
+    <li>Extract ./Exporter.zip archive then copy ./payload/** files to custom folder. Payload is the root folder which contains files needed to install the export server.</li>
+    <li>Go to IIS Manager.</li>
+    <li>Right-click 'Sites' item and select 'Add Website...' menu item.</li>
+    <li>In the opened dialog 'Physical Path' field enter path you extracted files and populate all other required fields.</li>
+</ul>
+
+
+<h3 id="usingthenewlyinstalledexportserver">Using the newly installed export server</h3>
+
+<p>In order to make new charts point to the new export server url, apply the following chart configutation options to each chart that exports images:</p>
+
+
+<span class="codeText">
+JSC.Chart('divId', {
+    toolbar_exportOptions_server:'https://yourExportServer.com/'
+})
+</span>
+
+
+<h3 id="howtochangelogoimage">How to change logo image</h3>
+
+<p>When navigating to this export server URL manually without image data, a static image is shown. This image can be changed by replacing <code>payload/Images/default.png</code> file with a different image.</p>
+
+<p>In addition, the image link can be specified as follows:</p>
+<ul>
+    <li>In root folder of export server find web.config file.</li>
+    <li>Open it in favorite text editor.</li>
+    <li>Find in this file logosSettings section and add to it logos inner section additional string. This new string must have next format:</li>
+</ul>
+
+
+
+<span class="htmlText">&lt;add
+    name="[name for your logo. used as key]"
+    url="[url which will be matched with request]"
+    logo="[path to your logo image]"
+    title="[title for your logo]"
+    alt="[alternative text for your image]"&gt;&lt;/add&gt;</span>
+
+<p>For example:  </p>
+
+<span class="htmlText">
+&lt;add name="jscharting" url="jscharting.com" logo="jscharting.logo.png" title="JSCharting Logo" alt="JSCharting Logo"&gt;&lt;/add&gt;
+</span>

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Start Day Of Week Calendar Chart | JSCharting</title>
+    <meta http-equiv="content-type" content="text-html; charset=utf-8" />
+
+    <script type="text/javascript" src="../jsc/jscharting.js"></script>
+
+    <script type="text/javascript" src="../jsc/modules/types.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="css/default.css" />
+    <style type="text/css">
+      /*CSS*/
+    </style>
+  </head>
+  <body>
+    <div id="chartDiv" style="max-width: 300px;height:200px;margin: 0px auto;"></div>
+
+    <script type="text/javascript">
+      /*
+Calendar with week starting on monday.
+Learn how to:
+
+  - Modify the first day of the week.
+*/
+      // JS
+      var chart = JSC.chart('chartDiv', {
+        debug: true,
+        type: 'calendar month solid',
+        title_label_text: 'January - Week starting Monday',
+        yAxis_visible: false,
+        legend_visible: false,
+        defaultTooltip: { enabled: false },
+        highlights: [
+          {
+            pattern: { weekday: [0, 6] },
+            fill: '#9abae3',
+            outline_color: 'none'
+          }
+        ],
+        calendar: {
+          range: ['1/1/2018', '1/31/2018'],
+          //Week starts with monday
+          weekStart: 1
+        },
+        toolbar_visible: false
+      });
+    </script>
+  </body>
+</html>

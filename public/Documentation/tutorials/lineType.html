@@ -1,0 +1,157 @@
+<p>The line series type is made up of connected points showing change in value over a continuous scale such as time. It
+    is an effective way to show trends and compare trends of multiple line series. </p>
+<p>The line chart is useful because it is universally understood. It is often used when conveying the trend or change in
+    y value over the x scale with reduced emphasis on the individual data points.</p>
+
+<h2>Simple Example</h2>
+
+<p class="codepen" data-height="320" data-theme-id="35044" data-default-tab="js,result" data-user="jsblog"
+   data-slug-hash="eYOZMEO" data-editable="true"
+   style="height: 320px; box-sizing: border-box; display: flex; align-items: center; justify-content: center; border: 2px solid; margin: 1em 0; padding: 1em;"
+   data-pen-title="Docs - Line Type">
+  <span>See the Pen <a href="https://codepen.io/jsblog/pen/eYOZMEO/">
+  Docs - Line Type</a> by Arthur Puszynski (<a href="https://codepen.io/jsblog">@jsblog</a>)
+  on <a href="https://codepen.io">CodePen</a>.</span>
+</p>
+<script async src="https://static.codepen.io/assets/embed/ei.js"></script>
+
+<h2>Line Types</h2>
+
+<p>Three types of line shapes can be created. Standard line, curved lines (spline), and stepped lines. The series type
+    settings for the different line types are:</p>
+<img src="tutorials/images/lineTypes.png" title="JavaScript line chart types">
+<p>Curved lines are used when the actual data doesn't change direction abruptly (such as outdoor temperature) or to
+    smooth the visuals for aesthetic purposes. Curved line tension can be adjusted through the <a
+            href="Types.series.line.tension">series.line.tension</a>
+    property. </p>
+<p>Step lines are useful when the underlying data points represent x value spans rather than an instance on the x axis.
+    For example, say data points represent days and date x values refer to midnight. Having the line remain flat for the
+    entire day until midnight the next day is more correct in some scenarios than showing the y value change throughout
+    the day to the next day’s
+    value.</p>
+
+<h2>Line Styling</h2>
+<p>The series line visual settings can be modified through the <a href="Types.series.line">series.line</a> property.
+    Some of the options include modifying the line width, dash style, and line caps.</p>
+<p>The following code snippet styles the line with a dash style and line caps at each end.</p>
+
+<span class="codeText">
+	chart.series(0).options({
+    line: {
+        dashStyle: 'dot',
+        caps: {
+          size: '500%',
+          end_type: 'arrow',
+          start_type: 'circle'
+        }
+      },
+      defaultPoint_marker_visible: false
+    });
+</span>
+<span class="tutorialImage">
+<img src="tutorials/images/line-type-styling.png" title="JavaScript line chart dash style and line caps."/>
+<em></em><section></section>
+</span>
+
+<h2>Empty Points</h2>
+<p>A line series can sometimes have y values that are not specified. Points where the y value is set to null are
+    considered empty.
+    The <a href="Types.series.emptyPointMode">series.emptyPointMode</a> property accepts a few options for how this
+    scenario should be visualized. </p>
+
+<ul class="simpleKvpList">
+    <li><em>default</em>
+        <section>When not specified, the chart shows an incontinuity (gap) in the line.</section>
+    </li>
+    <li><em>ignore</em>
+        <section>Empty points are ignored and the line continues to the next available point.</section>
+    </li>
+    <li><em>treatAsZero</em>
+        <section>Point will behave as if its y value is 0.</section>
+    </li>
+
+</ul>
+
+<h2>Examples</h2>
+<p>The goal of any chart is to translate quantitative values into a visual that communicates those quantities
+    efficiently.</p>
+<p>When more details are added to charts, it takes more effort to read and understand the data. Therefore, a line chart
+    that communicates just enough to give a general at-a-glance idea of the data, will communicate the information most
+    efficiently. If the viewer is interested in more details, chart interactions can be utilized to display additional
+    information as needed. However, the ideal chart should not require more information than is visible. </p>
+
+<p>The following examples demonstrate line charts with fewer visual elements and alternatives to using a legend.</p>
+
+<h3>Marker Styles and firstPoint Labels</h3>
+<p>This chart demonstrates a number of ways to style line markers. It also shows how the <a
+        href="Types.series.firstPoint">series.firstPoint</a> property can
+    be used to identify the line series names. </p>
+
+<p class="codepen" data-height="300" data-theme-id="35044" data-default-tab="js,result" data-user="jsblog"
+   data-slug-hash="gOYrzjV" data-editable="true"
+   style="height: 300px; box-sizing: border-box; display: flex; align-items: center; justify-content: center; border: 2px solid; margin: 1em 0; padding: 1em;"
+   data-pen-title="Docs - Line Type Styling 4 ways">
+  <span>See the Pen <a href="https://codepen.io/jsblog/pen/gOYrzjV/">
+  Docs - Line Type Styling 4 ways</a> by Arthur Puszynski (<a href="https://codepen.io/jsblog">@jsblog</a>)
+  on <a href="https://codepen.io">CodePen</a>.</span>
+</p>
+<script async src="https://static.codepen.io/assets/embed/ei.js"></script>
+
+<h3>First/Last Point Options</h3>
+
+<p>The series firstPoint and lastPoint properties are similar to the defaultPoint property in that the options are the
+    defaults for these points. However, they will only be applied to the first and last points of the series. This
+    provides a more convenient way to specify settings for such points, especially if the data changes dynamically. </p>
+
+<p class="codepen" data-height="300" data-theme-id="35044" data-default-tab="js,result" data-user="jsblog"
+   data-slug-hash="dybMevK" data-editable="true"
+   style="height: 300px; box-sizing: border-box; display: flex; align-items: center; justify-content: center; border: 2px solid; margin: 1em 0; padding: 1em;"
+   data-pen-title="Docs - Line Axis Legend">
+  <span>See the Pen <a href="https://codepen.io/jsblog/pen/dybMevK/">
+  Docs - Line Axis Legend</a> by Arthur Puszynski (<a href="https://codepen.io/jsblog">@jsblog</a>)
+  on <a href="https://codepen.io">CodePen</a>.</span>
+</p>
+<script async src="https://static.codepen.io/assets/embed/ei.js"></script>
+<!--
+<a href="Types."></a>
+<span class="example">&#39;&#39;</span>
+<img src="tutorials/images/image-name.png" title="JavaScript Chart ...SEO image title">
+
+<h2>Introduction</h2>
+<p></p>
+<p></p>
+<p></p>
+
+<h3>subSection</h3>
+<p></p>
+<p></p>
+
+<span class="codeText">
+	chart.options({title_label_text:'text'})
+</span>
+
+
+<span class="tutorialImage">
+<img src="tutorials/images/pieZValueFormatting.png" title="JavaScript Chart ..."/>
+<em>Figure 2.</em>
+</span>
+
+Text in quotes:
+<span class="example">&#39;&#39;</span>
+
+<ul>
+	<li>Chart</li>
+</ul>
+
+<span class="output">
+    output here.
+</span>
+
+<ul class="simpleKvpList">
+	<li><em>Chart</em><section>A visualization of multiple data series.  The data a chart can show is also known as a series collection.</section></li>
+	<li><em>Series</em><section>A collection of data points.</section></li>
+	<li><em>Chart Type</em><section>Specifies how multiple series are arranged together to form a visual.</section></li>
+	<li><em>Series Type</em><section>Specifies  how  a set of data points is visualized on a chart.</section></li>
+</ul>
+
+-->

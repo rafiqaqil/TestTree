@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Combined Tooltip Point Icons | JSCharting</title>
+    <meta http-equiv="content-type" content="text-html; charset=utf-8" />
+
+    <script type="text/javascript" src="../jsc/jscharting.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="css/default.css" />
+    <style type="text/css"></style>
+  </head>
+  <body>
+    <div id="chartDiv" style="max-width: 740px;height: 400px;margin: 0px auto;"></div>
+
+    <script type="text/javascript">
+      /*
+Combined tooltip using the %icon token inside point tooltips.
+Learn how to:
+
+  - Use combined tooltip with point icons.
+*/
+      // JS
+      var chart = JSC.chart('chartDiv', {
+        debug: true,
+        type: 'line',
+        defaultTooltip: {
+          combined: true,
+          /* For a list of possible tokens, visit Point List Tokens section here:
+           * https://jscharting.com/tutorials/js-chart-labels/token-reference/
+           */
+          label_text: '%xValue<hr>%points'
+        },
+        defaultSeries: {
+          defaultPoint_tooltip: '%icon <span style="width:70px">%seriesName</span> %yValue',
+          opacity: 0.7
+        },
+        title_label_text: 'Costs (Last 6 Months)',
+        yAxis_formatString: 'c',
+        xAxis_scale_type: 'time',
+        series: [
+          {
+            name: 'Purchases',
+
+            points: [
+              ['1/1/2020', 29.9],
+              ['2/1/2020', 97.5],
+              ['3/1/2020', 110.4],
+              ['4/1/2020', 129.2],
+              ['5/1/2020', 144.0],
+              ['6/1/2020', 176.0]
+            ]
+          },
+          {
+            name: 'Taxes',
+
+            points: [
+              ['1/1/2020', 86.9],
+              ['2/1/2020', 79.5],
+              ['3/1/2020', 95.4],
+              ['4/1/2020', 97.2],
+              ['5/1/2020', 123.0],
+              ['6/1/2020', 111.0]
+            ]
+          },
+          {
+            name: 'Supplies',
+
+            points: [
+              ['1/1/2020', 129.9],
+              ['2/1/2020', 111.5],
+              ['3/1/2020', 66.4],
+              ['4/1/2020', 29.2],
+              ['5/1/2020', 88.0],
+              ['6/1/2020', 102.0]
+            ]
+          },
+          {
+            name: 'Rent',
+
+            points: [
+              ['1/1/2020', 56.9],
+              ['2/1/2020', 56.5],
+              ['3/1/2020', 56.4],
+              ['4/1/2020', 56.2],
+              ['5/1/2020', 75.0],
+              ['6/1/2020', 56.0]
+            ]
+          }
+        ]
+      });
+    </script>
+  </body>
+</html>

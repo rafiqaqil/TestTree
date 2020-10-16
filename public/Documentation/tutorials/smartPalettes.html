@@ -1,0 +1,242 @@
+<h2>Introduction</h2>
+<p>A smart palette is similar to linear gradients. It specifies colors mapped to point values or calculations in order
+	to encode a value in point visualizations.</p>
+<p></p>
+<p></p>
+
+<h3>Setting Colors</h3>
+<p>Colors can be specified in a number of ways. Traditional color stops can be supplied through the stops property.
+	Setting the colors property with an array of colors creates equally spaced color gradients. Or if using ranges,
+	each range can have a color specified. </p>
+<p></p>
+
+
+<h3>Color Snapping</h3>
+<p>Mixing solid colors and gradients is a common task and can be accomplished with standard
+	color stops by duplicating a stop with the same color to define the solid color range.
+	While this is not a very complex task, JSCharting simplifies this operation with a feature
+	called color snapping. </p>
+<p>Consider this gradient:</p>
+<span class="tutorialImage">
+<img src="tutorials/images/smartPalette/colSnap1.png"/>
+<em>Figure 1.</em>
+</span>
+<span class="codeText">
+	[
+	[0,'blue'],
+	[1,'red']
+	]
+</span>
+
+
+<p>This will gradually change the color from blue to red. However, say we want the gradient to remain solid
+	blue until close to the end and then start turning red as in figure 2.</p>
+<span class="tutorialImage">
+<img src="tutorials/images/smartPalette/colSnap2.png"/>
+<em>Figure 2.</em>
+</span>
+<p>The traditional solution is this:</p>
+<p></p>
+
+
+<span class="codeText">
+	[
+	[0,'blue'],
+[.8,'blue'],
+[1,'red']
+	]
+</span>
+<p>With color snapping it's simplified to just this:
+</p>
+<span class="codeText">
+	[
+	[0,'blue',.8],
+[1,'red']
+	]
+</span>
+
+
+
+<p>Let's say we want to have a solid red color for half the gradient like figure 3.
+</p><span class="tutorialImage">
+<img src="tutorials/images/smartPalette/colSnap3.png"/>
+<em>Figure 3.</em>
+</span>
+<p>Traditionally we would use:</p>
+<span class="codeText">
+	[
+	[0,'blue'],
+[.5,'red'],
+[1,'red']
+	]
+</span>
+<p>With color snapping:</p>
+<span class="codeText">
+	[
+	[0,'blue',0,.5],
+	[1,'red']
+	]
+</span>
+
+
+
+
+<p>It can also be more complex such where both stops include solid colors ranges like figure 4.</p>
+<span class="tutorialImage">
+<img src="tutorials/images/smartPalette/colSnap4.png"/>
+<em>Figure 4.</em>
+</span>
+<p>Traditional stops:</p>
+<span class="codeText">
+	[
+	[0,'blue'],
+[.2,'blue'],
+[.8,'red'],
+[1,'red']
+	]
+</span>
+<p></p>
+<p>With color snapping:</p>
+<span class="codeText">
+	[
+	[0,'blue',.2,.8]
+[1,'red']
+	]
+</span>
+
+
+<h3>Stop Values</h3>
+<p>Color stops use values of 0-1. However, these color stops allow regular values that
+	map to point values like 0-100, or 100-1000.
+</p>
+<p>How colors are mapped to this range is defined by the pointValue property. This
+	property includes full point tokens support including expressions.
+	If the stops define a range of 0-1 in a series of multiple points, the following setting is useful:
+	{%percentOfSeriesMax/100}
+</p>
+<p>This will result in values between 0 and 1.
+</p>
+<p>In cases of a single point where the range is known, this approach can be used.
+	Here it is assumed the range defined by the palette should map to point y values
+	between 0-400.
+	{%yValue/400}
+</p>
+<p>If point values don’t map to the range defined by the stops, they will be converted
+	automatically. For instance in the above example if the pointValue property is set
+	to "%yValue" which results in values 0-400, it will map to the 0-1 stop range.
+</p>
+<span class="docsNote">
+Using a function with the pointValue property can improve performance with charts that have many data points.
+</span>
+
+<p>These colors can map to any values supported by string tokens such  as x or z
+	values as well as custom attribute values. Mapping to a custom attribute
+	allows encoding an additional value in the data visualization represented by color. </p>
+<p></p>
+
+<h3>SmartPalette visuals</h3>
+<p>SmartPalettes can be represented in the legend in two ways. As a color bar, or as range
+	legend entries. In order to show the visual in the legend, the smartPalette must
+	be set on the chart level palette property. By default, the visual will be a
+	colorBar, but if ranges are defined, range legend entries will be used.
+	Ranges will interpolate colors resulting in solid a solid color for each range. </p>
+<span class="tutorialImage">
+<img src="tutorials/images/smartPalette/colorBar.png"/>
+<em>Figure 5. ColorBar</em>
+</span>
+<span class="tutorialImage">
+<img src="tutorials/images/smartPalette/ranges.png"/>
+<em>Figure 6. Ranges</em>
+</span>
+
+<h3>Color Ranges</h3>
+<p>Color ranges can be defined in a number of ways. They can be used with or without the stops or colors properties.</p>
+<p>An example:
+</p>
+<span class="tutorialImage">
+<img src="tutorials/images/smartPalette/exranges.png"/>
+<em>Figure 7. Example Ranges</em>
+</span>
+<span class="codeText">{
+	ranges:[
+{value:[0,50], color:'green'},
+{value:[50,100], color:'yellow'},
+{value:[100,150], color:'red'}
+]}
+</span>
+<p>The above can always be used to have full control, however, it can also be simplified by using colors property.</p>
+<span class="codeText">{
+colors:['green','yellow','red'],
+ranges:[
+{value:0},
+{value:50},
+{value:[100,150]}
+]}
+</span>
+<p>Or</p>
+<span class="codeText">{
+colors:['green','yellow','red'],
+ranges:[
+0, 50, [100,150]
+]
+	}
+</span>
+<p>Alternatively, a min/max/interval can be supplied:</p>
+<span class="codeText">
+	{
+colors:['green','yellow','red'],
+ranges:{ min:0, max:150, interval:50}
+	}
+</span>
+<p>All these approaches will result in the same ranges. </p>
+<p>Ranges also support a LegendEntry property giving full control over the entry in the legend. A defaultEntry property allows setting common values for each entry.
+</p>
+<span class="codeText">
+	{
+ranges:[
+{min:0, max:50, color:'green',legendEntry_value:'0 to 50'},
+//…
+]
+	}
+</span>
+<p>Or</p>
+<span class="codeText">
+	{
+defaultEntry_value:'%min to %max'
+	}
+</span>
+<p></p>
+
+
+
+<!--<h3>Section</h3>-->
+<!--<p></p>-->
+<!--<p></p>-->
+<!--<p></p>-->
+<!--<p></p>-->
+
+
+<!--<span class="codeText1">-->
+	<!--chart.options({title_label_text:'text'})-->
+<!--</span>-->
+
+
+
+
+<!--Text in quotes:-->
+<!--<span class="example">&#39;&#39;</span>-->
+
+<!--<ul>-->
+	<!--<li>Chart</li>-->
+<!--</ul>-->
+
+<!--<span class="output">-->
+    <!--output here.-->
+<!--</span>-->
+
+<!--<ul class="simpleKvpList">-->
+	<!--<li><em>Chart</em><section>A visualization of multiple data series.  The data a chart can show is also known as a series collection.</section></li>-->
+	<!--<li><em>Series</em><section>A collection of data points.</section></li>-->
+	<!--<li><em>Chart Type</em><section>Specifies how multiple series are arranged together to form a visual.</section></li>-->
+	<!--<li><em>Series Type</em><section>Specifies  how  a set of data points is visualized on a chart.</section></li>-->
+<!--</ul>-->

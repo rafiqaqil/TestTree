@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Sleep Infographic | JSCharting</title>
+    <meta http-equiv="content-type" content="text-html; charset=utf-8" />
+
+    <script type="text/javascript" src="../jsc/jscharting.js"></script>
+
+    <script type="text/javascript" src="../jsc/modules/types.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="css/default.css" />
+    <style type="text/css">
+      .mainWrapper {
+        width: 890px;
+        height: 1780px;
+        background: url('images/Sleep.png');
+        background-size: cover;
+        background-repeat: no-repeat;
+        margin-left: auto;
+        margin-right: auto;
+        position: relative;
+        left: -25px;
+      }
+
+      #cc1 {
+        position: absolute;
+        margin-top: 556px;
+        margin-left: 0px;
+        width: 890px;
+        height: 352px;
+      }
+      #cc2 {
+        position: absolute;
+        margin-top: 970px;
+        margin-left: 24px;
+        width: 466px;
+        height: 352px;
+      }
+      #cc3 {
+        position: absolute;
+        margin-top: 970px;
+        margin-left: 482px;
+        width: 384px;
+        height: 352px;
+      }
+      #cc4 {
+        position: absolute;
+        margin-top: 1410px;
+        margin-left: 100px;
+        width: 700px;
+        height: 314px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="mainWrapper">
+      <div id="cc1"></div>
+      <div id="cc2"></div>
+      <div id="cc3"></div>
+      <div id="cc4"></div>
+    </div>
+
+    <script type="text/javascript">
+      /*
+Sleep infographic using JavaScript charts.
+Learn how to:
+
+  - Create an infographic with overlaying charts.
+  - Use template for charts on the same page.
+*/
+      // JS
+      var template = {
+        box_fill: 'none',
+        legend: {
+          template: '%icon,%name',
+          defaultEntry: {
+            style: {
+              color: 'white',
+              fontSize: 16,
+              fontFamily: 'Arial'
+            }
+          }
+        },
+        defaultAxis: {
+          defaultTick: {
+            label: {
+              style: {
+                color: 'white',
+                fontSize: 16,
+                fontFamily: 'Arial'
+              }
+            }
+          },
+          xAxis: { gridLine_color: 'none' },
+          alternateGridFill: 'none'
+        },
+        yAxis: {
+          formatString: 'n0',
+          defaultTick: {
+            label: { text: '%Value%' },
+            gridLine_color: 'none'
+          },
+          alternateGridFill: 'none'
+        },
+        defaultPoint_label_style_fontSize: '15px',
+        toolbar_visible: false
+      };
+      var chart = new JSC.Chart('cc1', {
+        debug: true,
+        type: 'pie',
+        template: template,
+        defaultSeries_mouseTracking_enabled: false,
+        defaultPoint: {
+          label: {
+            text: '%name hours <b>%Value%</b>',
+            style_color: 'white'
+          }
+        },
+        legend_visible: false,
+        series: [
+          {
+            angle: 90,
+            shape_size: 270,
+            defaultPoint_label: { placement: 'outside', padding: [0, 10] },
+            palette: ['#6FC9FA', '#4C90B2', '#2C5A70', '#3B7490', '#E1F5FE'],
+            points: [
+              { name: '0–3', y: 2 },
+              { name: '4–5', y: 16 },
+              { name: '6–7', y: 65 },
+              { name: '8–9', y: 18 },
+              { name: '10+', y: 1 }
+            ]
+          }
+        ]
+      });
+
+      var chart2 = new JSC.Chart('cc2', {
+        debug: true,
+        type: 'pie',
+        template: template,
+        defaultPoint: {
+          tooltip: '<b>%value%</b> of people<br><b>%name</b>',
+          label: { text: '%percentOfTotal%' }
+        },
+        legend_position: 'left',
+        series: [
+          {
+            name: 'Total',
+            shape_size: 180,
+            palette: ['#2C5A70', '#E1F5FE', '#6FC9FA', '#5DACD5'],
+            points: [
+              { name: 'Complain of insomnia', y: 40 },
+              { name: 'Suffer from insomnia', y: 15 },
+              { name: 'Sleep at work', y: 29 },
+              { name: 'No sleep problems', y: 16 }
+            ]
+          }
+        ]
+      });
+      var chart3 = new JSC.Chart('cc3', {
+        debug: true,
+        defaultSeries_type: 'pie',
+        template: template,
+        legend: {
+          template: '%name,%icon',
+          position: 'right'
+        },
+        defaultPoint: {
+          tooltip: '<b>%value%</b> of people have<br> <b>%name</b> sleep',
+          label: { text: '%percentOfTotal%' }
+        },
+        series: [
+          {
+            name: 'Total',
+            shape_size: 180,
+            angle: 160,
+            palette: ['#2C5A70', '#E1F5FE', '#6FC9FA', '#3B7490'],
+            points: [
+              { name: 'Good', y: 40 },
+              { name: 'Excellent', y: 18 },
+              { name: 'Poor', y: 22 },
+              { name: 'Very good', y: 20 }
+            ]
+          }
+        ]
+      });
+      var chart4 = new JSC.Chart('cc4', {
+        debug: true,
+        template: template,
+        type: 'column',
+        yAxis_scale_type: 'stackedFull',
+        legend_position: 'bottom',
+        palette: ['#2C5A70', '#E1F5FE', '#5DACD5'],
+        defaultPoint_tooltip: '<b>%value%</b> of people ages <b>%name</b><br>prefer to sleep in <b>%seriesName</b>',
+        series: [
+          {
+            name: 'Not sure',
+            defaultPoint_tooltip: '<b>%value%</b> of people ages <br><b>%name</b> are <b>%seriesName</b>',
+            points: [
+              { name: '18–24', y: 20 },
+              { name: '25–34', y: 14 },
+              { name: '35–44', y: 17 },
+              { name: '45–54', y: 15 },
+              { name: '55+', y: 14 }
+            ]
+          },
+          {
+            name: 'Hotel bed',
+            points: [
+              { name: '18–24', y: 12 },
+              { name: '25–34', y: 16 },
+              { name: '35–44', y: 13 },
+              { name: '45–54', y: 7 },
+              { name: '55+', y: 4 }
+            ]
+          },
+          {
+            name: 'Own bed',
+            points: [
+              { name: '18–24', y: 68 },
+              { name: '25–34', y: 70 },
+              { name: '35–44', y: 70 },
+              { name: '45–54', y: 78 },
+              { name: '55+', y: 82 }
+            ]
+          }
+        ]
+      });
+    </script>
+  </body>
+</html>

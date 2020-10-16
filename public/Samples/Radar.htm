@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Multi Types Radar Chart | JSCharting</title>
+    <meta http-equiv="content-type" content="text-html; charset=utf-8" />
+
+    <script type="text/javascript" src="../jsc/jscharting.js"></script>
+
+    <script type="text/javascript" src="../jsc/modules/types.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="css/default.css" />
+    <style type="text/css">
+      /*CSS*/
+    </style>
+  </head>
+  <body>
+    <div id="chartDiv" style="max-width: 450px;height: 500px;margin: 0px auto;"></div>
+
+    <script type="text/javascript">
+      /*
+Radar chart with different series types.
+Learn how to:
+
+  - Draw radar chart.
+*/
+      // JS
+      var chart = JSC.chart('chartDiv', {
+        debug: true,
+        type: 'radar spider ',
+        title: {
+          position: 'center',
+          label: {
+            text: 'Sales By Representative',
+            style: { fontSize: 15, fontWeight: 'normal' }
+          }
+        },
+        legend: { position: 'bottom', template: '%icon,%name' },
+        xAxis: {
+          spacingPercentage: 0.05,
+          defaultTick: { padding: 5 }
+        },
+        defaultSeries: { opacity: 0.55, line_width: 4 },
+        series: [
+          {
+            type: 'area',
+            name: 'William',
+            points: [
+              { name: 'Jan', y: 196 },
+              { name: 'Feb', y: 178 },
+              { name: 'Mar', y: 169 },
+              { name: 'Apr', y: 166 },
+              { name: 'May', y: 172 },
+              { name: 'Jun', y: 162 },
+              { name: 'Jul', y: 135 },
+              { name: 'Aug', y: 116 },
+              { name: 'Sep', y: 167 },
+              { name: 'Oct', y: 182 },
+              { name: 'Nov', y: 188 },
+              { name: 'Dec', y: 197 }
+            ]
+          },
+          {
+            name: 'Michael',
+            type: 'column',
+            points: [
+              { name: 'Jan', y: 92 },
+              { name: 'Feb', y: 92 },
+              { name: 'Mar', y: 85 },
+              { name: 'Apr', y: 96 },
+              { name: 'May', y: 109 },
+              { name: 'Jun', y: 102 },
+              { name: 'Jul', y: 77 },
+              { name: 'Aug', y: 88 },
+              { name: 'Sep', y: 116 },
+              { name: 'Oct', y: 114 },
+              { name: 'Nov', y: 111 },
+              { name: 'Dec', y: 115 }
+            ]
+          },
+          {
+            name: 'Elliot',
+            points: [
+              { name: 'Jan', y: 186 },
+              { name: 'Feb', y: 178 },
+              { name: 'Mar', y: 186 },
+              { name: 'Apr', y: 171 },
+              { name: 'May', y: 220 },
+              { name: 'Jun', y: 196 },
+              { name: 'Jul', y: 156 },
+              { name: 'Aug', y: 156 },
+              { name: 'Sep', y: 170 },
+              { name: 'Oct', y: 179 },
+              { name: 'Nov', y: 165 },
+              { name: 'Dec', y: 156 }
+            ]
+          }
+        ]
+      });
+    </script>
+  </body>
+</html>

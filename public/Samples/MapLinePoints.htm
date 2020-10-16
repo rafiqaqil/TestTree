@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Map Line Points | JSCharting</title>
+    <meta http-equiv="content-type" content="text-html; charset=utf-8" />
+
+    <script type="text/javascript" src="../jsc/jscharting.js"></script>
+
+    <script type="text/javascript" src="../jsc/modules/maps.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="css/default.css" />
+    <style type="text/css">
+      /*CSS*/
+    </style>
+  </head>
+  <body>
+    <div id="chartDiv" style="max-width: 740px;height: 400px;margin: 0px auto;"></div>
+
+    <script type="text/javascript">
+      /*
+A map with line series plotted.
+Learn how to:
+
+  - Mapping base layers from mapCodes.
+  - Standard line series on maps.
+*/
+      // JS
+      var chart = JSC.chart('chartDiv', {
+        debug: true,
+        type: 'map',
+        chartArea_fill: '#b6d9ff',
+        title_label_text: 'Acme Airline Flights ',
+        mapping_projection: 'lambertConformalConic',
+        /* Background map layer for context. */
+        mapping_base_layers: 'US',
+
+        /* Pad the map data points for separation from the chart area boundary */
+        defaultSeries_shape_padding: 0.5,
+
+        legend: {
+          position: 'inside top left',
+          title_label_text: 'Click to zoom',
+          fill: ['white', 0.6]
+        },
+        defaultPoint_tooltip: '%SeriesName - %location',
+
+        series: [
+          {
+            name: '#121',
+            type: 'line spline',
+            points: [
+              { x: -88, y: 41, attributes: { location: 'Chicago' } },
+              {
+                x: -86.09,
+                y: 39.4606,
+                attributes: { location: 'Indianapolis' }
+              }
+            ]
+          },
+          {
+            name: '#221',
+            type: 'line spline',
+            points: [
+              { x: -88, y: 41, attributes: { location: 'Chicago' } },
+              {
+                x: -87.977,
+                y: 44.502508,
+                attributes: { location: 'Green Bay' }
+              }
+            ]
+          },
+          {
+            name: '#321',
+            type: 'line spline',
+            points: [
+              { x: -88, y: 41, attributes: { location: 'Chicago' } },
+              {
+                x: -104.9945,
+                y: 39.7491,
+                attributes: { location: 'Denver' }
+              }
+            ]
+          },
+          {
+            name: '#421',
+            type: 'line',
+            points: [
+              { x: -88, y: 41, attributes: { location: 'Chicago' } },
+              {
+                x: -118.143,
+                y: 34.0308,
+                attributes: { location: 'Los Angeles' }
+              }
+            ]
+          }
+        ]
+      });
+    </script>
+  </body>
+</html>

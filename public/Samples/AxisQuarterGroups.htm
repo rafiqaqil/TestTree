@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Axis Quarter Groups | JSCharting</title>
+    <meta http-equiv="content-type" content="text-html; charset=utf-8" />
+
+    <script type="text/javascript" src="../jsc/jscharting.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="css/default.css" />
+    <style type="text/css">
+      /*CSS*/
+    </style>
+  </head>
+  <body>
+    <div id="chartDiv" style="max-width: 740px;height: 400px;margin: 0px auto;"></div>
+
+    <script type="text/javascript">
+      /*
+Custom calendar pattern axis range ticks.
+Learn how to:
+
+  - Use axis ticks with calendarPatterns.
+*/
+      // JS
+
+      var chart = JSC.chart('chartDiv', {
+        debug: true,
+        type: 'column',
+        yAxis_visible: false,
+        legend_position: 'inside top right',
+        toolbar_visible: false,
+        xAxis: {
+          scale_type: 'time',
+          defaultTick: { enabled: false, gridLine_visible: false },
+          customTicks: [
+            {
+              value: { pattern: { quarter: '*', offset: { unit: 'day', multiplier: -45 } } },
+              label_text: function(v) {
+                return dateToQuarter(v[1]);
+              }
+            },
+            {
+              value: { pattern: { year: '*', offset: { unit: 'day', multiplier: -45 } } },
+              label_text: '{%max:date yyyy}'
+            }
+          ]
+        },
+        series: [
+          {
+            name: 'Occurences',
+            defaultPoint_label_visible: true,
+            points: [
+              { x: '1/1/2020', y: 8 },
+              { x: '4/1/2020', y: 4 },
+              { x: '7/1/2020', y: 5 },
+              { x: '10/1/2020', y: 3 },
+
+              { x: '1/1/2021', y: 6 },
+              { x: '4/1/2021', y: 4 },
+              { x: '7/1/2021', y: 5 },
+              { x: '10/1/2021', y: 3 }
+            ]
+          }
+        ]
+      });
+
+      function dateToQuarter(d) {
+        d = new Date(d);
+        var q = [1, 2, 3, 4];
+        return 'Q' + (Math.floor(d.getMonth() / 3) + 1);
+      }
+    </script>
+  </body>
+</html>

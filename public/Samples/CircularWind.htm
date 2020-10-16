@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Circular Wind Indicators | JSCharting</title>
+    <meta http-equiv="content-type" content="text-html; charset=utf-8" />
+
+    <script type="text/javascript" src="../jsc/jscharting.js"></script>
+
+    <script type="text/javascript" src="../jsc/modules/types.js"></script>
+    <script type="text/javascript" src="../jsc/icons/linear/basic/paperplane.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="css/default.css" />
+    <style type="text/css">
+      /*CSS*/
+    </style>
+  </head>
+  <body>
+    <div id="chartDiv" style="width: 740px;height: 420px;margin: 0px auto;"></div>
+
+    <script type="text/javascript">
+      /*
+Radial gauge bars with icons in shape labels that rotate based on data.
+Learn how to:
+
+  - Draw a gauge chart.
+  - Control Gauge Needle lengths.
+*/
+      // JS
+      var data = [
+          //Day, Direction, Speed
+          ['Mon', 60, 10],
+          ['Tue', 46, 11],
+          ['Wed', 40, 9],
+          ['Thu', 30, 9],
+          ['Fri', 90, 18],
+          ['Sat', 70, 28],
+          ['Sun', 100, 14]
+        ],
+        chartConfig = {
+          debug: true,
+          legend_visible: false,
+          xAxis_defaultTick_gridLine_width: 'column',
+          yAxis: { visible: false, scale_range: [0, 50] },
+          defaultSeries: {
+            type: 'gauge column roundcaps',
+            angle: { sweep: 360, start: -90 },
+            defaultPoint_tooltip: '<b>%name</b> %yValue knots',
+            palette: {
+              stops: [[0, '#00ff00', 0.4], [20, '#ebeb00', 0.7], [50, '#ff0000']],
+              pointValue: '%yValue'
+            },
+            shape: {
+              innerSize: '70%',
+              label: [
+                {
+                  text: '%name',
+                  align: 'left',
+                  style_fontSize: 20
+                },
+                {
+                  text: '%sum <sub>knots</sub>',
+                  align: 'right',
+                  margin_left: 10,
+                  style_fontSize: 20
+                },
+                {
+                  text: '<icon name=linear/basic/paperplane rotate=%windDir  size=50  fill=%color>',
+                  align: 'center',
+                  verticalAlign: 'middle'
+                }
+              ]
+            }
+          }
+        };
+
+      chartConfig.series = data.map(function(row, i) {
+        return {
+          name: row[0],
+          attributes: { windDir: row[1] + 45 },
+          points: [{ x: row[0], y: row[2] }]
+        };
+      });
+
+      var chart = JSC.chart('chartDiv', chartConfig);
+    </script>
+  </body>
+</html>

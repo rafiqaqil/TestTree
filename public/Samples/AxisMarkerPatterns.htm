@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Weekend Marker Calendar Patterns | JSCharting</title>
+    <meta http-equiv="content-type" content="text-html; charset=utf-8" />
+
+    <script type="text/javascript" src="../jsc/jscharting.js"></script>
+
+    <script type="text/javascript" src="../jsc/modules/toolbar.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="css/default.css" />
+    <style type="text/css"></style>
+  </head>
+  <body>
+    <div id="chartDiv" style="max-width: 740px;height: 400px;margin: 0px auto;"></div>
+
+    <script type="text/javascript">
+      /*
+Weekday vs weekend axis marker calendar patterns.
+Learn how to:
+
+  - Use calendar patterns with axis markers.
+*/
+      // JS
+      var chart = JSC.chart('chartDiv', {
+        debug: true,
+        type: 'line step',
+        title_label_text: 'Wikipedia Siteviews',
+        legend_visible: false,
+        xAxis: {
+          scale_type: 'time',
+          crosshair_enabled: true,
+          defaultTick_label_text: '{%value:date MMM d}',
+          defaultMarker_color: ['#80affe', 0.6],
+          markers: [{ value: { pattern: { weekday: [0, 6] } } }]
+        },
+        annotations: [
+          {
+            position: 'bottom',
+            label_text: 'Wikipedia total pageviews from 10/1/2018 to 12/1/2018'
+          }
+        ],
+        toolbar_items: {
+          export_visible: false,
+          pattern: {
+            type: 'select',
+            items: ['Weekends', 'Weekdays'],
+            events_change: setMarkerPattern
+          }
+        },
+        defaultPoint: { marker_visible: false, tooltip: '%yValue' },
+        series: [
+          {
+            line_width: 3,
+            name: 'Days',
+            id: 'd1',
+            points: [
+              ['10/1/2018', 253781679],
+              ['10/2/2018', 249411162],
+              ['10/3/2018', 245916485],
+              ['10/4/2018', 241217870],
+              ['10/5/2018', 240167867],
+              ['10/6/2018', 256217052],
+              ['10/7/2018', 264714887],
+              ['10/8/2018', 258329861],
+              ['10/9/2018', 248656546],
+              ['10/10/2018', 246824031],
+              ['10/11/2018', 243169039],
+              ['10/12/2018', 234991231],
+              ['10/13/2018', 252620536],
+              ['10/14/2018', 261198804],
+              ['10/15/2018', 256390391],
+              ['10/16/2018', 252010663],
+              ['10/17/2018', 246048760],
+              ['10/18/2018', 236816961],
+              ['10/19/2018', 233253694],
+              ['10/20/2018', 251704481],
+              ['10/21/2018', 263215095],
+              ['10/22/2018', 256482611],
+              ['10/23/2018', 253773428],
+              ['10/24/2018', 247968427],
+              ['10/25/2018', 233497432],
+              ['10/26/2018', 227729150],
+              ['10/27/2018', 247239046],
+              ['10/28/2018', 262625715],
+              ['10/29/2018', 251412908],
+              ['10/30/2018', 243049785],
+              ['10/31/2018', 240551585],
+              ['11/1/2018', 237732340],
+              ['11/2/2018', 230705567],
+              ['11/3/2018', 249912671],
+              ['11/4/2018', 257772331],
+              ['11/5/2018', 251280876],
+              ['11/6/2018', 250091447],
+              ['11/7/2018', 244135779],
+              ['11/8/2018', 238888655],
+              ['11/9/2018', 240092844],
+              ['11/10/2018', 262829142],
+              ['11/11/2018', 273771597],
+              ['11/12/2018', 264266022],
+              ['11/13/2018', 253267290],
+              ['11/14/2018', 252651787],
+              ['11/15/2018', 244175216],
+              ['11/16/2018', 236574947],
+              ['11/17/2018', 257767651],
+              ['11/18/2018', 260291010],
+              ['11/19/2018', 252972620],
+              ['11/20/2018', 244862023],
+              ['11/21/2018', 241294784],
+              ['11/22/2018', 235474588],
+              ['11/23/2018', 241524047],
+              ['11/24/2018', 254936061],
+              ['11/25/2018', 262943439],
+              ['11/26/2018', 257751317],
+              ['11/27/2018', 255448755],
+              ['11/28/2018', 251719082],
+              ['11/29/2018', 236311129],
+              ['11/30/2018', 238255135],
+              ['12/01/2018', 238255135]
+            ]
+          }
+        ]
+      });
+
+      var patterns = {
+        Weekends: { weekday: [0, 6] },
+        Weekdays: { weekday: [1, 2, 3, 4, 5] }
+      };
+
+      function setMarkerPattern(val) {
+        var axis = this.chart.axes('x');
+        axis.markers(0).remove();
+        axis.userOptions.markers = [];
+        axis.options({
+          markers: [{ value: { pattern: patterns[val] } }]
+        });
+      }
+    </script>
+  </body>
+</html>

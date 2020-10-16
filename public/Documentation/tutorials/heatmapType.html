@@ -1,0 +1,96 @@
+<p class="codepen" data-height="320" data-theme-id="35044" data-default-tab="js,result" data-user="jsblog"
+   data-slug-hash="yLBOyRX" data-editable="true"
+   style="height: 320px; box-sizing: border-box; display: flex; align-items: center; justify-content: center; border: 2px solid; margin: 1em 0; padding: 1em;"
+   data-pen-title="Docs - Heatmap Type">
+  <span>See the Pen <a href="https://codepen.io/jsblog/pen/yLBOyRX/">
+  Docs - Heatmap Type</a> by Arthur Puszynski (<a href="https://codepen.io/jsblog">@jsblog</a>)
+  on <a href="https://codepen.io">CodePen</a>.</span>
+</p>
+<script async src="https://static.codepen.io/assets/embed/ei.js"></script>
+
+<h2>Introduction</h2>
+<p>Heatmap charts have been documented in use as early as the 1800s, through the heatmap term itself is a relatively new
+    addition from the 1980s. JSCharting makes what used to be a week’s long manual task a simple matter with advanced
+    heatmap charts created in minutes.</p>
+<p>JavaScript heatmap charts consist of shaded data points within a matrix. Data used with heat maps includes points
+    with x, y, and z values and usually a colormap (<a href="Types.smartPalette">smartPalette</a>) to represent the z
+    value. A heatmap requires only one
+    data series. Hovering individual data points shows tooltips with details of each value.</p>
+<p>A couple related chart types include choropleth maps: <a href="Tutorials.Mapping">maps:mapping</a>, <a
+        href="https://jscharting.com//examples/chart-types/treemap/">treemaps</a>, and calendar heatmaps: <a
+        href="Tutorials.calendar">calendar</a> .</p>
+
+
+<h2>Setup</h2>
+<p>The heatmap chart is relatively simple. Besides data, it only requires the type setting and a smartPalette as shown
+    below.</p>
+<p>Additionally, x axis and y axis labels can be used to describe what the x and y values represent. Adding a label for
+    the invisible z axis will help the chart automatically label values in tooltips.</p>
+
+<span class="codeText">
+	new JSC.Chart('targetDiv',{
+        type:'heatmap',
+        palette:{
+            colors:["#ffffcc","#fd8d3c","#b00026"],
+            pointValue:'{%zValue}'
+        },
+        xAxis_label_text:'Longitude',
+        yAxis_label_text:'Latitude',
+        zAxis_label_text:'Heat Delta'
+    })
+</span>
+
+<h2>SmartPalette</h2>
+
+<p>The smartPalette <a href="Types.smartPalette.pointValue">pointValue</a> property can be set to a point token for the
+    z value: <span class="example">&#39;{%zValue}&#39;</span>.
+
+    <span class="codeText">
+	new JSC.Chart('targetDiv',{
+        type:'heatmap',
+        palette:{
+            colors:["#ffffcc","#fd8d3c","#b00026"],
+              pointValue:'{%zValue}'
+        }
+       /*...*/
+    })
+</span>
+
+<h3>Colors</h3>
+<p>It is often recommended by the scientific community to use grayscale colors with heatmaps, however, humans are not
+    able to perceive as many shades of gray as they can graduations of color.</p>
+<p>Please use the <a href="Samples.smartPaletteGallery">smartPalette gallery</a> utility sample to explore a number of
+    predefined gradient color schemes to use
+    with heatmap charts.</p>
+
+<p>For more information on customizing the smartPalette including color scale legends see the <a
+        href="Tutorials.smartPalette">SmartPalette tutorial</a>.</p>
+
+
+<h2>Performance</h2>
+
+<p>JSCharting includes a high performance engine to ensure charts render quickly without special settings required. For
+    customers with large data needs, this can be further optimized if required.</p>
+
+<p>Performance of heatmaps that contain many points and use a smartPalette can improve by using a function with the <a
+        href="Types.smartPalette.pointValue">pointValue</a>
+    property.</p>
+<p>Another helpful technique to improve performance, is to simplify the data point visual and not use data point
+    shading.
+    By default all data points use subtle shading but this option can be modified through the chart type setting as
+    shown below. Additionally point outlines are disabled:</p>
+
+<span class="codeText">
+	new JSC.Chart('targetDiv',{
+        // Solid (non-gradient) shading.
+        type:'heatmap solid',
+        palette:{
+            colors:["#ffffcc","#fd8d3c","#b00026"],
+            // Function point z value getter.
+            pointValue:function(point){ return point.options('z')}
+        },
+        // No point outlines.
+        defaultPoint_outline_color:'none',
+        /*...*/
+    })
+</span>

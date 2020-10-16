@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Bullet Microchart Options | JSCharting</title>
+    <meta http-equiv="content-type" content="text-html; charset=utf-8" />
+
+    <script type="text/javascript" src="../jsc/jscharting.js"></script>
+
+    <script type="text/javascript" src="../jsc/modules/types.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="css/default.css" />
+    <style type="text/css"></style>
+  </head>
+  <body>
+    <div id="chartDiv" style="max-width:380px;height: 770px;margin: 0px auto;"></div>
+
+    <script type="text/javascript">
+      /*
+Demonstrates bullet type microchart options.
+Learn how to:
+
+  - Customize bullet microchart options.
+*/
+      // JS
+
+      var examples = [
+        ['Simple Bullet', '<chart margin=5 type=bullet data=15,10>'],
+        ['One Shaded Area', '<chart margin=5 type=bullet data=15,10,8>'],
+        ['Full Bullet', '<chart margin=5 type=bullet data=15,10,4,8>'],
+        ['Reversed Shading', '<chart margin=5 type=bullet data=15,10,8,4>'],
+        ['Shading effects'],
+        ['Shading Effect 1', '<chart margin=5 type=bullet data=15,10,4,8 shading=1 color=cornflowerblue>'],
+        ['Shading Effect 2', '<chart margin=5 type=bullet data=15,10,4,8 shading=2 color=darkcyan>'],
+        ['Shading Effect 3', '<chart margin=5 type=bullet data=15,10,4,8 shading=3 color=forestgreen>'],
+        ['Coloring'],
+        ['Bullet SimpleColor Blue', '<chart margin=5 type=bullet data=15,10,4,8 color=blue>'],
+        ['Bullet SimpleColor Maroon', '<chart margin=5 type=bullet data=15,10,4,8 color=maroon>'],
+        [
+          'Bullet Full Color Control',
+          '<chart margin=5 type=bullet data=15,10,4,8 colors=midnightblue,red,blue,cornflowerblue,lightskyblue>'
+        ],
+        [
+          'Coloring & Transparent Back',
+          '<chart margin=5 type=bullet data=15,10,4,8 colors=midnightblue,red,blue,cornflowerblue,transparent>'
+        ],
+        ['Only Bar Colored', '<chart margin=5 type=bullet data=15,10,4,8 colors=lightskyblue>'],
+        ['Only Target Colored', '<chart margin=5 type=bullet data=15,10,4,8 colors=,lightskyblue>'],
+        ['Values'],
+        ['Full with scale max', '<chart margin=5 type=bullet data=15,10,4,8 max=25>'],
+        ['Full with negative values', '<chart margin=5 type=bullet data=-15,-10,-4,-8>'],
+        ['Negative values & one area', '<chart margin=5 type=bullet data=-15,-10,-8>'],
+        ['Negative values with scale min', '<chart margin=5 type=bullet data=-15,-10,-4,-8 min=-25>']
+      ];
+
+      function makeText(title) {
+        var result = '<span style="font-size: 14px; font-weight: bold;">' + title + '</span>	<hr><ul>';
+
+        result += examples
+          .map(function(entry) {
+            return entry.length === 1
+              ? '</ul><br><b>' + entry[0] + '</b><hr><ul>'
+              : '<li><span style="width:200px; verticalAlign: middle;">' + entry[0] + '</span>' + entry[1] + '</li>';
+          })
+          .join('');
+
+        result += '</ul></span>';
+        return result;
+      }
+
+      var chart = JSC.chart('chartDiv', {
+        toolbar_visible: false,
+        margin_bottom: 30,
+        defaultBox_boxVisible: false,
+        annotations: [
+          {
+            position: 'inside center',
+            label_text: makeText('Bullet Type Options')
+          }
+        ]
+      });
+    </script>
+  </body>
+</html>

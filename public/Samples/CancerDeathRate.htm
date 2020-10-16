@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Dumbbell Chart | JSCharting</title>
+    <meta http-equiv="content-type" content="text-html; charset=utf-8" />
+
+    <script type="text/javascript" src="../jsc/jscharting.js"></script>
+
+    <script type="text/javascript" src="../jsc/icons/linear/basic/female.js"></script>
+    <script type="text/javascript" src="../jsc/icons/linear/basic/male.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="css/default.css" />
+    <style type="text/css">
+      /*CSS*/
+    </style>
+  </head>
+  <body>
+    <div id="chartDiv" style="width: 800px;height: 400px;margin: 0px auto;"></div>
+
+    <script type="text/javascript">
+      /*
+Dumbbell plot chart. Multiple line series with line caps to signify change over time.
+Learn how to:
+
+  - Draw multiple line segments that show change in value.
+*/
+      // JS
+      var chart;
+
+      JSC.fetch('./resources/cancerDeathRates.csv')
+        .then(function(response) {
+          return response.text();
+        })
+        .then(function(text) {
+          var data = JSC.csv2Json(text);
+          chart = renderChart(makeSeries(data));
+        });
+
+      function renderChart(series) {
+        return JSC.chart('chartDiv', {
+          type: 'horizontal line',
+          annotations: [
+            {
+              label_text:
+                '<b>Cancer death rates in the US 1930 to 2011</b> <br>(number of death per 100,000 individuals)',
+              position: 'top left'
+            }
+          ],
+          legend: {
+            template: '%icon %name',
+            position: 'top right',
+            customEntries: [{ name: '1930', icon: { fill: '#cfd8dc' } }, { name: '2011', icon: { fill: '#64b5f6' } }]
+          },
+          defaultSeries: {
+            line: {
+              caps: { end: { type: 'arrow', size: '500%' } },
+              width: 2
+            },
+            legendEntry_visible: false
+          },
+          defaultTooltip_label_text: '<b>%xValue</b> %points',
+          defaultPoint: {
+            tooltip: tooltipFormatter,
+            focusGlow_width: 0,
+            marker_type: 'circle'
+          },
+          xAxis_crosshair_enabled: true,
+          yAxis: {
+            defaultTick_gridLine_visible: false,
+            alternateGridFill: 'none',
+            scale_range: [0, 60]
+          },
+          series: series
+        });
+
+        function tooltipFormatter(point) {
+          var series = point.series,
+            yVals = series.points().map(function(p) {
+              return p.options('y');
+            });
+          if (yVals[0] < yVals[1]) {
+            return (
+              'сancer death rates<br> have <b>increased</b> from <b>' +
+              yVals[0] +
+              '</b> to <b>' +
+              yVals[1] +
+              '</b> over this period'
+            );
+          } else {
+            return (
+              'сancer death rates<br> have <b>decreased</b> from <b>' + yVals[0] + '</b> to <b>' + yVals[1] + '</b>'
+            );
+          }
+        }
+      }
+
+      function makeSeries(data) {
+        var series = JSC.nest()
+          .key('type')
+          .key('year')
+          .pointRollup(function(key, val) {
+            var vals = val[0];
+            var rate = {
+              x: vals.type
+                .replace(
+                  /\(Female\)/g,
+                  '<icon name=linear/basic/female verticalAlign=middle size=15 color=hotpink outline_width=1 outline_color=hotpink>'
+                )
+                .replace(
+                  /\(Male\)/g,
+                  '<icon name=linear/basic/male verticalAlign=middle size=15 color=cornflowerblue  outline_width=1 outline_color=cornflowerblue>'
+                ),
+              y: vals.rate,
+              attributes_year: vals.year,
+              color: vals.year == '1930' ? '#cfd8dc' : '#64b5f6'
+            };
+            return rate;
+          })
+          .series(data);
+
+        series.forEach(function(s) {
+          s.line_color = s.points[0].y < s.points[1].y ? '#e5979c' : '#a8aaae';
+        });
+        return series;
+      }
+    </script>
+  </body>
+</html>

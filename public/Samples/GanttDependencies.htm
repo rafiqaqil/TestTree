@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Dependencies Gantt Chart | JSCharting</title>
+    <meta http-equiv="content-type" content="text-html; charset=utf-8" />
+
+    <script type="text/javascript" src="../jsc/jscharting.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="css/default.css" />
+    <style type="text/css">
+      /*CSS*/
+    </style>
+  </head>
+  <body>
+    <div id="chartDiv" style="width: 840px;height: 600px;margin: 0px auto;"></div>
+
+    <script type="text/javascript">
+      /*
+Advanced Gantt chart with descriptive axis tick label columns and gantt dependencies for critical path analysis.
+Learn how to:
+
+  - Create a gantt chart with axis tick descriptions.
+  - Create a gantt chart with dependencies.
+*/
+      // JS
+      var chart;
+
+      // Reusable functions to create any axis tick data grid.
+      var span = function(val, width) {
+        return '<span style="width:' + width + 'px;">' + val + '</span>';
+      };
+      var columnWidths = [35, 140, 40];
+      var mapLabels = function(labels) {
+        return labels
+          .map(function(v, i) {
+            return span(v, columnWidths[i]);
+          })
+          .join('');
+      };
+
+      // Custom templates
+      var tickTemplate = mapLabels(['%section', '%xValue', '{days(%high-%low):n1}d']);
+      var tickTemplateBold = '<b>' + tickTemplate + '</b>';
+      var headerTemplate = '<b>' + mapLabels([' ', 'Task', 'Days']) + '</b>';
+
+      JSC.fetch('./resources/gameDev.csv')
+        .then(function(response) {
+          return response.text();
+        })
+        .then(function(text) {
+          chart = renderChart(JSC.csv2Json(text));
+        });
+
+      function renderChart(data) {
+        return JSC.chart('chartDiv', {
+          defaultBox_boxVisible: false,
+          type: 'horizontal column',
+          title_label_text: 'Project Alpha',
+          zAxis_scale_type: 'stacked',
+          yAxis_scale_type: 'time',
+          annotations: [{ label_text: headerTemplate, position: '-6,40' }],
+          legend: {
+            position: 'top',
+            template: '%icon %name'
+          },
+          series: getSeries(data),
+          defaultSeries: {
+            defaultPoint: {
+              tooltip: '<b>%name</b><br>%yStart - %yValue<br>',
+              xAxisTick_label_text: tickTemplate,
+              marker_visible: false
+            },
+            firstPoint: {
+              label_text: '%name',
+              xAxisTick_label_text: tickTemplateBold
+            }
+          }
+        });
+      }
+
+      function getSeries(data) {
+        return (
+          JSC.nest()
+            .key('phase')
+            .key('name')
+            // Custom point configuration
+            .pointRollup(function(key, vals) {
+              var val = vals[0];
+              var result = {
+                id: val.id,
+                name: val.name,
+                parent: val.parent,
+                y: [val.start, val.end],
+                attributes_section: val.id.replace('s', '')
+              };
+              // Column series data points as milestones
+              if (val.start === val.end) {
+                result.marker = { type: 'diamond', visible: true };
+              }
+              return result;
+            })
+            .series(data)
+        );
+      }
+    </script>
+  </body>
+</html>

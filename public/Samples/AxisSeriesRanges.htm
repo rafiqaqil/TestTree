@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Axis Series Ranges | JSCharting</title>
+    <meta http-equiv="content-type" content="text-html; charset=utf-8" />
+
+    <script type="text/javascript" src="../jsc/jscharting.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="css/default.css" />
+    <style type="text/css"></style>
+  </head>
+  <body>
+    <div id="chartDiv" style="max-width: 740px;height: 400px;margin: 0px auto;"></div>
+
+    <script type="text/javascript">
+      /*
+Series value ranges with multiple y axes.
+Learn how to:
+
+  - Custom Axis Ticks.
+  - Axis Range Ticks.
+*/
+      // JS
+      var config = {
+        debug: true,
+        defaultSeries: { type: 'line' },
+        legend_position: 'bottom',
+        xAxis_scale_type: 'time',
+        yAxis: [
+          { id: 'mainY', formatString: 'c0' },
+          {
+            id: 'y2',
+            line_color: '#e2e2e2',
+            scale_syncWith: 'mainY',
+            orientation: 'opposite',
+            defaultTick: {
+              enabled: false,
+              gridLine_visible: false,
+              rangeMode: 'measure'
+            }
+          }
+        ],
+        series: [
+          {
+            name: 'Purchases',
+            points: [
+              { x: '1/1/2020', y: 29.9 },
+              { x: '2/1/2020', y: 97.5 },
+              { x: '3/1/2020', y: 110.4 },
+              { x: '4/1/2020', y: 129.2 },
+              { x: '5/1/2020', y: 144.0 },
+              { x: '6/1/2020', y: 176.0 }
+            ]
+          },
+          {
+            name: 'Taxes',
+            points: [
+              { x: '1/1/2020', y: 86.9 },
+              { x: '2/1/2020', y: 79.5 },
+              { x: '3/1/2020', y: 95.4 },
+              { x: '4/1/2020', y: 97.2 },
+              { x: '5/1/2020', y: 123.0 },
+              { x: '6/1/2020', y: 111.0 }
+            ]
+          },
+          {
+            name: 'Supplies',
+            points: [
+              { x: '1/1/2020', y: 129.9 },
+              { x: '2/1/2020', y: 111.5 },
+              { x: '3/1/2020', y: 66.4 },
+              { x: '4/1/2020', y: 29.2 },
+              { x: '5/1/2020', y: 88.0 },
+              { x: '6/1/2020', y: 102.0 }
+            ]
+          },
+          {
+            name: 'Rent',
+            points: [
+              { x: '1/1/2020', y: 56.9 },
+              { x: '2/1/2020', y: 56.5 },
+              { x: '3/1/2020', y: 56.4 },
+              { x: '4/1/2020', y: 56.2 },
+              { x: '5/1/2020', y: 75.0 },
+              { x: '6/1/2020', y: 56.0 }
+            ]
+          }
+        ]
+      };
+      var chart = JSC.chart('chartDiv', config, function(c) {
+        var customTicks = [];
+        c.series().each(function(s) {
+          var st = function(t) {
+            return s.tokenValue(t);
+          };
+          customTicks.push({
+            value: [st('%min'), st('%max')],
+            label_text: s.replaceTokens('%name'),
+            line_color: st('%color')
+          });
+        });
+        c.axes('y2').options({ customTicks: customTicks });
+      });
+    </script>
+  </body>
+</html>

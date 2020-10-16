@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Map Palette Designer | JSCharting</title>
+    <meta http-equiv="content-type" content="text-html; charset=utf-8" />
+
+    <script type="text/javascript" src="../jsc/jscharting.js"></script>
+
+    <script type="text/javascript" src="../jsc/modules/toolbar.js"></script>
+    <script type="text/javascript" src="../jsc/modules/maps.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="css/default.css" />
+    <style type="text/css">
+      /*CSS*/
+      #swatches .swatchItem {
+        cursor: pointer;
+      }
+      .numInput {
+        width: 40px;
+      }
+      .step {
+        font-weight: bold;
+        padding: 5px;
+      }
+      .selectedItem {
+        outline: 2px solid #212121;
+      }
+    </style>
+  </head>
+  <body>
+    <br />
+    <div style="max-width: 740px;height: 880px;margin: 0px auto;font-family:tahoma, geneva, sans-serif; font-size:14px">
+      <span class="step">Step 1.</span> Select colors from predefined palettes:
+      <br />
+      <select id="Palettes">
+        <option value="default">default</option>
+        <option value="spreadsheet">spreadsheet</option>
+        <option value="oceanMidtones">oceanMidtones</option>
+        <option value="mutedRainbow">mutedRainbow</option>
+        <option value="pastelContrast">pastelContrast</option>
+        <option value="rainforest">rainforest</option>
+        <option value="random">random</option>
+        <option value="autumn">autumn</option>
+        <option value="bright">bright</option>
+        <option value="lavender">lavender</option>
+        <option value="midTones">midTones</option>
+        <option value="mixed">mixed</option>
+        <option value="pastel">pastel</option>
+        <option value="poppies">poppies</option>
+        <option value="spring">spring</option>
+        <option value="warmEarth">warmEarth</option>
+        <option value="waterMeadow">waterMeadow</option>
+        <option value="darkRainbow">darkRainbow</option>
+        <option value="midRange">midRange</option>
+        <option value="vividDark">vividDark</option>
+        <option value="fiveColor1">fiveColor1</option>
+        <option value="fiveColor2">fiveColor2</option>
+        <option value="fiveColor3">fiveColor3</option>
+        <option value="fiveColor4">fiveColor4</option>
+        <option value="fiveColor5">fiveColor5</option>
+        <option value="fiveColor6">fiveColor6</option>
+        <option value="fiveColor7">fiveColor7</option>
+        <option value="fiveColor8">fiveColor8</option>
+        <option value="fiveColor9">fiveColor9</option>
+        <option value="fiveColor10">fiveColor10</option>
+        <option value="fiveColor11">fiveColor11</option>
+        <option value="fiveColor12">fiveColor12</option>
+        <option value="fiveColor13">fiveColor13</option>
+        <option value="fiveColor14">fiveColor14</option>
+        <option value="fiveColor15">fiveColor15</option>
+        <option value="fiveColor16">fiveColor16</option>
+        <option value="fiveColor17">fiveColor17</option>
+        <option value="fiveColor18">fiveColor18</option>
+        <option value="fiveColor19">fiveColor19</option>
+        <option value="fiveColor20">fiveColor20</option>
+        <option value="fiveColor21">fiveColor21</option>
+        <option value="fiveColor22">fiveColor22</option>
+        <option value="fiveColor23">fiveColor23</option>
+        <option value="fiveColor24">fiveColor24</option>
+        <option value="fiveColor25">fiveColor25</option>
+        <option value="fiveColor26">fiveColor26</option>
+        <option value="fiveColor27">fiveColor27</option>
+        <option value="fiveColor28">fiveColor28</option>
+        <option value="fiveColor29">fiveColor29</option>
+        <option value="fiveColor30">fiveColor30</option>
+        <option value="fiveColor31">fiveColor31</option>
+        <option value="fiveColor32">fiveColor32</option>
+        <option value="fiveColor33">fiveColor33</option>
+        <option value="fiveColor34">fiveColor34</option>
+        <option value="fiveColor35">fiveColor35</option>
+        <option value="fiveColor36">fiveColor36</option>
+        <option value="fiveColor37">fiveColor37</option>
+        <option value="fiveColor38">fiveColor38</option>
+        <option value="fiveColor39">fiveColor39</option>
+        <option value="fiveColor40">fiveColor40</option>
+        <option value="fiveColor41">fiveColor41</option>
+        <option value="fiveColor42">fiveColor42</option>
+        <option value="fiveColor43">fiveColor43</option>
+        <option value="fiveColor44">fiveColor44</option>
+        <option value="fiveColor45">fiveColor45</option>
+        <option value="fiveColor46">fiveColor46</option>
+      </select>
+      <br />
+
+      <span class="step">Step 2.</span> Choose a color:
+      <div id="swatches" style="height:25px;border-spacing: 1px;"></div>
+
+      <div id="chartDiv" style="max-width: 740px;height: 480px;margin: 0px auto;"></div>
+      <div id="outSwatches" style="height:20px;"></div>
+      <p>Code</p>
+      <textarea id="codeOutput" style="width:730px; height:40px"></textarea>
+      <p>Colors</p>
+      <textarea id="colorsOutput" style="width:730px; height:80px"></textarea>
+    </div>
+
+    <script type="text/javascript">
+      /*
+A UI wrapping the JSC.colorToPalette() method.
+Learn how to:
+
+  - Generate tuned palettes.
+*/
+      // JS
+      var chartConfig = {
+        debug: true,
+        type: 'map',
+        legend_visible: false,
+        title_label: { text: 'Result', style_fontSize: 14 },
+        margin: [70, 0, 0, 0],
+        series: [
+          {
+            name: 'Map',
+            id: 'states',
+            defaultPoint_label_text: '%stateCode',
+            palette: 'default',
+            map: 'US'
+          }
+        ]
+      };
+      var currentSettings = { color: '#4285F4', s: 0.1, h: 0.1, l: 0.1 };
+      var timerId;
+      var sort = 1;
+      var swatchesEl, palettesEl;
+      chartConfig.toolbar = {
+        defaultItem: { throttle: 200, label_style_fontSize: 14 },
+        items: {
+          export_visible: false,
+          ann1: {
+            id: 'ann1',
+            margin: [10, 10, 0, 10],
+            position: 'inside -10,-100',
+            label_text: '<b>Step 3.</b> Set palette generator options:',
+            boxVisible: false
+          },
+          Variations: {
+            id: 'Variations',
+            label_text: '',
+            itemsBox: { visible: true, boxVisible: false },
+            position: 'inside -10,-75',
+            boxVisible: false,
+            items: {
+              label0: {
+                label: {
+                  text: 'Variations (0-1):',
+                  style_fontWeight: 'bold'
+                },
+                boxVisible: false,
+                margin: [0, 10]
+              },
+              label1: {
+                label: {
+                  text: 'Saturation:',
+                  style_fontWeight: 'bold'
+                },
+                boxVisible: false,
+                margin: [0, 4]
+              },
+              slider1: {
+                type: 'range',
+                width: 50,
+                value: 0.1,
+                throttle: 200,
+                min: 0,
+                max: 1,
+                events_change: function(value) {
+                  chart.uiItems('SaturationValue').options({ label_text: JSC.formatNumber(value, 'n1') });
+                  currentSettings.s = Math.round(value * 10) / 10;
+                  makePalette();
+                }
+              },
+              label2: {
+                id: 'SaturationValue',
+                label_text: '0.1',
+                boxVisible: false,
+                margin: [0, 4]
+              },
+              label3: {
+                label: {
+                  text: 'Hue:',
+                  style_fontWeight: 'bold'
+                },
+                boxVisible: false,
+                margin: [0, 4]
+              },
+              slider2: {
+                type: 'range',
+                width: 50,
+                value: 0.1,
+                throttle: 200,
+                min: 0,
+                max: 1,
+                events_change: function(value) {
+                  chart.uiItems('HueValue').options({ label_text: JSC.formatNumber(value, 'n1') });
+                  currentSettings.h = Math.round(value * 10) / 10;
+                  makePalette();
+                }
+              },
+              label4: {
+                id: 'HueValue',
+                label_text: '0.1',
+                boxVisible: false,
+                margin: [0, 4]
+              },
+              label5: {
+                label: {
+                  text: 'Lightness:',
+                  style_fontWeight: 'bold'
+                },
+                boxVisible: false,
+                margin: [0, 4]
+              },
+              slider3: {
+                type: 'range',
+                width: 50,
+                value: 0.1,
+                throttle: 200,
+                min: 0,
+                max: 1,
+                events_change: function(value) {
+                  chart.uiItems('LightnessValue').options({ label_text: JSC.formatNumber(value, 'n1') });
+                  currentSettings.l = Math.round(value * 10) / 10;
+                  makePalette();
+                }
+              },
+              label6: {
+                id: 'LightnessValue',
+                label_text: '0.1',
+                boxVisible: false,
+                margin: [0, 6]
+              },
+              label7: {
+                label: {
+                  text: 'Sort:',
+                  style_fontWeight: 'bold'
+                },
+                boxVisible: false,
+                margin: [0, 6]
+              },
+              dropdown1: {
+                type: 'select',
+                items: 'Random,Linear,Seeded',
+                value: 'Seeded',
+                margin: [0, 2],
+                events_change: function(value) {
+                  switch (value) {
+                    case 'Random':
+                      sort = -1;
+                      break;
+                    case 'Linear':
+                      sort = 0;
+                      break;
+                    case 'Seeded':
+                      sort = 1;
+                      break;
+                  }
+                  setTimeout(makePalette(), 200);
+                }
+              }
+            }
+          }
+        }
+      };
+
+      var chart;
+
+      JSC.ready().then(function() {
+        JSC.chart('chartDiv', chartConfig, function(chartObj) {
+          chart = chartObj;
+          drawPaletteSwatch();
+        });
+      });
+
+      function drawPaletteSwatch() {
+        palettesEl = palettesEl || document.getElementById('Palettes');
+        var pal = palettesEl.options[palettesEl.selectedIndex].value;
+        var colors = JSC.getPalette(pal);
+        drawSwatch(colors);
+        currentSettings.color = colors[0];
+        swatchesEl.childNodes[0].className += ' selectedItem';
+        makePalette();
+      }
+
+      function drawSwatch(colors) {
+        swatchesEl = swatchesEl || document.getElementById('swatches');
+        swatchesEl.innerHTML = getSwatchHtm(colors);
+        for (var i = 0; i < swatchesEl.childNodes.length; i++) {
+          swatchesEl.getElementsByClassName('swatchItem')[i].addEventListener('click', function() {
+            for (var i = 0; i < swatchesEl.childNodes.length; i++) {
+              var child = swatchesEl.childNodes[i];
+              if (child.className) child.classList.remove('selectedItem');
+            }
+            currentSettings.color = this.style.backgroundColor;
+            this.className += ' selectedItem';
+            makePalette();
+          });
+        }
+      }
+
+      function getSwatchHtm(colors) {
+        var swatchesWidth = 700;
+        var widthPer = swatchesWidth / colors.length;
+        var outHtm = [];
+        for (var i = 0, iLen = colors.length; i < iLen; i++) {
+          var color = colors[i];
+          outHtm.push(
+            '<span class="swatchItem" style="background-color:' +
+              color +
+              '; width:' +
+              widthPer +
+              'px;height:25px;display: table-cell; "> </span>'
+          );
+        }
+        return outHtm.join('');
+      }
+
+      function makePalette() {
+        var code = '';
+        var variations = { hue: currentSettings.h, saturation: currentSettings.s, lightness: currentSettings.l };
+
+        code =
+          'var colors = JSC.colorToPalette("' +
+          currentSettings.color +
+          '",' +
+          JSON.stringify(variations) +
+          ',50,' +
+          sort +
+          ');';
+
+        document.getElementById('codeOutput').value = code;
+        var newPalette = JSC.colorToPalette(
+          currentSettings.color,
+          {
+            hue: currentSettings.h,
+            saturation: currentSettings.s,
+            lightness: currentSettings.l
+          },
+          50,
+          sort
+        );
+        chart.series('states').options({ palette: newPalette });
+        document.getElementById('outSwatches').innerHTML = getSwatchHtm(newPalette);
+        document.getElementById('colorsOutput').value = JSON.stringify(newPalette);
+      }
+
+      (function attachEvents() {
+        document.getElementById('Palettes').addEventListener('change', function() {
+          return drawPaletteSwatch();
+        });
+      })();
+    </script>
+  </body>
+</html>

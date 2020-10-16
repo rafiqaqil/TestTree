@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Education Infographic | JSCharting</title>
+    <meta http-equiv="content-type" content="text-html; charset=utf-8" />
+
+    <script type="text/javascript" src="../jsc/jscharting.js"></script>
+
+    <script type="text/javascript" src="../jsc/modules/types.js"></script>
+    <script type="text/javascript" src="../jsc/icons/linear/basic/male.js"></script>
+    <script type="text/javascript" src=" ../jsc/icons/linear/basic/female.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="css/default.css" />
+    <style type="text/css">
+      .mainWrapper {
+        width: 840px !important;
+        height: 700px;
+        background: url('images/Education.png');
+        background-size: cover;
+        background-repeat: no-repeat;
+        margin-left: auto;
+        margin-right: auto;
+        position: relative;
+        left: -25px;
+      }
+      #cc1 {
+        position: absolute;
+        margin-top: 60px;
+        margin-left: 10px;
+        width: 260px;
+        height: 240px;
+      }
+      #cc2 {
+        position: absolute;
+        margin-top: 315px;
+        margin-left: 10px;
+        width: 260px;
+        height: 360px;
+      }
+      #cc3 {
+        position: absolute;
+        margin-top: 0px;
+        margin-left: 460px;
+        width: 364px;
+        height: 352px;
+      }
+      #cc4 {
+        position: absolute;
+        margin-top: 410px;
+        margin-left: 560px;
+        width: 260px;
+        height: 260px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="mainWrapper">
+      <div id="cc1"></div>
+      <div id="cc2"></div>
+      <div id="cc3"></div>
+      <div id="cc4"></div>
+    </div>
+
+    <script type="text/javascript">
+      /*
+Education infographic using JavaScript charts.
+Learn how to:
+
+  - Create a infographic with overlaying charts.
+  - Use template for charts on the same page.
+*/
+      // JS
+      var template = {
+        chartArea: { fill: 'none', outline_color: 'none' },
+        box_fill: 'none',
+        legend: {
+          template: '%icon,%name',
+          defaultEntry: {
+            style_fontSize: 16,
+            fontFamily: 'Arial'
+          }
+        },
+        defaultAxis_defaultTick: {
+          gridLine_visible: false,
+          label: {
+            style: { fontSize: 10, fontFamily: 'Arial' }
+          }
+        },
+
+        yAxis: {
+          formatString: 'n0',
+          defaultTick: { label: { text: '%Value' } },
+          alternateGridFill: 'none'
+        },
+        toolbar_visible: false
+      };
+      var chart = new JSC.Chart('cc1', {
+        debug: true,
+        type: 'line',
+        template: template,
+        legend_visible: false,
+        defaultPoint_tooltip: '%seriesName Literacy Rate<br/>%name: <b>%value</b>',
+        series: [
+          {
+            name: 'Male',
+            color: '#3a6ea5',
+            points: [{ name: '1990', y: 82.312 }, { name: '2000', y: 86.929 }, { name: '2010', y: 89.206 }]
+          },
+          {
+            name: 'Female',
+            color: '#ff6700',
+            points: [{ name: '1990', y: 69.511 }, { name: '2000', y: 76.953 }, { name: '2010', y: 81.486 }]
+          }
+        ]
+      });
+      var chart2 = new JSC.Chart('cc2', {
+        debug: true,
+        type: 'column',
+        template: template,
+        legend: { position: 'top', margin: [0, 0, 70, 0] },
+        yAxis_defaultTick_label_text: '%ValueM',
+        defaultPoint_tooltip: '<b>%valueM</b> %seriesName pupils<br/>in <b>%name</b> school',
+        series: [
+          {
+            legendEntry_icon_name: 'linear/basic/male',
+            name: 'Male',
+            color: '#3a6ea5',
+            points: [
+              { name: 'Preschool', y: 182.264 },
+              { name: 'Primary', y: 355.313 },
+              { name: 'Secondary', y: 391.238 },
+              { name: 'Higher', y: 197.042 }
+            ]
+          },
+          {
+            legendEntry_icon_name: 'linear/basic/female',
+            name: 'Female',
+            color: '#ff6700',
+            points: [
+              { name: 'Preschool', y: 169.777 },
+              { name: 'Primary', y: 332.1 },
+              { name: 'Secondary', y: 365.515 },
+              { name: 'Higher', y: 183.94 }
+            ]
+          }
+        ]
+      });
+
+      var chart3 = new JSC.Chart('cc3', {
+        debug: true,
+        type: 'pie donut',
+        template: template,
+        legend_position: 'right',
+        defaultPoint_tooltip: 'Duration: <b>%name</b><br/>in <b>%value</b> countries',
+        series: [
+          {
+            angle_orientation: 100,
+            palette: ['#ff6700', '#ebebeb', '#c0c0c0', '#3a6ea5', '#004e98'],
+            points: [
+              { name: '15 years', y: 3, z: 15 },
+              { name: '14 years', y: 10, z: 14 },
+              { name: '13 years', y: 10, z: 13 },
+              { name: '12 years', y: 25, z: 12 },
+              { name: '11 years', y: 16, z: 11 }
+            ]
+          }
+        ]
+      });
+      var chart4 = new JSC.Chart('cc4', {
+        debug: true,
+        type: 'column',
+        template: template,
+        legend_visible: false,
+        yAxis_defaultTick_label_text: '%ValueM',
+        defaultPoint_tooltip: '<b>%valueM</b> teachers <br/>in <b>%name</b> school',
+        series: [
+          {
+            palette: ['#004e98', '#3a6ea5', '#c0c0c0', '#ebebeb'],
+            points: [
+              { name: 'Preschool', y: 9.36, tooltip: '<b>%valueM</b> teachers in %name' },
+              { name: 'Primary', y: 30.27 },
+              { name: 'Secondary', y: 32.11 },
+              { name: 'Higher', y: 14.03 }
+            ]
+          }
+        ]
+      });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,29 @@
+type,year,rate
+Stomach (Female),1930,35.2
+Stomach (Female),2011,2.3
+Stomach (Male),1930,46.3
+Stomach (Male),2011,4.4
+Colon and Rectum (Female),1930,27.1
+Colon and Rectum (Female),2011,13.1
+Colon and Rectum (Male),1930,23
+Colon and Rectum (Male),2011,18.5
+Pancreas (Female),1930,3.8
+Pancreas (Female),2011,9.5
+Pancreas (Male),1930,4.5
+Pancreas (Male),2011,12.5
+Lung and Bronchus (Female),1930,2.6
+Lung and Bronchus (Female),2011,37.1
+Lung and Bronchus (Male),1930,4.3
+Lung and Bronchus (Male),2011,58.1
+Breast (Female),1930,30.1
+Breast (Female),2011,21.5
+Uterus (Female),1930,36.3
+Uterus (Female),2011,6.8
+Liver (Female),1930,19.3
+Liver (Female),2011,4.7
+Liver (Male),1930,14.1
+Liver (Male),2011,10
+Prostate (Male),1930,17.8
+Prostate (Male),2011,20.8
+Leukemia (Male),1930,3
+Leukemia (Male),2011,9.3

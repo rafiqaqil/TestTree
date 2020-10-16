@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Pareto Chart | JSCharting</title>
+    <meta http-equiv="content-type" content="text-html; charset=utf-8" />
+
+    <script type="text/javascript" src="../jsc/jscharting.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="css/default.css" />
+    <style type="text/css">
+      /*CSS*/
+    </style>
+  </head>
+  <body>
+    <div id="chartDiv" style="max-width: 740px;height: 600px;margin: 0px auto;"></div>
+
+    <script type="text/javascript">
+      /*
+A traditional Pareto chart with bar and line series. Includes a function to automatically generate the pareto curve.
+Learn how to:
+
+  - Draw a combo chart with different series types.
+  - Draw a Pareto chart.
+*/
+      // JS
+      var chart = undefined;
+      JSC.fetch('./resources/causesOfDeath.csv')
+        .then(function(response) {
+          return response.text();
+        })
+        .then(function(text) {
+          var data = JSC.csv2Json(text);
+          chart = renderChart(makeSeries(data));
+        });
+
+      function renderChart(series) {
+        return JSC.chart('chartDiv', {
+          title_label_text: 'US Leading Causes of Death (2015)',
+          legend_visible: false,
+          defaultAxis_defaultTick_gridLine_width: 0,
+          chartArea_clipContent: false,
+          yAxis: [
+            {
+              id: 'a1',
+              scale_range_max: 2712630,
+              alternateGridFill: 'none'
+            },
+            {
+              id: 'a2',
+              orientation: 'right',
+              scale: { range: [0, 100], interval: 20 },
+              defaultTick_label_text: '%value%',
+              alternateGridFill: 'none',
+              markers: [{ value: 80 }]
+            }
+          ],
+          xAxis: {
+            crosshair: {
+              enabled: true,
+              gridLine_visible: true
+            },
+            defaultTick: {
+              line_visible: false,
+              gridLine_visible: false
+            }
+          },
+          defaultTooltip_label_text: '%xvalue<br>%points',
+
+          series: series
+        });
+      }
+
+      function makeSeries(data) {
+        var series = {
+          type: 'column',
+          yAxis: 'a1',
+          defaultPoint_tooltip: '<b>%yValue</b> deaths',
+          points: JSC.nest()
+            .key('cause')
+            .rollup('deaths')
+            .points(data)
+        };
+
+        return [
+          series,
+          {
+            type: 'line',
+            yAxis: 'a2',
+            defaultPoint: {
+              tooltip: '{%yValue:n1}%',
+              marker: { type: 'circle', outline: { color: 'white', width: 2 } }
+            },
+            points: paretoPoints(series.points)
+          }
+        ];
+      }
+
+      /**
+       * Automatically generates data points for a pareto line.
+       * @param columnPoints
+       * @returns {*[]}
+       */
+      function paretoPoints(columnPoints) {
+        columnPoints.sort(function(a, b) {
+          return b.y - a.y;
+        });
+        var valSum = JSC.sum(columnPoints, 'y');
+        var value = 0;
+        return columnPoints.map(function(obj) {
+          var newObj = {};
+          value += obj.y;
+          newObj.x = obj.x;
+          newObj.y = (value * 100) / valSum;
+          return newObj;
+        });
+      }
+    </script>
+  </body>
+</html>

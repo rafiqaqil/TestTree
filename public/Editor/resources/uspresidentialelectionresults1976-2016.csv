@@ -1,0 +1,562 @@
+year,state,candidate1,party,candidate1_votes,candidate2,candidate2_votes,total_votes,winner
+1976,Alabama,James Carter,democratic,659170,Gerald Ford,504070,1182850,James Carter
+1976,Alaska,Gerald Ford,republican,71555,James Carter,44058,123574,James Carter
+1976,Arizona,Gerald Ford,republican,418642,James Carter,295602,742719,James Carter
+1976,Arkansas,James Carter,democratic,498604,Gerald Ford,267903,767535,James Carter
+1976,California,Gerald Ford,republican,3882244,James Carter,3742284,7803770,James Carter
+1976,Colorado,Gerald Ford,republican,584278,James Carter,460801,1081440,James Carter
+1976,Connecticut,Gerald Ford,republican,719261,James Carter,647895,1386355,James Carter
+1976,Delaware,James Carter,democratic,122461,Gerald Ford,109780,235642,James Carter
+1976,District of Columbia,James Carter,democratic,137818,Gerald Ford,27873,168830,James Carter
+1976,Florida,James Carter,democratic,1636000,Gerald Ford,1469531,3150631,James Carter
+1976,Georgia,James Carter,democratic,979409,Gerald Ford,483743,1463152,James Carter
+1976,Hawaii,James Carter,democratic,147375,Gerald Ford,140003,291301,James Carter
+1976,Idaho,Gerald Ford,republican,204151,James Carter,126549,340932,James Carter
+1976,Illinois,Gerald Ford,republican,2364269,James Carter,2271295,4721282,James Carter
+1976,Indiana,Gerald Ford,republican,1183958,James Carter,1014714,2220362,James Carter
+1976,Iowa,Gerald Ford,republican,632864,James Carter,619931,1279303,James Carter
+1976,Kansas,Gerald Ford,republican,502752,James Carter,430421,957845,James Carter
+1976,Kentucky,James Carter,democratic,615717,Gerald Ford,531852,1167142,James Carter
+1976,Louisiana,James Carter,democratic,661365,Gerald Ford,587446,1277383,James Carter
+1976,Maine,Gerald Ford,republican,236320,James Carter,232279,482968,James Carter
+1976,Maryland,James Carter,democratic,759612,Gerald Ford,672661,1432273,James Carter
+1976,Massachusetts,James Carter,democratic,1429475,Gerald Ford,1030276,2547558,James Carter
+1976,Michigan,Gerald Ford,republican,1893742,James Carter,1696714,3651590,James Carter
+1976,Minnesota,James Carter,democratic,1070440,Gerald Ford,819395,1949931,James Carter
+1976,Mississippi,James Carter,democratic,381329,Gerald Ford,366846,768390,James Carter
+1976,Missouri,James Carter,democratic,998387,Gerald Ford,927443,1953600,James Carter
+1976,Montana,Gerald Ford,republican,173703,James Carter,149259,328734,James Carter
+1976,Nebraska,Gerald Ford,republican,359219,James Carter,233293,606749,James Carter
+1976,Nevada,Gerald Ford,republican,101273,James Carter,92479,201876,James Carter
+1976,New Hampshire,Gerald Ford,republican,185935,James Carter,147645,339627,James Carter
+1976,New Jersey,Gerald Ford,republican,1509688,James Carter,1444653,3014472,James Carter
+1976,New Mexico,Gerald Ford,republican,211419,James Carter,201148,416590,James Carter
+1976,New York,James Carter,democratic,3389558,Gerald Ford,3100791,6668262,James Carter
+1976,North Carolina,James Carter,democratic,927365,Gerald Ford,741960,1677906,James Carter
+1976,North Dakota,Gerald Ford,republican,153684,James Carter,136078,297308,James Carter
+1976,Ohio,James Carter,democratic,2009959,Gerald Ford,2000626,4110456,James Carter
+1976,Oklahoma,Gerald Ford,republican,545708,James Carter,532442,1092251,James Carter
+1976,Oregon,Gerald Ford,republican,492120,James Carter,490407,1029876,James Carter
+1976,Pennsylvania,James Carter,democratic,2328677,Gerald Ford,2205604,4620787,James Carter
+1976,Rhode Island,James Carter,democratic,227636,Gerald Ford,181249,410584,James Carter
+1976,South Carolina,James Carter,democratic,450807,Gerald Ford,346149,802583,James Carter
+1976,South Dakota,Gerald Ford,republican,151505,James Carter,147068,300678,James Carter
+1976,Tennessee,James Carter,democratic,825879,Gerald Ford,633969,1476346,James Carter
+1976,Texas,James Carter,democratic,2082319,Gerald Ford,1953300,4071884,James Carter
+1976,Utah,Gerald Ford,republican,337908,James Carter,182110,541218,James Carter
+1976,Vermont,Gerald Ford,republican,100387,James Carter,77798,183902,James Carter
+1976,Virginia,Gerald Ford,republican,836554,James Carter,813896,1697094,James Carter
+1976,Washington,Gerald Ford,republican,777732,James Carter,717323,1555534,James Carter
+1976,West Virginia,James Carter,democratic,435864,Gerald Ford,314726,750590,James Carter
+1976,Wisconsin,James Carter,democratic,1040232,Gerald Ford,1004987,2101336,James Carter
+1976,Wyoming,Gerald Ford,republican,92717,James Carter,62239,156343,James Carter
+1980,Alabama,Ronald Reagan,republican,654192,James Carter,636730,1341929,Ronald Reagan
+1980,Alaska,Ronald Reagan,republican,86112,James Carter,41842,158445,Ronald Reagan
+1980,Arizona,Ronald Reagan,republican,529688,James Carter,246843,873945,Ronald Reagan
+1980,Arkansas,Ronald Reagan,republican,403164,James Carter,398041,837582,Ronald Reagan
+1980,California,Ronald Reagan,republican,4522994,James Carter,3082943,8582938,Ronald Reagan
+1980,Colorado,Ronald Reagan,republican,652264,James Carter,368009,1184450,Ronald Reagan
+1980,Connecticut,Ronald Reagan,republican,677210,James Carter,541732,1406285,Ronald Reagan
+1980,Delaware,Ronald Reagan,republican,111252,James Carter,105754,235668,Ronald Reagan
+1980,District of Columbia,James Carter,democratic,130231,Ronald Reagan,23313,173889,Ronald Reagan
+1980,Florida,Ronald Reagan,republican,2046951,James Carter,1419475,3686927,Ronald Reagan
+1980,Georgia,James Carter,democratic,890955,Ronald Reagan,654168,1596805,Ronald Reagan
+1980,Hawaii,James Carter,democratic,135879,Ronald Reagan,130112,303287,Ronald Reagan
+1980,Idaho,Ronald Reagan,republican,290699,James Carter,110192,437431,Ronald Reagan
+1980,Illinois,Ronald Reagan,republican,2358049,James Carter,1981413,4749721,Ronald Reagan
+1980,Indiana,Ronald Reagan,republican,1255656,James Carter,844197,2242033,Ronald Reagan
+1980,Iowa,Ronald Reagan,republican,676026,James Carter,508672,1317661,Ronald Reagan
+1980,Kansas,Ronald Reagan,republican,566812,James Carter,326150,979795,Ronald Reagan
+1980,Kentucky,Ronald Reagan,republican,635274,James Carter,617417,1295627,Ronald Reagan
+1980,Louisiana,Ronald Reagan,republican,792853,James Carter,708453,1548591,Ronald Reagan
+1980,Maine,Ronald Reagan,republican,238522,James Carter,220974,523011,Ronald Reagan
+1980,Maryland,James Carter,democratic,726161,Ronald Reagan,680606,1540496,Ronald Reagan
+1980,Massachusetts,Ronald Reagan,republican,1057631,James Carter,1053802,2524090,Ronald Reagan
+1980,Michigan,Ronald Reagan,republican,1915225,James Carter,1661532,3909725,Ronald Reagan
+1980,Minnesota,James Carter,democratic,954173,Ronald Reagan,873268,2051916,Ronald Reagan
+1980,Mississippi,Ronald Reagan,republican,441089,James Carter,429281,891750,Ronald Reagan
+1980,Missouri,Ronald Reagan,republican,1074181,James Carter,931182,2099824,Ronald Reagan
+1980,Montana,Ronald Reagan,republican,206814,James Carter,118032,363952,Ronald Reagan
+1980,Nebraska,Ronald Reagan,republican,419214,James Carter,166424,639533,Ronald Reagan
+1980,Nevada,Ronald Reagan,republican,155017,James Carter,66666,243692,Ronald Reagan
+1980,New Hampshire,Ronald Reagan,republican,221705,James Carter,108864,383990,Ronald Reagan
+1980,New Jersey,Ronald Reagan,republican,1546557,James Carter,1147364,2975684,Ronald Reagan
+1980,New Mexico,Ronald Reagan,republican,250779,James Carter,167826,456237,Ronald Reagan
+1980,New York,James Carter,democratic,2728372,Ronald Reagan,2893831,6201959,Ronald Reagan
+1980,North Carolina,Ronald Reagan,republican,915018,James Carter,875635,1855833,Ronald Reagan
+1980,North Dakota,Ronald Reagan,republican,193695,James Carter,79189,301116,Ronald Reagan
+1980,Ohio,Ronald Reagan,republican,2206545,James Carter,1752414,4283603,Ronald Reagan
+1980,Oklahoma,Ronald Reagan,republican,695570,James Carter,402026,1149708,Ronald Reagan
+1980,Oregon,Ronald Reagan,republican,571044,James Carter,456890,1181516,Ronald Reagan
+1980,Pennsylvania,Ronald Reagan,republican,2261872,James Carter,1937540,4561501,Ronald Reagan
+1980,Rhode Island,James Carter,democratic,198342,Ronald Reagan,154793,415967,Ronald Reagan
+1980,South Carolina,Ronald Reagan,republican,439277,James Carter,428220,888258,Ronald Reagan
+1980,South Dakota,Ronald Reagan,republican,198343,James Carter,103855,327703,Ronald Reagan
+1980,Tennessee,Ronald Reagan,republican,787761,James Carter,783051,1617616,Ronald Reagan
+1980,Texas,Ronald Reagan,republican,2510705,James Carter,1881147,4541636,Ronald Reagan
+1980,Utah,Ronald Reagan,republican,439687,James Carter,124266,604152,Ronald Reagan
+1980,Vermont,Ronald Reagan,republican,94628,James Carter,81952,213299,Ronald Reagan
+1980,Virginia,Ronald Reagan,republican,989609,James Carter,752174,1866032,Ronald Reagan
+1980,Washington,Ronald Reagan,republican,865244,James Carter,650193,1742394,Ronald Reagan
+1980,West Virginia,James Carter,democratic,367462,Ronald Reagan,334206,737715,Ronald Reagan
+1980,Wisconsin,Ronald Reagan,republican,1088845,James Carter,981584,2273221,Ronald Reagan
+1980,Wyoming,Ronald Reagan,republican,110700,James Carter,49427,176713,Ronald Reagan
+1984,Alabama,Ronald Reagan,republican,872849,Walter Mondale,551899,1441713,Ronald Reagan
+1984,Alaska,Ronald Reagan,republican,138377,Walter Mondale,62007,207605,Ronald Reagan
+1984,Arizona,Ronald Reagan,republican,681416,Walter Mondale,333854,1025897,Ronald Reagan
+1984,Arkansas,Ronald Reagan,republican,534774,Walter Mondale,338646,884406,Ronald Reagan
+1984,California,Ronald Reagan,republican,5467009,Walter Mondale,3922519,9505041,Ronald Reagan
+1984,Colorado,Ronald Reagan,republican,821817,Walter Mondale,454975,1295380,Ronald Reagan
+1984,Connecticut,Ronald Reagan,republican,890877,Walter Mondale,569597,1466900,Ronald Reagan
+1984,Delaware,Ronald Reagan,republican,152190,Walter Mondale,101656,254572,Ronald Reagan
+1984,District of Columbia,Walter Mondale,democratic,180408,Ronald Reagan,29009,211288,Ronald Reagan
+1984,Florida,Ronald Reagan,republican,2730350,Walter Mondale,1448816,4180051,Ronald Reagan
+1984,Georgia,Ronald Reagan,republican,1068722,Walter Mondale,706628,1776103,Ronald Reagan
+1984,Hawaii,Ronald Reagan,republican,185050,Walter Mondale,147154,335846,Ronald Reagan
+1984,Idaho,Ronald Reagan,republican,297523,Walter Mondale,108510,411144,Ronald Reagan
+1984,Illinois,Ronald Reagan,republican,2707103,Walter Mondale,2086499,4819088,Ronald Reagan
+1984,Indiana,Ronald Reagan,republican,1377230,Walter Mondale,841481,2233069,Ronald Reagan
+1984,Iowa,Ronald Reagan,republican,703088,Walter Mondale,605620,1319805,Ronald Reagan
+1984,Kansas,Ronald Reagan,republican,677296,Walter Mondale,333149,1021991,Ronald Reagan
+1984,Kentucky,Ronald Reagan,republican,821702,Walter Mondale,539539,1369345,Ronald Reagan
+1984,Louisiana,Ronald Reagan,republican,1037299,Walter Mondale,651586,1706822,Ronald Reagan
+1984,Maine,Ronald Reagan,republican,336500,Walter Mondale,214515,553144,Ronald Reagan
+1984,Maryland,Ronald Reagan,republican,879918,Walter Mondale,787935,1675873,Ronald Reagan
+1984,Massachusetts,Ronald Reagan,republican,1310936,Walter Mondale,1239606,2559383,Ronald Reagan
+1984,Michigan,Ronald Reagan,republican,2251571,Walter Mondale,1529638,3801658,Ronald Reagan
+1984,Minnesota,Walter Mondale,democratic,1036364,Ronald Reagan,1032603,2084449,Ronald Reagan
+1984,Mississippi,Ronald Reagan,republican,582377,Walter Mondale,352192,941104,Ronald Reagan
+1984,Missouri,Ronald Reagan,republican,1274188,Walter Mondale,848583,2122771,Ronald Reagan
+1984,Montana,Ronald Reagan,republican,232450,Walter Mondale,146742,384377,Ronald Reagan
+1984,Nebraska,Ronald Reagan,republican,460054,Walter Mondale,187866,652090,Ronald Reagan
+1984,Nevada,Ronald Reagan,republican,188770,Walter Mondale,91655,282717,Ronald Reagan
+1984,New Hampshire,Ronald Reagan,republican,267050,Walter Mondale,120347,388904,Ronald Reagan
+1984,New Jersey,Ronald Reagan,republican,1933630,Walter Mondale,1261323,3217862,Ronald Reagan
+1984,New Mexico,Ronald Reagan,republican,307101,Walter Mondale,201769,514370,Ronald Reagan
+1984,New York,Ronald Reagan,republican,3664763,Walter Mondale,3119609,6806810,Ronald Reagan
+1984,North Carolina,Ronald Reagan,republican,1346481,Walter Mondale,824287,2175361,Ronald Reagan
+1984,North Dakota,Ronald Reagan,republican,200336,Walter Mondale,104429,308971,Ronald Reagan
+1984,Ohio,Ronald Reagan,republican,2678559,Walter Mondale,1825440,4563235,Ronald Reagan
+1984,Oklahoma,Ronald Reagan,republican,861530,Walter Mondale,385080,1255676,Ronald Reagan
+1984,Oregon,Ronald Reagan,republican,685700,Walter Mondale,536479,1226527,Ronald Reagan
+1984,Pennsylvania,Ronald Reagan,republican,2584323,Walter Mondale,2228131,4844903,Ronald Reagan
+1984,Rhode Island,Ronald Reagan,republican,212080,Walter Mondale,197106,410489,Ronald Reagan
+1984,South Carolina,Ronald Reagan,republican,615539,Walter Mondale,344459,968529,Ronald Reagan
+1984,South Dakota,Ronald Reagan,republican,200267,Walter Mondale,116113,317867,Ronald Reagan
+1984,Tennessee,Ronald Reagan,republican,990212,Walter Mondale,711714,1711993,Ronald Reagan
+1984,Texas,Ronald Reagan,republican,3433428,Walter Mondale,1949276,5397571,Ronald Reagan
+1984,Utah,Ronald Reagan,republican,469105,Walter Mondale,155369,629656,Ronald Reagan
+1984,Vermont,Ronald Reagan,republican,135865,Walter Mondale,95730,234561,Ronald Reagan
+1984,Virginia,Ronald Reagan,republican,1337078,Walter Mondale,796250,2146635,Ronald Reagan
+1984,Washington,Ronald Reagan,republican,1051670,Walter Mondale,798352,1874910,Ronald Reagan
+1984,West Virginia,Ronald Reagan,republican,405483,Walter Mondale,328125,735742,Ronald Reagan
+1984,Wisconsin,Ronald Reagan,republican,1198584,Walter Mondale,995740,2211689,Ronald Reagan
+1984,Wyoming,Ronald Reagan,republican,133241,Walter Mondale,53370,188968,Ronald Reagan
+1988,Alabama,George Bush,republican,815576,Michael Dukakis,549506,1378476,George Bush
+1988,Alaska,George Bush,republican,119251,Michael Dukakis,72584,200116,George Bush
+1988,Arizona,George Bush,republican,702541,Michael Dukakis,454029,1171873,George Bush
+1988,Arkansas,George Bush,republican,466578,Michael Dukakis,349237,827738,George Bush
+1988,California,George Bush,republican,5054917,Michael Dukakis,4702233,9887065,George Bush
+1988,Colorado,George Bush,republican,728177,Michael Dukakis,621453,1372394,George Bush
+1988,Connecticut,George Bush,republican,750241,Michael Dukakis,676584,1443394,George Bush
+1988,Delaware,George Bush,republican,139639,Michael Dukakis,108647,249891,George Bush
+1988,District of Columbia,Michael Dukakis,democratic,159407,George Bush,27590,192877,George Bush
+1988,Florida,George Bush,republican,2618885,Michael Dukakis,1656701,4302313,George Bush
+1988,Georgia,George Bush,republican,1081331,Michael Dukakis,714792,1809672,George Bush
+1988,Hawaii,Michael Dukakis,democratic,192364,George Bush,158625,354461,George Bush
+1988,Idaho,George Bush,republican,253881,Michael Dukakis,147272,408968,George Bush
+1988,Illinois,George Bush,republican,2310939,Michael Dukakis,2215940,4559120,George Bush
+1988,Indiana,George Bush,republican,1297763,Michael Dukakis,860643,2168621,George Bush
+1988,Iowa,Michael Dukakis,democratic,670557,George Bush,545355,1225614,George Bush
+1988,Kansas,George Bush,republican,554049,Michael Dukakis,422636,993044,George Bush
+1988,Kentucky,George Bush,republican,734281,Michael Dukakis,580368,1322517,George Bush
+1988,Louisiana,George Bush,republican,883702,Michael Dukakis,717460,1628202,George Bush
+1988,Maine,George Bush,republican,307131,Michael Dukakis,243569,555035,George Bush
+1988,Maryland,George Bush,republican,876167,Michael Dukakis,826304,1714358,George Bush
+1988,Massachusetts,Michael Dukakis,democratic,1401415,George Bush,1194635,2632801,George Bush
+1988,Michigan,George Bush,republican,1965486,Michael Dukakis,1675783,3669163,George Bush
+1988,Minnesota,Michael Dukakis,democratic,1109471,George Bush,962337,2096790,George Bush
+1988,Mississippi,George Bush,republican,557890,Michael Dukakis,363921,931527,George Bush
+1988,Missouri,George Bush,republican,1084953,Michael Dukakis,1001619,2093228,George Bush
+1988,Montana,George Bush,republican,190412,Michael Dukakis,168936,365674,George Bush
+1988,Nebraska,George Bush,republican,397956,Michael Dukakis,259235,661465,George Bush
+1988,Nevada,George Bush,republican,206040,Michael Dukakis,132738,343133,George Bush
+1988,New Hampshire,George Bush,republican,281537,Michael Dukakis,163696,450525,George Bush
+1988,New Jersey,George Bush,republican,1743192,Michael Dukakis,1320352,3099553,George Bush
+1988,New Mexico,George Bush,republican,270341,Michael Dukakis,244497,521387,George Bush
+1988,New York,Michael Dukakis,democratic,3347882,George Bush,3081871,6485683,George Bush
+1988,North Carolina,George Bush,republican,1237258,Michael Dukakis,890167,2134370,George Bush
+1988,North Dakota,George Bush,republican,166559,Michael Dukakis,127739,297261,George Bush
+1988,Ohio,George Bush,republican,2416549,Michael Dukakis,1939629,4393585,George Bush
+1988,Oklahoma,George Bush,republican,678367,Michael Dukakis,483423,1171036,George Bush
+1988,Oregon,Michael Dukakis,democratic,616206,George Bush,560126,1201694,George Bush
+1988,Pennsylvania,George Bush,republican,2300087,Michael Dukakis,2194944,4536251,George Bush
+1988,Rhode Island,Michael Dukakis,democratic,225123,George Bush,177761,404622,George Bush
+1988,South Carolina,George Bush,republican,606443,Michael Dukakis,370554,986009,George Bush
+1988,South Dakota,George Bush,republican,165415,Michael Dukakis,145560,312991,George Bush
+1988,Tennessee,George Bush,republican,947233,Michael Dukakis,679794,1636250,George Bush
+1988,Texas,George Bush,republican,3036829,Michael Dukakis,2352748,5427410,George Bush
+1988,Utah,George Bush,republican,428442,Michael Dukakis,207343,647008,George Bush
+1988,Vermont,George Bush,republican,124331,Michael Dukakis,115775,243328,George Bush
+1988,Virginia,George Bush,republican,1309162,Michael Dukakis,859799,2191609,George Bush
+1988,Washington,Michael Dukakis,democratic,933516,George Bush,903835,1865253,George Bush
+1988,West Virginia,Michael Dukakis,democratic,341016,George Bush,310065,653311,George Bush
+1988,Wisconsin,Michael Dukakis,democratic,1126794,George Bush,1047499,2191608,George Bush
+1988,Wyoming,George Bush,republican,106867,Michael Dukakis,67113,176551,George Bush
+1992,Alabama,George Bush,republican,804283,William Clinton,690080,1688060,William Clinton
+1992,Alaska,George Bush,republican,102000,William Clinton,78294,258506,William Clinton
+1992,Arizona,George Bush,republican,572086,William Clinton,543050,1486975,William Clinton
+1992,Arkansas,William Clinton,democratic,505823,George Bush,337324,950653,William Clinton
+1992,California,William Clinton,democratic,5121325,George Bush,3630574,11131721,William Clinton
+1992,Colorado,William Clinton,democratic,629681,George Bush,562850,1569180,William Clinton
+1992,Connecticut,William Clinton,democratic,682318,George Bush,578313,1616156,William Clinton
+1992,Delaware,William Clinton,democratic,126054,George Bush,102313,289620,William Clinton
+1992,District of Columbia,William Clinton,democratic,192619,George Bush,20698,227572,William Clinton
+1992,Florida,George Bush,republican,2173310,William Clinton,2071698,5313392,William Clinton
+1992,Georgia,William Clinton,democratic,1008966,George Bush,995252,2321133,William Clinton
+1992,Hawaii,William Clinton,democratic,179310,George Bush,136822,372842,William Clinton
+1992,Idaho,George Bush,republican,202645,William Clinton,137013,482114,William Clinton
+1992,Illinois,William Clinton,democratic,2453350,George Bush,1734096,5050157,William Clinton
+1992,Indiana,George Bush,republican,989375,William Clinton,848420,2305871,William Clinton
+1992,Iowa,William Clinton,democratic,586353,George Bush,504891,1354607,William Clinton
+1992,Kansas,George Bush,republican,449951,William Clinton,390434,1157236,William Clinton
+1992,Kentucky,William Clinton,democratic,665104,George Bush,617178,1492900,William Clinton
+1992,Louisiana,William Clinton,democratic,815971,George Bush,733386,1790017,William Clinton
+1992,Maine,William Clinton,democratic,263420,George Bush,206504,679499,William Clinton
+1992,Maryland,William Clinton,democratic,988571,George Bush,707094,1984580,William Clinton
+1992,Massachusetts,William Clinton,democratic,1318639,George Bush,805039,2773664,William Clinton
+1992,Michigan,William Clinton,democratic,1871182,George Bush,1554940,4274673,William Clinton
+1992,Minnesota,William Clinton,democratic,1020997,George Bush,747841,2347948,William Clinton
+1992,Mississippi,George Bush,republican,487793,William Clinton,400258,981793,William Clinton
+1992,Missouri,William Clinton,democratic,1053873,George Bush,811159,2391270,William Clinton
+1992,Montana,William Clinton,democratic,154507,George Bush,144207,410583,William Clinton
+1992,Nebraska,George Bush,republican,343678,William Clinton,216864,737546,William Clinton
+1992,Nevada,William Clinton,democratic,189148,George Bush,175828,506318,William Clinton
+1992,New Hampshire,William Clinton,democratic,209040,George Bush,202484,537215,William Clinton
+1992,New Jersey,William Clinton,democratic,1436206,George Bush,1356865,3343594,William Clinton
+1992,New Mexico,William Clinton,democratic,261617,George Bush,212824,569986,William Clinton
+1992,New York,William Clinton,democratic,3444450,George Bush,2346649,7079432,William Clinton
+1992,North Carolina,George Bush,republican,1134661,William Clinton,1114042,2611850,William Clinton
+1992,North Dakota,George Bush,republican,136244,William Clinton,99168,308133,William Clinton
+1992,Ohio,William Clinton,democratic,1984942,George Bush,1894310,4939967,William Clinton
+1992,Oklahoma,George Bush,republican,592929,William Clinton,473066,1390359,William Clinton
+1992,Oregon,William Clinton,democratic,621314,George Bush,475757,1462643,William Clinton
+1992,Pennsylvania,William Clinton,democratic,2239164,George Bush,1791841,4959810,William Clinton
+1992,Rhode Island,William Clinton,democratic,213299,George Bush,131601,453365,William Clinton
+1992,South Carolina,George Bush,republican,577507,William Clinton,525514,1228912,William Clinton
+1992,South Dakota,George Bush,republican,136718,William Clinton,124888,336254,William Clinton
+1992,Tennessee,William Clinton,democratic,933521,George Bush,841300,1982638,William Clinton
+1992,Texas,George Bush,republican,2496071,William Clinton,2281815,6154018,William Clinton
+1992,Utah,George Bush,republican,322632,William Clinton,183429,743998,William Clinton
+1992,Vermont,William Clinton,democratic,133592,George Bush,88122,289701,William Clinton
+1992,Virginia,George Bush,republican,1150517,William Clinton,1038650,2559129,William Clinton
+1992,Washington,William Clinton,democratic,993037,George Bush,731234,2287565,William Clinton
+1992,West Virginia,William Clinton,democratic,331001,George Bush,241974,683677,William Clinton
+1992,Wisconsin,William Clinton,democratic,1041066,George Bush,930855,2531064,William Clinton
+1992,Wyoming,George Bush,republican,79347,William Clinton,68160,199884,William Clinton
+1996,Alabama,Robert Dole,republican,769044,William Clinton,662165,1534349,William Clinton
+1996,Alaska,Robert Dole,republican,122746,William Clinton,80380,241620,William Clinton
+1996,Arizona,William Clinton,democratic,653288,Robert Dole,622073,1404405,William Clinton
+1996,Arkansas,William Clinton,democratic,475171,Robert Dole,325416,884262,William Clinton
+1996,California,William Clinton,democratic,5119835,Robert Dole,3828381,10019469,William Clinton
+1996,Colorado,Robert Dole,republican,691848,William Clinton,671152,1510702,William Clinton
+1996,Connecticut,William Clinton,democratic,735740,Robert Dole,483109,1392614,William Clinton
+1996,Delaware,William Clinton,democratic,140355,Robert Dole,99062,270810,William Clinton
+1996,District of Columbia,William Clinton,democratic,158220,Robert Dole,17339,185726,William Clinton
+1996,Florida,William Clinton,democratic,2546870,Robert Dole,2244536,5303154,William Clinton
+1996,Georgia,Robert Dole,republican,1080843,William Clinton,1053849,2298899,William Clinton
+1996,Hawaii,William Clinton,democratic,205012,Robert Dole,113943,360120,William Clinton
+1996,Idaho,Robert Dole,republican,256595,William Clinton,165443,491711,William Clinton
+1996,Illinois,William Clinton,democratic,2341744,Robert Dole,1587021,4311391,William Clinton
+1996,Indiana,Robert Dole,republican,1006693,William Clinton,887424,2135431,William Clinton
+1996,Iowa,William Clinton,democratic,620258,Robert Dole,492644,1234075,William Clinton
+1996,Kansas,Robert Dole,republican,583245,William Clinton,387659,1074300,William Clinton
+1996,Kentucky,William Clinton,democratic,636614,Robert Dole,623283,1388708,William Clinton
+1996,Louisiana,William Clinton,democratic,927837,Robert Dole,712586,1783959,William Clinton
+1996,Maine,William Clinton,democratic,312788,Robert Dole,186378,605897,William Clinton
+1996,Maryland,William Clinton,democratic,966207,Robert Dole,681530,1780870,William Clinton
+1996,Massachusetts,William Clinton,democratic,1571509,Robert Dole,718058,2556459,William Clinton
+1996,Michigan,William Clinton,democratic,1989653,Robert Dole,1481212,3848844,William Clinton
+1996,Minnesota,William Clinton,democratic,1120380,Robert Dole,766395,2192492,William Clinton
+1996,Mississippi,Robert Dole,republican,439838,William Clinton,394022,893857,William Clinton
+1996,Missouri,William Clinton,democratic,1025935,Robert Dole,890016,2158065,William Clinton
+1996,Montana,Robert Dole,republican,179652,William Clinton,167922,407083,William Clinton
+1996,Nebraska,Robert Dole,republican,363467,William Clinton,236761,677415,William Clinton
+1996,Nevada,William Clinton,democratic,203974,Robert Dole,199244,464279,William Clinton
+1996,New Hampshire,William Clinton,democratic,246166,Robert Dole,196486,496597,William Clinton
+1996,New Jersey,William Clinton,democratic,1652361,Robert Dole,1103099,3075860,William Clinton
+1996,New Mexico,William Clinton,democratic,273495,Robert Dole,232751,556074,William Clinton
+1996,New York,William Clinton,democratic,3756177,Robert Dole,1933492,6439129,William Clinton
+1996,North Carolina,Robert Dole,republican,1225938,William Clinton,1107849,2515807,William Clinton
+1996,North Dakota,Robert Dole,republican,125050,William Clinton,106905,266411,William Clinton
+1996,Ohio,William Clinton,democratic,2148222,Robert Dole,1859883,4534434,William Clinton
+1996,Oklahoma,Robert Dole,republican,582315,William Clinton,488105,1206713,William Clinton
+1996,Oregon,William Clinton,democratic,649641,Robert Dole,538152,1377760,William Clinton
+1996,Pennsylvania,William Clinton,democratic,2215819,Robert Dole,1801169,4501307,William Clinton
+1996,Rhode Island,William Clinton,democratic,233050,Robert Dole,104683,390247,William Clinton
+1996,South Carolina,Robert Dole,republican,573339,William Clinton,506152,1150182,William Clinton
+1996,South Dakota,Robert Dole,republican,150543,William Clinton,139333,323826,William Clinton
+1996,Tennessee,William Clinton,democratic,909146,Robert Dole,863530,1894105,William Clinton
+1996,Texas,Robert Dole,republican,2736167,William Clinton,2459683,5611644,William Clinton
+1996,Utah,Robert Dole,republican,361911,William Clinton,221633,665629,William Clinton
+1996,Vermont,William Clinton,democratic,137894,Robert Dole,80352,258449,William Clinton
+1996,Virginia,Robert Dole,republican,1138350,William Clinton,1091060,2416642,William Clinton
+1996,Washington,William Clinton,democratic,1123323,Robert Dole,840712,2253837,William Clinton
+1996,West Virginia,William Clinton,democratic,327812,Robert Dole,233946,636459,William Clinton
+1996,Wisconsin,William Clinton,democratic,1071971,Robert Dole,845029,2196169,William Clinton
+1996,Wyoming,Robert Dole,republican,105388,William Clinton,77934,211571,William Clinton
+2000,Alabama,George W. Bush,republican,941173,Albert Gore Jr.,692611,1666272,George W. Bush
+2000,Alaska,George W. Bush,republican,167398,Albert Gore Jr.,79004,285560,George W. Bush
+2000,Arizona,George W. Bush,republican,781652,Albert Gore Jr.,685341,1532016,George W. Bush
+2000,Arkansas,George W. Bush,republican,472940,Albert Gore Jr.,422768,921781,George W. Bush
+2000,California,Albert Gore Jr.,democratic,5861203,George W. Bush,4567429,10965822,George W. Bush
+2000,Colorado,George W. Bush,republican,883748,Albert Gore Jr.,738227,1741368,George W. Bush
+2000,Connecticut,Albert Gore Jr.,democratic,816015,George W. Bush,561094,1459525,George W. Bush
+2000,Delaware,Albert Gore Jr.,democratic,180068,George W. Bush,137288,327529,George W. Bush
+2000,District of Columbia,Albert Gore Jr.,democratic,171923,George W. Bush,18073,201894,George W. Bush
+2000,Florida,George W. Bush,republican,2912790,Albert Gore Jr.,2912253,5963110,George W. Bush
+2000,Georgia,George W. Bush,republican,1419720,Albert Gore Jr.,1116230,2583208,George W. Bush
+2000,Hawaii,Albert Gore Jr.,democratic,205286,George W. Bush,137845,367951,George W. Bush
+2000,Idaho,George W. Bush,republican,336937,Albert Gore Jr.,138637,501615,George W. Bush
+2000,Illinois,Albert Gore Jr.,democratic,2589026,George W. Bush,2019421,4742108,George W. Bush
+2000,Indiana,George W. Bush,republican,1245836,Albert Gore Jr.,901980,2199302,George W. Bush
+2000,Iowa,Albert Gore Jr.,democratic,638517,George W. Bush,634373,1353022,George W. Bush
+2000,Kansas,George W. Bush,republican,622332,Albert Gore Jr.,399276,1072216,George W. Bush
+2000,Kentucky,George W. Bush,republican,872520,Albert Gore Jr.,638923,1544106,George W. Bush
+2000,Louisiana,George W. Bush,republican,927871,Albert Gore Jr.,792344,1765656,George W. Bush
+2000,Maine,Albert Gore Jr.,democratic,319951,George W. Bush,286616,651817,George W. Bush
+2000,Maryland,Albert Gore Jr.,democratic,1144008,George W. Bush,813827,2025212,George W. Bush
+2000,Massachusetts,Albert Gore Jr.,democratic,1616487,George W. Bush,878502,2733964,George W. Bush
+2000,Michigan,Albert Gore Jr.,democratic,2170418,George W. Bush,1953139,4232501,George W. Bush
+2000,Minnesota,Albert Gore Jr.,democratic,1168266,George W. Bush,1109659,2438685,George W. Bush
+2000,Mississippi,George W. Bush,republican,572844,Albert Gore Jr.,404614,994184,George W. Bush
+2000,Missouri,George W. Bush,republican,1189924,Albert Gore Jr.,1111138,2359892,George W. Bush
+2000,Montana,George W. Bush,republican,240178,Albert Gore Jr.,137126,410986,George W. Bush
+2000,Nebraska,George W. Bush,republican,433862,Albert Gore Jr.,231780,697019,George W. Bush
+2000,Nevada,George W. Bush,republican,301575,Albert Gore Jr.,279978,609426,George W. Bush
+2000,New Hampshire,George W. Bush,republican,273559,Albert Gore Jr.,266348,569081,George W. Bush
+2000,New Jersey,Albert Gore Jr.,democratic,1788850,George W. Bush,1284173,3187226,George W. Bush
+2000,New Mexico,Albert Gore Jr.,democratic,286783,George W. Bush,286417,598605,George W. Bush
+2000,New York,Albert Gore Jr.,democratic,4107697,George W. Bush,2403374,6960215,George W. Bush
+2000,North Carolina,George W. Bush,republican,1631163,Albert Gore Jr.,1257692,2914990,George W. Bush
+2000,North Dakota,George W. Bush,republican,174852,Albert Gore Jr.,95284,288256,George W. Bush
+2000,Ohio,George W. Bush,republican,2350363,Albert Gore Jr.,2183628,4701998,George W. Bush
+2000,Oklahoma,George W. Bush,republican,744337,Albert Gore Jr.,474276,1234229,George W. Bush
+2000,Oregon,Albert Gore Jr.,democratic,720342,George W. Bush,713577,1533950,George W. Bush
+2000,Pennsylvania,Albert Gore Jr.,democratic,2485967,George W. Bush,2281127,4912185,George W. Bush
+2000,Rhode Island,Albert Gore Jr.,democratic,249508,George W. Bush,130555,409112,George W. Bush
+2000,South Carolina,George W. Bush,republican,786892,Albert Gore Jr.,566037,1383902,George W. Bush
+2000,South Dakota,George W. Bush,republican,190700,Albert Gore Jr.,118804,316269,George W. Bush
+2000,Tennessee,George W. Bush,republican,1061949,Albert Gore Jr.,981720,2076181,George W. Bush
+2000,Texas,George W. Bush,republican,3799639,Albert Gore Jr.,2433746,6407637,George W. Bush
+2000,Utah,George W. Bush,republican,515096,Albert Gore Jr.,203053,770754,George W. Bush
+2000,Vermont,Albert Gore Jr.,democratic,149022,George W. Bush,119775,294308,George W. Bush
+2000,Virginia,George W. Bush,republican,1437490,Albert Gore Jr.,1217290,2739447,George W. Bush
+2000,Washington,Albert Gore Jr.,democratic,1247652,George W. Bush,1108864,2487433,George W. Bush
+2000,West Virginia,George W. Bush,republican,336475,Albert Gore Jr.,295497,648124,George W. Bush
+2000,Wisconsin,Albert Gore Jr.,democratic,1242987,George W. Bush,1237279,2598607,George W. Bush
+2000,Wyoming,George W. Bush,republican,147947,Albert Gore Jr.,60481,213726,George W. Bush
+2004,Alabama,George W. Bush,republican,1176394,John Kerry,693933,1883415,George W. Bush
+2004,Alaska,George W. Bush,republican,190889,John Kerry,111025,312598,George W. Bush
+2004,Arizona,George W. Bush,republican,1104294,John Kerry,893524,2012585,George W. Bush
+2004,Arkansas,George W. Bush,republican,572898,John Kerry,469953,1054945,George W. Bush
+2004,California,John Kerry,democratic,6745485,George W. Bush,5509826,12421353,George W. Bush
+2004,Colorado,George W. Bush,republican,1101255,John Kerry,1001732,2129630,George W. Bush
+2004,Connecticut,John Kerry,democratic,857488,George W. Bush,693826,1578769,George W. Bush
+2004,Delaware,John Kerry,democratic,200152,George W. Bush,171660,375190,George W. Bush
+2004,District of Columbia,John Kerry,democratic,202970,George W. Bush,21256,227586,George W. Bush
+2004,Florida,George W. Bush,republican,3964522,John Kerry,3583544,7609810,George W. Bush
+2004,Georgia,George W. Bush,republican,1914254,John Kerry,1366149,3301875,George W. Bush
+2004,Hawaii,John Kerry,democratic,231708,George W. Bush,194191,429013,George W. Bush
+2004,Idaho,George W. Bush,republican,409235,John Kerry,181098,598376,George W. Bush
+2004,Illinois,John Kerry,democratic,2891550,George W. Bush,2345946,5274322,George W. Bush
+2004,Indiana,George W. Bush,republican,1479438,John Kerry,969011,2468002,George W. Bush
+2004,Iowa,George W. Bush,republican,751957,John Kerry,741898,1506908,George W. Bush
+2004,Kansas,George W. Bush,republican,736456,John Kerry,434993,1187756,George W. Bush
+2004,Kentucky,George W. Bush,republican,1069439,John Kerry,712733,1795882,George W. Bush
+2004,Louisiana,George W. Bush,republican,1102169,John Kerry,820299,1943106,George W. Bush
+2004,Maine,John Kerry,democratic,396842,George W. Bush,330201,740752,George W. Bush
+2004,Maryland,John Kerry,democratic,1334493,George W. Bush,1024703,2384238,George W. Bush
+2004,Massachusetts,John Kerry,democratic,1803800,George W. Bush,1071109,2927455,George W. Bush
+2004,Michigan,John Kerry,democratic,2479183,George W. Bush,2313746,4839252,George W. Bush
+2004,Minnesota,John Kerry,democratic,1445014,George W. Bush,1346695,2828387,George W. Bush
+2004,Mississippi,George W. Bush,republican,672660,John Kerry,457766,1139824,George W. Bush
+2004,Missouri,George W. Bush,republican,1455713,John Kerry,1259171,2731364,George W. Bush
+2004,Montana,George W. Bush,republican,266063,John Kerry,173710,450434,George W. Bush
+2004,Nebraska,George W. Bush,republican,512814,John Kerry,254328,778186,George W. Bush
+2004,Nevada,George W. Bush,republican,418690,John Kerry,397190,829587,George W. Bush
+2004,New Hampshire,John Kerry,democratic,340511,George W. Bush,331237,678287,George W. Bush
+2004,New Jersey,John Kerry,democratic,1911430,George W. Bush,1670003,3611691,George W. Bush
+2004,New Mexico,George W. Bush,republican,376930,John Kerry,370942,756304,George W. Bush
+2004,New York,John Kerry,democratic,4314280,George W. Bush,2962567,7448266,George W. Bush
+2004,North Carolina,George W. Bush,republican,1961166,John Kerry,1525849,3501007,George W. Bush
+2004,North Dakota,George W. Bush,republican,196651,John Kerry,111052,312833,George W. Bush
+2004,Ohio,George W. Bush,republican,2859764,John Kerry,2741165,5627903,George W. Bush
+2004,Oklahoma,George W. Bush,republican,959792,John Kerry,503966,1463758,George W. Bush
+2004,Oregon,John Kerry,democratic,943163,George W. Bush,866831,1836782,George W. Bush
+2004,Pennsylvania,John Kerry,democratic,2938095,George W. Bush,2793847,5769590,George W. Bush
+2004,Rhode Island,John Kerry,democratic,259760,George W. Bush,169046,437134,George W. Bush
+2004,South Carolina,George W. Bush,republican,937974,John Kerry,661669,1617700,George W. Bush
+2004,South Dakota,George W. Bush,republican,232584,John Kerry,149244,388215,George W. Bush
+2004,Tennessee,George W. Bush,republican,1384375,John Kerry,1036477,2437319,George W. Bush
+2004,Texas,George W. Bush,republican,4526917,John Kerry,2832704,7410749,George W. Bush
+2004,Utah,George W. Bush,republican,663742,John Kerry,241199,927844,George W. Bush
+2004,Vermont,John Kerry,democratic,184067,George W. Bush,121180,312309,George W. Bush
+2004,Virginia,George W. Bush,republican,1716959,John Kerry,1454742,3195415,George W. Bush
+2004,Washington,John Kerry,democratic,1510201,George W. Bush,1304894,2859084,George W. Bush
+2004,West Virginia,George W. Bush,republican,423778,John Kerry,326541,755792,George W. Bush
+2004,Wisconsin,John Kerry,democratic,1489504,George W. Bush,1478120,2997007,George W. Bush
+2004,Wyoming,George W. Bush,republican,167629,John Kerry,70776,243861,George W. Bush
+2008,Alabama,"John S. McCain, III",republican,1266546,Barack H. Obama,813479,2099819,Barack H. Obama
+2008,Alaska,"John S. McCain, III",republican,193841,Barack H. Obama,123594,326197,Barack H. Obama
+2008,Arizona,"John S. McCain, III",republican,1230111,Barack H. Obama,1034707,2293475,Barack H. Obama
+2008,Arkansas,"John S. McCain, III",republican,638017,Barack H. Obama,422310,1086617,Barack H. Obama
+2008,California,Barack H. Obama,democratic,8274473,"John S. McCain, III",5011781,13561900,Barack H. Obama
+2008,Colorado,Barack H. Obama,democratic,1288576,"John S. McCain, III",1073589,2401361,Barack H. Obama
+2008,Connecticut,Barack H. Obama,democratic,997772,"John S. McCain, III",629428,1646792,Barack H. Obama
+2008,Delaware,Barack H. Obama,democratic,255459,"John S. McCain, III",152374,412412,Barack H. Obama
+2008,District of Columbia,Barack H. Obama,democratic,245800,"John S. McCain, III",17367,265853,Barack H. Obama
+2008,Florida,Barack H. Obama,democratic,4282074,"John S. McCain, III",4045624,8390744,Barack H. Obama
+2008,Georgia,"John S. McCain, III",republican,2048759,Barack H. Obama,1844123,3924486,Barack H. Obama
+2008,Hawaii,Barack H. Obama,democratic,325871,"John S. McCain, III",120566,456064,Barack H. Obama
+2008,Idaho,"John S. McCain, III",republican,403012,Barack H. Obama,236440,655122,Barack H. Obama
+2008,Illinois,Barack H. Obama,democratic,3419348,"John S. McCain, III",2031179,5522371,Barack H. Obama
+2008,Indiana,Barack H. Obama,democratic,1374039,"John S. McCain, III",1345648,2751054,Barack H. Obama
+2008,Iowa,Barack H. Obama,democratic,828940,"John S. McCain, III",682379,1537123,Barack H. Obama
+2008,Kansas,"John S. McCain, III",republican,699655,Barack H. Obama,514765,1235872,Barack H. Obama
+2008,Kentucky,"John S. McCain, III",republican,1048462,Barack H. Obama,751985,1826620,Barack H. Obama
+2008,Louisiana,"John S. McCain, III",republican,1148275,Barack H. Obama,782989,1960761,Barack H. Obama
+2008,Maine,Barack H. Obama,democratic,421923,"John S. McCain, III",295273,731163,Barack H. Obama
+2008,Maryland,Barack H. Obama,democratic,1629467,"John S. McCain, III",959862,2631596,Barack H. Obama
+2008,Massachusetts,Barack H. Obama,democratic,1904097,"John S. McCain, III",1108854,3102995,Barack H. Obama
+2008,Michigan,Barack H. Obama,democratic,2872579,"John S. McCain, III",2048639,5001596,Barack H. Obama
+2008,Minnesota,Barack H. Obama,democratic,1573354,"John S. McCain, III",1275409,2910369,Barack H. Obama
+2008,Mississippi,"John S. McCain, III",republican,724597,Barack H. Obama,554662,1289865,Barack H. Obama
+2008,Missouri,"John S. McCain, III",republican,1445814,Barack H. Obama,1441911,2925205,Barack H. Obama
+2008,Montana,"John S. McCain, III",republican,242763,Barack H. Obama,231667,490109,Barack H. Obama
+2008,Nebraska,"John S. McCain, III",republican,452979,Barack H. Obama,333319,801281,Barack H. Obama
+2008,Nevada,Barack H. Obama,democratic,533736,"John S. McCain, III",412827,967848,Barack H. Obama
+2008,New Hampshire,Barack H. Obama,democratic,384826,"John S. McCain, III",316534,710970,Barack H. Obama
+2008,New Jersey,Barack H. Obama,democratic,2215422,"John S. McCain, III",1613207,3868237,Barack H. Obama
+2008,New Mexico,Barack H. Obama,democratic,472422,"John S. McCain, III",346832,830158,Barack H. Obama
+2008,New York,Barack H. Obama,democratic,4804945,"John S. McCain, III",2752771,7722019,Barack H. Obama
+2008,North Carolina,Barack H. Obama,democratic,2142651,"John S. McCain, III",2128474,4310851,Barack H. Obama
+2008,North Dakota,"John S. McCain, III",republican,168601,Barack H. Obama,141278,316621,Barack H. Obama
+2008,Ohio,Barack H. Obama,democratic,2940044,"John S. McCain, III",2677820,5708350,Barack H. Obama
+2008,Oklahoma,"John S. McCain, III",republican,960165,Barack H. Obama,502496,1462661,Barack H. Obama
+2008,Oregon,Barack H. Obama,democratic,1037291,"John S. McCain, III",738475,1827864,Barack H. Obama
+2008,Pennsylvania,Barack H. Obama,democratic,3276363,"John S. McCain, III",2655885,6013272,Barack H. Obama
+2008,Rhode Island,Barack H. Obama,democratic,296571,"John S. McCain, III",165391,471766,Barack H. Obama
+2008,South Carolina,"John S. McCain, III",republican,1034896,Barack H. Obama,862449,1920969,Barack H. Obama
+2008,South Dakota,"John S. McCain, III",republican,203054,Barack H. Obama,170924,381975,Barack H. Obama
+2008,Tennessee,"John S. McCain, III",republican,1479178,Barack H. Obama,1087437,2599749,Barack H. Obama
+2008,Texas,"John S. McCain, III",republican,4479328,Barack H. Obama,3528633,8077795,Barack H. Obama
+2008,Utah,"John S. McCain, III",republican,596030,Barack H. Obama,327670,952370,Barack H. Obama
+2008,Vermont,Barack H. Obama,democratic,219262,"John S. McCain, III",98974,325046,Barack H. Obama
+2008,Virginia,Barack H. Obama,democratic,1959532,"John S. McCain, III",1725005,3723260,Barack H. Obama
+2008,Washington,Barack H. Obama,democratic,1750848,"John S. McCain, III",1229216,3036878,Barack H. Obama
+2008,West Virginia,"John S. McCain, III",republican,397466,Barack H. Obama,303857,713451,Barack H. Obama
+2008,Wisconsin,Barack H. Obama,democratic,1677211,"John S. McCain, III",1262393,2983417,Barack H. Obama
+2008,Wyoming,"John S. McCain, III",republican,164958,Barack H. Obama,82868,254904,Barack H. Obama
+2012,Alabama,Willard Mitt Romney,republican,1255925,Barack H. Obama,795696,2074338,Barack H. Obama
+2012,Alaska,Willard Mitt Romney,republican,164676,Barack H. Obama,122640,300495,Barack H. Obama
+2012,Arizona,Willard Mitt Romney,republican,1233654,Barack H. Obama,1025232,2299254,Barack H. Obama
+2012,Arkansas,Willard Mitt Romney,republican,647744,Barack H. Obama,394409,1069468,Barack H. Obama
+2012,California,Barack H. Obama,democratic,7854285,Willard Mitt Romney,4839958,13038547,Barack H. Obama
+2012,Colorado,Barack H. Obama,democratic,1323101,Willard Mitt Romney,1185243,2569516,Barack H. Obama
+2012,Connecticut,Barack H. Obama,democratic,905083,Willard Mitt Romney,634892,1558204,Barack H. Obama
+2012,Delaware,Barack H. Obama,democratic,242584,Willard Mitt Romney,165484,413890,Barack H. Obama
+2012,District of Columbia,Barack H. Obama,democratic,267070,Willard Mitt Romney,21381,293764,Barack H. Obama
+2012,Florida,Barack H. Obama,democratic,4237756,Willard Mitt Romney,4163447,8474179,Barack H. Obama
+2012,Georgia,Willard Mitt Romney,republican,2078688,Barack H. Obama,1773827,3897839,Barack H. Obama
+2012,Hawaii,Barack H. Obama,democratic,306658,Willard Mitt Romney,121015,437159,Barack H. Obama
+2012,Idaho,Willard Mitt Romney,republican,420911,Barack H. Obama,212787,652274,Barack H. Obama
+2012,Illinois,Barack H. Obama,democratic,3019512,Willard Mitt Romney,2135216,5242014,Barack H. Obama
+2012,Indiana,Willard Mitt Romney,republican,1420543,Barack H. Obama,1152887,2624534,Barack H. Obama
+2012,Iowa,Barack H. Obama,democratic,822544,Willard Mitt Romney,730617,1582180,Barack H. Obama
+2012,Kansas,Willard Mitt Romney,republican,692634,Barack H. Obama,440726,1159971,Barack H. Obama
+2012,Kentucky,Willard Mitt Romney,republican,1087190,Barack H. Obama,679370,1797212,Barack H. Obama
+2012,Louisiana,Willard Mitt Romney,republican,1152262,Barack H. Obama,809141,1994065,Barack H. Obama
+2012,Maine,Barack H. Obama,democratic,401306,Willard Mitt Romney,292276,724758,Barack H. Obama
+2012,Maryland,Barack H. Obama,democratic,1677844,Willard Mitt Romney,971869,2707327,Barack H. Obama
+2012,Massachusetts,Barack H. Obama,democratic,1921290,Willard Mitt Romney,1188314,3184196,Barack H. Obama
+2012,Michigan,Barack H. Obama,democratic,2564569,Willard Mitt Romney,2115256,4730961,Barack H. Obama
+2012,Minnesota,Barack H. Obama,democratic,1546167,Willard Mitt Romney,1320225,2936561,Barack H. Obama
+2012,Mississippi,Willard Mitt Romney,republican,710746,Barack H. Obama,562949,1285584,Barack H. Obama
+2012,Missouri,Willard Mitt Romney,republican,1482440,Barack H. Obama,1223796,2757323,Barack H. Obama
+2012,Montana,Willard Mitt Romney,republican,267928,Barack H. Obama,201839,484048,Barack H. Obama
+2012,Nebraska,Willard Mitt Romney,republican,475064,Barack H. Obama,302081,794379,Barack H. Obama
+2012,Nevada,Barack H. Obama,democratic,531373,Willard Mitt Romney,463567,1014918,Barack H. Obama
+2012,New Hampshire,Barack H. Obama,democratic,369561,Willard Mitt Romney,329918,710972,Barack H. Obama
+2012,New Jersey,Barack H. Obama,democratic,2122786,Willard Mitt Romney,1478088,3638499,Barack H. Obama
+2012,New Mexico,Barack H. Obama,democratic,415335,Willard Mitt Romney,335788,783758,Barack H. Obama
+2012,New York,Barack H. Obama,democratic,4471871,Willard Mitt Romney,2485432,7116784,Barack H. Obama
+2012,North Carolina,Willard Mitt Romney,republican,2270395,Barack H. Obama,2178391,4505372,Barack H. Obama
+2012,North Dakota,Willard Mitt Romney,republican,188320,Barack H. Obama,124966,322932,Barack H. Obama
+2012,Ohio,Barack H. Obama,democratic,2827621,Willard Mitt Romney,2661407,5580822,Barack H. Obama
+2012,Oklahoma,Willard Mitt Romney,republican,891325,Barack H. Obama,443547,1334872,Barack H. Obama
+2012,Oregon,Barack H. Obama,democratic,970488,Willard Mitt Romney,754175,1789270,Barack H. Obama
+2012,Pennsylvania,Barack H. Obama,democratic,2990274,Willard Mitt Romney,2680434,5742040,Barack H. Obama
+2012,Rhode Island,Barack H. Obama,democratic,279677,Willard Mitt Romney,157204,446049,Barack H. Obama
+2012,South Carolina,Willard Mitt Romney,republican,1071645,Barack H. Obama,865941,1964118,Barack H. Obama
+2012,South Dakota,Willard Mitt Romney,republican,210610,Barack H. Obama,145039,363815,Barack H. Obama
+2012,Tennessee,Willard Mitt Romney,republican,1462330,Barack H. Obama,960709,2458577,Barack H. Obama
+2012,Texas,Willard Mitt Romney,republican,4569843,Barack H. Obama,3308124,7993851,Barack H. Obama
+2012,Utah,Willard Mitt Romney,republican,740600,Barack H. Obama,251813,1017440,Barack H. Obama
+2012,Vermont,Barack H. Obama,democratic,199239,Willard Mitt Romney,92698,299290,Barack H. Obama
+2012,Virginia,Barack H. Obama,democratic,1971820,Willard Mitt Romney,1822522,3854489,Barack H. Obama
+2012,Washington,Barack H. Obama,democratic,1755396,Willard Mitt Romney,1290670,3125516,Barack H. Obama
+2012,West Virginia,Willard Mitt Romney,republican,417655,Barack H. Obama,238269,670438,Barack H. Obama
+2012,Wisconsin,Barack H. Obama,democratic,1620985,Willard Mitt Romney,1410966,3071434,Barack H. Obama
+2012,Wyoming,Willard Mitt Romney,republican,170962,Barack H. Obama,69286,250701,Barack H. Obama
+2016,Alabama,Donald J. Trump,republican,1318255,Hillary Clinton,729547,2123372,Donald J. Trump
+2016,Alaska,Donald J. Trump,republican,163387,Hillary Clinton,116454,318608,Donald J. Trump
+2016,Arizona,Donald J. Trump,republican,1252401,Hillary Clinton,1161167,2573165,Donald J. Trump
+2016,Arkansas,Donald J. Trump,republican,684872,Hillary Clinton,380494,1130635,Donald J. Trump
+2016,California,Hillary Clinton,democratic,8753788,Donald J. Trump,4483810,14181595,Donald J. Trump
+2016,Colorado,Hillary Clinton,democratic,1338870,Donald J. Trump,1202484,2780220,Donald J. Trump
+2016,Connecticut,Hillary Clinton,democratic,897572,Donald J. Trump,673215,1644920,Donald J. Trump
+2016,Delaware,Hillary Clinton,democratic,235603,Donald J. Trump,185127,441590,Donald J. Trump
+2016,District of Columbia,Hillary Clinton,democratic,282830,Donald J. Trump,12723,312575,Donald J. Trump
+2016,Florida,Donald J. Trump,republican,4617886,Hillary Clinton,4504975,9420039,Donald J. Trump
+2016,Georgia,Donald J. Trump,republican,2089104,Hillary Clinton,1877963,4114732,Donald J. Trump
+2016,Hawaii,Hillary Clinton,democratic,266891,Donald J. Trump,128847,437664,Donald J. Trump
+2016,Idaho,Donald J. Trump,republican,409055,Hillary Clinton,189765,690255,Donald J. Trump
+2016,Illinois,Hillary Clinton,democratic,3090729,Donald J. Trump,2146015,5536424,Donald J. Trump
+2016,Indiana,Donald J. Trump,republican,1557286,Hillary Clinton,1033126,2734958,Donald J. Trump
+2016,Iowa,Donald J. Trump,republican,800983,Hillary Clinton,653669,1565580,Donald J. Trump
+2016,Kansas,Donald J. Trump,republican,671018,Hillary Clinton,427005,1184402,Donald J. Trump
+2016,Kentucky,Donald J. Trump,republican,1202971,Hillary Clinton,628854,1924149,Donald J. Trump
+2016,Louisiana,Donald J. Trump,republican,1178638,Hillary Clinton,780154,2029032,Donald J. Trump
+2016,Maine,Hillary Clinton,democratic,357735,Donald J. Trump,335593,771892,Donald J. Trump
+2016,Maryland,Hillary Clinton,democratic,1678006,Donald J. Trump,943428,2781446,Donald J. Trump
+2016,Massachusetts,Hillary Clinton,democratic,1995196,Donald J. Trump,1090893,3378821,Donald J. Trump
+2016,Michigan,Donald J. Trump,republican,2279543,Hillary Clinton,2268839,4799284,Donald J. Trump
+2016,Minnesota,Hillary Clinton,democratic,1367705,Donald J. Trump,1322949,2944782,Donald J. Trump
+2016,Mississippi,Donald J. Trump,republican,700714,Hillary Clinton,485131,1209357,Donald J. Trump
+2016,Missouri,Donald J. Trump,republican,1594511,Hillary Clinton,1071068,2808605,Donald J. Trump
+2016,Montana,Donald J. Trump,republican,279240,Hillary Clinton,177709,494526,Donald J. Trump
+2016,Nebraska,Donald J. Trump,republican,495961,Hillary Clinton,284494,844227,Donald J. Trump
+2016,Nevada,Hillary Clinton,democratic,539260,Donald J. Trump,512058,1125385,Donald J. Trump
+2016,New Hampshire,Hillary Clinton,democratic,348526,Donald J. Trump,345790,744296,Donald J. Trump
+2016,New Jersey,Hillary Clinton,democratic,2148278,Donald J. Trump,1601933,3874046,Donald J. Trump
+2016,New Mexico,Hillary Clinton,democratic,385234,Donald J. Trump,319667,798319,Donald J. Trump
+2016,New York,Hillary Clinton,democratic,4556124,Donald J. Trump,2819534,7802084,Donald J. Trump
+2016,North Carolina,Donald J. Trump,republican,2362631,Hillary Clinton,2189316,4741564,Donald J. Trump
+2016,North Dakota,Donald J. Trump,republican,216794,Hillary Clinton,93758,344360,Donald J. Trump
+2016,Ohio,Donald J. Trump,republican,2841005,Hillary Clinton,2394164,5496487,Donald J. Trump
+2016,Oklahoma,Donald J. Trump,republican,949136,Hillary Clinton,420375,1452992,Donald J. Trump
+2016,Oregon,Hillary Clinton,democratic,1002106,Donald J. Trump,782403,2001336,Donald J. Trump
+2016,Pennsylvania,Donald J. Trump,republican,2970733,Hillary Clinton,2926441,6115402,Donald J. Trump
+2016,Rhode Island,Hillary Clinton,democratic,252525,Donald J. Trump,180543,464144,Donald J. Trump
+2016,South Carolina,Donald J. Trump,republican,1155389,Hillary Clinton,855373,2103027,Donald J. Trump
+2016,South Dakota,Donald J. Trump,republican,227721,Hillary Clinton,117458,370093,Donald J. Trump
+2016,Tennessee,Donald J. Trump,republican,1522925,Hillary Clinton,870695,2508027,Donald J. Trump
+2016,Texas,Donald J. Trump,republican,4685047,Hillary Clinton,3877868,8969226,Donald J. Trump
+2016,Utah,Donald J. Trump,republican,515211,Hillary Clinton,310674,1131317,Donald J. Trump
+2016,Vermont,Hillary Clinton,democratic,178573,Donald J. Trump,95369,320467,Donald J. Trump
+2016,Virginia,Hillary Clinton,democratic,1981473,Donald J. Trump,1769443,3982752,Donald J. Trump
+2016,Washington,Hillary Clinton,democratic,1742718,Donald J. Trump,1221747,3317019,Donald J. Trump
+2016,West Virginia,Donald J. Trump,republican,489371,Hillary Clinton,188794,713051,Donald J. Trump
+2016,Wisconsin,Donald J. Trump,republican,1405284,Hillary Clinton,1382536,2976150,Donald J. Trump
+2016,Wyoming,Donald J. Trump,republican,174419,Hillary Clinton,55973,258788,Donald J. Trump

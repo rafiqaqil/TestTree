@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Simple Styling Organizational Chart | JSCharting</title>
+    <meta http-equiv="content-type" content="text-html; charset=utf-8" />
+
+    <script type="text/javascript" src="../jsc/jscharting.js"></script>
+
+    <script type="text/javascript" src="../jsc/modules/types.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="css/default.css" />
+    <style type="text/css">
+      /*CSS*/
+    </style>
+  </head>
+  <body>
+    <div id="chartDiv" style="max-width: 740px;height: 400px;margin: 0px auto;"></div>
+
+    <script type="text/javascript">
+      /*
+Organization chart with minimal styling.
+Learn how to:
+
+  - Style organization chart points.
+*/
+      // JS
+      var chart = JSC.chart('chartDiv', {
+        debug: true,
+        type: 'organization',
+        toolbar_visible: false,
+        series: [
+          {
+            points: [
+              { x: 'Aida', id: 'aida' },
+              { x: 'Ain', id: 'ain', parent: 'aida' },
+              { x: 'John', id: 'john', parent: 'aida' },
+              { x: 'William', id: 'william', parent: 'aida' },
+              { x: 'Frank', id: 'frank', parent: 'ain' },
+              { x: 'Eric', id: 'eric', parent: 'ain' },
+              { x: 'David', id: 'david', parent: 'john' },
+              { x: 'Stephen', id: 'stephen', parent: 'john' },
+              { x: 'George', id: 'george', parent: 'john' },
+              { x: 'Lori', id: 'lori', parent: 'george' },
+              { x: 'Walt', id: 'walt', parent: 'george' },
+              { x: 'Thomas', id: 'thomas', parent: 'lori' },
+              { x: 'James', id: 'james', parent: 'lori' },
+              { x: 'Tim', id: 'tim', parent: 'lori' },
+              { x: 'Jack', id: 'jack', parent: 'lori' },
+              { x: 'Robert', id: 'robert', parent: 'william' },
+              { x: 'Jose', id: 'jose', parent: 'william' },
+              { x: 'Joe', id: 'joe', parent: 'robert' },
+              { x: 'Mark', id: 'mark', parent: 'robert' }
+            ]
+          }
+        ],
+        defaultTooltip_enabled: false,
+        defaultSeries: {
+          line_color: 'gray',
+          line_width: 2,
+          color: ['#fffff6', 0.3]
+        },
+        defaultPoint: {
+          outline_width: 0,
+          annotation: {
+            padding: [5, 10],
+            label_align: 'center',
+            width: 70,
+            height: 30,
+            margin: 5
+          }
+        }
+      });
+    </script>
+  </body>
+</html>

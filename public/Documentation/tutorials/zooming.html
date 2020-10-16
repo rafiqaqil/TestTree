@@ -1,0 +1,76 @@
+<h2>Introduction</h2>
+<p>JSCharting provides advanced zooming capabilities through user interactions and programmatically through the API.</p>
+<p>To enable zooming, set the chart axisToZoom property to x or xy indicating the axes that are zoomable.</p>
+<p></p>
+
+<h4>User interactions</h4>
+<p>With standard charts, zooming can be achieved by dragging a selection box across the chart area. The chart zooms to the selected range after the selection is made.
+</p>
+
+<p>Zooming can be controlled using the mouse in the following ways:</p>
+
+<h4>Mouse only zooming</h4>
+<p></p>
+<p></p>
+
+<ul class="simpleKvpList">
+	<li><em>Alt-Scrollwheel</em><section>Zoom in and out.</section></li>
+	<li><em>Drag</em><section>Initiates zoom selection or drags the chart.</section></li>
+</ul>
+
+<h4>Touch zooming</h4>
+<ul class="simpleKvpList">
+	<li><em>Pinch expand</em><section>Zoom in.</section></li>
+	<li><em>Pinch contract</em><section>Zoom out.</section></li>
+	<li><em>Two finger tap</em><section>Zoom out.</section></li>
+	<li><em>Drag</em><section>Initiates zoom selection or drags the chart.</section></li>
+</ul>
+
+
+<p></p>
+<p></p>
+
+<h3>Zooming UI Items</h3>
+<p>When the chart is zoomed in, the resetZoom toolbar item appears. This can be disabled with:
+</p>
+<span class="codeText">chartConfig.toolbar_items_resetZoom_visible=false;</span>
+<p>The default position of the resetZoom button may overlap other uiItems. Therefore, using a setting like this can help correct this:</p>
+<span class="codeText">chartConfig.toolbar_items_resetZoom_position='inside top left';</span>
+
+
+<h3>Zooming API</h3>
+<h4>Series.zoomTo() &amp; Point.zoomTo()</h4>
+<p>Series and Point objects both have a zoomTo() function and when called, it
+	will scroll or zoom the item into view. This applies to mapping or
+	standard charts when applicable.</p>
+
+<h4>Chart.zoom()</h4>
+<p>The chart.zoom() function can be used to adjust the zoom and to get the current zoom axis ranges.</p>
+<p></p>
+
+<p>Set the zoom level to 200%. </p>
+<span class="codeText">
+	chart.zoom('initial');
+</span>
+
+<p>Pan the chart by given [x,y] based on axis scale values.</p>
+<span class="codeText">
+	chart.zoom(2);
+</span>
+
+<p>Pans the chart by given [x,y] based on axis scale values</p>
+<span class="codeText">
+	chart.zoom([5,0]);
+</span>
+
+<p>Set the zoom based on [cx, cy, level] center and zoom level.</p>
+<span class="codeText">
+	chart.zoom([5,15,1.5]);
+</span>
+
+<p>Sets the zoom based on given [x,y,width,height] bounding box in axis scale values.</p>
+<span class="codeText">
+	chart.zoom([0,0,15,15]);
+</span>
+<p>More advanced zooming is also available and described in the <a href="Tutorials.Mapping">mapping tutorial</a>.</p>
+

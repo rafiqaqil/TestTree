@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Icons Browser | JSCharting</title>
+    <meta http-equiv="content-type" content="text-html; charset=utf-8" />
+
+    <script type="text/javascript" src="../jsc/jscharting.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="css/default.css" />
+    <style type="text/css">
+      .loader-icon {
+        top: 40px;
+      }
+
+      .loader-text {
+        top: 100px;
+      }
+
+      #controls-wrapper {
+        width: 740px;
+        position: relative;
+        text-align: left;
+      }
+
+      #search-wrapper {
+        margin: 0px auto;
+        width: 740px;
+      }
+      #search {
+        height: 27px;
+      }
+
+      #groups {
+        height: 27px;
+      }
+
+      #next-icon {
+        height: 27px;
+      }
+
+      #selected-icon {
+        margin: 5px;
+        border: 0;
+        display: block;
+        font-size: 16px;
+        color: #66bb6a;
+        font-weight: bold;
+      }
+      #selected-icon:focus {
+        outline: none;
+      }
+    </style>
+  </head>
+  <body>
+    <link rel="stylesheet" type="text/css" href="resources/auto-complete.css" />
+
+    <div id="search-wrapper">
+      <input id="selected-icon" value="" size="40" readonly />
+      <div id="controls-wrapper">
+        <input type="text" id="search" placeholder="Search" />
+        <select id="groups"></select>
+        <input id="next-icon" type="button" value="Next >" />
+      </div>
+    </div>
+
+    <div id="chartDiv"></div>
+
+    <script type="text/javascript">
+      /*
+Icon browser with search to view and find all available icons.
+Learn how to:
+
+  - Find available icons.
+*/
+      // JS
+
+      var config = {
+        toolbar_visible: true,
+        debug: false,
+        width: 740,
+        height: '100%'
+      };
+      config.targetElement = 'chartDiv';
+      var chart;
+
+      var cellSize = 70,
+        padding = 10,
+        chartWidth = 740,
+        spacingFactor = 0.5,
+        maxTagsToShow = 10,
+        pageSizes = [30, 50, 100, 0],
+        currentPageSize = pageSizes[0],
+        searchDelay = 100,
+        maxShow = 150;
+
+      var groupsLookup = {},
+        allIcons = [],
+        allTags = {},
+        groupsSelect = document.getElementById('groups'),
+        nextBtn = document.getElementById('next-icon'),
+        selectedIcon = document.getElementById('selected-icon'),
+        searchInput,
+        iconsList,
+        iconsLookup;
+
+      var sourcePath = JSC.sourcePath();
+
+      var iconsBrowserDataPath = './resources/iconsBrowserData.js';
+
+      function createScript(scriptText) {
+        var scriptTag = document.createElement('script');
+        scriptTag.innerHTML = scriptText;
+        document.head.appendChild(scriptTag);
+      }
+
+      JSC.fetch(iconsBrowserDataPath)
+        .then(function(response) {
+          response.text().then(function(text) {
+            createScript(text);
+
+            iconsList = JSC.bundle.iconsList;
+            iconsLookup = JSC.bundle.iconsLookup;
+            systemIconsList = JSC.bundle.systemIconsList;
+
+            iconsList.map(function(x) {
+              addToGroupsLookup(x);
+            });
+            systemIconsList.map(function(x) {
+              addToGroupsLookup(x, true);
+            });
+
+            loadTokenInput();
+            addGroupsToSelect(Object.keys(groupsLookup));
+
+            nextBtn.onclick = function() {
+              var i = groupsSelect.selectedIndex;
+              groupsSelect.options[++i % groupsSelect.options.length].selected = true;
+              showGroupIcons();
+            };
+
+            new JSC.Chart(config, function(c) {
+              chart = c;
+              showGroupIcons();
+            });
+          });
+        })
+        .catch(function(error) {
+          console.log('Cannot find the ' + iconsBrowserDataPath + ' file. : ' + error);
+        });
+
+      function showGroupIcons() {
+        var group = getVal(groupsSelect);
+        showIcons(0, currentPageSize, getArr(groupsLookup[group]), group, group);
+      }
+
+      function loadTokenInput() {
+        var allTagsArray = Object.keys(iconsLookup);
+        JSC.fetch('./resources/auto-complete.min.js').then(function(response) {
+          response.text().then(function(text) {
+            createScript(text);
+
+            searchInput = new autoComplete({
+              selector: '#search',
+              minChars: 1,
+              source: function(term, suggest) {
+                term = term.toLowerCase();
+                var suggestions = [];
+                for (var i = 0; i < allTagsArray.length; i++) {
+                  if (~allTagsArray[i].toLowerCase().indexOf(term)) {
+                    suggestions.push(allTagsArray[i]);
+                  }
+                }
+                suggest(suggestions);
+              },
+              onSelect: function(e, term, item) {
+                doneTyping([term]);
+              }
+            });
+          });
+        });
+      }
+
+      function searchKeyUp() {
+        if (!document.getElementById('search').value) {
+          groupsSelect.disabled = false;
+          nextBtn.disabled = false;
+          groupsSelect.onchange();
+        }
+      }
+
+      function doneTyping(results) {
+        if (!results.length) {
+          groupsSelect.disabled = false;
+          nextBtn.disabled = false;
+          groupsSelect.onchange();
+          return;
+        }
+
+        groupsSelect.disabled = true;
+        nextBtn.disabled = true;
+
+        var icons = {};
+
+        for (var i = 0, l = results.length; i < l; i++) {
+          var tag = results[i],
+            iconsByTag = search(tag);
+          for (var j = 0; j < iconsByTag.length; j++) {
+            var icon = iconsByTag[j];
+            icons[icon.tooltip] = icon;
+          }
+        }
+
+        showIcons(0, currentPageSize, getArr(icons), 'Hover for name');
+      }
+
+      function getVal(el) {
+        return el.options[el.selectedIndex].value;
+      }
+
+      function showIcons(page, pageSize, data, chartTitle, groupPath) {
+        var show = function() {
+          var x = padding,
+            y = cellSize,
+            itemsLength = chart.toolbar().items().items.length,
+            allIconsNumber = data.length;
+
+          if (!pageSize) {
+            pageSize = allIconsNumber;
+          }
+
+          var pagesNumber = Math.ceil(allIconsNumber / pageSize),
+            pageIcons = [],
+            length = Math.min(allIconsNumber, (page + 1) * pageSize);
+
+          for (var i = page * pageSize; i < length; i++) {
+            var icon = data[i];
+            icon.position = 'inside ' + x + ',' + y;
+            x += cellSize * (2 + spacingFactor);
+            if (x > chartWidth - cellSize * 2 || i === length - 1) {
+              x = padding;
+              y += cellSize + padding;
+            }
+            pageIcons.push(icon);
+          }
+
+          var titleAnnotation = title(chartTitle),
+            addNumberButton = function(number) {
+              pageIcons.push({
+                fill: 'none',
+                states: {
+                  select: { fill: '#bdbdbd' }
+                },
+                position: 'inside bottom',
+                state_select: page === number,
+                outline_width: 0,
+                label: {
+                  text: '' + (number + 1),
+                  style_color: '#6d6d6d'
+                },
+                events_click: function() {
+                  showIcons(number, pageSize, data, chartTitle, groupPath);
+                }
+              });
+            },
+            addArrowButton = function(name, tooltip, newPage) {
+              pageIcons.push({
+                fill: 'none',
+                position: 'inside bottom',
+                outline_width: 0,
+                icon: { name: name, fill: '#6d6d6d' },
+                tooltip: tooltip,
+                events_click: function() {
+                  showIcons(newPage, pageSize, data, chartTitle, groupPath);
+                }
+              });
+            },
+            addPageSizeButton = function(size) {
+              pageIcons.push({
+                fill: 'none',
+                position: 'inside bottom left',
+                states: {
+                  select: { fill: '#bdbdbd' }
+                },
+                outline_width: 0,
+                state_select: pageSize === (size || allIconsNumber),
+                label: {
+                  text: '' + (size || 'all'),
+                  style_color: '#6d6d6d'
+                },
+                events_click: function() {
+                  currentPageSize = size;
+                  showIcons(0, size, data, chartTitle, groupPath);
+                }
+              });
+            },
+            addPageSizeTitle = function() {
+              pageIcons.push({
+                fill: 'none',
+                position: 'inside bottom left',
+                outline_width: 0,
+                states: {
+                  hover: { fill: 'none' }
+                },
+                cursor: 'default',
+                label: {
+                  text: 'Show:',
+                  style_color: '#6d6d6d'
+                }
+              });
+            };
+
+          if (pagesNumber > 1) {
+            addArrowButton('material/hardware/keyboard-arrow-left', 'go back', Math.max(page - 1, 0));
+            for (var i = 0; i < pagesNumber; i++) {
+              addNumberButton(i);
+            }
+            addArrowButton('material/hardware/keyboard-arrow-right', 'go forward', Math.min(page + 1, pagesNumber - 1));
+          }
+
+          if (allIconsNumber > pageSizes[0]) {
+            addPageSizeTitle();
+            for (var i = 0; i < pageSizes.length; i++) {
+              addPageSizeButton(pageSizes[i]);
+            }
+          }
+
+          requestAnimationFrame(function() {
+            setTimeout(function() {
+              chart.options({ height: y + cellSize + padding });
+
+              if (!chart.annotations(0)) {
+                chart.annotations.add(titleAnnotation);
+              } else {
+                chart.annotations(0).options(titleAnnotation);
+              }
+
+              chart.toolbar().items(pageIcons);
+              chart.loading(false);
+            });
+          });
+        };
+
+        chart.loading(true);
+
+        if (groupPath) {
+          evalIcons(groupPath, show);
+        } else {
+          show();
+        }
+      }
+
+      function evalIcons(group, callback) {
+        if (group.split('/')[0] === 'system') {
+          return callback();
+        }
+
+        var iconsPath = sourcePath + '/icons/' + group + '/all.js';
+        JSC.fetch(iconsPath)
+          .then(function(response) {
+            response.text().then(function(text) {
+              createScript(text);
+              callback();
+            });
+          })
+          .catch(function(error) {
+            console.log('Cannot find the ' + iconsPath + ' file. : ' + error);
+          });
+      }
+
+      function getArr(obj) {
+        var result = [];
+        for (var i in obj) {
+          result.push(obj[i]);
+        }
+        return result;
+      }
+
+      function addToGroupsLookup(iconName, singleGroup) {
+        var levels = iconName.split('/'),
+          name = levels.pop(),
+          group = singleGroup ? levels[0] : levels.join('/'),
+          data = icon(iconName, name),
+          nameTags = name.split('-');
+
+        while (nameTags.length) {
+          allTags[nameTags.pop()] = true;
+        }
+
+        while (levels.length) {
+          allTags[levels.pop()] = true;
+        }
+
+        if (!groupsLookup[group]) {
+          groupsLookup[group] = [];
+        }
+
+        groupsLookup[group].push(data);
+        allIcons.push([iconName, data]);
+      }
+
+      function search(text) {
+        var result = [];
+        var iconsIndexes = iconsLookup[text];
+        for (var i = 0, l = iconsIndexes.length; i < l; i++) {
+          var indexOrRange = iconsIndexes[i];
+
+          if (result.length > maxShow) {
+            break;
+          }
+
+          if (indexOrRange.length) {
+            var range = indexOrRange.split('-'),
+              from = parseInt(range[0]),
+              to = parseInt(range[1]);
+
+            while (from != to + 1 && result.length < maxShow) {
+              result.push(allIcons[from++][1]);
+            }
+          } else {
+            result.push(allIcons[indexOrRange][1]);
+          }
+        }
+        return result;
+      }
+
+      function addGroupsToSelect(keys) {
+        var el = groupsSelect;
+        while (el.firstChild) {
+          el.removeChild(el.firstChild);
+        }
+        for (var i = 0; i < keys.length; i++) {
+          var opt = document.createElement('option'),
+            val = keys[i];
+          opt.value = val;
+          opt.innerHTML = val;
+          el.appendChild(opt);
+        }
+        el.onchange = showGroupIcons;
+      }
+
+      function icon(path, name) {
+        var iconSize = cellSize / 2,
+          width = cellSize * 2;
+        return {
+          fill: 'none',
+          states: { hover: { fill: 'none' } },
+          outline_width: 0,
+          icon: {
+            name: path,
+            size: iconSize,
+            fill: '#6d6d6d',
+            yAlignment: 'top'
+          },
+          tooltip: path,
+          label: {
+            text: name,
+            maxWidth: width,
+            textOverflow: 'ellipsis'
+          },
+          xContentAlignment: 'center',
+          width: width,
+          events_click: function() {
+            selectedIcon.value = path;
+            selectedIcon.select();
+            document.execCommand('copy');
+            selectedIcon.value = 'Icon name was copied!';
+            setTimeout(function() {
+              selectedIcon.value = '';
+            }, 1000);
+          }
+        };
+      }
+
+      function title(str) {
+        return {
+          label_text: str,
+          label_style_fill: '#6d6d6d',
+          position: cellSize + ',' + cellSize / 2,
+          boxVisible: false,
+          style_fontWeight: 'bold'
+        };
+      }
+
+      function attachEvents() {
+        var searchInput = document.getElementById('search');
+        searchInput.addEventListener('keyup', searchKeyUp);
+      }
+
+      attachEvents();
+    </script>
+  </body>
+</html>

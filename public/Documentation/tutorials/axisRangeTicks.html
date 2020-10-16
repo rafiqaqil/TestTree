@@ -1,0 +1,116 @@
+<img src="tutorials/images/chart-axis-range-ticks.png" title="Chart Axis Range Ticks"/>
+<h2>Introduction</h2>
+<p>Normal axis ticks have a single value such as 5. Range axis ticks have two, a start and end value such as [5, 10].</p>
+
+<p>They can be used to </p>
+<ul>
+	<li>Label a numeric range of the axis scale</li>
+	<li>Define category scale groups</li>
+	<li>Add CalendarPattern intervals to time scales</li>
+	<li>Drawn on top of series to annotate data point groups</li>
+</ul>
+
+<h2>Styling</h2>
+<h3>Modes</h3>
+<span class="tutorialImage">
+<img src="tutorials/images/chart-axis-range-tick-modes.png" title="Chart Axis Range Tick Modes"/>
+<em>Figure 1.</em><section>Range Tick Modes</section>
+</span>
+<p>There are three types of range tick render modes as shown in figure 1. They are all used automatically depending on the scenario and axis data types.</p>
+<ul>
+	<li>Minimal - Automatic only</li>
+	<li>Curly</li>
+	<li>Measure</li>
+</ul>
+
+<p>Range tick values are allowed to overlap. When this occurs, they will stack into multiple levels so they don't take
+	up the same space. However, the range ticks on the first level use a minimal visualization by default. It is similar
+	to normal axis ticks except two ticks are used to indicate the range start and end. Only the first level can and
+	always does use minimal ticks by default, but curly or measure shapes can be used on the first level also if set explicitly.
+</p>
+<p>The curly visualization is useful when defining groups of items rather than exact measurements. Therefore,
+	the curly shape is selected by default when used with category scales on stack levels 2 and up.</p>
+<p>Range ticks on numeric and time scales define an exact start and end value. Therefore, the measure shape
+	is selected by default when used with these scale types.
+</p>
+<p>The property <a href="Types.axisTick.rangeMode">axisTick.rangeMode</a> can be set with auto, curly or measure to override default behavior.
+</p>
+
+
+<h3>Label placement</h3>
+
+<p>Curly and measure modes can render a label within the range shape or on top. Labels will go on top if the inside space
+	is not sufficient. This can also be controlled by setting axisTick.label.placement:'outside' explicitly.
+</p>
+<span class="tutorialImage">
+<img src="tutorials/images/chart-axis-range-label-placement.png" title="Chart Axis Range Tick Label Placement"/>
+<em>Figure 2.</em><section>Range Tick Label Placement</section>
+</span>
+
+
+<h2>Data Types and Range Ticks</h2>
+<p>Range ticks can have some differing behaviors, features, and appearance depending on the axis data type. In this
+	section we will cover some of the data type nuances and features to explore the full power of range ticks.
+</p>
+
+<h3>Numeric Scales</h3>
+<p>Numeric scales are simple and don't have any specific range tick behavior reserved only for numeric scales. </p>
+
+
+<h3>Category Scales</h3>
+
+<p>Category scales have qualitative string values such as [apples, oranges, banannas]. The value 'apples' does not
+	refer to a specific point on the scale but rather a section of the scale where all apple data points are grouped.
+	Therefore, string category values are always range values. Internally, categories do translate to numeric values
+	where the center of each category refers to the index in category list array. The numeric range of the category
+	is defined as [index-0.5, index+0.5]. Numeric values can be used with axis ticks on category scales if precision
+	is needed. String values are automatically translated to ranges.
+</p>
+
+<p>While single value strings are translated to ranges, two string values can be used as well. For example, the
+	range value [apples, oranges] will span both values.
+</p>
+
+<h3>Time Scales</h3>
+
+<p>Time scales are fundamentally numeric. The main range tick feature related to time scales is the ability to use
+	calendar pattern values. With this feature, you can easily add range ticks for months, quarters, years or any
+	other interval. One custom tick will generate all the relevant ticks automatically.
+</p>
+
+<p>The relevant chart configuration options in the example below are:</p>
+<span class="codeText">
+	{
+     xAxis: {
+    scale_type: "time",
+    defaultTick_enabled: false,
+    customTicks: [
+      {
+	// A tick for every month.
+		value: {
+        month: "*"
+      }, label_text: "%min" },
+      {
+		// Every 3 months
+        value: { month: "*", every: 3 },
+        label_text: function(d) {
+          return "Q" + (Math.floor(new Date(d[0]).getMonth() / 3) + 1);
+        }
+      },
+      {
+	// Every year
+		value: { year: "*" }, label_text: "%min" }
+    ]
+  }}
+</span>
+
+
+<p class="codepen" data-height="286" data-theme-id="35044" data-default-tab="js,result" data-user="jsblog" data-slug-hash="5540a184a51fdc22f21db264a8e446a9" style="height: 336px; box-sizing: border-box; display: flex; align-items: center; justify-content: center; border: 2px solid black; margin: 1em 0; padding: 1em;" data-pen-title="Docs - Time Range Ticks">
+  <span>See the Pen <a href="https://codepen.io/jsblog/pen/5540a184a51fdc22f21db264a8e446a9/">
+  Docs - Time Range Ticks</a> by Arthur Puszynski (<a href="https://codepen.io/jsblog">@jsblog</a>)
+  on <a href="https://codepen.io">CodePen</a>.</span>
+</p>
+<script async src="https://static.codepen.io/assets/embed/ei.js"></script>
+
+
+

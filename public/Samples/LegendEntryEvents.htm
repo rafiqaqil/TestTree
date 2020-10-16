@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Legend Entry Events | JSCharting</title>
+    <meta http-equiv="content-type" content="text-html; charset=utf-8" />
+
+    <script type="text/javascript" src="../jsc/jscharting.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="css/default.css" />
+    <style type="text/css">
+      /*CSS*/
+    </style>
+  </head>
+  <body>
+    <div id="chartDiv" style="max-width: 740px;height: 400px;margin: 0px auto;"></div>
+
+    <script type="text/javascript">
+      /*
+Legend entry events triggered on hover.
+Learn how to:
+
+  - Handling legend entry events.
+*/
+      // JS
+      var chart = JSC.chart('chartDiv', {
+        debug: true,
+        title_label_text: 'Acme Tool Sales',
+        legend: {
+          title_label_text: 'Hover items below',
+          defaultEntry_events: {
+            mouseOver: leMouseOver,
+            mouseOut: leMouseOut,
+            click: leClick
+          }
+        },
+        yAxis: { label_text: 'Units Sold' },
+        xAxis: { label_text: 'Quarter' },
+        series: [
+          {
+            name: 'Saw',
+            id: 's1',
+            points: [['Q1', 230], ['Q2', 240], ['Q3', 267], ['Q4', 238]]
+          },
+          {
+            name: 'Hammer',
+            points: [['Q1', 325], ['Q2', 347], ['Q3', 392], ['Q4', 371]]
+          },
+          {
+            name: 'Grinder',
+            points: [['Q1', 285], ['Q2', 292], ['Q3', 327], ['Q4', 158]]
+          },
+          {
+            name: 'Drill',
+            points: [['Q1', 185], ['Q2', 192], ['Q3', 198], ['Q4', 318]]
+          }
+        ]
+      });
+
+      var highlightStyles = {
+        on: { defaultPoint: { marker: { size: 30, type: 'five-point-star' } } },
+        off: { defaultPoint: { marker: { size: undefined, type: undefined } } }
+      };
+      function leMouseOver() {
+        var target = this.target;
+        target.kind == 'Series' && target.options(highlightStyles.on);
+        //Disable default entry hover behavior.
+        return false;
+      }
+
+      function leMouseOut() {
+        var target = this.target;
+        target.kind == 'Series' && target.options(highlightStyles.off);
+        //Disable default entry hover behavior.
+        return false;
+      }
+
+      function leClick() {
+        //Disables hiding series on click.
+        return false;
+      }
+    </script>
+  </body>
+</html>

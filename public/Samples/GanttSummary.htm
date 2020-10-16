@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Gantt Summary Chart | JSCharting</title>
+    <meta http-equiv="content-type" content="text-html; charset=utf-8" />
+
+    <script type="text/javascript" src="../jsc/jscharting.js"></script>
+
+    <script type="text/javascript" src="../jsc/icons/material/action/zoom-in.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="css/default.css" />
+    <style type="text/css">
+      /*CSS*/
+    </style>
+  </head>
+  <body>
+    <div id="chartDiv2" style="width: 840px;height: 120px;margin: 0px auto;"></div>
+    <div id="chartDiv" style="width: 840px;height: 400px;margin: 0px auto;"></div>
+
+    <script type="text/javascript">
+      /*
+Gantt chart master detail Summary.
+Learn how to:
+
+  - Create a gantt chart to control the zooming of another chart.
+*/
+      // JS
+
+      var chartConfig = {
+        type: 'horizontal column',
+        zAxis_scale_type: 'stacked',
+        legend: { visible: false, position: 'top', template: '%icon %name' },
+        xAxis_visible: false,
+        palette: 'mixed',
+        yAxis_scale_type: 'time',
+        defaultSeries: {
+          defaultPoint: {
+            hatch_color: 'darkenMore',
+            label: { text: '%name', padding: 2 }
+          }
+        },
+        series: [
+          {
+            name: 'Initiate Project',
+            points: [
+              {
+                name: 'Initiate Project',
+                outline: { color: 'darkenMore', width: 2 },
+                hatch_style: 'light-downward-diagonal',
+                y: ['1/1/2017', '3/15/2017']
+              },
+              {
+                name: 'Project Assignments',
+                y: ['1/1/2017', '1/25/2017']
+              },
+              {
+                name: 'Outlines/Scope',
+                y: ['1/25/2017', '2/15/2017']
+              },
+              {
+                name: 'Business Alignment',
+                y: ['2/15/2017', '3/15/2017']
+              }
+            ]
+          },
+          {
+            name: 'Plan Project',
+            points: [
+              {
+                name: 'Plan Project',
+                outline: { color: 'darkenMore', width: 2 },
+                hatch_style: 'light-downward-diagonal',
+                y: ['3/15/2017', '5/20/2017']
+              },
+              {
+                name: 'Determine Process',
+                y: ['3/15/2017', '4/12/2017']
+              },
+              {
+                name: 'Design Layouts',
+                y: ['4/12/2017', '5/8/2017']
+              },
+              {
+                name: 'Design Structure',
+                y: ['5/8/2017', '5/20/2017']
+              }
+            ]
+          },
+          {
+            name: 'Implement Project',
+            points: [
+              {
+                name: 'Implement Project',
+                outline: { color: 'darkenMore', width: 2 },
+                hatch_style: 'light-downward-diagonal',
+                y: ['5/20/2017', '7/28/2017']
+              },
+              {
+                name: 'Designs',
+                y: ['5/20/2017', '6/10/2017']
+              },
+              {
+                name: 'Structures',
+                y: ['6/10/2017', '6/15/2017']
+              },
+              {
+                name: 'D&S Integration',
+                y: ['6/15/2017', '7/28/2017']
+              }
+            ]
+          }
+        ]
+      };
+
+      var chart2,
+        chart = JSC.chart('chartDiv', chartConfig, genSummaryChart);
+
+      function genSummaryChart(parentChart) {
+        var c = parentChart,
+          zoomedSeries,
+          summaryPoints = c.series().map(function(s) {
+            return {
+              x: 'A',
+              name: s.tokenValue('%name'),
+              color: s.tokenValue('%color'),
+              y: [s.tokenValue('%yMin'), s.tokenValue('%Max')]
+            };
+          });
+
+        chart2 = JSC.chart('chartDiv2', {
+          type: 'horizontal column',
+          xAxis_visible: false,
+          title_label_text: 'Project Alpha (Click to zoom) ',
+          yAxis_scale: { type: 'time' },
+          legend_visible: false,
+          series: [
+            {
+              defaultPoint: {
+                label_text: '%name <icon name=material/action/zoom-in size=15 verticalAlign=middle>',
+                events_click: function() {
+                  var point = this,
+                    sName = point.tokenValue('%name');
+                  if (zoomedSeries === sName) {
+                    chart.series().options({ visible: true });
+                    zoomedSeries = '';
+                  } else {
+                    chart.series().each(function(s) {
+                      s.options({ visible: s.options('name') === sName });
+                    });
+                    zoomedSeries = sName;
+                  }
+                }
+              },
+              points: summaryPoints
+            }
+          ]
+        });
+      }
+    </script>
+  </body>
+</html>

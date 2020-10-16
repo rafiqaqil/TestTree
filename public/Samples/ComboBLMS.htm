@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Line Area Marker Column Combination Chart | JSCharting</title>
+    <meta http-equiv="content-type" content="text-html; charset=utf-8" />
+
+    <script type="text/javascript" src="../jsc/jscharting.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="css/default.css" />
+    <style type="text/css"></style>
+  </head>
+  <body>
+    <div id="chartDiv" style="max-width: 740px;height: 400px;margin: 0px auto;"></div>
+
+    <script type="text/javascript">
+      /*
+A number of different series types in the same chart.
+Learn how to:
+
+  - Draw a combo chart with different series types.
+*/
+      // JS
+      var chart;
+      JSC.fetch('./resources/NYMonthlyWeather.csv')
+        .then(function(response) {
+          return response.text();
+        })
+        .then(function(text) {
+          chart = renderChart(makeSeries(JSC.csv2Json(text)));
+        });
+
+      function renderChart(series) {
+        return JSC.chart('chartDiv', {
+          annotations: [
+            {
+              label_text: '<b>New York Temperature, 2018</b>',
+              position: 'top left'
+            }
+          ],
+          legend: {
+            template: '%icon %name',
+            position: 'top right'
+          },
+          defaultTooltip_label_text: '<b>%xValue</b><br>%points',
+          defaultPoint: {
+            tooltip: '%SeriesName: <b>%yValue in</b>',
+            outline_width: 0,
+            marker_outline_width: 0
+          },
+          defaultAxis_alternateGridFill: 'none',
+          yAxis: [
+            {
+              id: 'y1',
+              defaultTick: {
+                label_text: '%value°F',
+                line_visible: false
+              },
+              scale_range: [0, 100]
+            },
+            {
+              id: 'y2',
+              orientation: 'right',
+              defaultTick: {
+                enabled: false
+                //label_text: '%value in'
+              },
+              scale_range: [0, 60]
+            }
+          ],
+          xAxis: {
+            scale: {
+              type: 'time',
+              interval: { unit: 'month', multiplier: 1 }
+            },
+            defaultTick_line_visible: false,
+            formatString: 'MMM',
+            crosshair_enabled: true
+          },
+          series: series
+        });
+      }
+
+      function makeSeries(data) {
+        var key = JSC.nest().key('month');
+        return [
+          {
+            name: 'Min/Max',
+            type: 'area spline',
+            yAxis: 'y1',
+            color: '#e0c8ff',
+            line_width: 0,
+            defaultPoint: {
+              tooltip: '%SeriesName: <b>{%yStart:n0}°F - {%yValue:n0}°F</b>',
+              marker_visible: false,
+              focusGlow_width: 0
+            },
+            points: key
+              .pointRollup(function(key, val) {
+                var values = val[0];
+                return {
+                  x: parseInt(key),
+                  y: [values.min_temp, values.max_temp]
+                };
+              })
+              .points(data)
+          },
+          {
+            name: 'Average',
+            color: '#a87dec',
+            line_color: 'currentColor',
+            type: 'line',
+            yAxis: 'y1',
+            defaultPoint: {
+              tooltip: '%SeriesName: <b>{%yValue:n0}°F</b>',
+
+              marker: {
+                type: 'circle',
+                fill: 'white',
+                outline: { width: 3, color: 'currentColor' }
+              }
+            },
+            points: key.rollup('avg_temp').points(data)
+          },
+          {
+            name: 'Precipitation',
+            type: 'column solid',
+            yAxis: 'y2',
+            color: '#8cc3ff',
+            points: key.rollup('precip').points(data)
+          },
+          {
+            name: 'Daily Max Precipitation',
+            type: 'marker',
+            yAxis: 'y2',
+            defaultPoint_marker_type: 'diamond',
+            color: '#6599ff',
+            points: key.rollup('max_precip').points(data)
+          }
+        ];
+      }
+    </script>
+  </body>
+</html>

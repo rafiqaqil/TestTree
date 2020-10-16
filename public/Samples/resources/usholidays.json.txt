@@ -1,0 +1,23 @@
+[
+	{ "pattern": { "month": 12, "day": 31, "weekday": 5 }, "name": "New Year's Day (observed)" },
+	{ "pattern": { "month": 1, "day": 1 }, "name": "New Year's Day" },
+	{ "pattern": { "month": 1, "day": 2, "weekday": 1 }, "name": "New Year's Day (observed)" },
+	{
+		"pattern": { "month": 1, "day_range": [15, 21], "weekday": 1 },
+		"name": "Martin Luther King Jr. Day"
+	},
+	{ "pattern": { "month": 2, "day_range": [15, 21], "weekday": 1 }, "name": "Presidents' Day" },
+	{ "pattern": { "month": 5, "day_range": [25, 31], "weekday": 1 }, "name": "Memorial Day" },
+	{ "pattern": { "month": 7, "day": 3, "weekday": 5 }, "name": "Independence Day (observed)" },
+	{ "pattern": { "month": 7, "day": 4 }, "name": "Independence Day" },
+	{ "pattern": { "month": 7, "day": 5, "weekday": 1 }, "name": "Independence Day (observed)" },
+	{ "pattern": { "month": 9, "day_range": [1, 7], "weekday": 1 }, "name": "Labor Day" },
+	{ "pattern": { "month": 10, "day_range": [8, 14], "weekday": 1 }, "name": "Columbus Day" },
+	{ "pattern": { "month": 11, "day": 10, "weekday": 5 }, "name": "Veterans Day (observed)" },
+	{ "pattern": { "month": 11, "day": 11 }, "name": "Veterans Day" },
+	{ "pattern": { "month": 11, "day": 12, "weekday": 1 }, "name": "Veterans Day (observed)" },
+	{ "pattern": { "month": 11, "day_range": [22, 28], "weekday":4 }, "name": "Thanksgiving" },
+	{ "pattern": { "month": 12, "day": 24, "weekday": 5 }, "name": "Christmas Day (observed)" },
+	{ "pattern": { "month": 12, "day": 25 }, "name": "Christmas Day" },
+	{ "pattern": { "month": 12, "day": 26, "weekday": 1 }, "name": "Christmas Day (observed)" }
+]

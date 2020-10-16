@@ -1,0 +1,35 @@
+<h2>Introduction</h2>
+        <p>
+            Enum settings are predefined text options. Enum chaining allows you to use multiple enum values chained
+            together in a single setting. Each enum option determines the subsequent enum options that can be
+            chained to it. This creates a tree of options and allows expressing settings that would have otherwise
+            required multiple properties in an unchained format. For example the chart type property specifies the main
+            chart type, but an associated default series type can be included (chained) to it in the same string setting. The goal
+            of enum chaining is to reduce the amount of code necessary to specify complex chart types and options.
+
+</p>
+<span class="tutorialImage">
+<img src="tutorials/images/EnumChaining.png"/>
+<em>Figure 1.</em>
+</span>
+
+<h2>Syntax</h2>
+
+<p>
+    The settings are not case sensitive and spaces are allowed between chained enum settings.
+</p>
+
+        <h2>Defaults</h2>
+<p>
+Enum properties have defaults that are assumed if not specified. For example, a setting for the chart property type
+    with no text: <span class="example">&#39;&#39;</span> is equivalent to the
+    <span class="example">&#39;vertical&#39;</span> setting.
+ </p>
+<p>
+A setting of <span class="example">&#39;marker&#39;</span> is equivalent to
+    <span class="example">&#39;vertical marker&#39;</span><br/>
+And <span class="example">&#39;vertical&#39;</span> is equivalent to <span class="example">&#39;vertical line&#39;</span>.
+ </p>
+<p></p>
+Defaults are always implied, so a setting of <span class="example">&#39;pie&#39;</span> is also equivalent
+to <span class="example">&#39;pie normal&#39;</span>

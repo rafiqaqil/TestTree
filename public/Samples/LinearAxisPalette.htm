@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Linear Gauge Axis ColorBars | JSCharting</title>
+    <meta http-equiv="content-type" content="text-html; charset=utf-8" />
+
+    <script type="text/javascript" src="../jsc/jscharting.js"></script>
+
+    <script type="text/javascript" src="../jsc/modules/types.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="css/default.css" />
+    <style type="text/css">
+      /*CSS*/
+    </style>
+  </head>
+  <body>
+    <div id="chartDiv" style="max-width: 740px;height: 400px;margin: 0px auto;"></div>
+
+    <script type="text/javascript">
+      /*
+SmartPalette applied to linear gauge axis lines.
+Learn how to:
+
+  - Draw a gauge simulating a live clock.
+*/
+      // JS
+      var chart = JSC.chart('chartDiv', {
+        debug: true,
+        defaultSeries_type: 'gauge linear vertical ',
+        yAxis: {
+          defaultTick_enabled: false,
+          customTicks: [350, 600, 700, 800, 850],
+          scale: { range: [350, 850] },
+          line: {
+            width: 5,
+            color: 'smartPalette',
+            breaks_gap: 0.03
+          }
+        },
+        legend_visible: false,
+        palette: {
+          pointValue: '%yValue',
+          ranges: [
+            { value: 350, color: '#FF5353' },
+            { value: 600, color: '#FFD221' },
+            { value: 700, color: '#77E6B4' },
+            { value: [800, 850], color: '#21D683' }
+          ]
+        },
+        defaultSeries: {
+          defaultPoint_tooltip: '<b>%seriesName Score:</b> %yValue',
+          shape_label: {
+            text: '%name',
+            verticalAlign: 'bottom',
+            style_fontSize: 15
+          }
+        },
+        series: [
+          { name: '2017', points: [['score', [350, 658]]] },
+          { name: '2018', points: [['score', [350, 688]]] },
+          { name: '2019', points: [['score', [350, 766]]] },
+          { name: '2020', points: [['score', [350, 812]]] }
+        ]
+      });
+    </script>
+  </body>
+</html>
