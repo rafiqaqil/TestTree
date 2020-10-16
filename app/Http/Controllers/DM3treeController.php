@@ -17,6 +17,52 @@ class DM3treeController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    
+        public function updateBalance()
+    {
+      
+      $all = \App\Models\DM3tree::all();
+    
+      
+      foreach($all as $d)
+      {
+          echo $d;
+          $keluarga =  \App\Models\DM3tree::descendantsOf($d)->count();
+          echo "<br>Keluarga : ".$keluarga;
+          echo "<br> ";
+          
+          $d['balance'] = $keluarga*10;
+          if($keluarga <= 3125)
+               $d['balance'] = $keluarga*10;
+          else
+              $d['balance'] = 31250;
+          $d->save();
+          
+      }
+    
+    }
+    
+     public function index2()
+    {
+       
+        $shops = DM3tree::get()->toTree();
+        $chart = DM3tree::all();
+        
+        //dd($chart->id);
+       // dd($chart->parent_id);
+        //dd($chart);
+        $jsondata = json_encode($shops);
+
+        
+
+        $jsondata = trim($jsondata, '[]');
+        $all = \App\Models\DM3tree::max('id');
+        //dd( $jsondata);
+         $levels = \App\Models\DM3tree::withDepth()->find($all);
+       //dd($levels->depth);
+        //dd( $jsondata);
+        return view('DM5.GoogleTree', compact('shops','jsondata','all','levels','chart'));
+    }
     public function index()
     {
         

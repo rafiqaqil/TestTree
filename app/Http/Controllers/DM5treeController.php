@@ -9,22 +9,56 @@ use App\User;
 
 class DM5treeController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    
-         public function __construct()
+    public function __construct()
     {
         $this->middleware('auth');
+    }
+
+    public function updateBalance()
+    {
+      $all = \App\Models\DM5tree::all();
+      foreach($all as $d)
+      {
+          echo $d;
+          $keluarga =  \App\Models\DM5tree::descendantsOf($d)->count();
+          echo "<br>Keluarga : ".$keluarga;
+          echo "<br> ";
+          
+         
+          if($keluarga <= 3125)
+               $d['balance'] = $keluarga*8;
+          else
+              $d['balance'] = 3125*8;
+          
+          $d['logs'] = $keluarga*2;
+          
+          $d->save();    
+      }
     }
     
     public function index()
     {
+        $shops = DM5tree::get()->toTree();
+        $jsondata = json_encode($shops);
+        $jsondata = trim($jsondata, '[]');
+        $all = \App\Models\DM5tree::max('id');
+        //dd( $jsondata);
+         $levels = \App\Models\DM5tree::withDepth()->find($all);
+       //dd($levels->depth);
+        //dd( $jsondata);
+        return view('DM5.TREE', compact('shops','jsondata','all','levels'));
+    }
+    
+        
+    public function index2()
+    {
        
         $shops = DM5tree::get()->toTree();
-
+        $chart = DM5tree::all();
+        
+        //dd($chart->id);
+       // dd($chart->parent_id);
+        //dd($chart);
         $jsondata = json_encode($shops);
 
         
@@ -35,8 +69,9 @@ class DM5treeController extends Controller
          $levels = \App\Models\DM5tree::withDepth()->find($all);
        //dd($levels->depth);
         //dd( $jsondata);
-        return view('DM5.TREE', compact('shops','jsondata','all','levels'));
+        return view('DM5.GoogleTree', compact('shops','jsondata','all','levels','chart'));
     }
+
 
     /**
      * Show the form for creating a new resource.
@@ -97,28 +132,47 @@ class DM5treeController extends Controller
          //dd(intval(\App\Models\DM5tree::max('id')/5-1,0));
         
       
-        for ($zzz = 1; $zzz <= 1000; $zzz++)    
+        for ($zzz = 1; $zzz <= 2; $zzz++)    
         {
-            
+            //dd(\App\Models\DM5tree::max('id')) ;
             
             $all = \App\Models\DM5tree::max('id');
-         $est = intval($all/5,0);
+         $est = intval($all/5-1,0);
          echo "<br> All Nodes:".$all;
          echo "<br> Next Parent : ".$est;
         $parent = null;
         $x = $est;
 
         while($parent == null) {
-            
-            $childs = \App\Models\DM5tree::descendantsOf($x)->count();
-            echo "</br>parent:".$x." HAS CHILD : ".$childs ;
-            
-         if($childs < 5){
-             $parent = \App\Models\DM5tree::where('id',$x)->first();
-             echo "</br>------------------------------------------------------------------------------------------------------------------------------------------------------------"; 
-             //dd($parent);
-         }
-         $x++;
+            echo "<br>Checking".$x;
+            $all = \App\Models\DM5tree::max('id');
+            if($all <= 3906){
+                $childs = \App\Models\DM5tree::descendantsOf($x)->count();
+                echo "</br>parent:".$x." HAS CHILD : ".$childs ;
+
+             if($childs < 5){
+                 $parent = \App\Models\DM5tree::where('id',$x)->first();
+                 echo "</br>------------------------------------------------------------------------------------------------------------------------------------------------------------"; 
+                 //dd($parent);
+             }
+             
+                 
+                 
+             }
+             else{
+                  $childs = \App\Models\DM5tree::descendantsOf($x)->count();
+                echo "</br>MAX parent:".$x." HAS CHILD : ".$childs ;
+
+             if($childs < 1){
+                 $parent = \App\Models\DM5tree::where('id',$x)->first();
+                 echo "</br>------------------------------------------------------------------------------------------------------------------------------------------------------------"; 
+                 //dd($parent);
+             }}
+                 
+           $x++;      
+                 
+                 
+             
          
         }
     

@@ -48,11 +48,15 @@ Route::get('/home', [HomeController::class, 'index'])->name('home');
   //DM5 ROUTESSS
 
 Route::get('/DM5', [DM5treeController::class , 'index']);
+Route::get('/DM5/Update', [DM5treeController::class , 'updateBalance']);
+Route::get('/DM5-G', [DM5treeController::class , 'index2']);
 Route::get('/DM5/tambahMember/{namaDia}', [DM5treeController::class , 'tambahMember']);
 Route::get('/DM5/tambahMemberSoftly/{namaDia}', [DM5treeController::class , 'tambahMemberSoftly']);
 
   //DM3 ROUTESSS
 
 Route::get('/DM3', [DM3treeController::class , 'index']);
+
+Route::get('/DM3-G', [DM3treeController::class , 'index2']);
 Route::get('/DM3/tambahMember/{namaDia}', [DM3treeController::class , 'tambahMember']);
 Route::get('/DM3/tambahMemberSoftly/{namaDia}', [DM3treeController::class , 'tambahMemberSoftly']);
