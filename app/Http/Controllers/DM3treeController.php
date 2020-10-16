@@ -18,12 +18,9 @@ class DM3treeController extends Controller
      * @return \Illuminate\Http\Response
      */
     
-        public function updateBalance()
+    public function updateBalance()
     {
-      
       $all = \App\Models\DM3tree::all();
-    
-      
       foreach($all as $d)
       {
           echo $d;
@@ -31,15 +28,16 @@ class DM3treeController extends Controller
           echo "<br>Keluarga : ".$keluarga;
           echo "<br> ";
           
-          $d['balance'] = $keluarga*10;
+         
           if($keluarga <= 3125)
-               $d['balance'] = $keluarga*10;
+               $d['balance'] = $keluarga*8;
           else
-              $d['balance'] = 31250;
-          $d->save();
+              $d['balance'] = 3125*8;
           
+          $d['logs'] = $keluarga*2;
+          
+          $d->save();    
       }
-    
     }
     
      public function index2()

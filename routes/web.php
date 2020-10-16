@@ -56,7 +56,7 @@ Route::get('/DM5/tambahMemberSoftly/{namaDia}', [DM5treeController::class , 'tam
   //DM3 ROUTESSS
 
 Route::get('/DM3', [DM3treeController::class , 'index']);
-
+Route::get('/DM3/Update', [DM3treeController::class , 'updateBalance']);
 Route::get('/DM3-G', [DM3treeController::class , 'index2']);
 Route::get('/DM3/tambahMember/{namaDia}', [DM3treeController::class , 'tambahMember']);
 Route::get('/DM3/tambahMemberSoftly/{namaDia}', [DM3treeController::class , 'tambahMemberSoftly']);

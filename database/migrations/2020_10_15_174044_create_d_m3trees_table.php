@@ -21,6 +21,14 @@ class CreateDM3treesTable extends Migration
              $table->foreignId('user_id');
              $table->decimal('balance', 8, 2);
              $table->longText('logs');
+             
+             $table->foreignId('DM5tree_id')->default(0);
+             
+             $table->integer('RE_ENTRY_TIMES')->default(0);;
+             $table->decimal('RE_ENTRY_BALANCE', 8, 2)->default(0.0);
+              $table->decimal('CASH_BALANCE', 8, 2)->default(0.0);
+              $table->decimal('REDEEM_BALANCE', 8, 2)->default(0.0);
+             
         });
     }
 
