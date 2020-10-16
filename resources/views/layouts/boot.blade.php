@@ -112,15 +112,15 @@
 
 
           <li class="nav-item">
-            <a class="nav-link" href="../../../../profile/{{ auth()->user()->id }}">
+            <a class="nav-link" href="{{env('absolute')}}/Myprofile">
               <i class="fas fa-fw fa-tachometer-alt"></i>
               <span>My Profile</span>
             </a>
           </li>
             <li class="nav-item">
-            <a class="nav-link" href="../../../../{{ auth()->user()->id }}/ProjectShow">
+            <a class="nav-link" href="{{env('absolute')}}/MyMembership">
               <i class="fas fa-fw fa-tachometer-alt"></i>
-              <span>My Data</span>
+              <span>Membership</span>
             </a>
           </li>
         <!-- 

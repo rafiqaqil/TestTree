@@ -63,4 +63,11 @@ Route::get('/DM3/tambahMemberSoftly/{namaDia}', [DM3treeController::class , 'tam
 use App\Http\Controllers\ProfileController;
 
 //PROFILE ROUTE
-Route::get('/profile', [ProfileController::class , 'index']);
+Route::get('/Myprofile', [ProfileController::class , 'index']);
+Route::get('/editMyProfile', [ProfileController::class , 'edit']);
+
+
+
+//Memebership ROUTES
+Route::get('/MyMembership', [ProfileController::class , 'index']);
+

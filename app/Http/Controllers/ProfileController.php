@@ -22,40 +22,13 @@ class ProfileController extends Controller
          
         $user = auth()->user();
         $profile = $user->profile();
-        dd($profile);
+        //dd($profile);
         
-        return view('profiles.index', compact('profile'));
+        return view('profiles.index', compact('profile','user'));
     
         
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Profile  $profile
-     * @return \Illuminate\Http\Response
-     */
     public function show(Profile $profile)
     {
         //
@@ -69,7 +42,10 @@ class ProfileController extends Controller
      */
     public function edit(Profile $profile)
     {
-        //
+        
+         $user = auth()->user();
+        //dd($user);
+           return view('profiles.edit', compact('profile','user'));
     }
 
     /**
