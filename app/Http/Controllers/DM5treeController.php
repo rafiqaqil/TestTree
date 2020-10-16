@@ -30,9 +30,12 @@ class DM5treeController extends Controller
         
 
         $jsondata = trim($jsondata, '[]');
-
+        $all = \App\Models\DM5tree::max('id');
         //dd( $jsondata);
-        return view('DM5.TREE', compact('shops','jsondata'));
+         $levels = \App\Models\DM5tree::withDepth()->find($all);
+       //dd($levels->depth);
+        //dd( $jsondata);
+        return view('DM5.TREE', compact('shops','jsondata','all','levels'));
     }
 
     /**
@@ -94,7 +97,7 @@ class DM5treeController extends Controller
          //dd(intval(\App\Models\DM5tree::max('id')/5-1,0));
         
       
-        for ($zzz = 1; $zzz <= 10; $zzz++)    
+        for ($zzz = 1; $zzz <= 1000; $zzz++)    
         {
             
             
