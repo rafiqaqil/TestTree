@@ -134,9 +134,9 @@
           
           @if ( (Auth::user()->email_verified_at) != null)
               <li class="nav-item">
-            <a class="nav-link" href="{{env('absolute')}}/ShowMyDataMaster">
+            <a class="nav-link" href="{{env('absolute')}}/manageNewPlans">
               <i class="fas fa-fw fa-table"></i>
-              <span>Master Claim Records</span></a>
+              <span>Plan Purchases</span></a>
           </li>
           @endif
         </ul>

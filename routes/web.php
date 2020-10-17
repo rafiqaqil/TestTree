@@ -75,3 +75,11 @@ Route::get('/PurchaseMembership/X', [MembershipController::class , 'buyMembershi
 Route::get('/PurchaseMembership/X1', [MembershipController::class , 'buyMembershipX1']);
 Route::get('/PurchaseMembership/X5', [MembershipController::class , 'buyMembershipX5']);
 
+
+
+use App\Http\Controllers\AdminMembershipController;
+//Admin Controllers
+Route::get('/manageNewPlans', [AdminMembershipController::class , 'manageNewPlans']);
+Route::get('/adminAction/{profile}/ApprovePayment', [AdminMembershipController::class , 'ApprovePlanPayment']);
+
+
