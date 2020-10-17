@@ -6,6 +6,13 @@ use Illuminate\Http\Request;
 
 class AdminMembershipController extends Controller
 {
+    
+    
+    
+         public function __construct()
+    {
+        $this->middleware('auth');
+    }
   
         public function manageNewPlans()
     {
@@ -79,10 +86,13 @@ class AdminMembershipController extends Controller
         ];
          
      //dd($DataAnakBaru);
-         
+         try{
           $anakBaru = \App\Models\sponsor::create($DataAnakBaru,\App\Models\sponsor::find(1));
           \App\Models\sponsor::fixTree();
-          //--------------------------------------------------------------------------------------------------------------------------------
+         }
+         
+         catch (\Exception $e){echo $e;}
+         ////--------------------------------------------------------------------------------------------------------------------------------
           ////--------------------------------------------------------------------------------------------------------------------------------
           //
           //ADD DM5 
@@ -244,6 +254,106 @@ class AdminMembershipController extends Controller
                                      
                                      
                                  }
+                                 
+                                 
+                                 
+             //addddddddddddddddddddd             dmmmmmmmmmm3 333333333
+                                 
+                                 
+          $all = \App\Models\DM3tree::all()->count();
+
+         $est = intval($all/3-1,0);
+         
+         if($est < 1)
+             $est = 1;
+         echo "<br> All Nodes:".$all;
+         echo "<br> Next Parent : ".$est;
+        $parent = null;
+        $x = $est;
+        $tries = 0;
+        while($tries < 1000) {
+            echo "<br>Checking".$x;
+            $all = \App\Models\DM3tree::all()->count();
+            if($all <= 3906){
+                $childs = \App\Models\DM3tree::descendantsOf($x)->count();
+                echo "</br>parent:".$x." HAS CHILD : ".$childs ;
+
+             if($childs < 5){
+                 $parent = \App\Models\DM3tree::where('id',$x)->first();
+                 echo "</br>------------------------------------------------------------------------------------------------------------------------------------------------------------"; 
+               
+             }
+             
+                 
+                 
+             }
+             else{
+                  $childs = \App\Models\DM3tree::descendantsOf($x)->count();
+                echo "</br>MAX parent:".$x." HAS CHILD : ".$childs ;
+
+             if($childs < 1){
+                 $parent = \App\Models\DM3tree::where('id',$x)->first();
+                 echo "</br>------------------------------------------------------------------------------------------------------------------------------------------------------------"; 
+                
+             }}     
+           $x++;  
+           $tries++;
+            if($parent != null)
+            $tries = $tries+ 1000;
+
+        }
+    
+        //dd($parent);
+        
+        //dd(DM5tree::descendantsAndSelf($id));
+        
+       // dd(auth()->user());
+        
+        
+         $MemberBaru = [
+          
+                    'name' => $newMember->username,
+                     'user_id' => $newMember->id,
+                     'balance' => 0,
+                     'logs' => '0',
+             //'parent_id' => $parent->id,    
+        ];
+         
+         //dd($MemberBaru);
+     //dd($parent);
+         
+        \App\Models\DM3tree::create($MemberBaru,$parent);
+        
+                                     
+                                     
+                                     
+                                     
+                                     
+                                 
+                                 
+                                 
+                                 
+                                 
+                                 
+                                 
+                                 
+                                 
+                                 
+                                 
+                                 
+                                 
+                                 
+                                 
+                                 
+                                 
+                                 
+                                 
+                                 
+                                 
+                                 
+                                 
+                                 
+                                 
                                  
              }
                         
