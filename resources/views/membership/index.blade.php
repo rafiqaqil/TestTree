@@ -8,23 +8,11 @@
                                 <div class="card shadow-lg border-0 rounded-lg mt-5 ">
                                     <div class="card-header"><h3 class="text-center font-weight-light my-4">My Membership Plan</h3></div>
                                     <div class="card-body">
-        
+         @if($user->profile->paid == 0)
             @if($user->profile->membership_type == 0 )
-            <h1>Welcome New user</h1>
+            <h3>Welcome New user please sign up for a plan to experience the full extent of digital marketing</h3>
             
-            @endif
-           
-           <div class=" font-weight-bold">membership_type: {{ $user->profile->membership_type }}</div> 
-           <div class=" font-weight-bold">membership_paid: {{ $user->profile->membership_paid }}</div> 
-         
-                <div class=" font-weight-bold">affiliate_type: {{ $user->profile->affiliate_type }}</div> 
-           <div class=" font-weight-bold">affiliate_paid: {{ $user->profile->affiliate_paid }}</div> 
-
-                     
-            <!DOCTYPE html>
-<html>
-<head>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+           <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <style>
 * {
   box-sizing: border-box;
@@ -103,7 +91,7 @@
 <div class="columns">
   <ul class="price">
     <li class="header" style="background-color:#4CAF50">DM5-X1 Premium</li>
-    <li class="grey">$ 200</li>
+    <li class="grey">$ 210</li>
    <li>Premium Access</li>
       <li>1 x DM5</li>
     <li>-</li>
@@ -124,6 +112,28 @@
     <li class="grey"><a href="{{env('absolute')}}/PurchaseMembership/X5" class="button">Sign Up</a></li>
   </ul>
 </div>
+
+            @elseif($user->profile->membership_type == 10 )
+            <h3>Thank you for choosing the basic plan, please make payment of {{$user->profile->membership_type}} USD to our merchantrade account of USDT </h3>
+            <a href="{{env('absolute')}}/PurchaseMembership/Clear" class="btn btn-danger">Cancel Order</a>
+             @else
+            <h3>Thank you for choosing a plan, please make payment of {{$user->profile->membership_type}} USD to our merchantrade account of USDT </h3>
+             <a href="{{env('absolute')}}/PurchaseMembership/Clear" class="btn btn-danger">Cancel Order</a>
+            <small> 
+            Please include your contact information to avoid any problems
+            </small>
+            @endif
+        
+           @endif
+           
+           <!--
+                <div class=" font-weight-bold">affiliate_type: {{ $user->profile->affiliate_type }}</div> 
+           <div class=" font-weight-bold"> affiliate_paid: {{ $user->profile->affiliate_paid }}</div> 
+-->
+                     
+            <!DOCTYPE html>
+<html>
+<head>
 
 
   

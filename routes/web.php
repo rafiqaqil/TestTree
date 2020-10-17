@@ -70,6 +70,7 @@ Route::patch('/UpdateProfile/{user}', [ProfileController::class , 'UpdateProfile
 use App\Http\Controllers\MembershipController;
 //Memebership ROUTES
 Route::get('/MyMembership', [MembershipController::class , 'index']);
+Route::get('/PurchaseMembership/Clear', [MembershipController::class , 'buyMembershipClear']);
 Route::get('/PurchaseMembership/X', [MembershipController::class , 'buyMembershipX']);
 Route::get('/PurchaseMembership/X1', [MembershipController::class , 'buyMembershipX1']);
 Route::get('/PurchaseMembership/X5', [MembershipController::class , 'buyMembershipX5']);
