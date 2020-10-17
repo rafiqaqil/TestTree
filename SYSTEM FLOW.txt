@@ -1,0 +1,23 @@
+Registration Process and PLAN PURCHASE
+
+1.User Register
+->Default Profile
+membership_plan = 0 
+membership_paid = fasle
+2.User Pick Plan
+-> SYSTEM EDIT PROFILE -> membership_plan -> 10 / 200 / 1000
+3.User PAY FOR PLAN (pHYSICALLY)
+
+4.Admin recieved cash fro plan (Physically)
+5.Admin - approve payment
+-> SYSTEM EDIT PROFILE -> membership_paid -> True
+6.admin - approve placement in tree dm5 dm3
+->SYSTEM
+if(Package 200USD) 
+add sponsor node
+add DM5 node X 1
+if(Package 1000USD) 
+add sponsor node
+add DM5 node X 5
+add DM3 node X 1
+
