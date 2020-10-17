@@ -137,7 +137,7 @@ class DM3treeController extends Controller
          //dd(intval(\App\Models\DM5tree::max('id')/5-1,0));
         
       
-        for ($zzz = 1; $zzz <= 1000; $zzz++)    
+        for ($zzz = 1; $zzz <= 1; $zzz++)    
         {
             
             

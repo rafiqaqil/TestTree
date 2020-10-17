@@ -33,6 +33,7 @@ use App\Http\Controllers\newContol;
 
 Route::get('/NewC', [newContol::class , 'index']);
 Route::get('/sponsor', [newContol::class , 'index2']);
+
 Route::get('/{aku}/keluargaku', [newContol::class , 'keluargaku']);
 Route::get('/{parent}/buatanak/', [newContol::class , 'buatanak']);
 Route::get('/{aku}/punyaAtok/', [newContol::class , 'punyaAtok']);
@@ -83,3 +84,6 @@ Route::get('/manageNewPlans', [AdminMembershipController::class , 'manageNewPlan
 Route::get('/adminAction/{profile}/ApprovePayment', [AdminMembershipController::class , 'ApprovePlanPayment']);
 
 
+
+
+Route::get('/sponsor-G', [App\Http\Controllers\SponsorController::class , 'index3']);

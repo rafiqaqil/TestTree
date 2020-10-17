@@ -12,9 +12,25 @@ class SponsorController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index3()
     {
-        //
+            $shops = \App\Models\sponsor::get()->toTree();
+        $chart = \App\Models\sponsor::all();
+        
+        //dd($chart->id);
+       // dd($chart->parent_id);
+        //dd($chart);
+        $jsondata = json_encode($shops);
+
+        
+
+        $jsondata = trim($jsondata, '[]');
+        $all = \App\Models\sponsor::max('id');
+        //dd( $jsondata);
+         $levels = \App\Models\sponsor::withDepth()->find($all);
+       //dd($levels->depth);
+        //dd( $jsondata);
+        return view('DM5.GoogleTree', compact('shops','jsondata','all','levels','chart'));
     }
 
     /**
