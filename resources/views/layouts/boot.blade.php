@@ -123,6 +123,25 @@
               <span>Membership</span>
             </a>
           </li>
+              <li class="nav-item">
+            <a class="nav-link" href="{{env('absolute')}}/MyDM3">
+              <i class="fas fa-fw fa-tachometer-alt"></i>
+              <span>DM3</span>
+            </a>
+          </li>
+                <li class="nav-item">
+            <a class="nav-link" href="{{env('absolute')}}/MyDM5">
+              <i class="fas fa-fw fa-tachometer-alt"></i>
+              <span>DM5</span>
+            </a>
+          </li>
+           </li>
+                <li class="nav-item">
+            <a class="nav-link" href="{{env('absolute')}}/MySponsor">
+              <i class="fas fa-fw fa-tachometer-alt"></i>
+              <span>Sponsor</span>
+            </a>
+          </li>
         <!-- 
           <li class="nav-item">
             <a class="nav-link" href="{{env('absolute')}}/profile/{{ auth()->user()->id }}/ShowMyData">
@@ -137,6 +156,11 @@
             <a class="nav-link" href="{{env('absolute')}}/manageNewPlans">
               <i class="fas fa-fw fa-table"></i>
               <span>Plan Purchases</span></a>
+          </li>
+             <li class="nav-item">
+            <a class="nav-link" href="{{env('absolute')}}/ManagePlacements">
+              <i class="fas fa-fw fa-table"></i>
+              <span>Placements</span></a>
           </li>
            <li class="nav-item">
             <a class="nav-link" href="{{env('absolute')}}/DM5-G">

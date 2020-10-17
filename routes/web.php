@@ -82,8 +82,8 @@ use App\Http\Controllers\AdminMembershipController;
 //Admin Controllers
 Route::get('/manageNewPlans', [AdminMembershipController::class , 'manageNewPlans']);
 Route::get('/adminAction/{profile}/ApprovePayment', [AdminMembershipController::class , 'ApprovePlanPayment']);
-
-
+Route::get('/ManagePlacements', [AdminMembershipController::class , 'ManagePlacements']);
+Route::get('/adminAction/{profile}/ApprovePlacement', [AdminMembershipController::class , 'ApprovePlacement']);
 
 
 Route::get('/sponsor-G', [App\Http\Controllers\SponsorController::class , 'index3']);

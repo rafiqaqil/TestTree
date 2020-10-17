@@ -132,8 +132,7 @@ class DM5treeController extends Controller
          //dd(intval(\App\Models\DM5tree::max('id')/5-1,0));
         
       
-        for ($zzz = 1; $zzz <= 2; $zzz++)    
-        {
+       
             //dd(\App\Models\DM5tree::max('id')) ;
             
             $all = \App\Models\DM5tree::max('id');
@@ -167,13 +166,8 @@ class DM5treeController extends Controller
                  $parent = \App\Models\DM5tree::where('id',$x)->first();
                  echo "</br>------------------------------------------------------------------------------------------------------------------------------------------------------------"; 
                  //dd($parent);
-             }}
-                 
+             }}     
            $x++;      
-                 
-                 
-             
-         
         }
     
         //dd($parent);
@@ -197,7 +191,7 @@ class DM5treeController extends Controller
         
          //dd($MemberBaru);
          
-        }
+        
          return redirect('/DM5');
          
     }
