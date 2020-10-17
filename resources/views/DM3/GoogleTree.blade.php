@@ -3,7 +3,7 @@
 
 <body>
     <h1>Total Members {{ $all }}</h1>
-    <h1>Levels {{ $levels}}</h1>
+    <h1>Levels {{ $levels->depth }}</h1>
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
        <div id="chart_div"></div>
 
