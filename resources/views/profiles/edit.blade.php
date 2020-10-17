@@ -2,12 +2,9 @@
 
 @section('content')
 <div class="container">
-    <form action="/UpdateProfile/{{ $user->id }}" enctype="multipart/form-data" method="post">
+    <form action="/UpdateProfile/{{ $user->profile->id }}" enctype="multipart/form-data" method="post">
         @csrf
         @method('PATCH')
-        <input name="url"  id="url"  hidden=true value="Not Required" > 
-        <input name="SSM" id="SSM" hidden=true value="Not Required" > 
-        <input name="Adress" id="Adress" hidden=true value="Not Required" > 
 
         <div class="row">
             <div class="col-8 offset-2">
@@ -15,136 +12,130 @@
                 <div class="row">
                     <h1>Edit My Profile</h1>
                 </div>
-                <div class="form-group row">
-                    <label for="title" class="col-md-4 col-form-label">Name</label>
+                
+                    <div class="form-group row">
+                    <label for="name" class="col-md-4 col-form-label">name</label>
 
-                    <input id="title"
+                    <input id="name"
                            type="text"
-                           class="form-control{{ $errors->has('title') ? ' is-invalid' : '' }}"
-                           name="title"
-                           value="{{ old('title') ?? $user->profile->title }}"
+                           class="form-control{{ $errors->has('name') ? ' is-invalid' : '' }}"
+                           name="name"
+                           value="{{ old('name') ?? $user->profile->name }}"
                            autocomplete="title" autofocus>
 
-                    @if ($errors->has('title'))
+                    @if ($errors->has('name'))
                         <span class="invalid-feedback" role="alert">
-                            <strong>{{ $errors->first('title') }}</strong>
+                            <strong>{{ $errors->first('name') }}</strong>
                         </span>
                     @endif
                 </div>
+              <div class="form-group row">
+                    <label for="phone" class="col-md-4 col-form-label">phone</label>
 
-                <div class="form-group row">
-                    <label for="description" class="col-md-4 col-form-label">Current Position</label>
-
-                    <input id="description"
+                    <input id="phone"
                            type="text"
-                           class="form-control{{ $errors->has('description') ? ' is-invalid' : '' }}"
-                           name="description"
-                           value="{{ old('description') ?? $user->profile->description }}"
-                           autocomplete="description" autofocus>
+                           class="form-control{{ $errors->has('phone') ? ' is-invalid' : '' }}"
+                           name="phone"
+                           value="{{ old('phone') ?? $user->profile->phone }}"
+                           autocomplete="title" autofocus>
 
-                    @if ($errors->has('description'))
+                    @if ($errors->has('phone'))
                         <span class="invalid-feedback" role="alert">
-                            <strong>{{ $errors->first('description') }}</strong>
+                            <strong>{{ $errors->first('phone') }}</strong>
                         </span>
                     @endif
                 </div>
                 
-                   <div class="form-group row">
-                    <label for="contact" class="col-md-4 col-form-label">Email</label>
+                
+                        <div class="form-group row">
+                    <label for="email" class="col-md-4 col-form-label">email</label>
 
-                    <input id="contact"
+                    <input id="email"
                            type="text"
-                           class="form-control{{ $errors->has('contact') ? ' is-invalid' : '' }}"
-                           name="contact"
-                           value="{{ old('contact') ?? $user->profile->contact }}"
-                           autocomplete="contact" autofocus>
+                           class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }}"
+                           name="email"
+                           value="{{ old('email') ?? $user->profile->email }}"
+                           autocomplete="title" autofocus>
 
-                    @if ($errors->has('contact'))
+                    @if ($errors->has('email'))
                         <span class="invalid-feedback" role="alert">
-                            <strong>{{ $errors->first('contact') }}</strong>
+                            <strong>{{ $errors->first('email') }}</strong>
                         </span>
                     @endif
                 </div>
                 
-                   <div class="form-group row">
-                    <label for="location" class="col-md-4 col-form-label">Company</label>
+                
+                    <div class="form-group row">
+                    <label for="national_id" class="col-md-4 col-form-label">national_id</label>
 
-                    <input id="location"
+                    <input id="national_id"
                            type="text"
-                           class="form-control{{ $errors->has('location') ? ' is-invalid' : '' }}"
-                           name="location"
-                           value="{{ old('location') ?? $user->profile->location }}"
-                           autocomplete="location" autofocus>
+                           class="form-control{{ $errors->has('national_id') ? ' is-invalid' : '' }}"
+                           name="national_id"
+                           value="{{ old('national_id') ?? $user->profile->national_id }}"
+                           autocomplete="title" autofocus>
 
-                    @if ($errors->has('location'))
+                    @if ($errors->has('national_id'))
                         <span class="invalid-feedback" role="alert">
-                            <strong>{{ $errors->first('location') }}</strong>
+                            <strong>{{ $errors->first('national_id') }}</strong>
                         </span>
                     @endif
                 </div>
                 
-                    <!--
-                <div class="form-group row">
-                    <label for="url" class="col-md-4 col-form-label">URL</label>
-
-                    <input id="url"
-                           type="text"
-                           class="form-control{{ $errors->has('url') ? ' is-invalid' : '' }}"
-                           name="url"
-                           value="{{ old('url') ?? $user->profile->url }}"
-                           autocomplete="url" autofocus>
-
-                    @if ($errors->has('url'))
-                        <span class="invalid-feedback" role="alert">
-                            <strong>{{ $errors->first('url') }}</strong>
-                        </span>
-                    @endif
-                </div>
-
                 
-                       <div class="form-group row">
-                    <label for="SSM" class="col-md-4 col-form-label">SSM</label>
+                
+                    <div class="form-group row">
+                    <label for="country" class="col-md-4 col-form-label">country</label>
 
-                    <input id="SSM"
+                    <input id="country"
                            type="text"
-                           class="form-control{{ $errors->has('SSM') ? ' is-invalid' : '' }}"
-                           name="SSM"
-                           value="{{ old('SSM') ?? $user->profile->SSM }}"
-                           autocomplete="SSM" autofocus>
+                           class="form-control{{ $errors->has('country') ? ' is-invalid' : '' }}"
+                           name="country"
+                           value="{{ old('country') ?? $user->profile->country }}"
+                           autocomplete="title" autofocus>
 
-                    @if ($errors->has('SSM'))
+                    @if ($errors->has('country'))
                         <span class="invalid-feedback" role="alert">
-                            <strong>{{ $errors->first('SSM') }}</strong>
+                            <strong>{{ $errors->first('country') }}</strong>
                         </span>
                     @endif
                 </div>
-                  <div class="form-group row">
-                    <label for="Adress" class="col-md-4 col-form-label">Adress</label>
+                
+                    <div class="form-group row">
+                    <label for="merchantrade_acc" class="col-md-4 col-form-label">merchantrade_acc</label>
 
-                    <input id="Adress"
+                    <input id="merchantrade_acc"
                            type="text"
-                           class="form-control{{ $errors->has('Adress') ? ' is-invalid' : '' }}"
-                           name="Adress"
-                           value="{{ old('Adress') ?? $user->profile->Adress }}"
-                           autocomplete="Adress" autofocus>
+                           class="form-control{{ $errors->has('merchantrade_acc') ? ' is-invalid' : '' }}"
+                           name="merchantrade_acc"
+                           value="{{ old('merchantrade_acc') ?? $user->profile->merchantrade_acc }}"
+                           autocomplete="title" autofocus>
 
-                    @if ($errors->has('Adress'))
+                    @if ($errors->has('merchantrade_acc'))
                         <span class="invalid-feedback" role="alert">
-                            <strong>{{ $errors->first('Adress') }}</strong>
+                            <strong>{{ $errors->first('merchantrade_acc') }}</strong>
                         </span>
                     @endif
                 </div>
-                   
-                <div class="row">
-                    <label for="image" class="col-md-4 col-form-label">Profile Image</label>
+                
+                    <div class="form-group row">
+                    <label for="usdt_wallet" class="col-md-4 col-form-label">usdt_wallet</label>
 
-                    <input type="file" class="form-control-file" id="image" name="image">
+                    <input id="usdt_wallet"
+                           type="text"
+                           class="form-control{{ $errors->has('usdt_wallet') ? ' is-invalid' : '' }}"
+                           name="usdt_wallet"
+                           value="{{ old('usdt_wallet') ?? $user->profile->usdt_wallet }}"
+                           autocomplete="title" autofocus>
 
-                    @if ($errors->has('image'))
-                        <strong>{{ $errors->first('image') }}</strong>
+                    @if ($errors->has('usdt_wallet'))
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $errors->first('usdt_wallet') }}</strong>
+                        </span>
                     @endif
                 </div>
- -->
+                
+
                 <div class="row pt-4">
                     <button class="btn btn-primary">Save Profile</button>
                 </div>

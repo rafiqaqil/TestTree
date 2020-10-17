@@ -55,9 +55,26 @@ class ProfileController extends Controller
      * @param  \App\Models\Profile  $profile
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Profile $profile)
+    public function UpdateProfile(Profile $profile)
     {
-        //
+        
+        
+      $data = request()->validate([
+
+              'name' => '',
+              'phone' => '',
+              'email' => '',
+              'national_id' => '',
+              'country' => '',
+              'merchantrade_acc' => '',
+              'usdt_wallet' => '',
+        ]);
+      
+      auth()->user()->profile->update($data);
+      
+      
+      dd( auth()->user()->profile);
+       
     }
 
     /**

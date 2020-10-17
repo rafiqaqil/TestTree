@@ -12,11 +12,22 @@
             <a href="{{env('absolute')}}/editMyProfile"><button class="btn btn-info">Edit Profile</button></a>
           
               
-            <div class="h6"><br>ID : {{ $user->username }}</div>
-            <div class=" font-weight-bold">Name :{{ $user->profile->title }}</div>
-            <div class=" font-weight-bold" >Company: {{ $user->profile->description }}</div>
-            <div class="font-weight-bold" >Current Position: {{ $user->profile->location }}</div>
-            <div class=" font-weight-bold">Email: {{ $user->profile->contact }}</div> 
+            <div class="h6"><br>Username : {{ $user->username }}</div>
+            <div class=" font-weight-bold">Name :{{ $user->profile->name }}</div>
+            <div class=" font-weight-bold" >phone: {{ $user->profile->phone }}</div>
+            <div class="font-weight-bold" >email Position: {{ $user->profile->email }}</div>
+               <div class=" font-weight-bold">national_id: {{ $user->profile->national_id }}</div> 
+            
+            
+                  <div class=" font-weight-bold">merchantrade_acc: {{ $user->profile->merchantrade_acc }}</div> 
+            
+            
+                     <div class=" font-weight-bold">usdt_wallet: {{ $user->profile->usdt_wallet }}</div> 
+            
+            
+                     
+            
+  
        <!--     
             
                    
