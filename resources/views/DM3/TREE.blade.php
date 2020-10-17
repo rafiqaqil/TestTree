@@ -22,7 +22,7 @@
 
 <body>
     <h1>Total Members {{ $all }}</h1>
-    <h1>Levels {{ $levels->depth-1 }}</h1>
+    <h1>Levels {{ $levels }}</h1>
     
     <a href="http://127.0.0.1:8000/DM3/tambahMember/oRANGBaru "><button type="submit" value="dfsd" >ADD NEW MEMBER</button></a>
     <a href="http://127.0.0.1:8000/DM3/tambahMemberSoftly/oRANGBaru "><button type="submit" value="dfsd" >ADD Softly</button></a>
@@ -34,7 +34,7 @@ var treeData =  <?php echo $jsondata ?>;
 
 // Set the dimensions and margins of the diagram
 var margin = {top: 20, right: 90, bottom: 30, left: 90},
-    width = {{$levels->depth*300}}- margin.left - margin.right,
+    width = {{$levels*300}}- margin.left - margin.right,
     height = {{$all*20}} - margin.top - margin.bottom;
     //width = 76800 - margin.left - margin.right,
     //height = 43200 - margin.top - margin.bottom;
