@@ -8,7 +8,7 @@
                                 <div class="card shadow-lg border-0 rounded-lg mt-5 ">
                                     <div class="card-header"><h3 class="text-center font-weight-light my-4">My Membership Plan</h3></div>
                                     <div class="card-body">
-         @if($user->profile->paid == 0)
+         @if($user->profile->membership_paid == 0)
             @if($user->profile->membership_type == 0 )
             <h3>Welcome New user please sign up for a plan to experience the full extent of digital marketing</h3>
             
@@ -123,7 +123,16 @@
             Please include your contact information to avoid any problems
             </small>
             @endif
-        
+           
+            
+            @else
+             <h3>Your payment have been recieved & approved please allow some time for our server to apply your placements.</h3>
+             
+             <br>
+             <div class="btn btn-info">Plan : {{$user->profile->membership_type}} USD </div>
+              <div class="btn btn-success">Payment Successful </div>
+             
+             
            @endif
            
            <!--
