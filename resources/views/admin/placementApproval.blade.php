@@ -63,10 +63,10 @@
                       @if($d->affiliate_paid != 1)
                        {{$d->membership_type}} USD 
                         
-                         <a href="{{env('absolute')}}/adminAction/{{$d->id}}/ApprovePlacement"><button class="btn btn-info">Approve Payment</button></a> 
+                         <a href="{{env('absolute')}}/adminAction/{{$d->id}}/ApprovePlacement"><button class="btn btn-info">Confirm Placement</button></a> 
                         
                         @else
-                        <button class="btn btn-success">Approved</button>
+                        <button class="btn btn-success">Placement Done</button>
                         
                         
                         @endif

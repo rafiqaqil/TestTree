@@ -64,11 +64,17 @@ class AdminMembershipController extends Controller
           // dd($all);
          //dd($profile);
          
-            
-            
+         $sponsor = \App\Models\User::all()->where('username','=',$profile->affiliate_sponsor)->first();
+              
+         //dd($sponsor); 
+         if($sponsor->id == $profile->user_id)
+             $sponsor = null;
+         
+       
+         
          $newMember = \App\Models\User::find($profile->user_id);
              
-         // dd($newMember);       
+           
           //dd($newMember->username); 
                     if( $profile['affiliate_paid']==0)
                     {
@@ -87,7 +93,23 @@ class AdminMembershipController extends Controller
          
      //dd($DataAnakBaru);
          try{
-          $anakBaru = \App\Models\sponsor::create($DataAnakBaru,\App\Models\sponsor::find(1));
+             
+              //dd($sponsor);
+             
+             if($sponsor != null)
+             {
+              $SponsorParent = \App\Models\sponsor::all()->where('user_id',$sponsor->id)->first();
+             echo 'sponsorFound'.$sponsor ;
+              
+             }
+             else
+             {
+                 $SponsorParent = \App\Models\sponsor::find(1);
+                  echo 'No Sponsor';
+             }
+              
+             // dd($SponsorParent);
+          $anakBaru = \App\Models\sponsor::create($DataAnakBaru,$SponsorParent);
           \App\Models\sponsor::fixTree();
          }
          

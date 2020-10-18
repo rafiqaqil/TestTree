@@ -7,7 +7,12 @@
         <div class="col-12 pt-2" align="left">
                                 <div class="card shadow-lg border-0 rounded-lg mt-5 ">
                                     <div class="card-header"><h3 class="text-center font-weight-light my-4">My Membership Plan
-                                        <br><br>
+                         
+                                     
+                                        </h3></div>
+                                    <div class="card-body">
+         @if($user->profile->membership_paid == 0)
+                        <br><br>
                                         @if(Session::has('message'))       <div class="alert alert-info">         {{Session::get('message')}}       </div>     @endif
                                         <br>My Sponsor : 
                                   
@@ -35,13 +40,10 @@
                                                 <button class="btn btn-primary">Apply Sponsor</button>
                                          
                                          </form>
-                                     
-                                        </h3></div>
-                                    <div class="card-body">
-         @if($user->profile->membership_paid == 0)
+         
             @if($user->profile->membership_type == 0 )
             <h3>Welcome New user please sign up for a plan to experience the full extent of digital marketing</h3>
-            
+           
            <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <style>
 * {
@@ -158,10 +160,12 @@
             @else
              <h3>Your payment have been recieved & approved please allow some time for our server to apply your placements.</h3>
              
-             <br>
+             <br> Details : <br>
              <div class="btn btn-info">Plan : {{$user->profile->membership_type}} USD </div>
               <div class="btn btn-success">Payment Successful </div>
+               <div class="btn btn-success"> Sponsor : {{ $user->profile->affiliate_sponsor }} </div>
              
+           
              
            @endif
            
