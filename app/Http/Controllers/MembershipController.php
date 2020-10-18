@@ -70,4 +70,25 @@ class MembershipController extends Controller
     }
     
     
+    
+    
+      public function UpdateSponsor(\App\Models\Profile $profile)
+    { 
+        $user = auth()->user();
+    
+            $data = request()->validate([
+
+              'affiliate_sponsor' => 'exists:users,username']);
+           
+            
+            
+            
+            
+            
+        $profile['affiliate_sponsor']=$data['affiliate_sponsor'];
+         //dd($temp['membership_type']);
+        $profile->save();
+        
+        return view('membership.index', compact('profile','user'))->with('message', 'Successfully Updated!');;  
+    }
 }

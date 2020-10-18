@@ -6,7 +6,37 @@
      
         <div class="col-12 pt-2" align="left">
                                 <div class="card shadow-lg border-0 rounded-lg mt-5 ">
-                                    <div class="card-header"><h3 class="text-center font-weight-light my-4">My Membership Plan</h3></div>
+                                    <div class="card-header"><h3 class="text-center font-weight-light my-4">My Membership Plan
+                                        <br><br>
+                                        @if(Session::has('message'))       <div class="alert alert-info">         {{Session::get('message')}}       </div>     @endif
+                                        <br>My Sponsor : 
+                                  
+                                     
+                                           <form action="{{env('absolute')}}/UpdateSponsor/{{ $user->profile->id }}" enctype="multipart/form-data" method="post">
+                                            @csrf
+                                            @method('PATCH')
+
+                                            <div class="form-group row">
+                                                      
+                                                               <input id="affiliate_sponsor"
+                                                                      type="text"
+                                                                      class="form-control{{ $errors->has('affiliate_sponsor') ? ' is-invalid' : '' }}"
+                                                                      name="affiliate_sponsor"
+                                                                      value=" {{$user->profile->affiliate_sponsor }}"
+                                                                      autocomplete="title" autofocus>
+
+                                                               @if ($errors->has('affiliate_sponsor'))
+                                                                   <span class="invalid-feedback" role="alert">
+                                                                       <strong>{{ $errors->first('affiliate_sponsor') }}</strong>
+                                                                   </span>
+                                                               @endif
+                                                           </div>
+                             
+                                                <button class="btn btn-primary">Apply Sponsor</button>
+                                         
+                                         </form>
+                                     
+                                        </h3></div>
                                     <div class="card-body">
          @if($user->profile->membership_paid == 0)
             @if($user->profile->membership_type == 0 )

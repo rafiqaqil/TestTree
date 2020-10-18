@@ -34,6 +34,7 @@ class CreateProfilesTable extends Migration
             
             $table->string('affiliate_type')->default(0);
             $table->boolean('affiliate_paid')->default(0);
+             $table->string('affiliate_sponsor')->default(0);
             
             
             $table->string('S1')->nullable();
