@@ -28,6 +28,9 @@ class CreateDM3treesTable extends Migration
              $table->decimal('RE_ENTRY_BALANCE', 8, 2)->default(0.0);
               $table->decimal('CASH_BALANCE', 8, 2)->default(0.0);
               $table->decimal('REDEEM_BALANCE', 8, 2)->default(0.0);
+              
+             $table->string('ENTRY_TYPE')->default('UNDEFINED');//DM5 GROWTH AUTO RE-ENTRY OR 1000USD AUTO IN 5
+             $table->string('DM5_ID')->default('UNDEFINED');
              
         });
     }
