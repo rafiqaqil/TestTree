@@ -123,6 +123,8 @@
               <span>Membership</span>
             </a>
           </li>
+          
+          @if(auth()->user()->profile->affiliate_paid == 1)
               <li class="nav-item">
             <a class="nav-link" href="{{env('absolute')}}/MyDM3">
               <i class="fas fa-fw fa-tachometer-alt"></i>
@@ -142,6 +144,7 @@
               <span>Sponsor</span>
             </a>
           </li>
+          @endif
         <!-- 
           <li class="nav-item">
             <a class="nav-link" href="{{env('absolute')}}/profile/{{ auth()->user()->id }}/ShowMyData">

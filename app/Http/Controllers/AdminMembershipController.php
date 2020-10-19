@@ -88,6 +88,8 @@ class AdminMembershipController extends Controller
                     'name' => $newMember->username,
                      'user_id' => $newMember->id,
                      'balance' => 0,
+                                 
+                                 
                      'logs' => '0',   
         ];
          

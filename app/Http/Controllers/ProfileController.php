@@ -73,7 +73,7 @@ class ProfileController extends Controller
       auth()->user()->profile->update($data);
       
       
-      dd( auth()->user()->profile);
+      //dd( auth()->user()->profile);
        
     }
 
@@ -83,6 +83,80 @@ class ProfileController extends Controller
      * @param  \App\Models\Profile  $profile
      * @return \Illuminate\Http\Response
      */
+    
+    
+     public function MySponsor()
+    {
+         
+         $user = auth()->user()->id;
+         //dd($user);
+         $aku = \App\Models\sponsor::all()->where('user_id',$user)->first();
+         //dd($aku);
+        $shops = \App\Models\sponsor::descendantsAndSelf($aku->id)->toTree()->first();
+        $jsondata = json_encode($shops);      
+        $jsondata = trim($jsondata, '[]');
+         $all = \App\Models\sponsor::descendantsAndSelf($aku->id)->count();
+         $lastnode = \App\Models\sponsor::descendantsAndSelf($aku->id)->max('id');
+         //dd($lastnode);
+         $levels = \App\Models\sponsor::withDepth()->find($lastnode);
+        return view('Sponsor.MiniTree', compact('shops','jsondata','all','levels'));
+    }
+    
+         public function MyDM3()
+    {
+         
+         $user = auth()->user()->id;
+         //dd($user);
+         $aku = \App\Models\DM3tree::all()->where('user_id',$user)->first();
+         //dd($aku);
+         
+         if($aku == null)
+             return redirect('/home');
+        $shops = \App\Models\DM3tree::descendantsAndSelf($aku->id)->toTree()->first();
+        $jsondata = json_encode($shops);      
+        $jsondata = trim($jsondata, '[]');
+        
+         $all = \App\Models\DM3tree::descendantsAndSelf($aku->id)->count();
+         $lastnode = \App\Models\DM3tree::descendantsAndSelf($aku->id)->max('id');
+         //dd($lastnode);
+         $levels = \App\Models\DM3tree::withDepth()->find($lastnode);
+        return view('DM3.MiniTree', compact('shops','jsondata','all','levels'));
+    }
+    public function MyDM5()
+    {
+         
+         $user = auth()->user()->id;
+         //dd($user);
+         $aku = \App\Models\DM5tree::all()->where('user_id',$user)->first();
+         //dd($aku);
+         
+         if($aku == null)
+             return redirect('/home');
+        $shops = \App\Models\DM5tree::descendantsAndSelf($aku->id)->toTree()->first();
+        $jsondata = json_encode($shops);      
+        $jsondata = trim($jsondata, '[]');
+        
+         $all = \App\Models\DM5tree::descendantsAndSelf($aku->id)->count();
+         $lastnode = \App\Models\DM5tree::descendantsAndSelf($aku->id)->max('id');
+         //dd($lastnode);
+         $levels = \App\Models\DM5tree::withDepth()->find($lastnode);
+        return view('DM5.MiniTree', compact('shops','jsondata','all','levels'));
+    }
+        
+     public function MySponsorData()
+    {
+         
+         $user = auth()->user()->id;
+         //dd($user);
+         $aku = \App\Models\sponsor::all()->where('user_id',$user)->first();
+         //dd($aku);
+        $shops = \App\Models\sponsor::descendantsAndSelf($aku->id);
+       
+        return view('Sponsor.MiniTree', compact('shops','jsondata','all','levels'));
+    }
+
+    
+    
     public function destroy(Profile $profile)
     {
         //

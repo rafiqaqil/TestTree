@@ -30,7 +30,7 @@ class CreateDM5treesTable extends Migration
              
              
              $table->string('ENTRY_TYPE')->default('UNDEFINED');//DM5 GROWTH AUTO RE-ENTRY OR 1000USD AUTO IN 5
-             
+             $table->integer('DM3_CREDITED')->default(0);;
              
             
         });

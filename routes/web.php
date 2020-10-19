@@ -67,6 +67,12 @@ use App\Http\Controllers\ProfileController;
 Route::get('/Myprofile', [ProfileController::class , 'index']);
 Route::get('/editMyProfile', [ProfileController::class , 'edit']);
 Route::patch('/UpdateProfile/{user}', [ProfileController::class , 'UpdateProfile']);
+//USER MINI TREE VIEWS
+Route::get('/MyDM3', [ProfileController::class , 'MyDM3']);
+Route::get('/MyDM5', [ProfileController::class , 'MyDM5']);
+Route::get('/MySponsor', [ProfileController::class , 'MySponsor']);
+
+
 
 use App\Http\Controllers\MembershipController;
 //Memebership ROUTES
