@@ -21,6 +21,8 @@ class CreateSponsorsTable extends Migration
              $table->foreignId('user_id');
              $table->decimal('balance', 8, 2);
              $table->longText('logs');
+             
+             $table->decimal('affiliate_type', 8, 2)->default(0.0); //200 , 
 });
              
               

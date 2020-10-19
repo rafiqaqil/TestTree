@@ -31,10 +31,10 @@ class AdminMembershipController extends Controller
           public function ManagePlacements()
     {
          
-        $alldataApproved = Profile::all()->where('affiliate_paid',1);
+        $alldataApproved = Profile::all()->where('membership_paid',1)->where('affiliate_paid',1);
         //dd($alldataApproved);
            $user = auth()->user();
-           $alldata = Profile::all()->where('affiliate_paid',0);
+           $alldata = Profile::all()->where('membership_paid',1)->where('affiliate_paid',0);
            
            
            //dd($alldata);
@@ -66,7 +66,8 @@ class AdminMembershipController extends Controller
          
          $sponsor = \App\Models\User::all()->where('username','=',$profile->affiliate_sponsor)->first();
               
-         //dd($sponsor); 
+        
+         if($sponsor != null)
          if($sponsor->id == $profile->user_id)
              $sponsor = null;
          
@@ -88,6 +89,7 @@ class AdminMembershipController extends Controller
                     'name' => $newMember->username,
                      'user_id' => $newMember->id,
                      'balance' => 0,
+                      'affiliate_type' => $profile->membership_type,
                                  
                                  
                      'logs' => '0',   
@@ -110,8 +112,9 @@ class AdminMembershipController extends Controller
                   echo 'No Sponsor';
              }
               
-             // dd($SponsorParent);
+             //dd($SponsorParent);
           $anakBaru = \App\Models\sponsor::create($DataAnakBaru,$SponsorParent);
+          
           \App\Models\sponsor::fixTree();
          }
          

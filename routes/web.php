@@ -70,7 +70,8 @@ Route::patch('/UpdateProfile/{user}', [ProfileController::class , 'UpdateProfile
 //USER MINI TREE VIEWS
 Route::get('/MyDM3', [ProfileController::class , 'MyDM3']);
 Route::get('/MyDM5', [ProfileController::class , 'MyDM5']);
-Route::get('/MySponsor', [ProfileController::class , 'MySponsor']);
+Route::get('/MySponsor', [ProfileController::class , 'MySponsorTree']);
+Route::get('/MySponsorData', [ProfileController::class , 'MySponsorData']);
 
 
 

@@ -20,9 +20,8 @@ class CreateTransactionSponsorsTable extends Migration
             $table->string('nama_sponsor');
             $table->string('desc');
              $table->foreignId('sponsor_id');
-             $table->decimal('amount', 8, 2);
-            
-            
+             $table->decimal('amount', 8, 2);   
+         
             
         });
     }

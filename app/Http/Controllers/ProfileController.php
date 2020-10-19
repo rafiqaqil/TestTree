@@ -91,6 +91,7 @@ class ProfileController extends Controller
          $user = auth()->user()->id;
          //dd($user);
          $aku = \App\Models\sponsor::all()->where('user_id',$user)->first();
+         
          //dd($aku);
         $shops = \App\Models\sponsor::descendantsAndSelf($aku->id)->toTree()->first();
         $jsondata = json_encode($shops);      
@@ -102,7 +103,32 @@ class ProfileController extends Controller
         return view('Sponsor.MiniTree', compact('shops','jsondata','all','levels'));
     }
     
-         public function MyDM3()
+       public function MySponsorTree()
+    {
+                $user = auth()->user()->id;
+         //dd($user);
+         $aku = \App\Models\sponsor::all()->where('user_id',$user)->first();
+           
+        $shops = \App\Models\sponsor::descendantsAndSelf($aku->id)->toTree()->first();
+        $chart = \App\Models\sponsor::all();
+        
+        //dd($chart->id);
+       // dd($chart->parent_id);
+        //dd($chart);
+        $jsondata = json_encode($shops);
+
+        
+
+        $jsondata = trim($jsondata, '[]');
+        $all = \App\Models\sponsor::descendantsAndSelf($aku->id)->count();
+        //dd( $jsondata);
+         $levels = \App\Models\sponsor::withDepth()->find($all);
+       //dd($levels->depth);
+        //dd( $jsondata);
+        return view('Sponsor.GoogleTree', compact('shops','jsondata','all','levels','chart'));
+        
+    }
+    public function MyDM3()
     {
          
          $user = auth()->user()->id;
@@ -145,14 +171,14 @@ class ProfileController extends Controller
         
      public function MySponsorData()
     {
-         
+         $user = auth()->user();
          $user = auth()->user()->id;
          //dd($user);
          $aku = \App\Models\sponsor::all()->where('user_id',$user)->first();
          //dd($aku);
-        $shops = \App\Models\sponsor::descendantsAndSelf($aku->id);
-       
-        return view('Sponsor.MiniTree', compact('shops','jsondata','all','levels'));
+        $alldata = \App\Models\sponsor::descendantsAndSelf($aku->id);
+       //dd($alldata);
+        return view('Sponsor.data', compact('alldata','user'));
     }
 
     
