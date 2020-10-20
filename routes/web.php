@@ -95,3 +95,9 @@ Route::get('/adminAction/{profile}/ApprovePlacement', [AdminMembershipController
 
 
 Route::get('/sponsor-G', [App\Http\Controllers\SponsorController::class , 'index3']);
+
+use App\Http\Controllers\MidnightEngine;
+//Midnight Calculator
+Route::get('/MDC/Update/Sponsor', [MidnightEngine::class , 'UpdateSponsor']);
+Route::get('/MDC/Update/DM5', [MidnightEngine::class , 'UpdateDM5']);
+Route::get('/MDC/Update/DM3', [MidnightEngine::class , 'UpdateDM3']);
