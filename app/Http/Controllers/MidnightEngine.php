@@ -15,7 +15,7 @@ class MidnightEngine extends Controller
       public function UpdateSponsor()
     {
           
-          echo "Midnight Engine V1.0 <br>";
+          echo "Midnight Engine Update Sponsors V1.0 <br>";
           
           $all = \App\Models\sponsor::all();
           
@@ -73,15 +73,40 @@ class MidnightEngine extends Controller
                $a->balance =$bonus;
                $a->save();
           }
-          
-          
-          dd();
-         
-        
-        
-        
-    
-        
     }
+    
+         public function UpdateDM3()
+    {
+          echo "Midnight Engine Update DM3 V1.0 <br>";
+          $all = \App\Models\DM3tree::all();
+          foreach($all as $a)
+          {
+               $thisGuyFamily = \App\Models\DM3tree::descendantsAndSelf($a->id)->count();
+               $a->balance =($thisGuyFamily-1)*10;
+               $a->save();
+          }
+    }
+    
+           public function UpdateDM5()
+    {
+          echo "Midnight Engine Update DM5 V1.0 <br>";
+          $all = \App\Models\DM5tree::all();
+          foreach($all as $a)
+          {
+               $thisGuyFamily = \App\Models\DM5tree::descendantsAndSelf($a->id)->count();
+               $a->balance =(($thisGuyFamily-1)*10)-(200*$thisGuyFamily->reentry);
+               $a->save(); 
+          
+          
+           foreach($all as $a)
+          {
+          }
+          
+          
+          
+    }
+    
+         
+    
     
 }
