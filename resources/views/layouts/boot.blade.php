@@ -165,21 +165,12 @@
               <i class="fas fa-fw fa-table"></i>
               <span>Placements</span></a>
           </li>
-           <li class="nav-item">
-            <a class="nav-link" href="{{env('absolute')}}/DM5-G">
+            <li class="nav-item">
+            <a class="nav-link" href="{{env('absolute')}}/ControlPanel">
               <i class="fas fa-fw fa-table"></i>
-              <span>DM-5 Master Tree</span></a>
+              <span>Control Panel</span></a>
           </li>
-             <li class="nav-item">
-            <a class="nav-link" href="{{env('absolute')}}/DM3-G">
-              <i class="fas fa-fw fa-table"></i>
-              <span>DM-3 Master Tree</span></a>
-          </li>
-           <li class="nav-item">
-            <a class="nav-link" href="{{env('absolute')}}/sponsor-G">
-              <i class="fas fa-fw fa-table"></i>
-              <span>Sponsor Master Tree</span></a>
-          </li>
+          
           @endif
         </ul>
  @endguest

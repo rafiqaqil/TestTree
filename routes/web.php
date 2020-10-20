@@ -104,6 +104,7 @@ Route::get('/adminAction/{profile}/ApprovePayment', [AdminMembershipController::
 Route::get('/ManagePlacements', [AdminMembershipController::class , 'ManagePlacements']);
 Route::get('/adminAction/{profile}/ApprovePlacement', [AdminMembershipController::class , 'ApprovePlacement']);
 
+Route::get('/ControlPanel', [App\Http\Controllers\AdminMembershipController::class , 'ControlPanel']);
 
 Route::get('/sponsor-G', [App\Http\Controllers\SponsorController::class , 'index3']);
 

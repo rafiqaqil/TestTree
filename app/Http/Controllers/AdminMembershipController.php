@@ -13,6 +13,12 @@ class AdminMembershipController extends Controller
     {
         $this->middleware('auth');
     }
+    
+    
+        public function ControlPanel()
+    {
+           return view('admin.ControlPanel');       
+    }
   
         public function manageNewPlans()
     {
