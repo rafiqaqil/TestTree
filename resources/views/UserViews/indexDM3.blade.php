@@ -1,0 +1,60 @@
+@extends('layouts.boot')
+
+@section('content')
+<div  align="right" class="container">
+    <div class="row">
+     <?php $index = 1; ?>                           
+            @foreach($Mine as $d)
+             
+        <div class="col-3" align="left">
+        <div class="card   shadow-lg border-0 rounded-lg ">
+        <div class="card-header"><h5 class="text-center font-weight-light my-2">{{$index }}<hr>{{$d->name}}</h5></div>
+        <div class="card-body  bg-dark rounded-lg ">
+            
+             
+            <p style="color:greenyellow;font-size:50px" >${{$d->balance*0.80}}</p>
+            
+            <a href="{{env('absolute')}}/MyDM3/{{$d->id}}"><button class="btn btn-info">Show</button></a>
+          
+            <?php $index =$index + 1; ?>  
+                                    
+                                    
+                                    </div> </div> </div>
+            @endforeach         
+            
+  
+       <!--     
+            
+                   
+              
+             Company -> profile -> description
+                Current Position ->  profile -> location
+                Name  ->  profile  -> title
+                Email - > profile-> contacted
+
+                @can('update', $user->profile)
+                <a href="/p/create"><button class="btn btn-info">Add New Post</button></a> 
+                @endcan
+                
+                @can('update', $user->profile)
+               
+               <a href="/profile/{{ $user->id }}/createMydata"> <button class="btn btn-info">Add MyData</button></a>
+               <a href="/profile/{{ $user->id }}/ShowMyData"> <button class="btn btn-info">Show MyData</button></a>
+               
+                @endcan
+-->
+          
+
+
+            
+            
+           
+       
+           
+            
+        </div>
+    </div>
+   
+     
+</div>
+@endsection
