@@ -301,28 +301,15 @@ class AdminMembershipController extends Controller
         while($tries < 1000) {
             echo "<br>Checking".$x;
             $all = \App\Models\DM3tree::all()->count();
-            if($all <= 3906){
+            
                 $childs = \App\Models\DM3tree::descendantsOf($x)->count();
                 echo "</br>parent:".$x." HAS CHILD : ".$childs ;
 
-             if($childs < 5){
+             if($childs < 3){
                  $parent = \App\Models\DM3tree::where('id',$x)->first();
-                 echo "</br>------------------------------------------------------------------------------------------------------------------------------------------------------------"; 
+                 echo "</br>------------------------------------------------------------------------------------------------------------------------------------------------------------";   
+             }
                
-             }
-             
-                 
-                 
-             }
-             else{
-                  $childs = \App\Models\DM3tree::descendantsOf($x)->count();
-                echo "</br>MAX parent:".$x." HAS CHILD : ".$childs ;
-
-             if($childs < 1){
-                 $parent = \App\Models\DM3tree::where('id',$x)->first();
-                 echo "</br>------------------------------------------------------------------------------------------------------------------------------------------------------------"; 
-                
-             }}     
            $x++;  
            $tries++;
             if($parent != null)
@@ -389,7 +376,7 @@ class AdminMembershipController extends Controller
             
             
          
-           return redirect('/manageNewPlans');       
+           return redirect('/ManagePlacements');       
     
         
     }

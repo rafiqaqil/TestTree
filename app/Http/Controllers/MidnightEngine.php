@@ -93,7 +93,8 @@ class MidnightEngine extends Controller
           $all = \App\Models\DM5tree::all();
           foreach($all as $a)
           {
-              echo "<hr>User : ". $a->name . "    Node ID: ". $a->id    .  " RE_ENTRY_TIMES :  ". $a->RE_ENTRY_TIMES;
+              echo "<hr>User : ". $a->name . " Node ID: ". $a->id. "DM3 CREDITED".$a->DM3_CREDITED .  " RE_ENTRY_TIMES :  ". $a->RE_ENTRY_TIMES;;
+              
               
                $thisGuyFamily = \App\Models\DM5tree::descendantsAndSelf($a->id)->count();
                $a->balance =(($thisGuyFamily-1)*10)-(200*($a->RE_ENTRY_TIMES));
@@ -102,14 +103,87 @@ class MidnightEngine extends Controller
                
                if($a->DM3_CREDITED == 0)
                {
-                   if($$thisGuyFamily > 5)
+                   if($thisGuyFamily > 5)
                    {
                        $a->DM3_CREDITED = 1;
                        
                        
                        //ADD DM3
                        
-                       
+
+                                                                                $all = \App\Models\DM3tree::all()->count();
+
+                                                                               $est = intval($all/3-1,0);
+
+                                                                               if($est < 1)
+                                                                                   $est = 1;
+                                                                               echo "<br> All Nodes:".$all;
+                                                                               echo "<br> Next Parent : ".$est;
+                                                                              $parent = null;
+                                                                              $x = $est;
+                                                                              $tries = 0;
+                                                                              while($tries < 1000) {
+                                                                                  echo "<br>Checking".$x;
+                                                                                  $all = \App\Models\DM3tree::all()->count();
+                                                                                 
+                                                                                      $childs = \App\Models\DM3tree::descendantsOf($x)->count();
+                                                                                      echo "</br>parent:".$x." HAS CHILD : ".$childs ;
+
+                                                                                   if($childs < 3){
+                                                                                       $parent = \App\Models\DM3tree::where('id',$x)->first();
+                                                                                       echo "</br>------------------------------------------------------------------------------------------------------------------------------------------------------------"; 
+
+                                                                                   }
+
+                                                                                 $x++;  
+                                                                                 $tries++;
+                                                                                  if($parent != null)
+                                                                                  $tries = $tries+ 1000;
+
+                                                                              }
+
+                                                                              //dd($parent);
+
+                                                                              //dd(DM5tree::descendantsAndSelf($id));
+
+                                                                             // dd(auth()->user());
+
+
+                                                                               $MemberBaru = [
+
+                                                                                          'name' => $a->name.'-DM5-'.$a->ID,
+                                                                                           'user_id' => $a->user_id,
+                                                                                           'balance' => 0,
+                                                                                           'logs' => '0',
+                                                                                   //'parent_id' => $parent->id,    
+                                                                              ];
+
+                                                                               //dd($MemberBaru);
+                                                                           //dd($parent);
+
+                                                                              \App\Models\DM3tree::create($MemberBaru,$parent);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                                 
+                                 
+                                 
+                                 
+                                 
+                                 
+                                 
                        
                        
                        
