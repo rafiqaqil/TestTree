@@ -75,10 +75,13 @@ Route::get('/ShowMySponsor', [UserViews::class , 'ShowMySponsor']);
 Route::get('/ShowMyDM5', [UserViews::class , 'ShowMyDM5']);
 Route::get('/MyDM3/{DM3}', [UserViews::class , 'OneOfMyDM3']);
 Route::get('/MyDM5/{DM5}', [UserViews::class , 'OneOfMyDM5']);
+Route::get('/ShowMySponsorTree', [UserViews::class , 'ShowMySponsorTree']);
+
+
 //USER MINI TREE VIEWS
 Route::get('/MyDM3', [ProfileController::class , 'MyDM3']);
 Route::get('/MyDM5', [ProfileController::class , 'MyDM5']);
-Route::get('/MySponsor', [ProfileController::class , 'MySponsorTree']);
+
 Route::get('/MySponsorData', [ProfileController::class , 'MySponsorData']);
 
 

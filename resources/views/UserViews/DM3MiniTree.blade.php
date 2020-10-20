@@ -126,7 +126,7 @@ function update(source) {
       .attr("text-anchor", function(d) {
           return d.children || d._children ? "end" : "start";
       })
-      .text(function(d) { return d.data.id; });
+      .text(function(d) { return d.data.name; });
 
   // UPDATE
   var nodeUpdate = nodeEnter.merge(node);

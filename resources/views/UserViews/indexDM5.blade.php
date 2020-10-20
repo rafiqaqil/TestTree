@@ -1,13 +1,23 @@
 @extends('layouts.boot')
 
 @section('content')
-<div  align="right" class="container">
+<div  align="right" class="container-fluid">
     <div class="row">
-     <?php $index = 1; ?>                           
+       <div class="col-12 mt-2" align="left">
+        <div class="card   shadow-lg border-0 rounded-lg ">
+            
+        <div class="card-header"><h5 class="text-center font-weight-light my-2"><h4>Summary : </h4> </h5></div>
+        <div class="card-body  rounded-lg ">
+            
+              <p style="color:green;font-size:50px" >Profit :  $ {{$Total*0.8}}</p>
+            </div> </div> </div> </div>
+    
+     <div class="row">
+     <?php $index = 1; ?>                         
             @foreach($Mine as $d)
              
-        <div class="col-3" align="left">
-        <div class="card   shadow-lg border-0 rounded-lg ">
+        <div class="col-lg-3" align="left">
+        <div class="card   shadow-lg border-0 rounded-lg mt-2 ">
         <div class="card-header"><h5 class="text-center font-weight-light my-2">{{$index }}<hr>{{$d->name}}</h5></div>
         <div class="card-body  bg-dark rounded-lg ">
             
@@ -19,10 +29,10 @@
             <?php $index =$index + 1; ?>  
                                     
                                     
-                                    </div> </div> </div>
+                                    </div> </div> </div>   
             @endforeach         
-            
-  
+           
+   </div>   
        <!--     
             
                    
@@ -52,7 +62,7 @@
        
            
             
-        </div>
+     
     </div>
    
      

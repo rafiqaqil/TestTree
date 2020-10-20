@@ -126,20 +126,20 @@
           
           @if(auth()->user()->profile->affiliate_paid == 1)
               <li class="nav-item">
-            <a class="nav-link" href="{{env('absolute')}}/MyDM3">
+            <a class="nav-link" href="{{env('absolute')}}/ShowMyDM3">
               <i class="fas fa-fw fa-tachometer-alt"></i>
               <span>DM3</span>
             </a>
           </li>
                 <li class="nav-item">
-            <a class="nav-link" href="{{env('absolute')}}/MyDM5">
+            <a class="nav-link" href="{{env('absolute')}}/ShowMyDM5">
               <i class="fas fa-fw fa-tachometer-alt"></i>
               <span>DM5</span>
             </a>
           </li>
            </li>
                 <li class="nav-item">
-            <a class="nav-link" href="{{env('absolute')}}/MySponsor">
+            <a class="nav-link" href="{{env('absolute')}}/ShowMySponsor">
               <i class="fas fa-fw fa-tachometer-alt"></i>
               <span>Sponsor</span>
             </a>
