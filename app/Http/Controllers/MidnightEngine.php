@@ -93,17 +93,124 @@ class MidnightEngine extends Controller
           $all = \App\Models\DM5tree::all();
           foreach($all as $a)
           {
+              echo "<hr>User : ". $a->name . "    Node ID: ". $a->id    .  " RE_ENTRY_TIMES :  ". $a->RE_ENTRY_TIMES;
+              
                $thisGuyFamily = \App\Models\DM5tree::descendantsAndSelf($a->id)->count();
-               $a->balance =(($thisGuyFamily-1)*10)-(200*$thisGuyFamily->reentry);
-               $a->save(); 
-          
-          
-           foreach($all as $a)
-          {
+               $a->balance =(($thisGuyFamily-1)*10)-(200*($a->RE_ENTRY_TIMES));
+              
+               echo "Calculate Descendants : ".($thisGuyFamily-1). "  <br>End Balance 80%: " .$a->balance*0.8. "  <br>Re-ENTRY Balance 20%: " .$a->balance*0.2;
+               
+               if($a->DM3_CREDITED == 0)
+               {
+                   if($$thisGuyFamily > 5)
+                   {
+                       $a->DM3_CREDITED = 1;
+                       
+                       
+                       //ADD DM3
+                       
+                       
+                       
+                       
+                       
+                       
+                       
+                       
+                       
+                       
+                       
+                       
+                       
+                       
+                       
+                       
+                       
+                       
+                       
+                       
+                       
+                       
+                       
+                   }
+               }
+               if($a->balance*0.2 > 200)
+                   {
+                   $a->RE_ENTRY_TIMES = $a->RE_ENTRY_TIMES + 1;
+                   
+                   
+                   //ADDD DM5 
+                   
+                                                                                $all = \App\Models\DM5tree::all()->count();
+
+                                                                                $est = intval($all/5-1,0);
+
+                                                                                if($est < 1)
+                                                                                    $est = 1;
+                                                                                echo "<br> All Nodes:".$all;
+                                                                                echo "<br> Next Parent : ".$est;
+                                                                               $parent = null;
+                                                                               $x = $est;
+                                                                               $tries = 0;
+                                                                               while($tries < 1000) {
+                                                                                   echo "<br>Checking".$x;
+                                                                                   $all = \App\Models\DM5tree::max('id');
+                                                                                   if($all <= 3906){
+                                                                                       $childs = \App\Models\DM5tree::descendantsOf($x)->count();
+                                                                                       echo "</br>parent:".$x." HAS CHILD : ".$childs ;
+
+                                                                                    if($childs < 5){
+                                                                                        $parent = \App\Models\DM5tree::find($x);
+
+                                                                                        echo "</br>222------------------------------------------------------------------------------------------------------------------------------------------------------------"; 
+
+                                                                                    }
+
+
+
+                                                                                    }
+                                                                                    else{
+                                                                                         $childs = \App\Models\DM5tree::descendantsOf($x)->count();
+                                                                                       echo "</br>MAX parent:".$x." HAS CHILD : ".$childs ;
+
+                                                                                    if($childs < 1){
+                                                                                        $parent = \App\Models\DM5tree::where('id',$x)->first();
+                                                                                        echo "</br>------------------------------------------------------------------------------------------------------------------------------------------------------------"; 
+
+                                                                                    }}     
+                                                                                  $x++;  
+                                                                                  $tries++;
+                                                                                  if($parent != null)
+                                                                                   $tries = $tries+ 1000;
+                                                                               }
+
+
+
+                                                                               //dd(DM5tree::descendantsAndSelf($id));
+
+                                                                              // dd(auth()->user());
+
+
+                                                                                $MemberBaru = [
+
+                                                                                           'name' => $a->name."-R".$a->RE_ENTRY_TIMES,
+                                                                                            'user_id' => $a->user_id,
+                                                                                            'balance' => 0,
+                                                                                            'logs' => '0',
+                                                                                    //'parent_id' => $parent->id,    
+                                                                               ];
+
+                                                                                //dd($MemberBaru);
+                                                                            //dd($parent);
+
+                                                                               \App\Models\DM5tree::create($MemberBaru,$parent);
+  
+                   
+                   }
+                   
+                   
+                   
+            $a->save(); 
           }
-          
-          
-          
     }
     
          
