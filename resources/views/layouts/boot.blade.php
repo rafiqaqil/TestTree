@@ -125,6 +125,12 @@
           </li>
           
           @if(auth()->user()->profile->affiliate_paid == 1)
+           <li class="nav-item">
+            <a class="nav-link" href="{{env('absolute')}}/Show/MyWidthdraw">
+              <i class="fas fa-fw fa-tachometer-alt"></i>
+              <span>Dashboard</span>
+            </a>
+          </li>
               <li class="nav-item">
             <a class="nav-link" href="{{env('absolute')}}/ShowMyDM3">
               <i class="fas fa-fw fa-tachometer-alt"></i>
@@ -144,6 +150,8 @@
               <span>Sponsor</span>
             </a>
           </li>
+                
+          
           @endif
         <!-- 
           <li class="nav-item">
@@ -155,16 +163,7 @@
     
           
           @if ( (Auth::user()->email_verified_at) != null)
-              <li class="nav-item">
-            <a class="nav-link" href="{{env('absolute')}}/manageNewPlans">
-              <i class="fas fa-fw fa-table"></i>
-              <span>Plan Purchases</span></a>
-          </li>
-             <li class="nav-item">
-            <a class="nav-link" href="{{env('absolute')}}/ManagePlacements">
-              <i class="fas fa-fw fa-table"></i>
-              <span>Placements</span></a>
-          </li>
+            
             <li class="nav-item">
             <a class="nav-link" href="{{env('absolute')}}/ControlPanel">
               <i class="fas fa-fw fa-table"></i>

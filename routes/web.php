@@ -85,6 +85,8 @@ Route::get('/MySponsorData', [ProfileController::class , 'MySponsorData']);
 //User Widthdraw Functions
 
 use App\Http\Controllers\WidthdrawController;
+
+Route::get('/Show/MyWidthdraw', [WidthdrawController::class , 'MyWidthdraw']);
 Route::get('/Create/Widthdraw', [WidthdrawController::class , 'CreateWidthdraw']);
 Route::post('/Store/Widthdraw', [WidthdrawController::class , 'StoreWidthdraw']);
 
@@ -109,6 +111,13 @@ Route::get('/adminAction/{profile}/ApprovePlacement', [AdminMembershipController
 Route::get('/ControlPanel', [App\Http\Controllers\AdminMembershipController::class , 'ControlPanel']);
 
 Route::get('/sponsor-G', [App\Http\Controllers\SponsorController::class , 'index3']);
+
+
+
+use App\Http\Controllers\AdminWithdrawController;
+//Admin Withdrawal System
+Route::get('/ManageWithdrawal', [AdminWithdrawController::class , 'index']);
+
 
 use App\Http\Controllers\MidnightEngine;
 //Midnight Calculator

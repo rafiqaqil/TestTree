@@ -31,6 +31,17 @@
               <span>Sponsor Master Tree</span></a>
         
             <hr>
+            
+            <h4> Managerial Panels</h4>
+            
+            <br>
+            <a href='{{env('absoulte')}}/ManageWithdrawal'><div class='btn btn-info'>Withdrawals</div> </a>
+            
+              <a href='{{env('absoulte')}}/ManagePlacements'><div class='btn btn-info'>Credit Placements</div> </a>
+            
+                <a href='{{env('absoulte')}}/manageNewPlans'><div class='btn btn-info'>Manage New Payments</div> </a>
+            
+            
 
             
         </div>

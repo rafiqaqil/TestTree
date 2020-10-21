@@ -74,7 +74,7 @@ class ProfileController extends Controller
       
       
       //dd( auth()->user()->profile);
-       
+       return redirect('/Myprofile');
     }
 
     /**
