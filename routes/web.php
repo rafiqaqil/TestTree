@@ -81,10 +81,12 @@ Route::get('/ShowMySponsorTree', [UserViews::class , 'ShowMySponsorTree']);
 //USER MINI TREE VIEWS
 Route::get('/MyDM3', [ProfileController::class , 'MyDM3']);
 Route::get('/MyDM5', [ProfileController::class , 'MyDM5']);
-
 Route::get('/MySponsorData', [ProfileController::class , 'MySponsorData']);
+//User Widthdraw Functions
 
-
+use App\Http\Controllers\WidthdrawController;
+Route::get('/Create/Widthdraw', [WidthdrawController::class , 'CreateWidthdraw']);
+Route::post('/Store/Widthdraw', [WidthdrawController::class , 'StoreWidthdraw']);
 
 use App\Http\Controllers\MembershipController;
 //Memebership ROUTES
