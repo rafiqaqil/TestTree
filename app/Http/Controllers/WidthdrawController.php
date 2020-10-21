@@ -48,10 +48,24 @@ class WidthdrawController extends Controller
         widthdraw::create($data);
         
         $all = widthdraw::all();
-        dd($all);
+        //dd($all);
+         return redirect('/Show/MyWidthdraw');
        
     }
-
+    
+    public function Cancel($id)
+        {
+         $user = auth()->user();
+         
+            $with = widthdraw::find($id);
+            
+            //dd($with);
+            if($user->id != $with->user_id)
+                return redirect('/Show/MyWidthdraw');
+            $with['STATUS'] = 9;
+            $with->save();
+           return redirect('/Show/MyWidthdraw');
+        }
     /**
      * Display the specified resource.
      *
@@ -65,10 +79,10 @@ class WidthdrawController extends Controller
            $user = auth()->user();   $profile = $user->profile()->first();
            
            //dd($profile);
-         $alldata = widthdraw::all()->where('user_id',$user->id);
+         $alldata = widthdraw::all()->where('user_id',$user->id)->where('STATUS','=',0);
          $alldataApproved =  widthdraw::all()->where('user_id',$user->id)->where('STATUS','!=',0);
          
-         $Negative =  widthdraw::all()->where('user_id',$user->id)->where('STATUS','==',100)->sum('AMOUNT');
+         $Negative =  widthdraw::all()->where('user_id',$user->id)->where('STATUS','!=',9)->sum('AMOUNT');
          
          
           $TDM5 =  \App\Models\DM5tree::all()->where('user_id',$user->id)->sum('balance')*0.8;

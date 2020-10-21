@@ -89,7 +89,7 @@ use App\Http\Controllers\WidthdrawController;
 Route::get('/Show/MyWidthdraw', [WidthdrawController::class , 'MyWidthdraw']);
 Route::get('/Create/Widthdraw', [WidthdrawController::class , 'CreateWidthdraw']);
 Route::post('/Store/Widthdraw', [WidthdrawController::class , 'StoreWidthdraw']);
-
+Route::get('/CancelMyWidthdraw/{withdraw}', [WidthdrawController::class , 'Cancel']);
 use App\Http\Controllers\MembershipController;
 //Memebership ROUTES
 Route::get('/MyMembership', [MembershipController::class , 'index']);

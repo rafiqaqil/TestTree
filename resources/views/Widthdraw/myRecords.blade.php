@@ -6,21 +6,31 @@
 
          <div class="row" align='left'>
              
-             <div class="col-lg-3  ">
+             <div class="col-lg-4 pt-2  ">
              <div class="card-body  bg-dark rounded-lg ">
             <p style="color:greenyellow;font-size:25px">DM5 : ${{$TDM5}}</p>
           </div>  </div>
-               <div class="col-lg-3 ">
+               <div class="col-lg-4 pt-2 ">
              <div class="card-body  bg-dark rounded-lg ">
             <p style="color:greenyellow;font-size:25px">DM3 : ${{$TDM3}}</p>
           </div>  </div>
-               <div class="col-lg-3 ">
+               <div class="col-lg-4 pt-2 ">
              <div class="card-body  bg-dark rounded-lg ">
             <p style="color:greenyellow;font-size:25px">SPONSOR : ${{$TSPN}}</p>
           </div>  </div>
-               <div class="col-lg-3 ">
+                 <div class="col-lg-12 pt-2 ">
              <div class="card-body  bg-dark rounded-lg ">
-            <p style="color:greenyellow;font-size:25px">TOTAL: ${{$FinalBalance}}</p>
+            <p style="color:greenyellow;font-size:25px">  Total Income: ${{$FinalBalance+$Negative}}</p>
+          </div>  </div>
+             
+             
+                 <div class="col-lg-12 pt-2 ">
+             <div class="card-body  bg-dark rounded-lg ">
+            <p style="color:yellow;font-size:25px">  (Credited & Pending )Withdrawals: ${{$Negative}}</p>
+          </div>  </div>
+               <div class="col-lg-12  pt-2 ">
+             <div class="card-body  bg-dark rounded-lg ">
+            <p style="color:greenyellow;font-size:25px">Balance : ${{$FinalBalance}}</p>
           </div>  </div>
               
              
@@ -45,7 +55,9 @@
           USDT Account : {{ $profile->usdt_wallet }}
               <br>    <br>
               @if($profile->merchantrade_acc != null || $profile->usdt_wallet != null)
-            <div class='btn btn-success'>Create Withdrawal</div>
+              
+              <a href="{{env('absolute')}}/Create/Widthdraw">
+                  <div class='btn btn-success'>Create Withdrawal</div></a>
             @else
             <div class='btn btn-danger'>Please Update Account to withdraw</div>
             @endif
@@ -102,6 +114,8 @@
                         
                           @if($d->STATUS == 0)
                         <div class='btn btn-warning'>Pending</div>
+                         <a href="{{env('absolute')}}/CancelMyWidthdraw/{{$d->id}}">
+                               <div class='btn btn-danger'>Cancel</div></a>
                         @elseif($d->STATUS == 9)
                         
                         
