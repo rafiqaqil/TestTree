@@ -9,7 +9,7 @@
                                     <div class="card-header bg-warning"><h3 class="text-center font-weight-light my-4">Admin Control Panel</h3></div>
                                     <div class="card-body">
                                         <h4>Midnight Updates (Force Action)</h4>
-                                        <p>DM5 Will automatically input new reentry nodes and DM3 if full with 5 Dexcendants</p>
+                                        <p>DM5 Will automatically input new reentry nodes and DM3 if full with 5 Descendants</p>
             <hr>
             <a href="{{env('absolute')}}/MDC/Update/DM3"><button class="btn btn-warning"> DM3 </button></a>
             <a href="{{env('absolute')}}/MDC/Update/DM5"><button class="btn btn-warning"> DM5 </button></a>
