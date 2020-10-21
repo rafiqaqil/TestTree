@@ -31,4 +31,22 @@ class AdminWithdrawController extends Controller
      
            return view('admin.WithdrawPanel',compact('alldata','user','alldataApproved','profile','TDM5','TSPN','TDM3','Negative','FinalBalance'));
     }
+    
+    
+    public function Credited($id)
+    {
+        $with = widthdraw::find($id);
+        $with['STATUS'] = 100;
+        $with->save();
+       return redirect('/ManageWithdrawal');
+    }
+    
+    
+     public function Cancel($id)
+    {
+        $with = widthdraw::find($id);
+        $with['STATUS'] = 9;
+        $with->save();
+       return redirect('/ManageWithdrawal');
+    }
 }

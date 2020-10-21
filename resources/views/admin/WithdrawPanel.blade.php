@@ -83,11 +83,13 @@
                     <td>
                         
                           @if($d->STATUS == 0)
-                      
-                        <div class='btn btn-warning'>Approve Credit</div>
+                          <a href="{{env('absolute')}}/adminAction/{{$d->id}}/Credited">
+                               <div class='btn btn-warning'>Approve Credit</div></a>
+                             
+                           <a href="{{env('absolute')}}/adminAction/{{$d->id}}/Cancel">
+                               <div class='btn btn-danger'>Cancel</div></a>
                         @elseif($d->STATUS == 9)
-                        
-                        
+
                           <div class='btn btn-danger'>Canceled</div>
                           @else
                        <div class='btn btn-success'>Approved</div>

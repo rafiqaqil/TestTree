@@ -117,7 +117,8 @@ Route::get('/sponsor-G', [App\Http\Controllers\SponsorController::class , 'index
 use App\Http\Controllers\AdminWithdrawController;
 //Admin Withdrawal System
 Route::get('/ManageWithdrawal', [AdminWithdrawController::class , 'index']);
-
+Route::get('/adminAction/{withdraw}/Credited', [AdminWithdrawController::class , 'Credited']);
+Route::get('/adminAction/{withdraw}/Cancel', [AdminWithdrawController::class , 'Cancel']);
 
 use App\Http\Controllers\MidnightEngine;
 //Midnight Calculator
