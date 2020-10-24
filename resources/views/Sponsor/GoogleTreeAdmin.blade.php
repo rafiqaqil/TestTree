@@ -25,14 +25,19 @@
         data.addRows([
             
           @foreach($chart as $c)
-          
+          @if($c->affiliate_type  < 1000)
           [{'v':'{{ $c->id }}', 'f':'{{ $c->name }}  <br> Balance: {{$c->balance}}\n\
                             <br> Plan: {{$c->affiliate_type}}\n\
                            <br> \n\
                                <div style="color:red; font-style:italic">-</div>'},'{{ $c->parent_id }}', ''],
-     
-     
-          
+            @endif
+                               
+           @if($c->affiliate_type  >= 1000)
+          [{'v':'{{ $c->id }}', 'f':'{{ $c->name }}  <br> Balance: {{$c->balance}}\n\
+                            <br> Plan: 1200\n\
+                           <br> \n\
+                               <div style="color:red; font-style:italic">-</div>'},'{{ $c->parent_id }}', ''],
+            @endif
           
           
           @endforeach

@@ -32,7 +32,8 @@ class MembershipController extends Controller
          //dd($temp['membership_type']);
         $temp->save();
           $profile = $temp;
-        return view('membership.index', compact('profile','user'));  
+        //return view('membership.index', compact('profile','user'));  
+          return redirect('/MyMembership');
     }
         public function buyMembershipX1()
        { 
@@ -43,7 +44,8 @@ class MembershipController extends Controller
          //dd($temp['membership_type']);
         $temp->save();
          $profile = $temp;
-        return view('membership.index', compact('profile','user'));  
+        //return view('membership.index', compact('profile','user'));
+             return redirect('/MyMembership');
     }
     
         public function buyMembershipX5()
@@ -55,7 +57,8 @@ class MembershipController extends Controller
          //dd($temp['membership_type']);
         $temp->save();
        $profile = $temp;
-        return view('membership.index', compact('profile','user'));  
+        //return view('membership.index', compact('profile','user'));  
+            return redirect('/MyMembership');
     }
        public function buyMembershipClear()
        { 
@@ -66,7 +69,8 @@ class MembershipController extends Controller
          //dd($temp['membership_type']);
         $temp->save();
          $profile = $temp;
-        return view('membership.index', compact('profile','user'));  
+       // return view('membership.index', compact('profile','user'));  
+             return redirect('/MyMembership');
     }
     
     

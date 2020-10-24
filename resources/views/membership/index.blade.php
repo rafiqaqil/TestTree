@@ -5,22 +5,25 @@
     <div class="row">
      
         <div class="col-12 pt-2" align="left">
-                                <div class="card shadow-lg border-0 rounded-lg mt-5 ">
+                                <div class="card shadow-lg border-0 rounded-lg mt-5">
                                     <div class="card-header"><h3 class="text-center font-weight-light my-4">My Membership Plan
                          
                                      
                                         </h3></div>
-                                    <div class="card-body">
+                                    <div class="card-body pl-4 ">
          @if($user->profile->membership_paid == 0)
                         <br><br>
                                         @if(Session::has('message'))       <div class="alert alert-info">         {{Session::get('message')}}       </div>     @endif
-                                        <br>My Sponsor : 
+                                        
+                                        <br><h4>My Sponsor :</h4> 
+                                        <small>Please confirm the sponsor code from your sponsor to avoid any problems</small>                                        <small>Please confirm the code from your sponsor to avoid any problems</small>
+
                                   
                                      
                                            <form action="{{env('absolute')}}/UpdateSponsor/{{ $user->profile->id }}" enctype="multipart/form-data" method="post">
                                             @csrf
                                             @method('PATCH')
-
+                                        <div class="row"> <div class="col-lg-8">
                                             <div class="form-group row">
                                                       
                                                                <input id="affiliate_sponsor"
@@ -35,12 +38,13 @@
                                                                        <strong>{{ $errors->first('affiliate_sponsor') }}</strong>
                                                                    </span>
                                                                @endif
-                                                           </div>
-                             
+                                                           </div></div>
+                                                <div class="col-lg-4">
                                                 <button class="btn btn-primary">Apply Sponsor</button>
                                          
-                                         </form>
-         
+                                         </form></div>
+                                    
+         </div><hr>
             @if($user->profile->membership_type == 0 )
             <h3>Welcome New user please sign up for a plan to experience the full extent of digital marketing</h3>
            
@@ -135,7 +139,7 @@
 <div class="columns">
   <ul class="price">
     <li class="header">DM5-X5 Premium</li>
-    <li class="grey">$ 1010</li>
+    <li class="grey">$ 1210</li>
      <li>Premium Access</li>
     <li>5 x DM5</li>
     <li>1 x DM3 </li>
@@ -148,8 +152,13 @@
             @elseif($user->profile->membership_type == 10 )
             <h3>Thank you for choosing the basic plan, please make payment of {{$user->profile->membership_type}} USD to our merchantrade account of USDT </h3>
             <a href="{{env('absolute')}}/PurchaseMembership/Clear" class="btn btn-danger">Cancel Order</a>
+             @elseif($user->profile->membership_type == 1000 )
+            <h3>Thank you for choosing a plan, please make payment of 1210 USD to our merchantrade account of USDT </h3>
+             <a href="{{env('absolute')}}/PurchaseMembership/Clear" class="btn btn-danger">Cancel Order</a>
+            <small> 
+              
              @else
-            <h3>Thank you for choosing a plan, please make payment of {{$user->profile->membership_type}} USD to our merchantrade account of USDT </h3>
+            <h3>Thank you for choosing a plan, please make payment of {{$user->profile->membership_type}}+10 USD to our merchantrade account of USDT </h3>
              <a href="{{env('absolute')}}/PurchaseMembership/Clear" class="btn btn-danger">Cancel Order</a>
             <small> 
             Please include your contact information to avoid any problems

@@ -17,7 +17,7 @@ use App\Http\Controllers;
 use Illuminate\Http\Request;
 
 Route::get('/', function () {
-    return view('welcome');
+    return redirect('/login');
 });
 
 use App\Http\Controllers\ShopController;

@@ -24,9 +24,9 @@
         data.addRows([
             
           @foreach($chart as $c)
-          [{'v':'{{ $c->id }}', 'f':'ID:{{ $c->name }}{{ $c->id }} <br> \n\
-                                BAL:{{ $c->balance }}<br> \n\
-                                Re-Entry:{{ $c->logs }}.00<div style="color:red; font-style:italic">Member</div>'},'{{ $c->parent_id }}', 'The President'],
+          [{'v':'{{ $c->id }}', 'f':'{{ $c->name }} <br> \n\
+                                Balance:{{ $c->balance*0.8 }}<br> \n\
+                                Rentry:{{ $c->balance*.2 }}<div style="color:red; font-style:italic"></div>'},'{{ $c->parent_id }}', ''],
           
           
           @endforeach
