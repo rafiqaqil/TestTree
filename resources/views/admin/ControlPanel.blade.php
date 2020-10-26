@@ -40,13 +40,13 @@
             <br>
            
              <p>Handle Pembayaran penguna baru untuk beli affiliate program approve payment</p>
-            <a href='{{env('absoulte')}}/manageNewPlans'><div class='btn btn-info'>Manage New Payments</div> </a>
+            <a href='{{env('absolute')}}/manageNewPlans'><div class='btn btn-info'>Manage New Payments</div> </a>
             <hr>
 
              <p>Handle Pemberian DM5 & DM3 setelah penguna baru sudah membayar</p>
-                              <a href='{{env('absoulte')}}/ManagePlacements'><div class='btn btn-info'>Credit Placements</div> </a>    <hr>
+                              <a href='{{env('absolute')}}/ManagePlacements'><div class='btn btn-info'>Credit Placements</div> </a>    <hr>
              <p>Handle pengeluaran duit setelah penguna request untuk keluar duit</p>
-            <a href='{{env('absoulte')}}/ManageWithdrawal'><div class='btn btn-info'>Withdrawals</div> </a>    <hr>
+            <a href='{{env('absolute')}}/ManageWithdrawal'><div class='btn btn-info'>Withdrawals</div> </a>    <hr>
 
             
         </div>
