@@ -50,6 +50,7 @@ Route::get('/home', [HomeController::class, 'index'])->name('home');
 
 Route::get('/DM5', [DM5treeController::class , 'index']);
 Route::get('/DM5/INSERT/{namaDia}/{ownerID}', [DM5treeController::class , 'AddOneTestV2']);
+
 Route::get('/DM5/Update', [DM5treeController::class , 'updateBalance']);
 Route::get('/DM5-G', [DM5treeController::class , 'index2']);
 Route::get('/DM5/tambahMember/{namaDia}', [DM5treeController::class , 'tambahMember']);
@@ -62,6 +63,7 @@ Route::get('/DM3/Update', [DM3treeController::class , 'updateBalance']);
 Route::get('/DM3-G', [DM3treeController::class , 'index2']);
 Route::get('/DM3/tambahMember/{namaDia}', [DM3treeController::class , 'tambahMember']);
 Route::get('/DM3/tambahMemberSoftly/{namaDia}', [DM3treeController::class , 'tambahMemberSoftly']);
+Route::get('/DM3/INSERT/{namaDia}/{ownerID}', [DM3treeController::class , 'DM3addSilently']);
 use App\Http\Controllers\ProfileController;
 
 //PROFILE ROUTE
@@ -121,6 +123,8 @@ use App\Http\Controllers\AdminWithdrawController;
 Route::get('/ManageWithdrawal', [AdminWithdrawController::class , 'index']);
 Route::get('/adminAction/{withdraw}/Credited', [AdminWithdrawController::class , 'Credited']);
 Route::get('/adminAction/{withdraw}/Cancel', [AdminWithdrawController::class , 'Cancel']);
+
+
 
 use App\Http\Controllers\MidnightEngine;
 //Midnight Calculator
