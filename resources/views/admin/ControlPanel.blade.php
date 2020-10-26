@@ -24,14 +24,17 @@
             <a class="nav-link" href="{{env('absolute')}}/DM5-G">
               <i class="fas fa-fw fa-table"></i>
               <span>DM-5 Master Tree</span></a>
+               <a href="{{env('absolute')}}/DM5"><button class="btn btn-warning"> Mini View </button></a>
         
             <a class="nav-link" href="{{env('absolute')}}/DM3-G">
               <i class="fas fa-fw fa-table"></i>
               <span>DM-3 Master Tree</span></a>
+              <a href="{{env('absolute')}}/DM3"><button class="btn btn-warning"> Mini View </button></a>
          
             <a class="nav-link" href="{{env('absolute')}}/sponsor-G">
               <i class="fas fa-fw fa-table"></i>
               <span>Sponsor Master Tree</span></a>
+              <a href="{{env('absolute')}}/sponsor"><button class="btn btn-warning"> Mini View </button></a>
         
             <hr>
             
