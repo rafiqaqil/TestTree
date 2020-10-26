@@ -34,22 +34,66 @@ class WidthdrawController extends Controller
      */
     public function StoreWidthdraw()
     {
+             $user = auth()->user();   $profile = $user->profile()->first();
+           
+           //dd($profile);
+         $alldata = widthdraw::all()->where('user_id',$user->id)->where('STATUS','=',0);
+         $alldataApproved =  widthdraw::all()->where('user_id',$user->id)->where('STATUS','!=',0);
+         
+         $Negative =  widthdraw::all()->where('user_id',$user->id)->where('STATUS','!=',9)->sum('AMOUNT');
+         
+         
+          $TDM5 =  \App\Models\DM5tree::all()->where('user_id',$user->id)->sum('balance')*0.8;
+          $TDM3 =  \App\Models\DM3tree::all()->where('user_id',$user->id)->sum('balance')*0.8;
+          $TSPN = \App\Models\sponsor::all()->where('user_id',$user->id)->sum('balance');
+         
+          
+          //dd($FinalBalance);
+         $FinalBalance = $TDM5+ $TDM3 +$TSPN - $Negative;
+         
+        
+        
+        
+        
+        
+        
         
          $data = request()->validate([
 
-              'AMOUNT' => 'required',
+              'AMOUNT' => 'required|numeric',
               'Type' => 'required',
               
         ]);
+        
+        
+        //-------------------------------------------------------------------------
+         if($FinalBalance-$data['AMOUNT'] >= 0)
+         {
+        
          
         $user = auth()->user();
+        $userProfile = \App\Models\Profile::find($user->id);
+        
+        //dd($userProfile);
+        $data['Name'] = $userProfile->name;
+        $data['Phone'] = $userProfile->phone;  
+        $data['USDT'] = $userProfile->usdt_wallet;  
+        $data['Merch'] = $userProfile->merchantrade_acc;  
+            
+        
         $data['user_id'] = $user->id;
-        //dd($data);
+       
         widthdraw::create($data);
         
-        $all = widthdraw::all();
+        return redirect('/Show/MyWidthdraw');
+         }
+         else{
+          return redirect('/Show/MyWidthdraw')->withErrors(['Not Enough Balance', 'Not Enough Balance']);
+         }
         //dd($all);
-         return redirect('/Show/MyWidthdraw');
+        
+         
+       
        
     }
     

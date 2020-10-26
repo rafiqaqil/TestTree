@@ -17,7 +17,7 @@ class CreateDM5treesTable extends Migration
             $table->id();
             $table->timestamps();
             NestedSet::columns($table);
-             $table->string('name');
+             $table->string('name')->unique();
              $table->foreignId('user_id');
              $table->decimal('balance', 8, 2);
              $table->longText('logs');

@@ -20,6 +20,11 @@ class CreateWidthdrawsTable extends Migration
             $table->string('STATUS')->default('0');
             $table->foreignId('user_id');
             $table->decimal('AMOUNT', 8, 2);
+            $table->string('Name')->default('0');
+            $table->string('Phone')->default('0');
+            $table->string('USDT')->default('0');
+            $table->string('Merch')->default('0');
+            
             
             
             

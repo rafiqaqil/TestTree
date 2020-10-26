@@ -4,8 +4,18 @@
 
 <div  align="right" class="container">
 
+        @if($errors->any())
+        <div class="row" align='center'>
+           <div class="col-lg-12 pt-2  ">
+             <div class="card-body  bg-danger rounded-lg ">
+            <p style="color:greenyellow;font-size:25px"><h4>Error : {{$errors->first()}}</h4></p>
+          </div>  </div> </div>
+
+@endif
+    
+    
          <div class="row" align='left'>
-             
+         
              <div class="col-lg-4 pt-2  ">
              <div class="card-body  bg-dark rounded-lg ">
             <p style="color:greenyellow;font-size:25px">DM5 : ${{$TDM5}}</p>

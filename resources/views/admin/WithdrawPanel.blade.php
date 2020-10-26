@@ -53,7 +53,7 @@
                     
                       
                 
-                    <th>Account</th>
+                    <th>Details</th>
       
                     <th>Amount</th>
                     
@@ -74,7 +74,14 @@
          <tr>
                                   
                 
-                    <td>{{$d->Type}}</td>
+                    <td>{{$d->Type}}
+                    <br>Name:{{$d->Name}}
+                    <br>Contact :{{$d->Phone}}
+                    <br>Mechantrade Account : {{$d->MERCH}}
+                    <br>USDT Wallet :  {{$d->USDT}}
+                    
+                    
+                    </td>
       
                     <td>{{$d->AMOUNT}}</td>
                       <td>{{$d->created_at}}</td>

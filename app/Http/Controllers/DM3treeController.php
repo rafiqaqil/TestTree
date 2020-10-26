@@ -59,7 +59,7 @@ class DM3treeController extends Controller
          $levels = \App\Models\DM3tree::withDepth()->find($all);
        //dd($levels->depth);
         //dd( $jsondata);
-        return view('DM5.GoogleTree', compact('shops','jsondata','all','levels','chart'));
+        return view('DM3.GoogleTree', compact('shops','jsondata','all','levels','chart'));
     }
     public function index()
     {

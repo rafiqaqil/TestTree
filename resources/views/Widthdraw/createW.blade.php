@@ -15,7 +15,7 @@
                          
                 
                     <div class="form-group row">
-                    <label for="Type" class="col-md-4 col-form-label">Select Account</label>
+                    <label for="Type" class="col-md-4 col-form-label">Select Preferred Account</label>
 
                     <select id="Type"
                            type="text"
@@ -23,9 +23,9 @@
                            name="Type"
                            value="{{ old('Type') }}"
                            autocomplete="title" autofocus>
-                        <option value="DM3">DM3</option>
-                         <option value="DM5">DM5</option>
-                          <option value="SPONSOR">Sponsor</option>
+                        <option value="USDT">USDT</option>
+                         <option value="MERCHANTRADE">MERCHANTRADE</option>
+                         
                         </select>
 
                     @if ($errors->has('Type'))
