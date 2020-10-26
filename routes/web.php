@@ -49,11 +49,12 @@ Route::get('/home', [HomeController::class, 'index'])->name('home');
   //DM5 ROUTESSS
 
 Route::get('/DM5', [DM5treeController::class , 'index']);
+Route::get('/AddOneTest/{namaDia}', [DM5treeController::class , 'AddOneTest']);
 Route::get('/DM5/Update', [DM5treeController::class , 'updateBalance']);
 Route::get('/DM5-G', [DM5treeController::class , 'index2']);
 Route::get('/DM5/tambahMember/{namaDia}', [DM5treeController::class , 'tambahMember']);
 Route::get('/DM5/tambahMemberSoftly/{namaDia}', [DM5treeController::class , 'tambahMemberSoftly']);
-
+//Route::get('/A-DM5', [DM5treeController::class , 'ArrangeTree']);
   //DM3 ROUTESSS
 
 Route::get('/DM3', [DM3treeController::class , 'index']);
@@ -81,6 +82,7 @@ Route::get('/ShowMySponsorTree', [UserViews::class , 'ShowMySponsorTree']);
 //USER MINI TREE VIEWS
 Route::get('/MyDM3', [ProfileController::class , 'MyDM3']);
 Route::get('/MyDM5', [ProfileController::class , 'MyDM5']);
+
 Route::get('/MySponsorData', [ProfileController::class , 'MySponsorData']);
 //User Widthdraw Functions
 

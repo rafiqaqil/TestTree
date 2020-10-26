@@ -22,10 +22,10 @@
 
 <body>
      <h1>Total Members {{ $all }}</h1>
-        <h1>Levels {{ $levels->depth-1 }}</h1>
+        <h1>Levels {{ $levels->depth }}</h1>
     
-    <a href="http://127.0.0.1:8000/DM5/tambahMember/oRANGBaru "><button type="submit" value="dfsd" >ADD NEW MEMBER</button></a>
-    <a href="http://127.0.0.1:8000/DM5/tambahMemberSoftly/oRANGBaru "><button type="submit" value="dfsd" >ADD Softly</button></a>
+    <a href="http://127.0.0.1:8000/AddOneTest/TheName "><button type="submit" value="dfsd" >ADD NEW MEMBER</button></a>
+
 <!-- load the d3.js library --> 
 <script src="https://d3js.org/d3.v4.min.js"></script>
 <script>
@@ -118,7 +118,7 @@ function update(source) {
       .attr("text-anchor", function(d) {
           return d.children || d._children ? "end" : "start";
       })
-      .text(function(d) { return d.data.id; });
+      .text(function(d) { return d.data.id-1; });
 
   // UPDATE
   var nodeUpdate = nodeEnter.merge(node);

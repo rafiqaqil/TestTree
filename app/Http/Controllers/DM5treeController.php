@@ -38,7 +38,7 @@ class DM5treeController extends Controller
     
     public function index()
     {
-        $shops = DM5tree::get()->toTree();
+        $shops = DM5tree::reversed()->get()->toTree();
         $jsondata = json_encode($shops);
         $jsondata = trim($jsondata, '[]');
         $all = \App\Models\DM5tree::max('id');
@@ -53,8 +53,8 @@ class DM5treeController extends Controller
     public function index2()
     {
        
-        $shops = DM5tree::get()->toTree();
-        $chart = DM5tree::all();
+        $shops = DM5tree::reversed()->get()->toTree();
+        $chart = DM5tree::reversed()->get();
         
         //dd($chart->id);
        // dd($chart->parent_id);
@@ -154,9 +154,7 @@ class DM5treeController extends Controller
                  echo "</br>------------------------------------------------------------------------------------------------------------------------------------------------------------"; 
                  //dd($parent);
              }
-             
-                 
-                 
+  
              }
              else{
                   $childs = \App\Models\DM5tree::descendantsOf($x)->count();
@@ -250,5 +248,175 @@ class DM5treeController extends Controller
     public function destroy(DM5tree $dM5tree)
     {
         //
+    }
+    
+    
+    
+    
+    
+    
+    
+    
+       public function ArrangeTree()
+       {
+    //
+    //$node->afterNode($neighbor)->save();
+    //$node->beforeNode($neighbor)->save();
+        $all = \App\Models\DM5tree::all();
+
+        foreach($all as $n)
+        {
+            $SiblingCount = $n->getSiblings()->count();
+            
+            
+            
+            if($SiblingCount == 0)
+            {
+                echo $n->id." has No Siblings<br>";
+                echo "<hr>";
+            }
+            else
+            {
+                echo $n->id." has Siblings".$SiblingCount."<br>";
+                $minSiblings = $n->getSiblings()->min('id');
+                echo "Youngest Sibling = ".$minSiblings."<br>";
+                 
+                if($n->id ==$minSiblings){
+                echo "Is the Most Min ID <br> ";
+                $n->up();
+                dd($minSiblings,$minSiblings->min('id'));
+                
+                }
+            }
+            
+          
+        }
+     
+        
+        
+            
+    
+    
+       }
+    
+    
+    public function AddOneTest($namaDia)
+    {
+        
+        echo "Creating New node: ".$namaDia;
+        
+        $TotalNodes = \App\Models\DM5tree::all()->count();
+         echo "<br>Tree Stats<br>Total Nodes: ".$TotalNodes;
+        
+        $lastChildBorned = \App\Models\DM5tree::max('id');
+        
+        echo "<br>Last Child :".$lastChildBorned;
+        $Deepest = \App\Models\DM5tree::withDepth()->find($lastChildBorned);
+        
+       
+        echo " on Level ".$Deepest->depth . '<br>';
+        $all = \App\Models\DM5tree::all();
+        $parent = null;
+        
+        
+      
+       // Calculate all max child on depth 
+        $maxOnLevel=[1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1];
+        $minOnLevel = [110,110,110,110,110,110,110,110,110,110,110,110,110,110,110,110,110,110,110,110,110,110,110,110,110,101,110,110,10,0,0,0,0,0,0,0,0,0];
+        foreach (range(0, $Deepest->depth) as $i)  
+                {
+        
+                 foreach($all as $d) {                    
+                   $ThisGuysDepth = \App\Models\DM5tree::withDepth()->find($d->id);
+                   $ThisGuysDescendants = \App\Models\DM5tree::descendantsOf($d->id)->count();
+                   if($ThisGuysDepth->depth == $i){
+                       
+                       echo "<br>His Depth ".$ThisGuysDepth->depth;
+                       echo "  His Children ".$ThisGuysDescendants;
+                       if($maxOnLevel[$i] < $ThisGuysDescendants)
+                        $maxOnLevel[$i] = $ThisGuysDescendants;
+                       
+                       if($minOnLevel[$i] > $ThisGuysDescendants)
+                        $minOnLevel[$i] = $ThisGuysDescendants;
+                   }
+                 }
+        }
+        
+        echo "<br>";
+         foreach (range(0, $Deepest->depth) as $i){
+         echo 'Level '.$i."MAX = ".$maxOnLevel[$i];
+          echo 'Min = '.$minOnLevel[$i].'<br>';
+         
+         }
+         
+         echo '<br><hr><br>';
+        //dd($maxOnLevel);
+
+        // Check and add child to tree
+        foreach($all as $d)
+        {
+            echo "<br>Checking Nodes: ".$d->id;
+             
+            $Zchildren = \App\Models\DM5tree::descendantsOf($d->id)->count();
+            echo "This Node has Children:". $Zchildren;
+            if($Zchildren >= 5){ echo "- FULL! ";}  
+            else
+            {         
+                    $level = \App\Models\DM5tree::withDepth()->find($d->id)->depth;
+                    echo "<br>Node is on Level : ".$level;
+                    if($level == 0)$parent = $d;
+                    
+                    $Zchildren= 0;
+                    $Zchildren = \App\Models\DM5tree::descendantsOf($d->id)->count();
+                    
+                    foreach (range(0, $Deepest->depth) as $ii)  
+                    if($level == $ii){
+                       if($Zchildren == $minOnLevel[$ii])
+                           $parent = $d;     
+                    }
+            }
+            
+            if($parent == null)
+            echo "NOPE! ";
+            else
+                goto jumpOut;
+            
+            
+             
+        }
+        
+        jumpOut:
+        
+            if($parent == null)
+                dd("NO PARENTS WORHTY");
+            else
+            {
+        echo "Next Parent ",$parent->id;
+       //dd();
+        $MemberBaru = ['name' => $namaDia,'user_id' => auth()->user()->id,'balance' => 0,'logs' => '0'];
+       //dd($lastChildBorned, "is even number ",($lastChildBorned%2 == 0));
+        if($lastChildBorned%2 == 0){
+            echo" <br><br><br>Its Even";
+           
+        //\App\Models\DM5tree::create($MemberBaru,$parent); 
+        $New = \App\Models\DM5tree::create($MemberBaru);
+        $parent->appendNode($New);
+        //dd("EVEN NUMBER INSERTED");
+        
+        }
+        else{
+             echo" <br><br><br>Its Odd";
+             
+        $New = \App\Models\DM5tree::create($MemberBaru);
+        $New->prependToNode($parent)->save(); 
+        
+        //dd("ODD NUMBER INSERTED");
+         
+        }
+       
+        
+        return redirect('/DM5');
+            }
+         
     }
 }
