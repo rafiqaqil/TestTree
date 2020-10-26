@@ -49,7 +49,7 @@ Route::get('/home', [HomeController::class, 'index'])->name('home');
   //DM5 ROUTESSS
 
 Route::get('/DM5', [DM5treeController::class , 'index']);
-Route::get('/AddOneTest/{namaDia}', [DM5treeController::class , 'AddOneTestV2']);
+Route::get('/DM5/INSERT/{namaDia}/{ownerID}', [DM5treeController::class , 'AddOneTestV2']);
 Route::get('/DM5/Update', [DM5treeController::class , 'updateBalance']);
 Route::get('/DM5-G', [DM5treeController::class , 'index2']);
 Route::get('/DM5/tambahMember/{namaDia}', [DM5treeController::class , 'tambahMember']);

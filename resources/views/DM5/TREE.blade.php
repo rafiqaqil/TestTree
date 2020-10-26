@@ -24,7 +24,7 @@
      <h1>Total Members {{ $all }}</h1>
         <h1>Levels {{ $levels->depth }}</h1>
     
-    <a href="http://127.0.0.1:8000/AddOneTest/TheName "><button type="submit" value="dfsd" >ADD NEW MEMBER</button></a>
+    <a href="http://127.0.0.1:8000/INSERT/TheName/1 "><button type="submit" value="dfsd" >ADD NEW MEMBER </button></a>
 
 <!-- load the d3.js library --> 
 <script src="https://d3js.org/d3.v4.min.js"></script>

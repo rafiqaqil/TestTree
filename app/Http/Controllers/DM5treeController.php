@@ -424,9 +424,11 @@ class DM5treeController extends Controller
     }
     
     
-    public function AddOneTestV2($namaDia)
+    public function AddOneTestV2($namaDia,$ownerID)
     {
         for ($xzz = 0; $xzz <= 0; $xzz++) {
+            
+            
         echo "Creating New node: ".$namaDia;
         
         $TotalNodes = \App\Models\DM5tree::all()->count();
@@ -441,11 +443,13 @@ class DM5treeController extends Controller
         
        
         echo " on Level ".$Deepest->depth . '<br>';
-        $all = \App\Models\DM5tree::all();
+       
         $parent = null;
+          if($Deepest->depth == 0){
+            $parent = \App\Models\DM5tree::find(1);
+          goto SkipAll; }
         
-        
-      
+       $all = \App\Models\DM5tree::all();
        // Calculate all max child on depth 
         $maxOnLevel=[1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1];
         $minOnLevel = [110,110,110,110,110,110,110,110,110,110,110,110,110,110,110,110,110,110,110,110,110,110,110,110,110,101,110,110,10,0,0,0,0,0,0,0,0,0];
@@ -523,10 +527,10 @@ class DM5treeController extends Controller
             if($parent == null)
                 dd("NO PARENTS WORHTY");
             else
-            {
+            {SkipAll:
         echo "Next Parent ",$parent->id;
        //dd();
-        $MemberBaru = ['name' => $namaDia,'user_id' => auth()->user()->id,'balance' => 0,'logs' => '0'];
+        $MemberBaru = ['name' => $namaDia,'user_id' => $ownerID,'balance' => 0,'logs' => '0'];
        //dd($lastChildBorned, "is even number ",($lastChildBorned%2 == 0));
         if($lastChildBorned%2 == 0){
             echo" <br><br><br>Its Even";
@@ -545,16 +549,18 @@ class DM5treeController extends Controller
         
         //dd("ODD NUMBER INSERTED");
          
-        }
+            }}
        
         
         //return redirect('/DM5');
             
-        }
+        
         
     }return redirect('/DM5');
         
+    
+        }
         
         
-    }
+    
 }
