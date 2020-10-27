@@ -18,7 +18,7 @@ class MembershipController extends Controller
         $profile = $user->profile();
         //dd($profile);
         
-        return view('membership.index', compact('profile','user'));
+        return view('UserViews.mymembership', compact('profile','user'));
     
         
     }
@@ -65,9 +65,14 @@ class MembershipController extends Controller
         $user = auth()->user();
         $profile = $user->profile->id;
         $temp = \App\Models\Profile::find($profile);
-        $temp['membership_type']=0;
+        
+        
+        if($temp->membership_paid==0){
+            $temp['membership_type']=0;
          //dd($temp['membership_type']);
         $temp->save();
+        }
+        
          $profile = $temp;
        // return view('membership.index', compact('profile','user'));  
              return redirect('/MyMembership');

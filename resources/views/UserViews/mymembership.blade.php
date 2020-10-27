@@ -167,10 +167,17 @@
            
             
             @else
+            @if($user->profile->affiliate_paid >= 1 )
+             <h3>Your payment have been recieved & (DM5) has been credited to your account  </h3>
+            @else
              <h3>Your payment have been recieved & approved please allow some time for our server to apply your placements.</h3>
-             
+             @endif
              <br> Details : <br>
-             <div class="btn btn-info">Plan : {{$user->profile->membership_type}} USD </div>
+             @if($user->profile->membership_type == 200 )
+              <div class="btn btn-info">Plan : 200 USD </div>
+              @elseif($user->profile->membership_type == 1000 )
+             <div class="btn btn-info">Plan : 1200 USD </div>
+             @endif
               <div class="btn btn-success">Payment Successful </div>
                <div class="btn btn-success"> Sponsor : {{ $user->profile->affiliate_sponsor }} </div>
              

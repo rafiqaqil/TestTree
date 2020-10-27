@@ -20,6 +20,9 @@
               <br><br>
                <a href="{{env('absolute')}}/MDC/Credit4More"><button class="btn btn-warning"> MIDNIGHT DM5 Pool - Credit lagi 4 Kepada Package 1200 </button></a>
               
+              <br> <br>
+                <a href="{{env('absolute')}}/MDC/SHOW/Credit4More"><button class="btn btn-info">View Incoming MIDNIGHT DM5 Pool - Tengok pool untuk malam ni </button></a>
+              
               
               
               <br>

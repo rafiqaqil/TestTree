@@ -140,7 +140,7 @@ class AdminMembershipController extends Controller
             {
              //for ($loopa = 1; $loopa <=5; $loopa++) {self::DM5addSilently($newMember->username.'-'.$loopa,$newMember->id);}
              self::DM5addSilently($newMember->username.'-1',$newMember->id);
-             self::DM3addSilently($newMember->username,$newMember->id);              
+             //self::DM3addSilently($newMember->username,$newMember->id);              
             }
          $profile->save();           
          }

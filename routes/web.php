@@ -132,4 +132,7 @@ Route::get('/MDC/Update/Sponsor', [MidnightEngine::class , 'UpdateSponsor']);
 Route::get('/MDC/Update/DM5', [MidnightEngine::class , 'UpdateDM5']);
 Route::get('/MDC/Update/DM3', [MidnightEngine::class , 'UpdateDM3']);
 Route::get('/MDC/Credit4More', [MidnightEngine::class , 'MidnightCreditForDM5']);
+Route::get('/MDC/SHOW/Credit4More', [MidnightEngine::class , 'ShowMidnightCreditForDM5']);
+
+
 

@@ -25,6 +25,7 @@ class MidnightEngine extends Controller
                    {
                         for ($loopa = 2; $loopa <=5; $loopa++) {self::DM5addSilently($user->username.'-'.$loopa,$user->id);}
                        $profile->affiliate_paid == 5;
+                       self::DM3addSilently($user->username,$user->id);      
                        $profile->save();
                        echo "Credited to Account".$user->username;
                        
@@ -34,6 +35,30 @@ class MidnightEngine extends Controller
                }
                 echo "<hr><hr>Update Complete Complete";
     }
+    
+     public function ShowMidnightCreditForDM5()
+    {
+             
+          echo "Midnight Engine Update DM5 X5 Purchases (Credit Another 4 ) <hr>";
+               $alluser = \App\Models\User::all();
+               foreach($alluser as $user)
+               {
+                   $profile = \App\Models\Profile::find($user->id);
+                    echo "<hr>";//Scanning : ".$profile->id;
+                   if($profile->affiliate_paid == 1 && $profile->membership_type == 1000)
+                   {
+                        echo "ID : ".$user->id;
+                         echo "<br>Username : ".$user->username;
+                      
+                       echo "4 x DM5 + DM3Will Credited to Account".$user->username;
+                   }
+                   
+                   
+               }
+                echo "<hr> Review Complete ";
+                
+    }
+    
     
       public function UpdateSponsor()
     {
