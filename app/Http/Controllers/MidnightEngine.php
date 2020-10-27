@@ -12,10 +12,33 @@ class MidnightEngine extends Controller
         $this->middleware('auth');
     }
     
+        public function MidnightCreditForDM5()
+    {
+             
+          echo "Midnight Engine Update DM5 X5 Purchases (Credit Another 4 ) <hr>";
+               $alluser = \App\Models\User::all();
+               foreach($alluser as $user)
+               {
+                   $profile = \App\Models\Profile::find($user->id);
+                    echo "Scanning : ".$profile->id;
+                   if($profile->affiliate_paid == 1 && $profile->membership_type == 1000)
+                   {
+                        for ($loopa = 2; $loopa <=5; $loopa++) {self::DM5addSilently($user->username.'-'.$loopa,$user->id);}
+                       $profile->affiliate_paid == 5;
+                       $profile->save();
+                       echo "Credited to Account".$user->username;
+                       
+                   }
+                   
+                   
+               }
+                echo "<hr><hr>Update Complete Complete";
+    }
+    
       public function UpdateSponsor()
     {
           
-          echo "Midnight Engine Update Sponsors V1.0 <br>";
+          echo "Midnight Engine Update Sponsors V1.0 <hr>";
           
           $all = \App\Models\sponsor::all();
           
@@ -50,18 +73,30 @@ class MidnightEngine extends Controller
                    
                    if($dlevel == 1)
                    {
-                       $bonus += $b->affiliate_type * 0.10;  
+                       if($b->affiliate_type == 200)
+                       $bonus +=  200 * 0.10;  
+                        if($b->affiliate_type == 1000)
+                       $bonus +=  1200 * 0.10;  
                    }
                    else  if($dlevel == 2)
                    {
-                       $bonus += $b->affiliate_type * 0.02;  
+                       if($b->affiliate_type == 200)
+                       $bonus +=  200 * 0.02;  
+                        if($b->affiliate_type == 1000)
+                       $bonus +=  1200 * 0.02;  
                    }
                     else  if($dlevel == 3)
                    {
-                       $bonus += $b->affiliate_type * 0.02;  
+                        if($b->affiliate_type == 200)
+                       $bonus +=  200 * 0.02;  
+                        if($b->affiliate_type == 1000)
+                       $bonus +=  1200 * 0.02;  
                    } else  if($dlevel == 4)
                    {
-                       $bonus += $b->affiliate_type * 0.01;  
+                        if($b->affiliate_type == 200)
+                       $bonus +=  200 * 0.01;  
+                        if($b->affiliate_type == 1000)
+                       $bonus +=  1200 * 0.01;  
                    }
                    echo 'Accumulated credit : '.$bonus;
                        

@@ -17,6 +17,11 @@
             <a href="{{env('absolute')}}/MDC/Update/DM3"><button class="btn btn-warning"> DM3 </button></a>
             <a href="{{env('absolute')}}/MDC/Update/DM5"><button class="btn btn-warning"> DM5 </button></a>
               <a href="{{env('absolute')}}/MDC/Update/Sponsor"><button class="btn btn-warning"> Sponsor </button></a>
+              <br><br>
+               <a href="{{env('absolute')}}/MDC/Credit4More"><button class="btn btn-warning"> MIDNIGHT DM5 Pool - Credit lagi 4 Kepada Package 1200 </button></a>
+              
+              
+              
               <br>
                       
             <hr>  <h4>Master Tree Views</h4>

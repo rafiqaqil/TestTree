@@ -34,6 +34,8 @@ class AdminMembershipController extends Controller
     
         
     }
+    
+       
           public function ManagePlacements()
     {
          
@@ -135,9 +137,11 @@ class AdminMembershipController extends Controller
          if($profile['membership_type']== 200)
             {self::DM5addSilently($newMember->username,$newMember->id);}
          else if($profile['membership_type']== 1000)
-            {for ($loopa = 1; $loopa <=5; $loopa++) {self::DM5addSilently($newMember->username.'-'.$loopa,$newMember->id);}
+            {
+             //for ($loopa = 1; $loopa <=5; $loopa++) {self::DM5addSilently($newMember->username.'-'.$loopa,$newMember->id);}
+             self::DM5addSilently($newMember->username.'-1',$newMember->id);
              self::DM3addSilently($newMember->username,$newMember->id);              
-             }
+            }
          $profile->save();           
          }
             
