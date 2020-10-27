@@ -22,11 +22,21 @@ class MidnightEngine extends Controller
                    $profile = \App\Models\Profile::find($user->id);
                     echo "Scanning : ".$profile->id;
                    if($profile->affiliate_paid == 1 && $profile->membership_type == 1000)
-                   {
+                   { $profile['affiliate_paid']= 5;
+                       
+                      $profile->affiliate_paid = 5;
+                        $profile->save();
+                       try{
                         for ($loopa = 2; $loopa <=5; $loopa++) {self::DM5addSilently($user->username.'-'.$loopa,$user->id);}
-                       $profile->affiliate_paid == 5;
-                       self::DM3addSilently($user->username,$user->id);      
-                       $profile->save();
+                      
+                       self::DM3addSilently($user->username,$user->id);
+                       
+                       }
+                       catch (Exception $e) {
+                            echo 'Caught exception: Duplicate Entry Prevented';
+                        }
+                        
+                       
                        echo "Credited to Account".$user->username;
                        
                    }
@@ -63,7 +73,7 @@ class MidnightEngine extends Controller
       public function UpdateSponsor()
     {
           
-          echo "Midnight Engine Update Sponsors V1.0 <hr>";
+          echo "Midnight Engine Update Sponsors V1.0 value <hr>";
           
           $all = \App\Models\sponsor::all();
           
@@ -75,8 +85,8 @@ class MidnightEngine extends Controller
               
                $thisGuyFamily = \App\Models\sponsor::descendantsAndSelf($a->id)->count();
                
-               echo "<br><br><br>CALCULATING FOR : ".$thisGuy->first()->name;
-              echo "<hr>Total Descendants and self : ".$thisGuyFamily;
+               echo "<br><br><br>CALCULATING FOR : ".$thisGuy->first()->name.' - ID:'.$thisGuy->first()->id;
+              echo "<hr>Total Descendants : ".($thisGuyFamily-1);
                $bonus = 0;
                foreach($thisGuy as $b)
                {
@@ -87,13 +97,13 @@ class MidnightEngine extends Controller
                    {
                        echo '<br>------------------------------------------------------------------------------------------<br>'.($b);
                    echo "<br>Parent_ID:".$a->id;
-                   echo "<br>Child_ID:".$b->id;
+                   echo " - Child_ID:".$b->id;
                    echo "<br>Name:".$b->name;
                    
                    $dlevel = $descendantLevel - $parentlevel;
-                    echo "Differences : ".$dlevel;
-                   echo "Descendant Level".$descendantLevel;
-                   echo "Parent Level".$parentlevel;
+                    echo "   Differences : ".$dlevel;
+                   echo "   Descendant Level  ".$descendantLevel;
+                   echo "   Parent Level".$parentlevel;
                    
                    
                    if($dlevel == 1)
@@ -141,9 +151,16 @@ class MidnightEngine extends Controller
           $all = \App\Models\DM3tree::all();
           foreach($all as $a)
           {
+         
                $thisGuyFamily = \App\Models\DM3tree::descendantsAndSelf($a->id)->count();
                $a->balance =($thisGuyFamily-1)*10;
+               
+               
                $a->save();
+                     echo "<hr>User : ". $a->name . " Node ID: ".$a->id;
+                           echo "<br>Descendants :".($thisGuyFamily-1);
+                             echo "<br>Balance  90%:".$a->balance*0.9;
+                              echo "<br>Redeem  10%:".$a->balance*0.1;
           }
     }
     

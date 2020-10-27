@@ -17,14 +17,17 @@
             <a href="{{env('absolute')}}/MDC/Update/DM3"><button class="btn btn-warning"> DM3 </button></a>
             <a href="{{env('absolute')}}/MDC/Update/DM5"><button class="btn btn-warning"> DM5 </button></a>
               <a href="{{env('absolute')}}/MDC/Update/Sponsor"><button class="btn btn-warning"> Sponsor </button></a>
-              <br><br>
+              
+              <hr>
+              <p> <i class="fa fa-arrow-circle-down" style="font-size:36px"></i>Bila tekan button Kuning (MIDNIGHT DM5) Semua yang dalam ppol akan masuk dan dapat lagi 4 DM5 dan 1  DM3</p>
                <a href="{{env('absolute')}}/MDC/Credit4More"><button class="btn btn-warning"> MIDNIGHT DM5 Pool - Credit lagi 4 Kepada Package 1200 </button></a>
               
               <br> <br>
+              <p> <i class="fa fa-arrow-circle-down" style="font-size:36px"></i> Button Biru untuk view pool yang akan dimasukan kedalam DM5 & DM3 MALAM INI</p>
+              
                 <a href="{{env('absolute')}}/MDC/SHOW/Credit4More"><button class="btn btn-info">View Incoming MIDNIGHT DM5 Pool - Tengok pool untuk malam ni </button></a>
               
-              
-              
+                
               <br>
                       
             <hr>  <h4>Master Tree Views</h4>

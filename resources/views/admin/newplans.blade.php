@@ -61,7 +61,15 @@
                       
                        <td>
                       @if($d->membership_paid != 1)
+                         
+                      @if($d->membership_type == 1000)
+                      1200 USD
+                      
+                      @else
                        {{$d->membership_type}} USD 
+                        
+                       
+                       @endif
                         
                          <a href="{{env('absolute')}}/adminAction/{{$d->id}}/ApprovePayment"><button class="btn btn-info">Approve Payment</button></a> 
                         
@@ -132,8 +140,15 @@
                       
                        <td>
                       @if($d->membership_paid != 1)
+                          
+                      @if($d->membership_type == 1000)
+                      1200 USD
+                      
+                      @else
                        {{$d->membership_type}} USD 
                         
+                       
+                       @endif
                          <a href="{{env('absolute')}}/adminAction/{{$d->id}}/ApprovePayment"><button class="btn btn-info">Approve Payment</button></a> 
                         
                         @else
