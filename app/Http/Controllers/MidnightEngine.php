@@ -161,8 +161,8 @@ class MidnightEngine extends Controller
                $a->save();
                      echo "<hr>User : ". $a->name . " Node ID: ".$a->id;
                            echo "<br>Descendants :".($thisGuyFamily-1);
-                             echo "<br>Balance  90%:".$a->balance*0.9;
-                              echo "<br>Redeem  10%:".$a->balance*0.1;
+                             echo "<br>Balance  80%:".$a->balance*0.8;
+                              echo "<br>Redeem  20%:".$a->balance*0.2;
           }
     }
     

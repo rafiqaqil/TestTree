@@ -17,7 +17,8 @@ class CreateDM3treesTable extends Migration
                $table->id();
             $table->timestamps();
             NestedSet::columns($table);
-             $table->string('name')->unique();
+             //$table->string('name')->unique();
+             $table->string('name');
              $table->foreignId('user_id');
              $table->decimal('balance', 8, 2);
              $table->longText('logs');

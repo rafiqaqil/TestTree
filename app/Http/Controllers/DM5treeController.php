@@ -25,12 +25,52 @@ class DM5treeController extends Controller
           echo "<br> ";
           
          
-          if($keluarga <= 3125)
-               $d['balance'] = $keluarga*8;
+          if($keluarga <= 3906){
+               $d['balance'] = $keluarga*10;
+               $d['logs'] = $keluarga*2;
+          }
           else
-              $d['balance'] = 3125*8;
+          {
+              $d['balance'] = 3906*10;
+              $d['logs'] = 3906*2;
+          }
           
-          $d['logs'] = $keluarga*2;
+          
+          
+          $d->save();    
+      }
+    }
+    
+      public function updateBalanceMINMAX($min,$max)
+    {
+          
+         $maxid =  \App\Models\DM5tree::max('id');
+          
+         if($max > $maxid)
+             $max = $maxid;
+      for ($x = $min; $x <= $max; $x++) 
+      {
+          
+          $d = \App\Models\DM5tree::find($x);
+          echo $d;
+          
+          
+          $keluarga =  \App\Models\DM5tree::descendantsOf($d)->count();
+          echo "<br>Keluarga : ".$keluarga;
+          echo "<br> ";
+          
+         
+          if($keluarga <= 3906){
+               $d['balance'] = $keluarga*10;
+               $d['logs'] = $keluarga*2;
+          }
+          else
+          {
+              $d['balance'] = 3906*10;
+              $d['logs'] = 3906*2;
+          }
+          
+          
           
           $d->save();    
       }
@@ -131,6 +171,8 @@ class DM5treeController extends Controller
     
      public function tambahMemberSoftly($namaDia)
     {
+         
+         for ($zxc = 0; $zxc <= 2500; $zxc++){
          ////select parent_id, count(*) FROM `d_m5trees`group by parent_id -- CHECK THE PARENTS ID MAX COUNT SHOULD BE 5
          //dd(intval(\App\Models\DM5tree::max('id')/5-1,0));
         
@@ -138,17 +180,22 @@ class DM5treeController extends Controller
        
             //dd(\App\Models\DM5tree::max('id')) ;
             
-            $all = \App\Models\DM5tree::max('id');
-         $est = intval($all/5-1,0);
+         $all = \App\Models\DM5tree::max('id');
+         if($all <= 3906){   
+         $est = intval($all/5-1,0);}
+         else
+             $est = intval($all-(3906-782),0);
+         
+         
          echo "<br> All Nodes:".$all;
          echo "<br> Next Parent : ".$est;
         $parent = null;
         $x = $est;
-
         while($parent == null) {
             echo "<br>Checking".$x;
             $all = \App\Models\DM5tree::max('id');
-            if($all <= 3906){
+            if($all <= 3906){   
+        
                 $childs = \App\Models\DM5tree::descendantsOf($x)->count();
                 echo "</br>parent:".$x." HAS CHILD : ".$childs ;
 
@@ -164,10 +211,14 @@ class DM5treeController extends Controller
                 echo "</br>MAX parent:".$x." HAS CHILD : ".$childs ;
 
              if($childs < 1){
+                 
+          
                  $parent = \App\Models\DM5tree::where('id',$x)->first();
                  echo "</br>------------------------------------------------------------------------------------------------------------------------------------------------------------"; 
                  //dd($parent);
-             }}     
+             }
+             
+             }     
            $x++;      
         }
     
@@ -192,7 +243,7 @@ class DM5treeController extends Controller
         
          //dd($MemberBaru);
          
-        
+         }
          return redirect('/DM5');
          
     }

@@ -55,6 +55,10 @@ Route::get('/DM5/Update', [DM5treeController::class , 'updateBalance']);
 Route::get('/DM5-G', [DM5treeController::class , 'index2']);
 Route::get('/DM5/tambahMember/{namaDia}', [DM5treeController::class , 'tambahMember']);
 Route::get('/DM5/tambahMemberSoftly/{namaDia}', [DM5treeController::class , 'tambahMemberSoftly']);
+Route::get('/DM5/BasicUpdate', [DM5treeController::class , 'updateBalance']);
+Route::get('/DM5/updateBalanceMINMAX/{min}/{max}', [DM5treeController::class , 'updateBalanceMINMAX']);
+
+
 //Route::get('/A-DM5', [DM5treeController::class , 'ArrangeTree']);
   //DM3 ROUTESSS
 
