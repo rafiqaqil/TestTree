@@ -9,7 +9,7 @@
         <div class="card-header"><h5 class="text-center font-weight-light my-2"><h4>DM3 Summary : </h4> </h5></div>
         <div class="card-body  rounded-lg ">
             
-              <p style="color:green;font-size:50px" >Profit :  $ {{$Total*0.8}}</p>
+              <p style="color:green;font-size:50px" >Profit :  $ {{$Total}}</p>
             </div> </div> </div> </div>
     
      <div class="row">
@@ -22,7 +22,7 @@
         <div class="card-body  bg-dark rounded-lg ">
             
              
-            <p style="color:greenyellow;font-size:50px" >${{$d->balance*0.80}}</p>
+            <p style="color:greenyellow;font-size:50px" >${{$d->balance*0.9}}</p>
             
             <a href="{{env('absolute')}}/MyDM3/{{$d->id}}"><button class="btn btn-info">Show</button></a>
           

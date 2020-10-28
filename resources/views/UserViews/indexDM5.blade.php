@@ -9,7 +9,7 @@
         <div class="card-header"><h5 class="text-center font-weight-light my-2"><h4>Summary : </h4> </h5></div>
         <div class="card-body  rounded-lg ">
             
-              <p style="color:green;font-size:50px" >Profit :  $ {{$Total*0.8}}</p>
+              <p style="color:green;font-size:50px" >Profit :  $ {{$Total}}</p>
             </div> </div> </div> </div>
     
      <div class="row">

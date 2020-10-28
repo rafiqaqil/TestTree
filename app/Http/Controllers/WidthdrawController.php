@@ -130,7 +130,7 @@ class WidthdrawController extends Controller
          
          
           $TDM5 =  \App\Models\DM5tree::all()->where('user_id',$user->id)->sum('balance')*0.8;
-          $TDM3 =  \App\Models\DM3tree::all()->where('user_id',$user->id)->sum('balance')*0.8;
+          $TDM3 =  \App\Models\DM3tree::all()->where('user_id',$user->id)->sum('balance')*0.9;
           $TSPN = \App\Models\sponsor::all()->where('user_id',$user->id)->sum('balance');
          
           
