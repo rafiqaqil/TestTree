@@ -100,6 +100,7 @@ class ProfileController extends Controller
          $lastnode = \App\Models\sponsor::descendantsAndSelf($aku->id)->max('id');
          //dd($lastnode);
          $levels = \App\Models\sponsor::withDepth()->find($lastnode);
+           //dd($aku->logs);
         return view('Sponsor.MiniTree', compact('shops','jsondata','all','levels'));
     }
     
@@ -125,6 +126,8 @@ class ProfileController extends Controller
          $levels = \App\Models\sponsor::withDepth()->find($all);
        //dd($levels->depth);
         //dd( $jsondata);
+         
+         //dd($aku->logs);
         return view('Sponsor.GoogleTree', compact('shops','jsondata','all','levels','chart'));
         
     }
@@ -178,6 +181,7 @@ class ProfileController extends Controller
          //dd($aku);
         $alldata = \App\Models\sponsor::descendantsAndSelf($aku->id);
        //dd($alldata);
+        //dd($aku->logs);
         return view('Sponsor.data', compact('alldata','user'));
     }
 

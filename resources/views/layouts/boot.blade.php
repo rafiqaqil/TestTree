@@ -124,7 +124,7 @@
             </a>
           </li>
           
-          @if(auth()->user()->profile->affiliate_paid == 1)
+          @if(auth()->user()->profile->affiliate_paid >= 1)
            <li class="nav-item">
             <a class="nav-link" href="{{env('absolute')}}/Show/MyWidthdraw">
               <i class="fas fa-fw fa-tachometer-alt"></i>

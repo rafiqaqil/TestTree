@@ -16,54 +16,50 @@ class MidnightEngine extends Controller
     {
              
           echo "Midnight Engine Update DM5 X5 Purchases (Credit Another 4 ) <hr>";
-               $alluser = \App\Models\User::all();
-               foreach($alluser as $user)
+               $alluserProfile = \App\Models\Profile::where('affiliate_paid','=','1')->where('membership_type' , '1200')->get()->shuffle();
+               
+               foreach($alluserProfile as $profile)
                {
-                   $profile = \App\Models\Profile::find($user->id);
+                 
+                   $Username =  \App\Models\User::find($profile->user_id)->first();
                     echo "Scanning : ".$profile->id;
-                   if($profile->affiliate_paid == 1 && $profile->membership_type == 1000)
-                   { $profile['affiliate_paid']= 5;
-                       
-                      $profile->affiliate_paid = 5;
-                        $profile->save();
+                 
+                       $profile['affiliate_paid']= 5;
+                       $profile->affiliate_paid = 5;
+                       $profile->save();
                        try{
-                        for ($loopa = 2; $loopa <=5; $loopa++) {self::DM5addSilently($user->username.'-'.$loopa,$user->id);}
-                      
-                       self::DM3addSilently($user->username,$user->id);
-                       
+                        for ($loopa = 1; $loopa <=5; $loopa++) {self::DM5addSilently($Username->username.'-'.$loopa,$profile->user_id);}
                        }
                        catch (Exception $e) {
                             echo 'Caught exception: Duplicate Entry Prevented';
                         }
-                        
-                       
-                       echo "Credited to Account".$user->username;
-                       
-                   }
-                   
-                   
+
+                       echo "Credited to Account ".$Username->username;
+   
                }
                 echo "<hr><hr>Update Complete Complete";
+                
+               self::UpdateSponsor();
+               self::UpdateDM5();
+               self::UpdateDM3();
+                
     }
     
      public function ShowMidnightCreditForDM5()
     {
              
-          echo "Midnight Engine Update DM5 X5 Purchases (Credit Another 4 ) <hr>";
-               $alluser = \App\Models\User::all();
-               foreach($alluser as $user)
+          echo "Midnight Engine Update DM5 X5 Purchases (Credit Another 5 ) <hr>";
+               $alluserProfile = \App\Models\Profile::where('affiliate_paid','1')->where('membership_type' , '1200')->get()->shuffle();
+               
+               if($alluserProfile->count() <= 0)
+                   echo "NOTHING IN POOL FOR TONIGHT";
+               foreach($alluserProfile as $user)
                {
-                   $profile = \App\Models\Profile::find($user->id);
-                    echo "<hr>";//Scanning : ".$profile->id;
-                   if($profile->affiliate_paid == 1 && $profile->membership_type == 1000)
-                   {
+                   
                         echo "ID : ".$user->id;
-                         echo "<br>Username : ".$user->username;
+                         echo "<br>Username : ".$user->name;
                       
-                       echo "4 x DM5 + DM3Will Credited to Account".$user->username;
-                   }
-                   
-                   
+                       echo "    4 x DM5 Will Credited to Account".$user->name;     
                }
                 echo "<hr> Review Complete ";
                 
@@ -79,6 +75,8 @@ class MidnightEngine extends Controller
           
           foreach($all as $a)
           {
+              $groupsale = \App\Models\sponsor::descendantsAndSelf($a->id)->sum('affiliate_type');
+              //dd($groupsale);
               $thisGuy = \App\Models\sponsor::descendantsAndSelf($a->id);
               //dd($thisGuy);
               $parentlevel = \App\Models\sponsor::withDepth()->find($a->id)->depth;
@@ -140,7 +138,9 @@ class MidnightEngine extends Controller
                }
                echo "<br>Calculated Sponosr Bonus : ".$bonus;
                
-               $a->balance =$bonus;
+               $a->balance = $bonus;
+               $a->logs =$groupsale;
+                      
                $a->save();
           }
     }
@@ -153,7 +153,7 @@ class MidnightEngine extends Controller
           {
          
                $thisGuyFamily = \App\Models\DM3tree::descendantsAndSelf($a->id)->count();
-               $a->balance =($thisGuyFamily-1)*10;
+               $a->balance =($thisGuyFamily-1)*50;
                
                
                $a->save();

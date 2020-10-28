@@ -136,13 +136,18 @@ class AdminMembershipController extends Controller
           //--------------------------------------------------------------------------------------------------------------------------------
          if($profile['membership_type']== 200)
             {self::DM5addSilently($newMember->username,$newMember->id);}
-         else if($profile['membership_type']== 1000)
+         else if($profile['membership_type']>= 1000)
             {
              //for ($loopa = 1; $loopa <=5; $loopa++) {self::DM5addSilently($newMember->username.'-'.$loopa,$newMember->id);}
-             self::DM5addSilently($newMember->username.'-1',$newMember->id);
-             //self::DM3addSilently($newMember->username,$newMember->id);              
+             self::DM5addSilently($newMember->username,$newMember->id);
+             self::DM3addSilently($newMember->username,$newMember->id);              
             }
-         $profile->save();           
+         $profile->save();   
+         
+         self::UpdateDM5();
+          self::UpdateDM3();
+           self::UpdateSponsor();
+         
          }
             
             
@@ -437,4 +442,287 @@ class AdminMembershipController extends Controller
         
     
         }
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+         public function UpdateSponsor()
+    {
+          
+          echo "Midnight Engine Update Sponsors V1.0 value <hr>";
+          
+          $all = \App\Models\sponsor::all();
+          
+          foreach($all as $a)
+          {
+              
+              
+              $groupsale = \App\Models\sponsor::descendantsAndSelf($a->id)->sum('affiliate_type');
+              //dd($groupsale);
+              $thisGuy = \App\Models\sponsor::descendantsAndSelf($a->id);
+              //dd($thisGuy);
+              $parentlevel = \App\Models\sponsor::withDepth()->find($a->id)->depth;
+              
+               $thisGuyFamily = \App\Models\sponsor::descendantsAndSelf($a->id)->count();
+               
+               echo "<br><br><br>CALCULATING FOR : ".$thisGuy->first()->name.' - ID:'.$thisGuy->first()->id;
+              echo "<hr>Total Descendants : ".($thisGuyFamily-1);
+               $bonus = 0;
+               foreach($thisGuy as $b)
+               {
+                 
+                   $descendantLevel = \App\Models\sponsor::withDepth()->find($b->id)->depth;
+                   
+                   if($b->id != $a->id)
+                   {
+                       echo '<br>------------------------------------------------------------------------------------------<br>'.($b);
+                   echo "<br>Parent_ID:".$a->id;
+                   echo " - Child_ID:".$b->id;
+                   echo "<br>Name:".$b->name;
+                   
+                   $dlevel = $descendantLevel - $parentlevel;
+                    echo "   Differences : ".$dlevel;
+                   echo "   Descendant Level  ".$descendantLevel;
+                   echo "   Parent Level".$parentlevel;
+                   
+                   
+                   if($dlevel == 1)
+                   {
+              
+                       $bonus +=   $b->affiliate_type * 0.10;  
+                   }
+                   else  if($dlevel == 2)
+                   {
+                  
+                       $bonus +=   $b->affiliate_type * 0.02;  
+                   }
+                    else  if($dlevel == 3)
+                   {
+                      
+                       $bonus +=   $b->affiliate_type * 0.02;  
+                   } else  if($dlevel == 4)
+                   {
+              
+                       $bonus +=  $b->affiliate_type * 0.01;  
+                   }
+                   echo 'Accumulated credit : '.$bonus;
+                       
+                   }
+                   
+               }
+               echo "<br>Calculated Sponosr Bonus : ".$bonus;
+               
+               $a->balance =$bonus;
+                 $a->logs =$groupsale;
+               $a->save();
+          }
+    }
+    
+         public function UpdateDM3()
+    {
+          echo "Midnight Engine Update DM3 V1.0 <br>";
+          $all = \App\Models\DM3tree::all();
+          foreach($all as $a)
+          {
+         
+               $thisGuyFamily = \App\Models\DM3tree::descendantsAndSelf($a->id)->count();
+               $a->balance =($thisGuyFamily-1)*50;
+               
+               
+               $a->save();
+                     echo "<hr>User : ". $a->name . " Node ID: ".$a->id;
+                           echo "<br>Descendants :".($thisGuyFamily-1);
+                             echo "<br>Balance  90%:".$a->balance*0.9;
+                              echo "<br>Redeem  10%:".$a->balance*0.1;
+          }
+    }
+    
+           public function UpdateDM5()
+    {
+          echo "Midnight Engine Update DM5 V1.0 <br>";
+          $all = \App\Models\DM5tree::all();
+          foreach($all as $a)
+          {
+              echo "<hr>User : ". $a->name . " Node ID: ". $a->id. "DM3 CREDITED".$a->DM3_CREDITED .  " RE_ENTRY_TIMES :  ". $a->RE_ENTRY_TIMES;;
+               $thisGuyFamily = \App\Models\DM5tree::descendantsAndSelf($a->id)->count();
+               $a->balance =(($thisGuyFamily-1)*10)-(200*($a->RE_ENTRY_TIMES));
+               echo "Calculate Descendants : ".($thisGuyFamily-1). "  <br>End Balance 80%: " .$a->balance*0.8. "  <br>Re-ENTRY Balance 20%: " .$a->balance*0.2;
+              
+                   if($thisGuyFamily > 5 && $a->DM3_CREDITED == 0)
+                   {
+                     $a->DM3_CREDITED = 1;
+                     self::DM3addSilently($a->name."-DM5-",$a->user_id);
+                   }
+
+               if(($a->balance-(200*$a->RE_ENTRY_TIMES))*0.2 > 200)
+                   {
+                   $a->RE_ENTRY_TIMES = $a->RE_ENTRY_TIMES + 1;
+                   self::DM5addSilently($a->name."-R".$a->RE_ENTRY_TIMES,$a->user_id);
+                   }   
+            $a->save(); 
+          }
+    }
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
 }

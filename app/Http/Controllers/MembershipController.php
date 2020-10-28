@@ -53,7 +53,7 @@ class MembershipController extends Controller
         $user = auth()->user();
         $profile = $user->profile->id;
         $temp = \App\Models\Profile::find($profile);
-        $temp['membership_type']=1000;
+        $temp['membership_type']=1200;
          //dd($temp['membership_type']);
         $temp->save();
        $profile = $temp;
@@ -97,7 +97,7 @@ class MembershipController extends Controller
         $profile['affiliate_sponsor']=$data['affiliate_sponsor'];
          //dd($temp['membership_type']);
         $profile->save();
-        
-        return view('membership.index', compact('profile','user'))->with('message', 'Successfully Updated!');;  
+        return redirect('/MyMembership');
+        //return view('UserViews.mymembership', compact('profile','user'))->with('message', 'Successfully Updated!');;  
     }
 }

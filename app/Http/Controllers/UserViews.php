@@ -94,9 +94,9 @@ class UserViews extends Controller
         $profile = $user->profile();
            
          //dd($user);
-         $Mine = \App\Models\sponsor::all()->where('user_id',$user)->first();
-           $Total = \App\Models\sponsor::all()->where('user_id',$user->id)->sum('balance');
-      
+         $Mine = \App\Models\sponsor::all()->where('user_id',$user->id)->first();
+         $Total = \App\Models\sponsor::all()->where('user_id',$user->id)->sum('balance');
+         //dd($Mine->logs);
         return view('UserViews.indexSponsor', compact('user','Mine','Total'));
         
         
