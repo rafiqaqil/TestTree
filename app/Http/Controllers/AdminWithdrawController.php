@@ -21,15 +21,18 @@ class AdminWithdrawController extends Controller
          
          
           $TDM5 =  \App\Models\DM5tree::all()->sum('balance')*0.8;
-          $TDM3 =  \App\Models\DM3tree::all()->sum('balance')*0.8;
+          $TDM3 =  \App\Models\DM3tree::all()->sum('balance')*0.9;
           $TSPN = \App\Models\sponsor::all()->sum('balance');
          
+          $TotalRecieved = \App\Models\Profile::where('membership_paid','1')->sum('membership_type');
           
+          //dd($TotalRecieved);
           //dd($FinalBalance);
          $FinalBalance = $TDM5+ $TDM3 +$TSPN - $Negative;
          
+         
      
-           return view('admin.WithdrawPanel',compact('alldata','user','alldataApproved','profile','TDM5','TSPN','TDM3','Negative','FinalBalance'));
+           return view('admin.WithdrawPanel',compact('TotalRecieved','alldata','user','alldataApproved','profile','TDM5','TSPN','TDM3','Negative','FinalBalance'));
     }
     
     

@@ -22,14 +22,20 @@
              <div class="col-lg-12 pt-2 ">
              <div class="card-body  bg-dark rounded-lg ">
             <p style="color:yellow;font-size:25px"> Withdrawals: ${{$Negative}}</p>
+             <small style="color:white">Wang yang sudah diberi kepada pelanggan </small>
           </div>  </div>
               
                <div class="col-lg-12 pt-2 ">
              <div class="card-body  bg-dark rounded-lg ">
             <p style="color:greenyellow;font-size:25px">Withdrawals Balance: ${{$FinalBalance}}</p>
+            <small style="color:white">Wang yang perlu ada untuk diberi kepada pelanggan </small>
           </div>  </div>
               
-             
+               <div class="col-lg-12 pt-2 ">
+             <div class="card-body  bg-warning rounded-lg ">
+            <p style="color:black;font-size:25px">Total Recieved Balance: ${{$TotalRecieved}}</p>
+             <small style="color:black">Wang yang diterima daripada pelanggan </small>
+          </div>  </div>
              
              
               </div>                       
