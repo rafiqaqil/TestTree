@@ -25,19 +25,27 @@ class DM3treeSeeder extends Seeder
         
         \App\Models\DM3tree::create($x);
         
+        $arr = array('A', 'B', 'C', 'D','E','F');
+        $index=0;
+        foreach ($arr as &$x) {
         
+        $index++;
          DB::table('users')->insert([
-             'username' => 'Admin',
-            'name' => 'Admin',
-            'email' => 'Admin@e-dm5.uk',
+             'username' => 'Admin_'.$x,
+            'name' => 'Admin_'.$x,
+            'email' => 'Admin_'.$x.'@e-dm5.uk',
              'email_verified_at' => '2000-01-01 00:00:00',
             'password' => Hash::make('Admin12#'),
         ]);
          
-         $user = \App\Models\User::find(1);
+         $user = \App\Models\User::find($index);
             $user->profile()->create([
                 'name' => $user->username,
             ]);
+            
+            
+        }
+            
             
             
           

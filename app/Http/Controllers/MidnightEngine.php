@@ -17,11 +17,12 @@ class MidnightEngine extends Controller
              
           echo "Midnight Engine Update DM5 X5 Purchases (Credit Another 4 ) <hr>";
                $alluserProfile = \App\Models\Profile::where('affiliate_paid','=','1')->where('membership_type' , '1200')->get()->shuffle();
-               
+               // dd($alluserProfile);
                foreach($alluserProfile as $profile)
                {
-                 
-                   $Username =  \App\Models\User::find($profile->user_id)->first();
+                 if($profile->affiliate_paid == 1 && $profile->membership_type == 1200){
+                   $Username =  \App\Models\User::find($profile->id);
+                   //dd($Username->username);
                     echo "Scanning : ".$profile->id;
                  
                        $profile['affiliate_paid']= 5;
@@ -35,6 +36,7 @@ class MidnightEngine extends Controller
                         }
 
                        echo "Credited to Account ".$Username->username;
+                 }
    
                }
                 echo "<hr><hr>Update Complete Complete";
