@@ -56,7 +56,7 @@
 
 .columns {
   float: left;
-  width: 33.3%;
+  width: 50%;
   padding: 8px;
 }
 
@@ -110,7 +110,7 @@
 
 <h2 style="text-align:center">e-DM5 Plans</h2>
 <p style="text-align:center">Reminder, this is a 1-Time purchase choose carefully</p>
-
+<!--
 <div class="columns">
   <ul class="price">
     <li class="header">Basic</li>
@@ -123,11 +123,11 @@
     <li class="grey"><a href="{{env('absolute')}}/PurchaseMembership/X" class="button">Sign Up</a></li>
   </ul>
 </div>
-
+-->
 <div class="columns">
   <ul class="price">
     <li class="header" style="background-color:#4CAF50">DM5-X1 Premium</li>
-    <li class="grey">$ 210</li>
+    <li class="grey">$ 200</li>
    <li>Premium Access</li>
       <li>1 x DM5</li>
     <li>-</li>
@@ -139,9 +139,9 @@
 <div class="columns">
   <ul class="price">
     <li class="header">DM5-X5 Premium</li>
-    <li class="grey">$ 1210</li>
+    <li class="grey">$ 1200</li>
      <li>Premium Access</li>
-    <li>5 x DM5</li>
+    <li>1 + 5 x DM5</li>
     <li>1 x DM3 </li>
       <li>-</li>
   
