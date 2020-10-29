@@ -34,7 +34,32 @@ class AdminMembershipController extends Controller
     
         
     }
+        public function ActivateAccountThisID($id)
+    { 
+   
+        $profile = Profile::find($id);
+        $profile->membership_type = 0;
+        $profile->save();
+        //dd($profile);
+        
+        return redirect('/ShowNewUsers');
+    }
     
+    
+     public function ListActivateAccount()
+    {
+         
+          $alldataApproved = Profile::all()->where('membership_type','>', 0);
+        //dd($alldataApproved);
+           $user = auth()->user();
+           $alldata = Profile::all()->where('membership_type','<', 0);
+           //dd($alldata);
+           
+           
+           //dd($alldata);
+           return view('admin.ActivateUsers',compact('alldata','user','alldataApproved'));       
+    }
+     
        
           public function ManagePlacements()
     {

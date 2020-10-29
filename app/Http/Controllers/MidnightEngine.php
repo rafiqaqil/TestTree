@@ -460,18 +460,9 @@ class MidnightEngine extends Controller
              
         $New = \App\Models\DM5tree::create($MemberBaru);
         $New->prependToNode($parent)->save(); 
-        
         //dd("ODD NUMBER INSERTED");
-         
             }}
-       
-        
         //return redirect('/DM5');
-            
-        
-        
     }//return redirect('/DM5');
-        
-    
         }
 }

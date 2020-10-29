@@ -23,6 +23,16 @@ class MembershipController extends Controller
         
     }
     
+    public function ActivateAccount()
+    { 
+               
+        $user = auth()->user();
+        $profile = $user->profile();
+        //dd($profile);
+        
+        return view('UserViews.UnActivated', compact('profile','user'));
+    }
+    
     public function buyMembershipX()
     { 
         $user = auth()->user();

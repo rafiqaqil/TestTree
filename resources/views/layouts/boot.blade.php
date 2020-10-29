@@ -117,12 +117,22 @@
               <span>My Profile</span>
             </a>
           </li>
+           @if(auth()->user()->profile->membership_type >= 0)
             <li class="nav-item">
             <a class="nav-link" href="{{env('absolute')}}/MyMembership">
               <i class="fas fa-fw fa-tachometer-alt"></i>
               <span>Membership</span>
             </a>
           </li>
+          @else
+             <li class="nav-item">
+            <a class="nav-link" href="{{env('absolute')}}/ActivateAccount">
+              <i class="fas fa-fw fa-tachometer-alt"></i>
+              <span>Activate Account</span>
+            </a>
+          </li>
+          
+          @endif
           
           @if(auth()->user()->profile->affiliate_paid >= 1)
            <li class="nav-item">

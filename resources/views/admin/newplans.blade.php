@@ -60,7 +60,7 @@
                       <td>{{$d->country}}</td>
                       
                        <td>
-                      @if($d->membership_paid != 1)
+                      @if($d->membership_paid != 1 && $d->membership_type >= 200)
                          
                       @if($d->membership_type == 1000)
                       1200 USD

@@ -51,6 +51,10 @@
             
             <h4> Managerial Panels</h4>
                 <hr>
+                
+                    <p>Activate New User</p>
+            <a href='{{env('absolute')}}/ShowNewUsers'><div class='btn btn-info'>Activate New Users</div> </a>    <hr>
+        <hr>
             <br>
            
              <p>Handle Pembayaran penguna baru untuk beli affiliate program approve payment</p>

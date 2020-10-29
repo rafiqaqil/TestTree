@@ -106,6 +106,8 @@ Route::get('/PurchaseMembership/X', [MembershipController::class , 'buyMembershi
 Route::get('/PurchaseMembership/X1', [MembershipController::class , 'buyMembershipX1']);
 Route::get('/PurchaseMembership/X5', [MembershipController::class , 'buyMembershipX5']);
 Route::patch('/UpdateSponsor/{profile}', [MembershipController::class , 'UpdateSponsor']);
+Route::get('/ActivateAccount', [MembershipController::class , 'ActivateAccount']);
+
 
 
 
@@ -120,13 +122,16 @@ Route::get('/ControlPanel', [App\Http\Controllers\AdminMembershipController::cla
 
 Route::get('/sponsor-G', [App\Http\Controllers\SponsorController::class , 'index3']);
 
-
+Route::get('/ShowNewUsers', [App\Http\Controllers\AdminMembershipController::class , 'ListActivateAccount']);
+Route::get('/adminAction/{id}/ActivateAccount', [AdminMembershipController::class , 'ActivateAccountThisID']);
 
 use App\Http\Controllers\AdminWithdrawController;
 //Admin Withdrawal System
 Route::get('/ManageWithdrawal', [AdminWithdrawController::class , 'index']);
 Route::get('/adminAction/{withdraw}/Credited', [AdminWithdrawController::class , 'Credited']);
 Route::get('/adminAction/{withdraw}/Cancel', [AdminWithdrawController::class , 'Cancel']);
+
+
 
 
 
