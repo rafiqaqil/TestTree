@@ -105,6 +105,7 @@ class AdminMembershipController extends Controller
          if($sponsor->id == $profile->user_id)
              $sponsor = null;
          
+         if($sponsor != null)
          if($sponsor->id <= 6)
               $sponsor = null;
          

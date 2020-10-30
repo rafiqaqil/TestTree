@@ -41,8 +41,8 @@
                             <label for="name" class="col-md-4 col-form-label text-md-right">{{ __('Sponsor ') }}</label>
 
                             <div class="col-md-6">
-                                <input disabled="true"id="sponsor" type="text" class="form-control @error('sponsor') is-invalid @enderror" name="sponsor" value="{{$sponsor}}"  autocomplete="sponsor" autofocus>
-
+                                <input hidden id="sponsor" type="text" class="form-control @error('sponsor') is-invalid @enderror" name="sponsor" value="{{$sponsor}}"  autocomplete="sponsor" autofocus>
+                                {{$sponsor}}
                                 @error('sponsor')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>

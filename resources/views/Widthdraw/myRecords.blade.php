@@ -69,7 +69,9 @@
               <a href="{{env('absolute')}}/Create/Widthdraw">
                   <div class='btn btn-success'>Create Withdrawal</div></a>
             @else
+            <a href="{{env('absolute')}}/editMyProfile">
             <div class='btn btn-danger'>Please Update Account to withdraw</div>
+            </a>
             @endif
             
                 <br>    <br>

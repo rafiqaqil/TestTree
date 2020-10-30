@@ -23,6 +23,20 @@
             
             
                      <div class=" font-weight-bold">usdt_wallet: {{ $user->profile->usdt_wallet }}</div> 
+                     
+                     @if($user->profile->affiliate_paid >= 1)  
+                     <center>
+                         <small>Start getting more profit by sharing your affiliate link</small>
+                     <h6>Affiliate Link :<br><br> www.e-dm5.uk/members/register/{{$user->username}}</h6> 
+                 
+                      <img  id='barcode' 
+            src="https://api.qrserver.com/v1/create-qr-code/?data=www%2Ee-dm5%2Euk%2Fmembers%2Fregister%2F{{$user->username}}&amp;size=250x250" 
+            alt="" 
+            title="Link" 
+            width="250" 
+            height="250" />
+                   </center>
+                     @endif
             
             
                      
