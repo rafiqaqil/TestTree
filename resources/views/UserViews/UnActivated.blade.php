@@ -12,8 +12,9 @@
                                         </h3></div>
                                     <div class="card-body pl-4 ">
                                         Please make payment of 10 USD to e-DM5 Blast Merchantrade Account to enjoy our services.
-                                        <img src="https://lh3.googleusercontent.com/proxy/IlRZEc18dril1CLF91jSokiRhRJTerFpUr6dT0N95s9o0VZuCWfP7oWHFjQuQ9od5rOpm_InkjM6aGW4TGoLe_zjQrI-5e4wK465Dg" alt="Italian Trulli">
-                                        
+                                        <div class="container-fluid">
+                                        <img src="{{env('absolute')}}/paymentDetails.png" width="95%" >
+                                        </div>
                                        
                                         
         

@@ -179,13 +179,19 @@
               <i class="fas fa-fw fa-table"></i>
               <span>Control Panel</span></a>
           </li>
-          
+          <!--
            <li class="nav-item">
             <a class="nav-link" href="{{env('absolute')}}/users">
               <i class="fas fa-fw fa-table"></i>
               <span>Users Panel</span></a>
           </li>
           
+            <li class="nav-item">
+            <a class="nav-link" href="{{env('absolute')}}/Audit/Users">
+              <i class="fas fa-fw fa-table"></i>
+              <span>Audit Panel</span></a>
+          </li>
+          -->
           @endif
         </ul>
  @endguest

@@ -6,11 +6,10 @@
      
         <div class="col-12 pt-2" align="left">
                                 <div class="card shadow-lg border-0 rounded-lg mt-5 ">
-                                    <div class="card-header"><h3 class="text-center font-weight-light my-4">My Info</h3></div>
+                                    <div class="card-header"><h3 class="text-center font-weight-light my-4">View User Info</h3></div>
                                     <div class="card-body">
             
-            <a href="{{env('absolute')}}/editMyProfile"><button class="btn btn-info">Edit Profile</button></a>
-          
+   
               
             <div class="h6"><br>Username : {{ $user->username }}</div>
             <div class=" font-weight-bold">Name :{{ $user->profile->name }}</div>
@@ -24,23 +23,40 @@
             
             <div class=" font-weight-bold">usdt_wallet: {{ $user->profile->usdt_wallet }}</div> 
                      
-            @if($user->profile->affiliate_paid >= 1)  
-            <center>
-            <small>Start getting more profit by sharing your affiliate link</small>
-            <h6>Affiliate Link :<br><br>{{env('absolute')}}/register/{{$user->username}}</h6> 
-                 
-                      <img  id='barcode' 
-            src="https://api.qrserver.com/v1/create-qr-code/?data=www%2Ee-dm5%2Euk%2Fmembers%2Fregister%2F{{$user->username}}&amp;size=250x250" 
-            alt="" 
-            title="Link" 
-            width="250" 
-            height="250" />
-                   </center>
-                     @endif
-            
-            
+            <hr>
+            <h4>Sponsor Summary </h4>
+            Total Sponsor Profit : {{$sponsorTotal}}<br>
+            Total Group Sale : {{$sponsorTotal*10}}<br>
+             <a href="{{env('absolute')}}/Audit/View/{{ $user->id }}/SponsorTree"> <button class="btn btn-info">Show Sponsor Tree</button></a>
                      
+             <h5>Sponsor List</h5>
+             @foreach($sponsored AS $d)
+             
+             <h5> {{ $d->name }} -- $ {{$d->membership_type}} - {{$d->created_at}}</h5><br>
             
+            @endforeach
+             
+             
+            <hr>
+            <h4>DM5 Summary : $ {{$DM5_Bal}}</h4>
+            
+            @foreach($DM5_IDs AS $d)
+            <h5>Placement : {{$d->id}} -- $ {{$d->balance*0.8}}</h5><br>
+            @endforeach
+            
+               <hr>
+            <h4>DM3 Summary : $ {{$DM3_Bal}}</h4>
+            
+              @foreach($DM3_IDs AS $d)
+            <h5>Placement :  {{$d->id}} -- $ {{$d->balance*0.8}}</h5><br>
+            @endforeach
+                    <hr>
+            <h4>Withdraw Summary </h4>
+            
+            
+                @foreach($Withdraw AS $d)
+            <h5>Placement :  {{$d->id}} -- $ {{$d->balance*0.8}}</h5><br>
+            @endforeach
   
        <!--     
             

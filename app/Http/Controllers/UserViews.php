@@ -98,13 +98,7 @@ class UserViews extends Controller
          $Total = \App\Models\sponsor::all()->where('user_id',$user->id)->sum('balance');
          //dd($Mine->logs);
         return view('UserViews.indexSponsor', compact('user','Mine','Total'));
-        
-        
-        
-       
-        
  
-          
       }
       
          

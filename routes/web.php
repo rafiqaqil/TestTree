@@ -146,3 +146,11 @@ Route::get('/MDC/SHOW/Credit4More', [MidnightEngine::class , 'ShowMidnightCredit
 
 
 
+use App\Http\Controllers\AdminMasterView;
+Route::get('/Audit/Users', [AdminMasterView::class , 'index']);
+Route::get('/Audit/View/{user}', [AdminMasterView::class , 'showUser']);
+Route::get('/Audit/View/{user}/SponsorTree', [AdminMasterView::class , 'ShowOneSponsorTree']);
+
+
+
+
