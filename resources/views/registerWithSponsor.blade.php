@@ -38,10 +38,10 @@
                             </div>
                         </div>
                              <div class="form-group row">
-                            <label for="name" class="col-md-4 col-form-label text-md-right">{{ __('Sponsor(Username)') }}</label>
+                            <label for="name" class="col-md-4 col-form-label text-md-right">{{ __('Sponsor ') }}</label>
 
-                            <div class="col-md-6">No Sponsor
-                                <input hidden id="sponsor" type="text" class="form-control @error('sponsor') is-invalid @enderror" name="sponsor" value="ADMIN_A"  autocomplete="sponsor" autofocus>
+                            <div class="col-md-6">
+                                <input disabled="true"id="sponsor" type="text" class="form-control @error('sponsor') is-invalid @enderror" name="sponsor" value="{{$sponsor}}"  autocomplete="sponsor" autofocus>
 
                                 @error('sponsor')
                                     <span class="invalid-feedback" role="alert">

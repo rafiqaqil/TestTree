@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Models;
-
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -21,6 +21,8 @@ class User extends Authenticatable
         'email',
         'password',
          'username',
+        'phone',
+         'sponsor',
     ];
 
     /**
@@ -51,7 +53,11 @@ class User extends Authenticatable
         static::created(function ($user) {
             $user->profile()->create([
                 'name' => $user->username,
+                   'email' => $user->email,
                 'membership_type' => '-1',
+                 'phone' => $user->phone,
+                'affiliate_sponsor' => $user->sponsor,
+                
             ]);
 
             //Mail::to($user->email)->send(new NewUserWelcomeMail());

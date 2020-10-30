@@ -42,6 +42,7 @@ Route::get('/{aku}/UntungSponsor/', [newContol::class , 'UntungSponsor']);
 Auth::routes();
 
 Route::get('/home', [HomeController::class, 'index'])->name('home');
+Route::get('/register/{sponsor}', [App\Http\Controllers\PublicController::class, 'registerWithSponsor']);
 
 Auth::routes();
 

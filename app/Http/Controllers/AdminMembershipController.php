@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 use App\Models\Profile;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class AdminMembershipController extends Controller
@@ -103,6 +104,9 @@ class AdminMembershipController extends Controller
          if($sponsor != null)
          if($sponsor->id == $profile->user_id)
              $sponsor = null;
+         
+         if($sponsor->id <= 6)
+              $sponsor = null;
          
        
          

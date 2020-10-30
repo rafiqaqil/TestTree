@@ -23,6 +23,14 @@ class CreateSponsorsTable extends Migration
              $table->longText('logs');
              
              $table->decimal('affiliate_type', 8, 2)->default(0.0); //200 , 
+             
+             $table->integer('RESERVE_INT1')->default(0);
+             $table->decimal('RESERVE_DEC1', 8, 2)->default(0.0);
+             $table->string('RESERVE_STR1')->default('UNDEFINED');
+             
+             $table->integer('RESERVE_INT2')->default(0);
+             $table->decimal('RESERVE_DEC2', 8, 2)->default(0.0);
+             $table->string('RESERVE_STR2')->default('UNDEFINED');
 });
              
               

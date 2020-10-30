@@ -15,36 +15,21 @@
                         <br><br>
                                         @if(Session::has('message'))       <div class="alert alert-info">         {{Session::get('message')}}       </div>     @endif
                                         
-                                        <br><h4>My Sponsor :</h4> 
+                                        <br><h4>My Sponsor :   
+                                            
+                                            @if($user->profile->affiliate_sponsor == 'ADMIN_A')
+                                            NO SPONSOR
+                                            @else
+                                            {{$user->profile->affiliate_sponsor }}
+                                            @endif
+                                        
+                                        </h4> 
                                         <small>Please confirm the sponsor code from your sponsor to avoid any problems</small>                                        <small>Please confirm the code from your sponsor to avoid any problems</small>
 
                                   
                                      
-                                           <form action="{{env('absolute')}}/UpdateSponsor/{{ $user->profile->id }}" enctype="multipart/form-data" method="post">
-                                            @csrf
-                                            @method('PATCH')
-                                        <div class="row"> <div class="col-lg-8">
-                                            <div class="form-group row">
-                                                      
-                                                               <input id="affiliate_sponsor"
-                                                                      type="text"
-                                                                      class="form-control{{ $errors->has('affiliate_sponsor') ? ' is-invalid' : '' }}"
-                                                                      name="affiliate_sponsor"
-                                                                      value=" {{$user->profile->affiliate_sponsor }}"
-                                                                      autocomplete="title" autofocus>
-
-                                                               @if ($errors->has('affiliate_sponsor'))
-                                                                   <span class="invalid-feedback" role="alert">
-                                                                       <strong>{{ $errors->first('affiliate_sponsor') }}</strong>
-                                                                   </span>
-                                                               @endif
-                                                           </div></div>
-                                                <div class="col-lg-4">
-                                                <button class="btn btn-primary">Apply Sponsor</button>
-                                         
-                                         </form></div>
-                                    
-         </div><hr>
+              
+                <hr>
             @if($user->profile->membership_type == 0 )
             <h3>Welcome New user please sign up for a plan to experience the full extent of digital marketing</h3>
            
