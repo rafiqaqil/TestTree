@@ -19,9 +19,13 @@
                                             
                                             @if($user->profile->affiliate_sponsor == 'ADMIN_A')
                                             NO SPONSOR
+                                            @elseif($user->profile->affiliate_sponsor == '0')
+                                            NO SPONSOR
+                                            
                                             @else
                                             {{$user->profile->affiliate_sponsor }}
                                             @endif
+
                                         
                                         </h4> 
                                         <small>Please confirm the sponsor code from your sponsor to avoid any problems</small>                                        <small>Please confirm the code from your sponsor to avoid any problems</small>
@@ -136,18 +140,26 @@
 
             @elseif($user->profile->membership_type == 10 )
             <h3>Thank you for choosing the basic plan, please make payment of {{$user->profile->membership_type}} USD to our merchantrade account of USDT </h3>
-            <a href="{{env('absolute')}}/PurchaseMembership/Clear" class="btn btn-danger">Cancel Order</a>
+            <a href="{{env('absolute')}}/PurchaseMembership/Clear" class="btn btn-danger">Cancel Order</a>    <div class="container-fluid">
+                                        <img src="{{env('absolute')}}/paymentDetails.png" width="95%" >
+                                        </div>
+            
              @elseif($user->profile->membership_type == 1000 )
             <h3>Thank you for choosing a plan, please make payment of 1210 USD to our merchantrade account of USDT </h3>
              <a href="{{env('absolute')}}/PurchaseMembership/Clear" class="btn btn-danger">Cancel Order</a>
-            <small> 
+            <small>     <div class="container-fluid">
+                                        <img src="{{env('absolute')}}/paymentDetails.png" width="95%" >
+                                        </div>
               
              @else
             <h3>Thank you for choosing a plan, please make payment of {{$user->profile->membership_type}}+10 USD to our merchantrade account of USDT </h3>
              <a href="{{env('absolute')}}/PurchaseMembership/Clear" class="btn btn-danger">Cancel Order</a>
             <small> 
             Please include your contact information to avoid any problems
-            </small>
+            
+            </small>    <div class="container-fluid">
+                                        <img src="{{env('absolute')}}/paymentDetails.png" width="95%" >
+                                        </div>
             @endif
            
             
