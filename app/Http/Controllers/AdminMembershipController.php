@@ -27,11 +27,11 @@ class AdminMembershipController extends Controller
         $alldataApproved = Profile::all()->where('membership_paid',1);
         //dd($alldataApproved);
            $user = auth()->user();
-           $alldata = Profile::all()->where('membership_paid',0)->where('membership_type','!=',0);
+            $alldata = Profile::all()->where('membership_paid',0)->where('affiliate_paid',0)->where('placement_payment_type','=', 'USDT');
+           $alldataMERCH = Profile::all()->where('membership_paid',0)->where('affiliate_paid',0)->where('placement_payment_type','=', 'MERCHANTRADE');
            
-           
-           //dd($alldata);
-           return view('admin.newplans',compact('alldata','user','alldataApproved'));       
+      
+           return view('admin.newplans',compact('alldataMERCH','alldata','user','alldataApproved'));       
     
         
     }
@@ -51,6 +51,7 @@ class AdminMembershipController extends Controller
    
         $profile = Profile::find($id);
         $profile->payment_type = 0;
+        
         $profile->save();
         //dd($profile);
         
@@ -105,7 +106,7 @@ class AdminMembershipController extends Controller
      {
          //dd($profile);
          
-         
+        $profile->placement_payment_type = 0;
          $profile['membership_type']=0;
          //dd($temp['membership_type']);
         $profile->save();

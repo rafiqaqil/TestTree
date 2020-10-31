@@ -146,6 +146,9 @@
             
              @elseif($user->profile->membership_type == 1000 )
             <h3>Thank you for choosing a plan, please make payment of 1210 USD to our merchantrade account of USDT </h3>
+            <br>
+            <h2>MERCHANTRADE : 4080020107474101</h2>
+            <br>
              <a href="{{env('absolute')}}/PurchaseMembership/Clear" class="btn btn-danger">Cancel Order</a>
             <small>     <div class="container-fluid">
                                         <img src="{{env('absolute')}}/paymentDetails.png" width="95%" >
@@ -187,7 +190,11 @@
               
              @else
             <h3>Thank you for choosing a plan, please make payment of {{$user->profile->membership_type}}+10 USD to our merchantrade account of USDT </h3>
-             <a href="{{env('absolute')}}/PurchaseMembership/Clear" class="btn btn-danger">Cancel Order</a>
+                        <br>
+            <h5>MERCHANTRADE : 4080020107474101</h5>
+            <br> 
+            
+            <a href="{{env('absolute')}}/PurchaseMembership/Clear" class="btn btn-danger">Cancel Order</a>
             <small> 
             Please include your contact information to avoid any problems
             

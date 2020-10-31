@@ -38,7 +38,7 @@
   
                     <th>national_id</th>
                       <th>Country</th>
-                      <th></th>
+                      <th>Views</th>
                      
                   </tr>
                 </thead>
@@ -61,9 +61,11 @@
                       <td>{{$d->country}}</td>
                       
                        <td>
-                 
-                         <a href="{{env('absolute')}}/Audit/View/{{$d->id}}"><button class="btn btn-info">View</button></a> 
-                        
+                           @if($d->affiliate_paid == '0')
+                         <button class="btn btn-secondary">Inactive</button> 
+                        @else
+                       <a href="{{env('absolute')}}/Audit/View/{{$d->id}}"><button class="btn btn-info">View</button></a> 
+                        @endif
                 
                      </td>
                     </tr>

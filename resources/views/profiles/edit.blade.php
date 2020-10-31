@@ -2,7 +2,7 @@
 
 @section('content')
 <div class="container">
-    <form action="/UpdateProfile/{{ $user->profile->id }}" enctype="multipart/form-data" method="post">
+    <form action="{{env('absolute')}}/UpdateProfile/{{ $user->profile->id }}" enctype="multipart/form-data" method="post">
         @csrf
         @method('PATCH')
 

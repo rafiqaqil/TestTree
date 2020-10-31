@@ -28,10 +28,22 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule)
     {
         //  $schedule->command('inspire')->hourly();
+         $schedule->call(function () {\Illuminate\Support\Facades\Log::info('Working');})->everyMinute();
+         
          $schedule->command('midnightupdatepool:now')->timezone('Asia/Kuala_Lumpur')->daily();
     }
 
-    /**
+    /**protected function schedule(Schedule $schedule)
+{
+
+    $schedule->call(function () {
+
+        // your schedule code
+        Log::info('Working');
+        
+    })->everyMinute();
+
+}
      * Register the commands for the application.
      *
      * @return void

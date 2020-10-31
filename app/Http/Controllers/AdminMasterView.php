@@ -21,9 +21,9 @@ class AdminMasterView extends Controller
           $user = auth()->user();
           
           
-       $alldataApproved = \App\Models\Profile::all()->where('id','>',6);
+       $alldataApproved = \App\Models\Profile::all()->where('id','>',6);//->where('affiliate_paid', '>=', 1);
        
-        //dd($alldataApproved);
+       //dd($alldataApproved);
        
         $alldata = $alldataApproved;
         //dd($alldata);
@@ -42,6 +42,10 @@ class AdminMasterView extends Controller
           
           
        $alldataApproved = \App\Models\Profile::find($userProfile);
+       //dd($alldataApproved);
+       if($alldataApproved->affiliate_paid < 1)
+           return redirect('/Audit/Users')->witherror('Memeber is does not own any DM3, DM5, SPONSOR, ACCOUNTS');    
+          
        
        //dd($alldataApproved);
         //dd($alldataApproved);
