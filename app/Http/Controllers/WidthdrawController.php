@@ -46,17 +46,15 @@ class WidthdrawController extends Controller
           $TDM5 =  \App\Models\DM5tree::all()->where('user_id',$user->id)->sum('balance')*0.8;
           $TDM3 =  \App\Models\DM3tree::all()->where('user_id',$user->id)->sum('balance')*0.8;
           $TSPN = \App\Models\sponsor::all()->where('user_id',$user->id)->sum('balance');
+
+           
+               
+           $transfersIN = \App\Models\transfer::all()->where('to_user_id',$user->id)->where('STATUS','==',1)->sum('AMOUNT');
+          $transfersOUT = \App\Models\transfer::all()->where('user_id',$user->id)->where('STATUS','!=',9)->sum('AMOUNT');
          
-          
-          //dd($FinalBalance);
-         $FinalBalance = $TDM5+ $TDM3 +$TSPN - $Negative;
          
-        
-        
-        
-        
-        
-        
+         
+    
         
          $data = request()->validate([
 
@@ -65,7 +63,7 @@ class WidthdrawController extends Controller
               
         ]);
         
-        
+        $FinalBalance = $TDM5+ $TDM3 +$TSPN + $transfersIN -$transfersOUT - $Negative - $data['AMOUNT'];
         //-------------------------------------------------------------------------
          if($FinalBalance-$data['AMOUNT'] >= 0)
          {
@@ -135,10 +133,22 @@ class WidthdrawController extends Controller
          
           
           //dd($FinalBalance);
-         $FinalBalance = $TDM5+ $TDM3 +$TSPN - $Negative;
+        
+               
+          $transfersIN = \App\Models\transfer::all()->where('to_user_id',$user->id)->where('STATUS','==',1)->sum('AMOUNT');
+          $transfersOUT = \App\Models\transfer::all()->where('user_id',$user->id)->where('STATUS','!=',9)->sum('AMOUNT');
          
+         $Transfers = $transfersIN -$transfersOUT;
+         //dd($transfersOUT);
+   
+         
+          $FinalBalance = $TDM5+ $TDM3 +$TSPN + $transfersIN - $transfersOUT- $Negative;
+         //dd($FinalBalance);
+          
+           $tIN = \App\Models\transfer::all()->where('to_user_id',$user->id)->where('STATUS','==',1);
+          $tOUT = \App\Models\transfer::all()->where('user_id',$user->id);
      
-           return view('Widthdraw.myRecords',compact('alldata','user','alldataApproved','profile','TDM5','TSPN','TDM3','Negative','FinalBalance'));       
+           return view('Widthdraw.myRecords',compact('Transfers','tIN','tOUT','alldata','user','alldataApproved','profile','TDM5','TSPN','TDM3','Negative','FinalBalance'));       
     }
 
     /**

@@ -99,6 +99,15 @@ Route::get('/Show/MyWidthdraw', [WidthdrawController::class , 'MyWidthdraw']);
 Route::get('/Create/Widthdraw', [WidthdrawController::class , 'CreateWidthdraw']);
 Route::post('/Store/Widthdraw', [WidthdrawController::class , 'StoreWidthdraw']);
 Route::get('/CancelMyWidthdraw/{withdraw}', [WidthdrawController::class , 'Cancel']);
+
+use App\Http\Controllers\TransferController;
+Route::get('/Create/Transfer', [TransferController::class , 'create']);
+Route::post('/Store/Transfer', [TransferController::class , 'store']);
+Route::get('/CancelTransfer/{transfer}', [TransferController::class , 'Cancel']);
+Route::get('/ConfirmTransdfer/{transfer}', [TransferController::class , 'Approve']);
+
+
+
 use App\Http\Controllers\MembershipController;
 //Memebership ROUTES
 Route::get('/MyMembership', [MembershipController::class , 'index']);
@@ -150,6 +159,9 @@ use App\Http\Controllers\AdminMasterView;
 Route::get('/Audit/Users', [AdminMasterView::class , 'index']);
 Route::get('/Audit/View/{user}', [AdminMasterView::class , 'showUser']);
 Route::get('/Audit/View/{user}/SponsorTree', [AdminMasterView::class , 'ShowOneSponsorTree']);
+
+
+
 
 
 

@@ -43,7 +43,7 @@ class MidnightUpdatePool extends Command
        
         self::MidnightCreditForDM5();
         
-        return 'midnight pool updated';
+        return 0;
     }
     
     

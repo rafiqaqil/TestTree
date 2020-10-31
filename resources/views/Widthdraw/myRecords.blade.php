@@ -30,7 +30,7 @@
           </div>  </div>
                  <div class="col-lg-12 pt-2 ">
              <div class="card-body  bg-dark rounded-lg ">
-            <p style="color:greenyellow;font-size:25px">  Total Income: ${{$FinalBalance+$Negative}}</p>
+            <p style="color:greenyellow;font-size:25px">  Total Income: ${{$FinalBalance+$Negative-$Transfers}}</p>
           </div>  </div>
              
              
@@ -38,9 +38,13 @@
              <div class="card-body  bg-dark rounded-lg ">
             <p style="color:yellow;font-size:25px">  (Credited & Pending )Withdrawals: ${{$Negative}}</p>
           </div>  </div>
+                    <div class="col-lg-12 pt-2 ">
+             <div class="card-body  bg-dark rounded-lg ">
+            <p style="color:yellow;font-size:25px">  (Credited & Pending )Transfer: ${{$Transfers}}</p>
+          </div>  </div>
                <div class="col-lg-12  pt-2 ">
              <div class="card-body  bg-dark rounded-lg ">
-            <p style="color:greenyellow;font-size:25px">Balance : ${{$FinalBalance}}</p>
+            <p style="color:greenyellow;font-size:25px">Available Balance : ${{$FinalBalance}}</p>
           </div>  </div>
               
              
@@ -68,6 +72,8 @@
               
               <a href="{{env('absolute')}}/Create/Widthdraw">
                   <div class='btn btn-success'>Create Withdrawal</div></a>
+                   <a href="{{env('absolute')}}/Create/Transfer">
+                  <div class='btn btn-success'>Transfer </div></a>
             @else
             <a href="{{env('absolute')}}/editMyProfile">
             <div class='btn btn-danger'>Please Update Account to withdraw</div>
@@ -219,7 +225,149 @@
 
 
 
-</div>
-        
 
+        
+ <!-- DataTables Example -->
+           <div class="row">
+        <div class="col-lg-12 ">
+        <div class="card mb-12">
+          <div class="card-header" align="center">
+            <i class="fas fa-table"></i>
+             Recently Credited Transfer</div>
+          <div class="card-body" align='left'>
+              
+            <div class="table">
+              <table class="table table-bordered" id=""  cellspacing="0">
+                    <thead>
+                  <tr>
+                    
+                      
+                
+                    <th>Sender Username</th>
+      
+                    <th>Amount</th>
+                    
+                     
+                       <th>Date</th>
+                    
+                     
+                
+                      <th>Status</th>
+                     
+                  </tr>
+                </thead>
+             
+                <tbody>
+             
+        @foreach($tIN as $d)      
+                   
+         <tr>
+                                  
+                
+                      <td>{{$d->from_username}}</td>
+      
+      
+                    <td>{{$d->AMOUNT}}</td>
+                      <td>{{$d->created_at}}</td>
+                     
+  
+                    <td>
+                        
+                  @if($d->STATUS == 0)
+                        <div class='btn btn-warning'>Pending</div>
+                         <a href="{{env('absolute')}}/CancelTransfer/{{$d->id}}">
+                               <div class='btn btn-danger'>Cancel</div></a>
+                        @elseif($d->STATUS == 9)
+                          <div class='btn btn-danger'>Canceled</div>
+                          @else
+                       <div class='btn btn-success'>Approved</div>
+                        @endif
+                        
+                    </td>
+               
+                    </tr>
+
+        @endforeach
+        
+        
+        
+                </tbody>
+              </table>
+            </div>
+          </div></div>
+            </div>  </div>
+
+
+ <!-- DataTables Example -->
+           <div class="row">
+        <div class="col-lg-12 ">
+        <div class="card mb-12">
+          <div class="card-header" align="center">
+            <i class="fas fa-table"></i>
+            Pending for approval</div>
+          <div class="card-body" align='left'>
+            
+            <div class="table">
+              <table class="table table-bordered" id=""  cellspacing="0">
+                    <thead>
+                  <tr>
+                    
+                      
+                
+                    <th>Receiver Username</th>
+      
+                    <th>Amount</th>
+                    
+                     
+                       <th>Date</th>
+                    
+                     
+                
+                      <th>Status</th>
+                     
+                  </tr>
+                </thead>
+             
+                <tbody>
+             
+        @foreach($tOUT as $d)      
+                   
+         <tr>
+                                  
+                
+                    <td>{{$d->to_username}}</td>
+      
+                    <td>{{$d->AMOUNT}}</td>
+                      <td>{{$d->created_at}}</td>
+                     
+  
+                    <td>
+                        
+                          @if($d->STATUS == 0)
+                          <a href="{{env('absolute')}}/ConfirmTransdfer/{{$d->id}}">
+                        <div class='btn btn-warning'>Approve Transfer</div></a>
+                        
+                         <a href="{{env('absolute')}}/CancelTransfer/{{$d->id}}">
+                               <div class='btn btn-danger'>Cancel</div></a>
+                        @elseif($d->STATUS == 9)
+                          <div class='btn btn-danger'>Canceled</div>
+                          @else
+                       <div class='btn btn-success'>Approved</div>
+                        @endif
+                        
+                    </td>
+               
+                    </tr>
+
+        @endforeach
+        
+        
+        
+                </tbody>
+              </table>
+            </div>
+          </div></div>
+            </div>  </div>
+
+</div>
 @endsection
