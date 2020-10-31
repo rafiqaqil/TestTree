@@ -17,13 +17,57 @@
                                         </div>
                                        
                                         
+                                        
+                                        
+                                        
+                     <form action="{{env('absolute')}}/ActivateAccount/ConfirmPayment" enctype="multipart/form-data" method="post">
+        @csrf                   
+               <div class="form-group row">
+                    <label for="payment_type" class="col-md-4 col-form-label">Select Preferred Payment Method</label>
+
+                    <select id="payment_type"
+                           type="text"
+                           class="form-control{{ $errors->has('Type') ? ' is-invalid' : '' }}"
+                           name="payment_type"
+                           value="{{ old('payment_type') }}"
+                           autocomplete="title" autofocus>
+                          <option value="{{$profile->payment_type}}">
+                               @if($profile->payment_type !='0')
+                              {{$profile->payment_type}}
+                              @else
+                              NOT PAID
+                              @endif
+                          </option>
+                         <option value="0">NOT PAID</option>
+                       <option value="USDT">USDT</option>
+                    <option value="MERCHANTRADE">MERCHANTRADE</option>
+                        </select>
+
+                    @if ($errors->has('payment_type'))
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $errors->first('payment_type') }}</strong>
+                        </span>
+                    @endif
+                </div>
+        
+                <div class="row pt-4">
+                    <button class="btn btn-primary">Confirm Payment Method Done</button>
+                </div>
+                     </form>
+                                        <br>
+                                        
+                                        @if($profile->payment_type !='0')
+                                        <h3>Please wait until until we confirm your payment, any inquiries can be made through email or calls wit hour administrators</h3>
+                                        @endif
         
              </div> </div> </div>
        
            
-            
         </div>
+
+    
     </div>
+
    
      
 </div>

@@ -117,6 +117,8 @@ Route::get('/PurchaseMembership/X1', [MembershipController::class , 'buyMembersh
 Route::get('/PurchaseMembership/X5', [MembershipController::class , 'buyMembershipX5']);
 Route::patch('/UpdateSponsor/{profile}', [MembershipController::class , 'UpdateSponsor']);
 Route::get('/ActivateAccount', [MembershipController::class , 'ActivateAccount']);
+Route::post('/ActivateAccount/ConfirmPayment', [MembershipController::class , 'ConfirmPayment']);
+Route::post('/Placement/ConfirmPayment', [MembershipController::class , 'ConfirmPlacementPayment']);
 
 
 
@@ -134,6 +136,8 @@ Route::get('/sponsor-G', [App\Http\Controllers\SponsorController::class , 'index
 
 Route::get('/ShowNewUsers', [App\Http\Controllers\AdminMembershipController::class , 'ListActivateAccount']);
 Route::get('/adminAction/{id}/ActivateAccount', [AdminMembershipController::class , 'ActivateAccountThisID']);
+Route::get('/adminAction/{id}/CancelActivateAccount', [AdminMembershipController::class , 'CancelActivateAccountThisID']);
+Route::get('/adminAction/{profile}/CancelApprovePayment', [AdminMembershipController::class , 'CancelApprovePayment']);
 
 use App\Http\Controllers\AdminWithdrawController;
 //Admin Withdrawal System

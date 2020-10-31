@@ -116,10 +116,7 @@ class UserViews extends Controller
          $levels = \App\Models\sponsor::withDepth()->find($all);
        //dd($levels->depth);
         //dd( $jsondata);
-        return view('UserViews.SponsorGoogleTree', compact('all','levels','chart'));
-        
-          
-          
+        return view('UserViews.SponsorGoogleTree', compact('all','levels','chart')); 
       }
       
     

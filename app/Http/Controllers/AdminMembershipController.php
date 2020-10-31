@@ -46,19 +46,29 @@ class AdminMembershipController extends Controller
         return redirect('/ShowNewUsers');
     }
     
-    
+           public function CancelActivateAccountThisID($id)
+    { 
+   
+        $profile = Profile::find($id);
+        $profile->payment_type = 0;
+        $profile->save();
+        //dd($profile);
+        
+        return redirect('/ShowNewUsers');
+    }
      public function ListActivateAccount()
     {
          
           $alldataApproved = Profile::all()->where('membership_type','>', 0);
         //dd($alldataApproved);
            $user = auth()->user();
-           $alldata = Profile::all()->where('membership_type','<', 0);
+           $alldata = Profile::all()->where('payment_type','=', 'USDT');
+            $alldataMERCH = Profile::all()->where('payment_type','=', 'MERCHANTRADE');
            //dd($alldata);
            
            
            //dd($alldata);
-           return view('admin.ActivateUsers',compact('alldata','user','alldataApproved'));       
+           return view('admin.ActivateUsers',compact('alldata','user','alldataApproved','alldataMERCH'));       
     }
      
        
@@ -80,9 +90,23 @@ class AdminMembershipController extends Controller
      public function ApprovePlanPayment(Profile $profile)
      {
          //dd($profile);
-         
+        // dd($profile);
          
          $profile['membership_paid']=1;
+         //dd($temp['membership_type']);
+        $profile->save();
+          
+           return redirect('/manageNewPlans');       
+    
+        
+    }
+    
+        public function CancelApprovePayment(Profile $profile)
+     {
+         //dd($profile);
+         
+         
+         $profile['membership_type']=0;
          //dd($temp['membership_type']);
         $profile->save();
           

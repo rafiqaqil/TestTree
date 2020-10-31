@@ -27,8 +27,8 @@ class CreateProfilesTable extends Migration
             $table->string('merchantrade_acc')->nullable();
             $table->string('usdt_wallet')->nullable();
            
-            
-            
+             $table->string('placement_payment_type')->default(0);
+             $table->string('payment_type')->default(0);
             $table->string('membership_type')->default(0);
             $table->boolean('membership_paid')->default(0);
             

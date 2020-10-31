@@ -65,7 +65,7 @@ class WidthdrawController extends Controller
         
         $FinalBalance = $TDM5+ $TDM3 +$TSPN + $transfersIN -$transfersOUT - $Negative - $data['AMOUNT'];
         //-------------------------------------------------------------------------
-         if($FinalBalance-$data['AMOUNT'] >= 0)
+         if($FinalBalance >= 0)
          {
         
          

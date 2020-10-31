@@ -93,7 +93,7 @@ class TransferController extends Controller
          //dd($FinalBalance);
          
         //-------------------------------------------------------------------------
-         if($FinalBalance-$data['AMOUNT'] >= 0)
+         if($FinalBalance >= 0)
          {
         
          

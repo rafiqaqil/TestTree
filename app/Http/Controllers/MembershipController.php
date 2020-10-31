@@ -15,22 +15,62 @@ class MembershipController extends Controller
     {
          
         $user = auth()->user();
-        $profile = $user->profile();
+        $profile = $user->profile()->first();
         //dd($profile);
-        
-        return view('UserViews.mymembership', compact('profile','user'));
-    
-        
+        return view('UserViews.mymembership', compact('profile','user'));  
     }
+    
+    
     
     public function ActivateAccount()
     { 
                
         $user = auth()->user();
-        $profile = $user->profile();
-        //dd($profile);
+        $profile = $user->profile;
+      
         
         return view('UserViews.UnActivated', compact('profile','user'));
+    }
+    
+    
+      public function ConfirmPayment()
+    {               
+        $user = auth()->user();
+        $profile = $user->profile;
+      
+         $temp = \App\Models\Profile::find($profile->id);
+         $data = request()->validate(['payment_type' => 'required',]);
+     
+       $temp['payment_type']=$data['payment_type'];
+       
+       
+        $temp->save();
+       
+        
+         
+        
+      return redirect('/ActivateAccount');
+    }
+    
+    
+    
+      public function ConfirmPlacementPayment()
+    {               
+        $user = auth()->user();
+        $profile = $user->profile;
+      
+         $temp = \App\Models\Profile::find($profile->id);
+         $data = request()->validate(['placement_payment_type' => 'required',]);
+       
+       $temp->placement_payment_type=$data['placement_payment_type'];
+         //dd($temp);
+       
+        $temp->save();
+       
+        
+         
+        
+      return redirect('/MyMembership');
     }
     
     public function buyMembershipX()
