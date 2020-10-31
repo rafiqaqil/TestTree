@@ -1,22 +1,56 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Console\Commands;
 
-use Illuminate\Http\Request;
-
-class MidnightEngine extends Controller
+use Illuminate\Console\Command;
+use Illuminate\Support\Facades\Hash;
+class MidnightUpdatePool extends Command
 {
-   
-        public function __construct()
+    /**
+     * The name and signature of the console command.
+     *
+     * @var string
+     */
+    protected $signature = 'midnightupdatepool:now';
+
+    /**
+     * The console command description.
+     *
+     * @var string
+     */
+    protected $description = 'Command description';
+
+    /**
+     * Create a new command instance.
+     *
+     * @return void
+     */
+    public function __construct()
     {
-        $this->middleware('auth');
+        parent::__construct();
+    }
+
+    /**
+     * Execute the console command.
+     *
+     * @return int
+     */
+    public function handle()
+    {
+       
+             $newWork['WORKDONE'] = 'SERVER AUTO - Push Mignight Pool UPDATE DM5, DM3, SPONSOR';
+        \App\Models\RecordAutoWork::create($newWork);
+       
+        self::MidnightCreditForDM5();
+        
+        return 'midnight pool updated';
     }
     
-        public function MidnightCreditForDM5()
+    
+       public function MidnightCreditForDM5()
     {
-        $newWork['WORKDONE'] = 'Manual DM5 - Push Mignight Pool';
-        \App\Models\RecordAutoWork::create($newWork);
-             
+      
+         
             
           echo "Midnight Engine Update DM5 X5 Purchases (Credit Another 4 ) <hr>";
                $alluserProfile = \App\Models\Profile::where('affiliate_paid','=','1')->where('membership_type' , '1200')->get()->shuffle();
@@ -45,8 +79,11 @@ class MidnightEngine extends Controller
                 echo "<hr><hr>Update Complete Complete";
                 
                self::UpdateSponsor();
+        
                self::UpdateDM5();
+        
                self::UpdateDM3();
+             
                 
     }
     
@@ -70,8 +107,7 @@ class MidnightEngine extends Controller
                 
     }
     
-    
-      public function UpdateSponsor()
+     public function UpdateSponsor()
     {
           
           echo "Midnight Engine Update Sponsors V1.0 value <hr>";
@@ -468,4 +504,7 @@ class MidnightEngine extends Controller
         //return redirect('/DM5');
     }//return redirect('/DM5');
         }
+    
+    
+    
 }

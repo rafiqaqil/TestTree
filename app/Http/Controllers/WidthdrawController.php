@@ -34,7 +34,7 @@ class WidthdrawController extends Controller
      */
     public function StoreWidthdraw()
     {
-             $user = auth()->user();   $profile = $user->profile()->first();
+         $user = auth()->user();   $profile = $user->profile()->first();
            
            //dd($profile);
          $alldata = widthdraw::all()->where('user_id',$user->id)->where('STATUS','=',0);

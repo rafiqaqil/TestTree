@@ -24,12 +24,13 @@ class CreateWidthdrawsTable extends Migration
             $table->string('Phone')->default('0');
             $table->string('USDT')->default('0');
             $table->string('Merch')->default('0');
-            
-                   $table->integer('RESERVE_INT1')->default(0);
-             $table->decimal('RESERVE_DEC1', 8, 2)->default(0.0);
-             $table->string('RESERVE_STR1')->default('UNDEFINED');
+            $table->string('Transfer_user_id')->default('0');
+            $table->string('Transfer_username')->default('0');
+            $table->integer('RESERVE_INT1')->default(0);
+            $table->decimal('RESERVE_DEC1', 8, 2)->default(0.0);
+            $table->string('RESERVE_STR1')->default('UNDEFINED');
              
-               $table->integer('RESERVE_INT2')->default(0);
+             $table->integer('RESERVE_INT2')->default(0);
              $table->decimal('RESERVE_DEC2', 8, 2)->default(0.0);
              $table->string('RESERVE_STR2')->default('UNDEFINED');
             
