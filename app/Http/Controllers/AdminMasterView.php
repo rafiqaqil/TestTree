@@ -70,7 +70,7 @@ class AdminMasterView extends Controller
         $Withdraw = \App\Models\widthdraw::all()->where('user_id',$user->id);
                 
                 
-        return view('audit.ShowOne',compact('Withdraw','alldata','user','alldataApproved','DM5_IDs','DM5_Bal','DM3_IDs','DM3_Bal','sponsorTotal','sponsored'));      
+        return view('audit.showthisone',compact('Withdraw','alldata','user','alldataApproved','DM5_IDs','DM5_Bal','DM3_IDs','DM3_Bal','sponsorTotal','sponsored'));      
     }
         public function ShowOneSponsorTree($userProfile)
       {
