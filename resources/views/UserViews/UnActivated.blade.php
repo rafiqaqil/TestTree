@@ -12,6 +12,15 @@
                                         </h3></div>
                                     <div class="card-body pl-4 ">
                                         Please make payment of 10 USD to e-DM5 Blast Merchantrade Account to enjoy our services.
+                                        
+                                        <br>
+                                        <h3>MERCHANTRADE ACCOUNT : <br>4080020107474101</h3>
+                                        <br>
+                                        
+                                         <br>
+                                        <h3>USDT ACCOUNT : <br>0x8b472d40b9be8fF8d502Fbe6891690435F1680D0</h3>
+                                        <br>
+                      
                                         <div class="container-fluid">
                                         <img src="{{env('absolute')}}/paymentDetails.png" width="95%" >
                                         </div>
