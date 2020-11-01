@@ -14,22 +14,42 @@ class MembershipController extends Controller
       public function index()
     {
          
+        $FinalBalance = self::checkWallet();
+        //dd($FinalBalance);
         $user = auth()->user();
         $profile = $user->profile()->first();
         //dd($profile);
-        return view('UserViews.mymembership', compact('profile','user'));  
+        return view('UserViews.mymembership', compact('profile','user','FinalBalance'));  
     }
     
     
+        public function checkWallet()
+    {         
+            $user = auth()->user();   $profile = $user->profile()->first();
+         
+           //dd($profile);
+         $alldata =    \App\Models\widthdraw::all()->where('user_id',$user->id)->where('STATUS','=',0);
+         $alldataApproved =     \App\Models\widthdraw::all()->where('user_id',$user->id)->where('STATUS','!=',0);
+         $Negative =     \App\Models\widthdraw::all()->where('user_id',$user->id)->where('STATUS','!=',9)->sum('AMOUNT');
+          $TDM5 =  \App\Models\DM5tree::all()->where('user_id',$user->id)->sum('balance')*0.8;
+          $TDM3 =  \App\Models\DM3tree::all()->where('user_id',$user->id)->sum('balance')*0.9;
+          $TSPN = \App\Models\sponsor::all()->where('user_id',$user->id)->sum('balance');    
+          $transfersIN = \App\Models\transfer::all()->where('to_user_id',$user->id)->where('STATUS','==',1)->sum('AMOUNT');
+          $transfersOUT = \App\Models\transfer::all()->where('user_id',$user->id)->where('STATUS','!=',9)->sum('AMOUNT');
+         $Transfers = $transfersIN -$transfersOUT;
+          $FinalBalance = $TDM5+ $TDM3 +$TSPN + $transfersIN - $transfersOUT- $Negative;
+     
+        return $FinalBalance; 
+    }
     
     public function ActivateAccount()
     { 
-               
+                $FinalBalance = self::checkWallet();
         $user = auth()->user();
         $profile = $user->profile;
       
         
-        return view('UserViews.UnActivated', compact('profile','user'));
+        return view('UserViews.UnActivated', compact('profile','user','FinalBalance'));
     }
     
     

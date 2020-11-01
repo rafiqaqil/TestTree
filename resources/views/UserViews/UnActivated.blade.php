@@ -50,6 +50,12 @@
                          <option value="0">NOT PAID</option>
                        <option value="USDT">USDT</option>
                     <option value="MERCHANTRADE">MERCHANTRADE</option>
+                     @if($FinalBalance >= 10 )
+                     <!--
+                    <option value="WALLET">WALLET</option>
+                    -->@endif
+                    
+                    
                         </select>
 
                     @if ($errors->has('payment_type'))

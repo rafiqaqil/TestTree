@@ -78,6 +78,8 @@ Route::patch('/UpdateProfile/{user}', [ProfileController::class , 'UpdateProfile
 
 use App\Http\Controllers\UserViews;
 //USERViewSummary 
+
+
 Route::get('/logoutNow', [UserViews::class , 'logoutNowToLink']);
 Route::get('/ShowMyDM3', [UserViews::class , 'ShowMyDM3']);
 Route::get('/ShowMySponsor', [UserViews::class , 'ShowMySponsor']);
@@ -95,7 +97,7 @@ Route::get('/MySponsorData', [ProfileController::class , 'MySponsorData']);
 //User Widthdraw Functions
 
 use App\Http\Controllers\WidthdrawController;
-
+Route::get('/MyWallet', [WidthdrawController::class , 'MyWallet']);
 Route::get('/Show/MyWidthdraw', [WidthdrawController::class , 'MyWidthdraw']);
 Route::get('/Create/Widthdraw', [WidthdrawController::class , 'CreateWidthdraw']);
 Route::post('/Store/Widthdraw', [WidthdrawController::class , 'StoreWidthdraw']);

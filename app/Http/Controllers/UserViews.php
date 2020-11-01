@@ -14,6 +14,7 @@ class UserViews extends Controller
     
     
     
+ 
      public function logoutNowToLink()
     {
         $user = auth()->user();
@@ -22,19 +23,12 @@ class UserViews extends Controller
         auth()->logout();
         return redirect('/register/'.$username);
     }
-    
     public function ShowMyDM3()
     {
-         
-        
         $user = auth()->user();
         $profile = $user->profile();
-        
-        
         $Mine = \App\Models\DM3tree::all()->where('user_id',$user->id);
         //dd($Mine);
-        
-        
         $Total =  \App\Models\DM3tree::all()->where('user_id',$user->id)->sum('balance')*0.9;
         //dd('USD ',$Total*.8);
         return view('UserViews.indexDM3', compact('profile','user','Mine','Total'));

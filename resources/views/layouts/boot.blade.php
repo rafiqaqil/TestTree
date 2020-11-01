@@ -123,12 +123,23 @@
               <i class="fas fa-fw fa-tachometer-alt"></i>
               <span>Membership</span>
             </a>
+          </li>    <li class="nav-item">
+            <a class="nav-link" href="{{env('absolute')}}/MyWallet">
+              <i class="fas fa-fw fa-tachometer-alt"></i>
+              <span>My Wallet</span>
+            </a>
           </li>
           @else
              <li class="nav-item">
             <a class="nav-link" href="{{env('absolute')}}/ActivateAccount">
               <i class="fas fa-fw fa-tachometer-alt"></i>
               <span>Activate Account</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{{env('absolute')}}/MyWallet">
+              <i class="fas fa-fw fa-tachometer-alt"></i>
+              <span>My Wallet</span>
             </a>
           </li>
           
@@ -141,6 +152,7 @@
               <span>Dashboard</span>
             </a>
           </li>
+          
               <li class="nav-item">
             <a class="nav-link" href="{{env('absolute')}}/ShowMyDM3">
               <i class="fas fa-fw fa-tachometer-alt"></i>

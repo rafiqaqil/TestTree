@@ -23,7 +23,8 @@ class WidthdrawController extends Controller
         $profile = $user->profile();
         return view('Widthdraw.createW', compact('profile','user'));
     }
-
+    
+        
  
 
     /**
@@ -67,16 +68,14 @@ class WidthdrawController extends Controller
         //-------------------------------------------------------------------------
          if($FinalBalance >= 0)
          {
-        
-         
+
         $user = auth()->user();
         $userProfile = \App\Models\Profile::find($user->id);
-        
         //dd($userProfile);
-        $data['Name'] = $userProfile->name;
-        $data['Phone'] = $userProfile->phone;  
-        $data['USDT'] = $userProfile->usdt_wallet;  
-        $data['Merch'] = $userProfile->merchantrade_acc;  
+        $data['Name'] = '- '.$userProfile->name;
+        $data['Phone'] = '- '.$userProfile->phone;  
+        $data['USDT'] = '- '.$userProfile->usdt_wallet;  
+        $data['Merch'] = ' '.$userProfile->merchantrade_acc;  
             
         
         $data['user_id'] = $user->id;
@@ -114,6 +113,26 @@ class WidthdrawController extends Controller
      * @param  \App\Models\widthdraw  $widthdraw
      * @return \Illuminate\Http\Response
      */
+        
+           public function MyWallet(){
+               
+                $user = auth()->user();   $profile = $user->profile()->first();
+           
+           //dd($profile);
+         $alldata = widthdraw::all()->where('user_id',$user->id)->where('STATUS','=',0);
+         $alldataApproved =  widthdraw::all()->where('user_id',$user->id)->where('STATUS','!=',0);
+         $Negative =  widthdraw::all()->where('user_id',$user->id)->where('STATUS','!=',9)->sum('AMOUNT');
+          $TDM5 =  \App\Models\DM5tree::all()->where('user_id',$user->id)->sum('balance')*0.8;
+          $TDM3 =  \App\Models\DM3tree::all()->where('user_id',$user->id)->sum('balance')*0.9;
+          $TSPN = \App\Models\sponsor::all()->where('user_id',$user->id)->sum('balance');    
+          $transfersIN = \App\Models\transfer::all()->where('to_user_id',$user->id)->where('STATUS','==',1)->sum('AMOUNT');
+          $transfersOUT = \App\Models\transfer::all()->where('user_id',$user->id)->where('STATUS','!=',9)->sum('AMOUNT');
+         $Transfers = $transfersIN -$transfersOUT;
+          $FinalBalance = $TDM5+ $TDM3 +$TSPN + $transfersIN - $transfersOUT- $Negative;
+         //dd($FinalBalance);
+                 return view('Widthdraw.mywallet',compact('FinalBalance','profile'));
+           }
+ 
     public function MyWidthdraw()
     {
       

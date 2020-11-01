@@ -173,7 +173,10 @@
                           </option>
                          <option value="0">NOT PAID</option>
                        <option value="USDT">USDT</option>
-                    <option value="MERCHANTRADE">MERCHANTRADE</option>
+                    <option value="MERCHANTRADE">MERCHANTRADE </option>
+                    @if($FinalBalance >= 200 && $FinalBalance >= $user->profile->membership_type )
+                    <option value="WALLET">WALLET</option>
+                    @endif
                         </select>
 
                     @if ($errors->has('placement_payment_type'))
@@ -228,6 +231,9 @@
                          <option value="0">NOT PAID</option>
                        <option value="USDT">USDT</option>
                     <option value="MERCHANTRADE">MERCHANTRADE</option>
+                           @if($FinalBalance >= 200 && $FinalBalance >= $user->profile->membership_type )
+                    <option value="WALLET">WALLET</option>
+                    @endif
                         </select>
 
                     @if ($errors->has('placement_payment_type'))

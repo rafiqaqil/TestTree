@@ -115,10 +115,7 @@ class TransferController extends Controller
          else{
           return redirect('/Show/MyWidthdraw')->withErrors(['Not Enough Balance', 'Not Enough Balance']);
          }
-    
-    
-    
-    
+
     }
 
     /**
