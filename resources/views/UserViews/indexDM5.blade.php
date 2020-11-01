@@ -23,7 +23,11 @@
             
              
             <p style="color:greenyellow;font-size:50px" >${{$d->balance*0.80}}</p>
+            <small style="color:yellow;font-size:20px" >Reentry: ${{($d->balance*0.20)-(200*$d->RE_ENTRY_TIMES)}}</small><br>
+            @if((($d->balance*0.20)-(200*$d->RE_ENTRY_TIMES)) >= 200)
+            <button class='btn btn-success'>Apply Reentry fee 10$</button>
             
+            @endif
             <a href="{{env('absolute')}}/MyDM5/{{$d->id}}"><button class="btn btn-info">Show</button></a>
           
             <?php $index =$index + 1; ?>  

@@ -40,7 +40,8 @@ class AdminMembershipController extends Controller
     { 
             $user = User::find($id);
             $profile = Profile::find($id);
-          	if($profile->placement_payment_type = 'WALLET')
+               //dd($profile);
+          	if($profile->placement_payment_type == 'WALLET')
                 {
                    
                     $FinalBalance = self::checkWalletByID($profile->id);
@@ -63,7 +64,8 @@ class AdminMembershipController extends Controller
                         
                     }
                 }
-                else{
+                else{ 
+                    //dd("WORKING NOW");
         $profile = Profile::find($id);
         $profile->membership_type = 0;
         $profile->save();
@@ -139,7 +141,7 @@ class AdminMembershipController extends Controller
      public function ApprovePlanPayment(Profile $profile)
      {
          $user = User::find($profile->id);
-          	if($profile->placement_payment_type = 'WALLET')
+          	if($profile->placement_payment_type == 'WALLET')
                 {
                    
                     $FinalBalance = self::checkWalletByID($profile->id);
