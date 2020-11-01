@@ -78,6 +78,7 @@ Route::patch('/UpdateProfile/{user}', [ProfileController::class , 'UpdateProfile
 
 use App\Http\Controllers\UserViews;
 //USERViewSummary 
+Route::get('/logoutNow', [UserViews::class , 'logoutNowToLink']);
 Route::get('/ShowMyDM3', [UserViews::class , 'ShowMyDM3']);
 Route::get('/ShowMySponsor', [UserViews::class , 'ShowMySponsor']);
 Route::get('/ShowMyDM5', [UserViews::class , 'ShowMyDM5']);

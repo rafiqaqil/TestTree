@@ -145,7 +145,7 @@
                                         </div>
             
              @elseif($user->profile->membership_type == 1000 )
-            <h3>Thank you for choosing a plan, please make payment of 1210 USD to our merchantrade account of USDT </h3>
+            <h3>Thank you for choosing a plan, please make payment of 1200 USD to our merchantrade account of USDT </h3>
             <br>
             <h2>MERCHANTRADE : 4080020107474101</h2>
             <br>
@@ -189,11 +189,16 @@
                      </form>
               
              @else
-            <h3>Thank you for choosing a plan, please make payment of {{$user->profile->membership_type}}+10 USD to our merchantrade account of USDT </h3>
+            <h3>Thank you for choosing a plan, please make payment of {{$user->profile->membership_type}} to our merchantrade account of USDT </h3>
                         <br>
             <h5>MERCHANTRADE : 4080020107474101</h5>
             <br> 
             
+                     <br>
+            <h5>USDT acc :<br> 0x8b472d40b9be8fF8d502Fbe6891690435F1680D0</h5>
+            <br> 
+            
+
             <a href="{{env('absolute')}}/PurchaseMembership/Clear" class="btn btn-danger">Cancel Order</a>
             <small> 
             Please include your contact information to avoid any problems
@@ -236,6 +241,10 @@
                     <button class="btn btn-primary">Confirm Payment Method Done</button>
                 </div>
                      </form>
+                     <br>
+                          @if($profile->placement_payment_type !='0')
+                  <h3>Please wait until until we confirm your payment, any inquiries can be made through email or calls wit hour administrators</h3>
+                                        @endif
             @endif
            
             

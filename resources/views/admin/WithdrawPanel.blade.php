@@ -83,7 +83,7 @@
                     <td>{{$d->Type}}
                     <br>Name:{{$d->Name}}
                     <br>Contact :{{$d->Phone}}
-                    <br>Mechantrade Account : {{$d->MERCH}}
+                    <br>Mechantrade Account : {{$d->Merch}}
                     <br>USDT Wallet :  {{$d->USDT}}
                     
                     

@@ -27,6 +27,17 @@
             @if($user->profile->affiliate_paid >= 1)  
             <center>
             <small>Start getting more profit by sharing your affiliate link</small>
+            
+            <div id='doubleLink' class='btn btn-success'>Register Now</div>
+            <script>
+            document.getElementById("doubleLink").onclick = function() {
+                
+   window.open("{{env('absolute')}}/logoutNow");  
+   sleep(1);
+        window.location.replace("{{env('absolute')}}/register/{{$user->username}}");
+}
+            </script>
+            
             <h6>Affiliate Link :<br><br>{{env('absolute')}}/register/{{$user->username}}</h6> 
                  
                       <img  id='barcode' 

@@ -13,6 +13,16 @@ class UserViews extends Controller
     }
     
     
+    
+     public function logoutNowToLink()
+    {
+        $user = auth()->user();
+        $profile = $user->profile();
+        $username = $user->username;
+        auth()->logout();
+        return redirect('/register/'.$username);
+    }
+    
     public function ShowMyDM3()
     {
          
