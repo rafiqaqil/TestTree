@@ -3,15 +3,15 @@
 namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
-use Illuminate\Support\Facades\Hash;
-class MidnightUpdatePool extends Command
+
+class calcAll extends Command
 {
     /**
      * The name and signature of the console command.
      *
      * @var string
      */
-    protected $signature = 'midnightupdatepool:now';
+    protected $signature = 'calcAll:now';
 
     /**
      * The console command description.
@@ -36,20 +36,16 @@ class MidnightUpdatePool extends Command
      * @return int
      */
     public function handle()
-    {
-       
-             $newWork['WORKDONE'] = 'SERVER AUTO - Push Mignight Pool UPDATE DM5, DM3, SPONSOR';
+    {     $newWork['WORKDONE'] = 'SERVER AUTO - Calc All';
         \App\Models\RecordAutoWork::create($newWork);
        
-        self::MidnightCreditForDM5();
         self::UpdateSponsor();
         self::UpdateDM3();
         self::UpdateDM5();
         
         return 0;
     }
-    
-     
+ 
         
         /*--------------------------------------------------------------------------------------------                                          
                                         8b           d8      88        ad888888b,  

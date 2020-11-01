@@ -27,10 +27,12 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        //  $schedule->command('inspire')->hourly();
-        
-          
-         $schedule->command('midnightupdatepool:now')->timezone('Asia/Kuala_Lumpur')->daily();
+     
+            $schedule->command('midnightupdatepool:now')->timezone('Asia/Kuala_Lumpur')->dailyAt('11:59');
+          $schedule->command('   calcAll:now')->timezone('Asia/Kuala_Lumpur')->hourly();
+         
+            
+         
     }
 
     /**protected function schedule(Schedule $schedule)
