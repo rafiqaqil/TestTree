@@ -38,9 +38,7 @@ class MidnightUpdatePool extends Command
     public function handle()
     {
        
-             $newWork['WORKDONE'] = 'SERVER AUTO - Push Mignight Pool UPDATE DM5, DM3, SPONSOR';
-        \App\Models\RecordAutoWork::create($newWork);
-       
+
         self::MidnightCreditForDM5();
         self::UpdateSponsor();
         self::UpdateDM3();
@@ -49,7 +47,41 @@ class MidnightUpdatePool extends Command
         return 0;
     }
     
-     
+     public function MidnightCreditForDM5()
+    {
+        
+             $newWork['WORKDONE'] = 'SERVER AUTO - Push Mignight Pool UPDATE DM5, DM3, SPONSOR';
+        \App\Models\RecordAutoWork::create($newWork);
+             
+            
+          echo "Midnight Engine Update DM5 X5 Purchases (Credit Another 4 ) <hr>";
+               $alluserProfile = \App\Models\Profile::where('affiliate_paid','=','1')->where('membership_type' , '1200')->get()->shuffle();
+               // dd($alluserProfile);
+               foreach($alluserProfile as $profile)
+               {
+                 if($profile->affiliate_paid == 1 && $profile->membership_type == 1200){
+                   $Username =  \App\Models\User::find($profile->id);
+                   //dd($Username->username);
+                    echo "Scanning : ".$profile->id;
+                 
+                       $profile['affiliate_paid']= 5;
+                       $profile->affiliate_paid = 5;
+                       $profile->save();
+                       try{
+                        for ($loopa = 1; $loopa <=5; $loopa++) {self::DM5addSilently($Username->username.'-'.$loopa,$profile->user_id);}
+                       }
+                       catch (Exception $e) {
+                            echo 'Caught exception: Duplicate Entry Prevented';
+                        }
+                       echo "Credited to Account ".$Username->username;
+                 }
+   
+               }
+                echo "<hr><hr>Update Complete Complete";
+                
+              
+                
+    }
         
         /*--------------------------------------------------------------------------------------------                                          
                                         8b           d8      88        ad888888b,  
@@ -187,7 +219,10 @@ class MidnightUpdatePool extends Command
              
             $Zchildren = \App\Models\DM5tree::descendantsOf($d->id)->count();
             echo "This Node has Children:". $Zchildren;
-            if($Zchildren >= 5){ echo "- FULL! ";}  
+              $maxChildNow = 5;
+            if($TotalNodes >= 3906)
+             $maxChildNow = 1;
+            if($Zchildren >= $maxChildNow){ echo "- FULL! ";}   
             else
             {         
                     $level = \App\Models\DM5tree::withDepth()->find($d->id)->depth;

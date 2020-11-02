@@ -183,7 +183,11 @@ class calcAll extends Command
              
             $Zchildren = \App\Models\DM5tree::descendantsOf($d->id)->count();
             echo "This Node has Children:". $Zchildren;
-            if($Zchildren >= 5){ echo "- FULL! ";}  
+            
+            $maxChildNow = 5;
+            if($TotalNodes >= 3905)
+             $maxChildNow = 1;
+            if($Zchildren >= $maxChildNow){ echo "- FULL! ";}  
             else
             {         
                     $level = \App\Models\DM5tree::withDepth()->find($d->id)->depth;

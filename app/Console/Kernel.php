@@ -16,7 +16,7 @@ class Kernel extends ConsoleKernel
       
         
         MidnightUpdatePool::class,
-         
+         calcAll::class,
     ];
 
     /**
@@ -28,10 +28,12 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule)
     {
      
-            $schedule->command('midnightupdatepool:now')->timezone('Asia/Kuala_Lumpur')->dailyAt('11:59');
-          $schedule->command('   calcAll:now')->timezone('Asia/Kuala_Lumpur')->hourly();
+            $schedule->command('midnightupdatepool:now')->timezone('Asia/Kuala_Lumpur')->dailyAt('00:01');
+            //
+          $schedule->command('calcAll:now')->timezone('Asia/Kuala_Lumpur')->hourly();
          
             
+             //$schedule->command('   calcAll:now')->timezone('Asia/Kuala_Lumpur')->everyMinute();
          
     }
 
