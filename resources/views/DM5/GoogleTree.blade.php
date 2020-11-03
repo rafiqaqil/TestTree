@@ -22,7 +22,6 @@
 
         // For each orgchart box, provide the name, manager, and tooltip to show.
         data.addRows([
-            
           @foreach($chart as $c)
           [{'v':'{{ $c->id }}', 'f':'{{ $c->id-1 }} <br>{{ $c->name }} <br> \n\
                                 Balance:{{ $c->balance*0.8 }}<br> \n\

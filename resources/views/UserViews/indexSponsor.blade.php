@@ -7,8 +7,9 @@
         <div class="card   shadow-lg border-0 rounded-lg ">
             
         <div class="card-header"><h5 class="text-center font-weight-light my-2"><h4>My Sponsors Summary  
-                
+                @if($sponsorCount > 2)
                     <br><small>Groupsale Accumulation : {{$Mine->logs}}</small></h4> </h5></div>
+                    @endif
         <div class="card-body  bg-dark rounded-lg ">
                <a href="{{env('absolute')}}/ShowMySponsorTree">
         <div class="btn btn-success">Show SponsorTree</div></a>

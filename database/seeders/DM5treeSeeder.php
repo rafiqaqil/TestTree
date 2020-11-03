@@ -18,7 +18,8 @@ class DM5treeSeeder extends Seeder
                     'name' => 'root',
                      'user_id' => 0,
                      'balance' => 0,
-                     'logs' => '0',   
+                     'logs' => '0',  
+               'DM3_CREDITED' => '1',
                
         ];
         

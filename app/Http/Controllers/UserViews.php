@@ -92,6 +92,7 @@ class UserViews extends Controller
     
     
     
+        
       public function ShowMySponsor()
       {
          $user = auth()->user();
@@ -100,8 +101,9 @@ class UserViews extends Controller
          //dd($user);
          $Mine = \App\Models\sponsor::all()->where('user_id',$user->id)->first();
          $Total = \App\Models\sponsor::all()->where('user_id',$user->id)->sum('balance');
-         //dd($Mine->logs);
-        return view('UserViews.indexSponsor', compact('user','Mine','Total'));
+         $sponsorCount = \App\Models\sponsor::descendantsAndSelf($Mine->id)->count();
+         //dd($sponsorCount);
+        return view('UserViews.indexSponsor', compact('user','Mine','Total','sponsorCount'));
  
       }
       

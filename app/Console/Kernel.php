@@ -5,6 +5,10 @@ namespace App\Console;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 use App\Console\Commands\MidnightUpdatePool;
+
+use App\Console\Commands\calcAll;
+
+
 class Kernel extends ConsoleKernel
 {
     /**
@@ -28,6 +32,9 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule)
     {
      
+        \App\Models\DM3tree::fixTree();
+        echo" Fix Tree DM3   ";
+        
             $schedule->command('midnightupdatepool:now')->timezone('Asia/Kuala_Lumpur')->dailyAt('00:01');
             //
           $schedule->command('calcAll:now')->timezone('Asia/Kuala_Lumpur')->hourly();
