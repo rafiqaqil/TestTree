@@ -65,9 +65,18 @@ class MembershipController extends Controller
        
        
         $temp->save();
-       
         
-         
+        
+        //echo $temp['payment_type'];
+        
+        if($temp['payment_type']){
+            //dd('Success');
+            \Illuminate\Support\Facades\Mail::raw('Activation Payment  : '.$user->username.'  Phone :'. $user->phone."  email :".$user->email , function ($message){
+            $message->to(env('NOTI_MAILBOX'))->subject("Activation Payment");
+            });
+        }
+         //dd('Nope');
+          
         
       return redirect('/ActivateAccount');
     }
@@ -87,7 +96,15 @@ class MembershipController extends Controller
        
         $temp->save();
        
+         //echo $temp['payment_type'];
         
+        if($temp['placement_payment_type']){
+            //dd('Success');
+            \Illuminate\Support\Facades\Mail::raw('Plan Payment  : '.$user->username."-".$data['placement_payment_type']. ' -- '.$profile->membership_type.'  Phone :'. $user->phone."  email :".$user->email , function ($message){
+            $message->to(env('NOTI_MAILBOX'))->subject("Plan Payment ");
+            });
+        }
+         //dd('Nope');
          
         
       return redirect('/MyMembership');
