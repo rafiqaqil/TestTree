@@ -69,11 +69,22 @@ class MembershipController extends Controller
         
         //echo $temp['payment_type'];
         
-        if($temp['payment_type']){
+      
+        
+        
+               if($temp['placement_payment_type'] == 'USDT'){
             //dd('Success');
-            \Illuminate\Support\Facades\Mail::raw('Activation Payment  : '.$user->username.'  Phone :'. $user->phone."  email :".$user->email , function ($message){
-            $message->to(env('NOTI_MAILBOX'))->subject("Activation Payment");
+            \Illuminate\Support\Facades\Mail::raw('Activation Payment : '.$user->username."-".$data['placement_payment_type']. ' -- '.$profile->membership_type.'  Phone :'. $user->phone."  email :".$user->email.'      USDT ACCOUNT :'.$profile->usdt_wallet , function ($message){
+            $message->to(env('NOTI_MAILBOX'))->subject("Activation Payment USDT");
             });
+        }
+        else
+        {
+             //dd('Success');
+            \Illuminate\Support\Facades\Mail::raw('Activation Payment  : '.$user->username."-".$data['placement_payment_type']. ' -- '.$profile->membership_type.'  Phone :'. $user->phone."  email :".$user->email.'      MERCHANTRADE ACCOUNT :'.$profile->merchantrade_acc, function ($message){
+            $message->to(env('NOTI_MAILBOX'))->subject("Activation Payment MERCHANTRADE");
+            });
+            
         }
          //dd('Nope');
           

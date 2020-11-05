@@ -80,11 +80,15 @@
          <tr>
                                   
                 
-                    <td>{{$d->Type}}
+                    <td> {{$d->Type}}
                     <br>Name:{{$d->Name}}
                     <br>Contact :{{$d->Phone}}
+                    @if($d->Type ='MERCHANTRADE')
                     <br>Mechantrade Account : {{$d->Merch}}
+                    @else
                     <br>USDT Wallet :  {{$d->USDT}}
+                    @endif
+                    
                     
                     
                     </td>
