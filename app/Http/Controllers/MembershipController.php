@@ -105,8 +105,10 @@ class MembershipController extends Controller
        $temp->placement_payment_type=$data['placement_payment_type'];
          //dd($temp);
        
+       
         $temp->save();
        
+        
          //echo $temp['payment_type'];
         
         if($temp['placement_payment_type'] == 'USDT'){
