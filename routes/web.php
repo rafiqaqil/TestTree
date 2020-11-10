@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-7
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes

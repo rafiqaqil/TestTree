@@ -136,104 +136,67 @@
   
     <li class="grey"><a href="{{env('absolute')}}/PurchaseMembership/X5" class="button">Sign Up</a></li>
   </ul>
-</div>
-
-            @elseif($user->profile->membership_type == 10 )
-            <h3>Thank you for choosing the basic plan, please make payment of {{$user->profile->membership_type}} USD to our merchantrade account of USDT </h3>
-            <a href="{{env('absolute')}}/PurchaseMembership/Clear" class="btn btn-danger">Cancel Order</a>    <div class="container-fluid">
-                                        <img src="{{env('absolute')}}/paymentDetails.png" width="95%" >
-                                        </div>
-            
-             @elseif($user->profile->membership_type == 1000 )
-            <h3>Thank you for choosing a plan, please make payment of 1200 USD to our merchantrade account of USDT </h3>
-            <br>
-            <h2>MERCHANTRADE : 4080020107474101</h2>
-            <br>
-             <a href="{{env('absolute')}}/PurchaseMembership/Clear" class="btn btn-danger">Cancel Order</a>
-            <small>     <div class="container-fluid">
-                                        <img src="{{env('absolute')}}/paymentDetails.png" width="95%" >
-                                        </div>
-                       <form action="{{env('absolute')}}/Placement/ConfirmPayment" enctype="multipart/form-data" method="post">
-        @csrf                   
-               <div class="form-group row">
-                    <label for="payment_type" class="col-md-4 col-form-label">Select Preferred Payment Method</label>
-
-                    <select id="placement_payment_type"
-                           type="text"
-                           class="form-control{{ $errors->has('placement_payment_type') ? ' is-invalid' : '' }}"
-                           name="placement_payment_type"
-                           value="{{ old('payment_type') }}"
-                           autocomplete="title" autofocus>
-                          <option value="{{$profile->placement_payment_type}}">
-                               @if($profile->placement_payment_type !='0')
-                              {{$profile->placement_payment_type}}
-                              @else
-                              NOT PAID
-                              @endif
-                          </option>
-                         <option value="0">NOT PAID</option>
-                       <option value="USDT">USDT</option>
-                    <option value="MERCHANTRADE">MERCHANTRADE </option>
-                    @if($FinalBalance >= 200 && $FinalBalance >= $user->profile->membership_type )
-                    <option value="WALLET">WALLET</option>
-                    @endif
-                        </select>
-
-                    @if ($errors->has('placement_payment_type'))
-                        <span class="invalid-feedback" role="alert">
-                            <strong>{{ $errors->first('placement_payment_type') }}</strong>
-                        </span>
-                    @endif
-                </div>
-        
-                <div class="row pt-4">
-                    <button class="btn btn-primary">Confirm Payment Method Done</button>
-                </div>
-                     </form>
-              
-             @else
-            <h3>Thank you for choosing a plan, please make payment of {{$user->profile->membership_type}} to our merchantrade account of USDT </h3>
-                        <br>
-            <h5>MERCHANTRADE : 4080020107474101</h5>
-            <br> 
-            
-                     <br>
-            <h5>USDT acc :<br> 0x8b472d40b9be8fF8d502Fbe6891690435F1680D0</h5>
-            <br> 
-            
+</div>  
+         
+                @else
+                
+            <h3>Thank you for choosing a plan, please make payment of {{$user->profile->membership_type}}$ to our account and confirm payment method  </h3>
+                      
 
             <a href="{{env('absolute')}}/PurchaseMembership/Clear" class="btn btn-danger">Cancel Order</a>
             <small> 
-            Please include your contact information to avoid any problems
+            Please include your contact information in your profile to avoid any problems
+            </small>    
             
-            </small>    <div class="container-fluid">
-                                        <img src="{{env('absolute')}}/paymentDetails.png" width="95%" >
+ 
+         
+            <hr>
+            
+             @if($profile->placement_payment_type =='0')
+            <hr>
+            <div class='row'>
+
+            
+              <div class="col-6 pt-2" align="center">
+                                <div class="card shadow-lg border-0 rounded-lg mt-5">
+                                    <div class="card-header"><h3 class="text-center font-weight-light my-4">Pay Using MERCHANTRADE
+                         
+                                     
+                                        </h3></div>
+                                    <div class="card-body pl-4 ">
+                                      
+                                        <br>
+                                        <h3>MERCHANTRADE ACCOUNT : <br>4080020107474101</h3>
+                                        <br>
+                                  
+                      
+                                        <div class="container-fluid">
+                                        <img src="{{env('absolute')}}/mrpay.png" width="95%" >
                                         </div>
-            
-             <form action="{{env('absolute')}}/Placement/ConfirmPayment" enctype="multipart/form-data" method="post">
+                                       
+                                        
+                                        
+                                        
+                                        
+                     <form action="{{env('absolute')}}/Placement/ConfirmPayment" enctype="multipart/form-data" method="post">
         @csrf                   
                <div class="form-group row">
-                    <label for="payment_type" class="col-md-4 col-form-label">Select Preferred Payment Method</label>
+                    <label for="placement_payment_type" class="col-md-12 col-form-label"></label>
 
-                    <select id="placement_payment_type"
+                    <select hidden id="placement_payment_type"
                            type="text"
-                           class="form-control{{ $errors->has('placement_payment_type') ? ' is-invalid' : '' }}"
+                           class="form-control{{ $errors->has('Type') ? ' is-invalid' : '' }}"
                            name="placement_payment_type"
-                           value="{{ old('payment_type') }}"
+                         
                            autocomplete="title" autofocus>
-                          <option value="{{$profile->placement_payment_type}}">
-                               @if($profile->placement_payment_type !='0')
-                              {{$profile->placement_payment_type}}
-                              @else
-                              NOT PAID
-                              @endif
-                          </option>
-                         <option value="0">NOT PAID</option>
-                       <option value="USDT">USDT</option>
+                  
                     <option value="MERCHANTRADE">MERCHANTRADE</option>
-                           @if($FinalBalance >= 200 && $FinalBalance >= $user->profile->membership_type )
+                     @if($FinalBalance >= 10 )
+                     <!--
                     <option value="WALLET">WALLET</option>
-                    @endif
+                    -->@endif
+                    
+                    
                         </select>
 
                     @if ($errors->has('placement_payment_type'))
@@ -243,18 +206,149 @@
                     @endif
                 </div>
         
-                <div class="row pt-4">
-                    <button class="btn btn-primary">Confirm Payment Method Done</button>
-                </div>
+        
+                    <center>
+                    <button class="btn btn-primary ">Confirm Payment Done</button> </center>
+           
                      </form>
-                     <br>
-                          @if($profile->placement_payment_type !='0')
-                  <h3>Please wait until until we confirm your payment, any inquiries can be made through email or calls wit hour administrators</h3>
+                                        <br>
+                                        
+        </div></div></div>
+
+
+        
+        <div class="col-6 pt-2" align="center">
+                                <div class="card shadow-lg border-0 rounded-lg mt-5">
+                                    <div class="card-header"><h3 class="text-center font-weight-light my-4">Pay Using USDT
+                         
+                                     
+                                        </h3></div>
+                                    <div class="card-body pl-4 ">
+                                         <br>
+                                        <h3>USDT ACCOUNT : <br>0x8b472d40b9be8fF8d502Fbe6891690435F1680D0</h3>
+                                        <br>
+                      
+                                        <div class="container-fluid">
+                                        <img src="{{env('absolute')}}/uspay.png" width="95%" >
+                                        </div>
+                                       
+                                        
+                                        
+                                        
+                                        
+                     <form action="{{env('absolute')}}/Placement/ConfirmPayment" enctype="multipart/form-data" method="post">
+        @csrf                   
+               <div class="form-group row">
+                    <label for="placement_payment_type" class="col-md-4 col-form-label"></label>
+
+                    <select hidden id="placement_payment_type"
+                           type="text"
+                           class="form-control{{ $errors->has('Type') ? ' is-invalid' : '' }}"
+                           name="placement_payment_type"
+                           autocomplete="title" autofocus>
+                       <option value="USDT">USDT</option>
+                        </select>
+
+               
+               <center>
+                    <button class="btn btn-primary ">Confirm Payment Done</button> </center>
+           
+                     </form>
+                                        <br>
+                   </div>                   
+        
+          
+            
+            </div>
+            
+             </div>
+            
+             </div>
+             </div>
+            
+             @endif
+            
+
+            
+            <div class='row'>
+           
+                  @if($profile->placement_payment_type !='0')
+                  <h5>
+                                            We have notified our  Accounts Payable Manager of your payment.
+                                        <br><br>Please wait until until we confirm your payment, any inquiries can be made through email or calls with our administrators
+                                        <br>
+                                        <center>
+                                            <br>
+                                      Payment Option Chosen :{{$profile->placement_payment_type}}
+                                        
+                                            <br>
+                                         @if($profile->placement_payment_type =='MERCHANTRADE')
+                                         
+                                         <h3>MERCHANTRADE ACCOUNT : <br>4080020107474101</h3>
+                                         <img src="{{env('absolute')}}/MRpay.png" width="100%" align='center'>
+                                           
+                                         @endif
+                                         
+                                         @if($profile->placement_payment_type =='USDT')
+                                         
+                                          <h3>USDT ACCOUNT : <br>0x8b472d40b9be8fF8d502Fbe6891690435F1680D0</h3>
+                                        <br>
+                      
+                                        <div class="container-fluid">
+                                        <img src="{{env('absolute')}}/uspay.png" width="100%" align='center' >
+                                        </div>
+                                         
+                                         @endif
+                                        
+                                        <br>
+                                        
+                                        <h5>If you did not make any payment or wish select a new payment method please press the cancel button below</h5>
+                                                                        <form action="{{env('absolute')}}/Placement/ConfirmPayment" enctype="multipart/form-data" method="post">
+                                                                                  @csrf                   
+                                                                                         <div class="form-group row">
+                                                                                              <label for="placement_payment_type" class="col-md-4 col-form-label"></label>
+
+                                                                                              <select hidden id="payment_type"
+                                                                                                     type="text"
+                                                                                                     class="form-control{{ $errors->has('Type') ? ' is-invalid' : '' }}"
+                                                                                                     name="placement_payment_type"
+                                                                                                     value="{{ old('payment_type') }}"
+                                                                                                     autocomplete="title" autofocus>
+                                                                                                  
+                                                                                                   <option value="0">NOT PAID</option>
+                                                                                             
+                                                                                             
+
+                                                                                                  </select>
+
+                                                                                           
+                                                                                          </div>
+                                                                                  
+                                                                               
+                    <button class="btn btn-danger">Cancel<br>Payment</button></center>
+          
+                     </form>
+                                        
+                                        
+                                        
+                                    </div></div></div>
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
                                         @endif
             @endif
            
             
             @else
+            
             @if($user->profile->affiliate_paid >= 1 )
              <h3>Your payment have been recieved & (DM5) has been credited to your account  </h3>
             @else

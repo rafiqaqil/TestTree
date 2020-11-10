@@ -11,18 +11,90 @@
                                      
                                         </h3></div>
                                     <div class="card-body pl-4 ">
-                                        Please make payment of 10 USD to e-DM5 Blast Merchantrade Account to enjoy our services.
-                                        
-                                        <br>
-                                        <h3>MERCHANTRADE ACCOUNT : <br>4080020107474101</h3>
-                                        <br>
-                                        
-                                         <br>
-                                        <h3>USDT ACCOUNT : <br>0x8b472d40b9be8fF8d502Fbe6891690435F1680D0</h3>
+                                            Please make payment of 10 USD to e-DM5 Blast Account to enjoy our services.
+                                            <br>
+                                            Choose the payment options below after you payment have been made to notify our Accounts Payable Manager to approve your payment and activate your account.
+                                            <br>
+                                            For any inquiry please contact our staff member for help.
+                                            <br>
+                                            edigitm5.1112020@gmail.com
+                                            <br>
+                                            
+                                        @if($profile->payment_type !='0')
+                                        <h4>
+                                            We have notified our  Accounts Payable Manager of your payment.
+                                        <br>Please wait until until we confirm your payment, any inquiries can be made through email or calls with our administrators</h4>
+                                        <hr>
+                                        <h4>Payment Option Chosen :{{$profile->payment_type}}</h4>
+                                            <center>
+                                         @if($profile->payment_type =='MERCHANTRADE')
+                                         <h3>MERCHANTRADE ACCOUNT : <br>4080020107474101</h3>
+                                         <img src="{{env('absolute')}}/MRpay.png" width="50%" align='center' >
+                                             </center>
+                                         @endif
+                                         
+                                           @if($profile->payment_type =='USDT')
+                                           <center>
+                                          <h3>USDT ACCOUNT : <br>0x8b472d40b9be8fF8d502Fbe6891690435F1680D0</h3>
                                         <br>
                       
                                         <div class="container-fluid">
-                                        <img src="{{env('absolute')}}/paymentDetails.png" width="95%" >
+                                        <img src="{{env('absolute')}}/uspay.png" width="50%" align='center' >
+                                        </div>
+                                           </center>
+                                         @endif
+                                        
+                                        <br>
+                                        
+                                        <h5>If you did not make any payment or wish select a new payment method please press the cancel button below</h5>
+                                                                        <form action="{{env('absolute')}}/ActivateAccount/ConfirmPayment" enctype="multipart/form-data" method="post">
+                                                                                  @csrf                   
+                                                                                         <div class="form-group row">
+                                                                                              <label for="payment_type" class="col-md-4 col-form-label"></label>
+
+                                                                                              <select hidden id="payment_type"
+                                                                                                     type="text"
+                                                                                                     class="form-control{{ $errors->has('Type') ? ' is-invalid' : '' }}"
+                                                                                                     name="payment_type"
+                                                                                                     value="{{ old('payment_type') }}"
+                                                                                                     autocomplete="title" autofocus>
+                                                                                                  
+                                                                                                   <option value="0">NOT PAID</option>
+                                                                                             
+                                                                                             
+
+                                                                                                  </select>
+
+                                                                                           
+                                                                                          </div>
+                                                                                  
+                                                                                  <center>
+                    <button class="btn btn-danger">Cancel<br>Payment</button></center>
+          
+                     </form>
+                                        
+                                        
+                                        
+                                    </div></div></div>
+                                         @else
+                                            </div></div></div>
+                                         
+                                        
+                                         <div class="col-6 pt-2" align="center">
+                                <div class="card shadow-lg border-0 rounded-lg mt-5">
+                                    <div class="card-header"><h3 class="text-center font-weight-light my-4">Pay Using MERCHANTRADE
+                         
+                                     
+                                        </h3></div>
+                                    <div class="card-body pl-4 ">
+                                      
+                                        <br>
+                                        <h3>MERCHANTRADE ACCOUNT : <br>4080020107474101</h3>
+                                        <br>
+                                  
+                      
+                                        <div class="container-fluid">
+                                        <img src="{{env('absolute')}}/mrpay.png" width="95%" >
                                         </div>
                                        
                                         
@@ -32,23 +104,15 @@
                      <form action="{{env('absolute')}}/ActivateAccount/ConfirmPayment" enctype="multipart/form-data" method="post">
         @csrf                   
                <div class="form-group row">
-                    <label for="payment_type" class="col-md-4 col-form-label">Select Preferred Payment Method</label>
+                    <label for="payment_type" class="col-md-4 col-form-label"></label>
 
-                    <select id="payment_type"
+                    <select hidden id="payment_type"
                            type="text"
                            class="form-control{{ $errors->has('Type') ? ' is-invalid' : '' }}"
                            name="payment_type"
-                           value="{{ old('payment_type') }}"
+                         
                            autocomplete="title" autofocus>
-                          <option value="{{$profile->payment_type}}">
-                               @if($profile->payment_type !='0')
-                              {{$profile->payment_type}}
-                              @else
-                              NOT PAID
-                              @endif
-                          </option>
-                         <option value="0">NOT PAID</option>
-                       <option value="USDT">USDT</option>
+                  
                     <option value="MERCHANTRADE">MERCHANTRADE</option>
                      @if($FinalBalance >= 10 )
                      <!--
@@ -65,19 +129,62 @@
                     @endif
                 </div>
         
-                <div class="row pt-4">
-                    <button class="btn btn-primary">Confirm Payment Method Done</button>
-                </div>
+        
+                    <center>
+                    <button class="btn btn-primary ">Confirm Payment Done</button> </center>
+           
                      </form>
                                         <br>
                                         
-                                        @if($profile->payment_type !='0')
-                                        <h3>Please wait until until we confirm your payment, any inquiries can be made through email or calls wit hour administrators</h3>
-                                        @endif
+                                        
+             </div> </div> </div>
+        
+        
+        <div class="col-6 pt-2" align="center">
+                                <div class="card shadow-lg border-0 rounded-lg mt-5">
+                                    <div class="card-header"><h3 class="text-center font-weight-light my-4">Pay Using USDT
+                         
+                                     
+                                        </h3></div>
+                                    <div class="card-body pl-4 ">
+                                         <br>
+                                        <h3>USDT ACCOUNT : <br>0x8b472d40b9be8fF8d502Fbe6891690435F1680D0</h3>
+                                        <br>
+                      
+                                        <div class="container-fluid">
+                                        <img src="{{env('absolute')}}/uspay.png" width="95%" >
+                                        </div>
+                                       
+                                        
+                                        
+                                        
+                                        
+                     <form action="{{env('absolute')}}/ActivateAccount/ConfirmPayment" enctype="multipart/form-data" method="post">
+        @csrf                   
+               <div class="form-group row">
+                    <label for="payment_type" class="col-md-4 col-form-label"></label>
+
+                    <select hidden id="payment_type"
+                           type="text"
+                           class="form-control{{ $errors->has('Type') ? ' is-invalid' : '' }}"
+                           name="payment_type"
+                           autocomplete="title" autofocus>
+                    
+                       <option value="USDT">USDT</option>
+            
+                        </select>
+
+                </div>
+               <center>
+                    <button class="btn btn-primary ">Confirm Payment Done</button> </center>
+           
+                     </form>
+                                        <br>
+                                     
         
              </div> </div> </div>
        
-           
+           @endif
         </div>
 
     
