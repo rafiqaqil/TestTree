@@ -142,7 +142,7 @@ class WidthdrawController extends Controller
          $alldataApproved =  widthdraw::all()->where('user_id',$user->id)->where('STATUS','!=',0);
          $Negative =  widthdraw::all()->where('user_id',$user->id)->where('STATUS','!=',9)->sum('AMOUNT');
           $TDM5 =  \App\Models\DM5tree::all()->where('user_id',$user->id)->sum('balance')*0.8;
-          $TDM3 =  \App\Models\DM3tree::all()->where('user_id',$user->id)->sum('balance')*0.9;
+          $TDM3 =  \App\Models\DM3tree::all()->where('user_id',$user->id)->sum('balance')*0.8;
           $TSPN = \App\Models\sponsor::all()->where('user_id',$user->id)->sum('balance');    
           $transfersIN = \App\Models\transfer::all()->where('to_user_id',$user->id)->where('STATUS','==',1)->sum('AMOUNT');
           $transfersOUT = \App\Models\transfer::all()->where('user_id',$user->id)->where('STATUS','!=',9)->sum('AMOUNT');
@@ -166,7 +166,7 @@ class WidthdrawController extends Controller
          
          
           $TDM5 =  \App\Models\DM5tree::all()->where('user_id',$user->id)->sum('balance')*0.8;
-          $TDM3 =  \App\Models\DM3tree::all()->where('user_id',$user->id)->sum('balance')*0.9;
+          $TDM3 =  \App\Models\DM3tree::all()->where('user_id',$user->id)->sum('balance')*0.8;
           $TSPN = \App\Models\sponsor::all()->where('user_id',$user->id)->sum('balance');
          
           
