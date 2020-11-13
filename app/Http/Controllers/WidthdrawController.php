@@ -82,6 +82,25 @@ class WidthdrawController extends Controller
        
         widthdraw::create($data);
         
+        
+        
+        //Notification to email listed on ENV
+          
+           if($data['Type'] == 'USDT' ){
+            \Illuminate\Support\Facades\Mail::raw('Withdraw Request : '.$user->username."- PLEASE PAY TO ".$data['Type']. ' ACCOUNT -- Phone :'. $user->phone."  email :".$user->email.'      USDT ACCOUNT :'.  $data['Merch'], function ($message){
+            $message->to(env('NOTI_MAILBOX'))->subject("Withdraw Request to USDT");
+            });
+           }else
+           {
+                \Illuminate\Support\Facades\Mail::raw('Withdraw Request : '.$user->username."- PLEASE PAY TO ".$data['Type']. ' ACCOUNT -- Phone :'. $user->phone."  email :".$user->email.'  Merchantrade ACCOUNT : ' .$data['Merch'], function ($message){
+            $message->to(env('NOTI_MAILBOX'))->subject("Withdraw Request to Merchantrade");
+            });
+           }
+               
+               
+               
+           
+           
         return redirect('/Show/MyWidthdraw');
          }
          else{

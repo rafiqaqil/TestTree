@@ -22,6 +22,8 @@ class MembershipController extends Controller
         return view('UserViews.mymembership', compact('profile','user','FinalBalance'));  
     }
     
+   
+    
     
         public function checkWallet()
     {         
@@ -180,9 +182,11 @@ class MembershipController extends Controller
         
         if($temp->membership_paid==0){
             $temp['membership_type']=0;
-         //dd($temp['membership_type']);
+         $temp['placement_payment_type']='0';
+         
         $temp->save();
         }
+        //dd($temp);
         
          $profile = $temp;
        // return view('membership.index', compact('profile','user'));  

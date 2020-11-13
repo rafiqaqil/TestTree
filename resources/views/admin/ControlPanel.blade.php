@@ -65,6 +65,10 @@
                               <a href='{{env('absolute')}}/ManagePlacements'><div class='btn btn-info'>Credit Placements</div> </a>    <hr>
              <p>Handle pengeluaran duit setelah penguna request untuk keluar duit</p>
             <a href='{{env('absolute')}}/ManageWithdrawal'><div class='btn btn-info'>Withdrawals</div> </a>    <hr>
+            
+            
+               <p>Handle payment & pemberian DM5 Reentry kepada user </p>
+            <a href='{{env('absolute')}}/reentryMGT'><div class='btn btn-info'>DM5 Reentry </div> </a>    <hr>
 
             
         </div>

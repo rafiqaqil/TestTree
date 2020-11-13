@@ -54,13 +54,14 @@ class UserViews extends Controller
     }
     
     
+    
         
     public function ShowMyDM5()
     {
          
         
         $user = auth()->user();
-        $profile = $user->profile();
+        $profile = $user->profile()->first();
         
         
         $Mine = \App\Models\DM5tree::all()->where('user_id',$user->id);
@@ -68,9 +69,87 @@ class UserViews extends Controller
         
         
         $Total =  \App\Models\DM5tree::all()->where('user_id',$user->id)->sum('balance')*0.8;
+         
+         if(isset($profile->D1))
+         $RENTRIES_DONE = $profile->D1;
+         else
+             $RENTRIES_DONE = 0;
+         
+         //dd($RENTRIES_DONE*200);
+         $reentry =  \App\Models\DM5tree::all()->where('user_id',$user->id)->sum('balance')*0.2-($RENTRIES_DONE*200);
+         
+         if($profile->D2 == null)
+         $REENTRY_STATUS = 1;
+         else
+         {
+             if($profile->D2 >$profile->D1)
+             {
+                 $REENTRY_STATUS = 0;
+             }
+             else
+             {
+                 $REENTRY_STATUS = 1;
+             }
+             
+         }
+         
         //dd('USD ',$Total*.8);
-        return view('UserViews.indexDM5', compact('profile','user','Mine','Total'));
+        return view('UserViews.indexDM5', compact('profile','user','Mine','Total','reentry','REENTRY_STATUS'));
     }
+    
+    
+    public function ApplyReentry()
+    {
+         return view('UserViews.redm5'); 
+    }
+    
+     public function StoreReentry()
+    {
+         
+          $user = auth()->user();
+        $profile = $user->profile()->first();
+        
+         $data = request()->validate([
+              'Type' => 'required',        
+        ]);
+         
+         
+         //dd($data);
+             if($data['Type'] == 'USDT' ){
+            \Illuminate\Support\Facades\Mail::raw('Reentry Request : '.$user->username."-  CHECK PAYMENT ON ".$data['Type']. ' ACCOUNT -- Phone :'. $user->phone."  email :".$user->email.'      USDT ACCOUNT :'.  $profile->usdt_wallet, function ($message){
+            $message->to(env('NOTI_MAILBOX'))->subject("Reentry Request to USDT");
+            });
+           }else
+           {
+                \Illuminate\Support\Facades\Mail::raw('Reentry Request : '.$user->username."-  CHECK PAYMENT ON ".$data['Type']. ' ACCOUNT -- Phone :'. $user->phone."  email :".$user->email.'  Merchantrade ACCOUNT : ' .$profile->merchantrade_acc, function ($message){
+            $message->to(env('NOTI_MAILBOX'))->subject("Reentry Request to Merchantrade");
+            });
+           }
+           //D1 IS THE CREDITED AMMOUNT
+            if(isset($profile->D1)){
+         $RENTRIES_DONE = $profile->D1;
+         $RENTRIES_pending = $profile->D1+1;
+            }
+         else{
+             $RENTRIES_DONE = 0;
+             $RENTRIES_pending = 1;
+         }
+           $profile['D1'] = $RENTRIES_DONE;
+           //D2 IS THE PENDING REENTRY
+          $profile['D2'] = $RENTRIES_pending;
+           
+           $profile->save();
+           
+           
+           
+         
+          return redirect('/ShowMyDM5'); 
+    }
+    
+    
+    
+    
+    
          public function OneOfMyDM5($TheDM5)
     {
              

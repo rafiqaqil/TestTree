@@ -31,6 +31,7 @@ Route::get('/New', [ShopController::class , 'index']);
 
 use App\Http\Controllers\newContol;
 
+
 Route::get('/NewC', [newContol::class , 'index']);
 Route::get('/sponsor', [newContol::class , 'index2']);
 
@@ -78,15 +79,16 @@ Route::patch('/UpdateProfile/{user}', [ProfileController::class , 'UpdateProfile
 
 use App\Http\Controllers\UserViews;
 //USERViewSummary 
-
-
 Route::get('/logoutNow', [UserViews::class , 'logoutNowToLink']);
 Route::get('/ShowMyDM3', [UserViews::class , 'ShowMyDM3']);
 Route::get('/ShowMySponsor', [UserViews::class , 'ShowMySponsor']);
 Route::get('/ShowMyDM5', [UserViews::class , 'ShowMyDM5']);
 Route::get('/MyDM3/{DM3}', [UserViews::class , 'OneOfMyDM3']);
 Route::get('/MyDM5/{DM5}', [UserViews::class , 'OneOfMyDM5']);
-Route::get('/ShowMySponsorTree', [UserViews::class , 'ShowMySponsorTree']);
+Route::get('/MyDM5/Apply/Reentry', [UserViews::class , 'ApplyReentry']);
+Route::get('/ShowMySponsorTree', [UserViews::class , 'ShowMySponApplyReentrysorTree']);
+Route::post('/StoreRequestDM5RE', [UserViews::class , 'StoreReentry']);
+
 
 
 //USER MINI TREE VIEWS
@@ -142,6 +144,11 @@ Route::get('/adminAction/{id}/ActivateAccount', [AdminMembershipController::clas
 Route::get('/adminAction/{id}/CancelActivateAccount', [AdminMembershipController::class , 'CancelActivateAccountThisID']);
 Route::get('/adminAction/{profile}/CancelApprovePayment', [AdminMembershipController::class , 'CancelApprovePayment']);
 
+Route::get('/reentryMGT', [AdminMembershipController::class , 'reentryMGT']);
+Route::get('/adminAction/{user}/PlaceReentry', [AdminMembershipController::class , 'StoreReentry']);
+Route::get('/adminAction/{user}/CancelReentry', [AdminMembershipController::class , 'CancelReentry']);
+
+
 use App\Http\Controllers\AdminWithdrawController;
 //Admin Withdrawal System
 Route::get('/ManageWithdrawal', [AdminWithdrawController::class , 'index']);
@@ -169,6 +176,8 @@ Route::get('/Audit/View/{user}/SponsorTree', [AdminMasterView::class , 'ShowOneS
 
 
 
+use App\Http\Controllers\PublicViewController;
+Route::get('/ShowLive', [PublicViewController::class , 'index']);
 
 
 

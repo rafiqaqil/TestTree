@@ -20,6 +20,43 @@ class AdminMembershipController extends Controller
     {
            return view('admin.ControlPanel');       
     }
+    
+       public function reentryMGT()
+    {
+         
+         $reentry= Profile::whereRaw('D1 < D2')->get();
+         //dd($reentry);
+         
+         return view('admin.reentry',compact('reentry'));       
+    }
+    
+      public function CancelReentry($id)
+    {
+          $user = User::find($id);
+          $profile = Profile::find($id);
+      
+            $profile->D2 = $profile->D1;
+            $profile->save();
+
+         return redirect('/reentryMGT');  
+    }
+    
+      public function StoreReentry($id)
+    {
+          $user = User::find($id);
+          $profile = Profile::find($id);
+          if($profile->D1 != $profile->D2){
+          
+          //dd($profile);
+          //dd($user->username.'-Re-'.$profile->D2);
+            $profile->D1=$profile->D2;
+            $profile->save();
+          self::DM5addSilently($user->username.'-Re-'.$profile->D2,$user->id);
+          }
+         
+         return redirect('/reentryMGT');  
+    }
+    
   
         public function manageNewPlans()
     {
