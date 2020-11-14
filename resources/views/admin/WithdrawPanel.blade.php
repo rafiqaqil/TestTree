@@ -161,7 +161,12 @@
                    
          <tr>
               
-                    <td>{{$d->Type}}</td>
+                    <td>{{$d->Type}}
+                    <br>
+                    {{$d->Name}}
+                    <br>
+                    {{$d->Phone}}
+                    </td>
       
                     <td>{{$d->AMOUNT}}</td>
                     
