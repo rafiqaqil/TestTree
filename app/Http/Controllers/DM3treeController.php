@@ -72,7 +72,8 @@ class DM3treeController extends Controller
 
         $jsondata = trim($jsondata, '[]');
         $all = \App\Models\DM3tree::all()->count();
-         $levels = \App\Models\DM3tree::withDepth()->find($all);
+        $max = \App\Models\DM3tree::max('id');
+         $levels = \App\Models\DM3tree::withDepth()->find($max);
        //dd($levels->depth);
         //dd( $jsondata);
         return view('DM3.TREE', compact('shops','jsondata','all','levels'));

@@ -86,7 +86,7 @@ Route::get('/ShowMyDM5', [UserViews::class , 'ShowMyDM5']);
 Route::get('/MyDM3/{DM3}', [UserViews::class , 'OneOfMyDM3']);
 Route::get('/MyDM5/{DM5}', [UserViews::class , 'OneOfMyDM5']);
 Route::get('/MyDM5/Apply/Reentry', [UserViews::class , 'ApplyReentry']);
-Route::get('/ShowMySponsorTree', [UserViews::class , 'ShowMySponApplyReentrysorTree']);
+Route::get('/ShowMySponsorTree', [UserViews::class , 'ShowMySponsorTree']);
 Route::post('/StoreRequestDM5RE', [UserViews::class , 'StoreReentry']);
 
 

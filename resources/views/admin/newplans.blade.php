@@ -2,12 +2,19 @@
 
 @section('content')
 
-<div  align="right" class="container">
+<div  align="center" class="container">
 <div class="row">
         <div class="col-lg-12 pb-12">
         <div class="card mb-4">
           <div class="card-header">
-             
+             <h3>Manage New Plan Payments</h3>
+             <small>
+                 
+                 Sini kita boleh handle bayaran yang sudah dibayar oleh customer,  jika tiada bayaran dibuat oleh customer kitqa boleh cancel dan beritahu customer bayaran tidak dapat dibuktikan.
+                 <br>
+                 Bayaran dibahgikan kepada tiga jenis USDT, Merchantrade, Wallet. 
+                 <br>
+             </small>
             </div>
             
             </div>
@@ -85,19 +92,8 @@
             </div>
           </div></div>
             </div>  </div>
+<hr>
 
-
-<div class="row">
-        <div class="col-lg-12 pb-12">
-        <div class="card mb-4">
-          <div class="card-header">
-             
-            </div>
-            
-            </div>
-            
-            </div>
-        </div>
         <!-- DataTables Example -->
            <div class="row">
         <div class="col-lg-12 ">
@@ -170,7 +166,7 @@
           </div></div>
             </div>  </div>
 
-</div>
+<hr>
         
  <!-- DataTables Example -->
            <div class="row">
@@ -248,6 +244,6 @@
             </div>
           </div></div>
             </div>  </div>
-
+ </div>
 
 @endsection

@@ -335,7 +335,14 @@
          <tr>
                                   
                 
-                    <td>{{$d->to_username}}</td>
+                    <td>Username: {{$d->to_username}}
+                    <br>Phone: {{$d->phone}}
+                    <br>Email: {{$d->email}}
+                    
+                 
+                    
+                    
+                    </td>
       
                     <td>{{$d->AMOUNT}}</td>
                       <td>{{$d->created_at}}</td>

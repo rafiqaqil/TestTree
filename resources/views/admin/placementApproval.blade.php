@@ -70,7 +70,11 @@
                         
                        
                        @endif
-                         <a href="{{env('absolute')}}/adminAction/{{$d->id}}/ApprovePlacement"><button class="btn btn-info">Confirm Placement</button></a> 
+                       
+                           <button onclick="if(confirm('Action is not reversible, Please Confirm?'))window.location.href='{{env('absolute')}}/adminAction/{{$d->id}}/ApprovePlacement';" class="btn btn-info">Confirm Placement
+                       
+                       </button>
+                       
                         
                         @else
                         <button class="btn btn-success">Placement Done</button>

@@ -19,9 +19,14 @@
               <a href="{{env('absolute')}}/MDC/Update/Sponsor"><button class="btn btn-warning"> Sponsor </button></a>
               
               <hr>
-              <p> <i class="fa fa-arrow-circle-down" style="font-size:36px"></i>Bila tekan button Kuning (MIDNIGHT DM5) Semua yang dalam ppol akan masuk dan dapat lagi 4 DM5 dan 1  DM3</p>
-               <a href="{{env('absolute')}}/MDC/Credit4More"><button class="btn btn-warning"> MIDNIGHT DM5 Pool - Credit lagi 4 Kepada Package 1200 </button></a>
+                          <p> <i class="fa fa-arrow-circle-down" style="font-size:36px"></i>Bila tekan button Kuning (MIDNIGHT DM5) Semua yang dalam ppol akan masuk dan dapat lagi 4 DM5 dan 1  DM3</p>
+               <button  onclick="ConfirmMe()" class="btn btn-warning"> MIDNIGHT DM5 Pool - Credit lagi 5 Kepada Package 1200 </button>
               
+                                <script>function ConfirmMe() {
+                                   if (confirm('Warning! Action is not reversable! Do wish to continue?')) {
+                                                window.location.replace("{{env('absolute')}}/MDC/Credit4More");
+                                            }else {return false;}
+                               }</script>
               <br> <br>
               <p> <i class="fa fa-arrow-circle-down" style="font-size:36px"></i> Button Biru untuk view pool yang akan dimasukan kedalam DM5 & DM3 MALAM INI</p>
               
@@ -53,7 +58,7 @@
                 <hr>
                 
                     <p>Activate New User</p>
-            <a href='{{env('absolute')}}/ShowNewUsers'><div class='btn btn-info'>Activate New Users</div> </a>    <hr>
+            <a href='{{env('absolute')}}/ShowNewUsers'><div class='btn btn-info'>Activate New Users</div> </a> 
         <hr>
             <br>
            

@@ -3,12 +3,19 @@
 @section('content')
 
 <div  align="center" class="container">
+
 <div class="row">
         <div class="col-lg-12 pb-12">
         <div class="card mb-4">
           <div class="card-header">
-             
-              <strong>Approve $10 Payment for new registrations</strong>
+             <h3>Manage New User Account Activation 10$</h3>
+             <small>
+                 
+                 Sini kita boleh handle bayaran yang sudah dibayar oleh customer,  jika tiada bayaran dibuat oleh customer kitqa boleh cancel dan beritahu customer bayaran tidak dapat dibuktikan.
+                 <br>
+                 Bayaran dibahgikan kepada tiga jenis USDT, Merchantrade, Wallet. 
+                 <br>
+             </small>
             </div>
             
             </div>

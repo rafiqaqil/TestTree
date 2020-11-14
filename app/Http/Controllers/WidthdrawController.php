@@ -184,7 +184,19 @@ class WidthdrawController extends Controller
          //dd($FinalBalance);
           
            $tIN = \App\Models\transfer::all()->where('to_user_id',$user->id)->where('STATUS','==',1);
-          $tOUT = \App\Models\transfer::all()->where('user_id',$user->id);
+           
+          $tOUT = \Illuminate\Support\Facades\DB::table('transfers')
+                  // ->join('profiles','transfers.user_id','=','profiles.user_id')
+                  ->join('users','transfers.user_id','=','users.id')
+                  ->select('transfers.*','users.*')
+                   //->select('transfers.*','profiles.*','users.*')
+                  ->get();
+          
+          
+          //dd($tOUT);
+           
+          
+          
      
            return view('Widthdraw.myRecords',compact('Transfers','tIN','tOUT','alldata','user','alldataApproved','profile','TDM5','TSPN','TDM3','Negative','FinalBalance'));       
     }

@@ -157,7 +157,7 @@
             <div class='row'>
 
             
-              <div class="col-6 pt-2" align="center">
+              <div class="col-lg-6 pt-2" align="center">
                                 <div class="card shadow-lg border-0 rounded-lg mt-5">
                                     <div class="card-header"><h3 class="text-center font-weight-light my-4">Pay Using MERCHANTRADE
                          
@@ -166,9 +166,10 @@
                                     <div class="card-body pl-4 ">
                                       
                                         <br>
-                                        <h3>MERCHANTRADE ACCOUNT : <br>4080020107474101</h3>
+                                        <h5>MERCHANTRADE ACCOUNT : <br>4080020107474101</h5>
                                         <br>
-                                  
+                                         
+                                        ${{$user->profile->membership_type}}
                       
                                         <div class="container-fluid">
                                         <img src="{{env('absolute')}}/mrpay.png" width="95%" >
@@ -217,16 +218,17 @@
 
 
         
-        <div class="col-6 pt-2" align="center">
+        <div class="col-lg-6 pt-2" align="center">
                                 <div class="card shadow-lg border-0 rounded-lg mt-5">
                                     <div class="card-header"><h3 class="text-center font-weight-light my-4">Pay Using USDT
                          
                                      
                                         </h3></div>
-                                    <div class="card-body pl-4 ">
+                                    <div class="card-body ">
                                          <br>
-                                        <h3>USDT ACCOUNT : <br>0x8b472d40b9be8fF8d502Fbe6891690435F1680D0</h3>
+                                        <h5>USDT ACCOUNT : <br>0x8b472d40b9be8fF8d502Fbe6891690435F1680D0</h5>
                                         <br>
+                                        ${{$user->profile->membership_type}}
                       
                                         <div class="container-fluid">
                                         <img src="{{env('absolute')}}/uspay.png" width="95%" >
@@ -284,20 +286,27 @@
                                             <br>
                                          @if($profile->placement_payment_type =='MERCHANTRADE')
                                          
-                                         <h3>MERCHANTRADE ACCOUNT : <br>4080020107474101</h3>
-                                         <img src="{{env('absolute')}}/MRpay.png" width="100%" align='center'>
-                                           
+                                         <h5>MERCHANTRADE ACCOUNT <br>4080020107474101</h5>
+                                         <br>
+                                           ${{$user->profile->membership_type}}<br>
+                                           <div class="container-fluid">
+                                             
+                                         <img src="{{env('absolute')}}/MRpay.png" width="50%">
+                                                 
+                                         </div>
+                                      
                                          @endif
                                          
                                          @if($profile->placement_payment_type =='USDT')
                                          
-                                          <h3>USDT ACCOUNT : <br>0x8b472d40b9be8fF8d502Fbe6891690435F1680D0</h3>
-                                        <br>
+                                          <h5>USDT ACCOUNT <br>0x8b472d40b9be8fF8d502Fbe6891690435F1680D0</h5>
+                                               <br>
+                                        ${{$user->profile->membership_type}}
+                                        <br>  <div class="container-fluid">
                       
-                                        <div class="container-fluid">
-                                        <img src="{{env('absolute')}}/uspay.png" width="100%" align='center' >
+                                       
+                                        <img src="{{env('absolute')}}/uspay.png" width="50%"  >
                                         </div>
-                                         
                                          @endif
                                         
                                         <br>
