@@ -80,7 +80,7 @@
                                             </div></div></div>
                                          
                                         
-                                         <div class="col-6 pt-2" align="center">
+                                         <div class="col-lg-6 pt-2" align="center">
                                 <div class="card shadow-lg border-0 rounded-lg mt-5">
                                     <div class="card-header"><h3 class="text-center font-weight-light my-4">Pay Using MERCHANTRADE
                          
@@ -91,6 +91,7 @@
                                         <br>
                                         <h3>MERCHANTRADE ACCOUNT : <br>4080020107474101</h3>
                                         <br>
+                                        <strong>$10</strong>
                                   
                       
                                         <div class="container-fluid">
@@ -140,7 +141,7 @@
              </div> </div> </div>
         
         
-        <div class="col-6 pt-2" align="center">
+        <div class="col-lg-6 pt-2" align="center">
                                 <div class="card shadow-lg border-0 rounded-lg mt-5">
                                     <div class="card-header"><h3 class="text-center font-weight-light my-4">Pay Using USDT
                          
@@ -150,6 +151,7 @@
                                          <br>
                                         <h3>USDT ACCOUNT : <br>0x8b472d40b9be8fF8d502Fbe6891690435F1680D0</h3>
                                         <br>
+                                        <strong>$10</strong>
                       
                                         <div class="container-fluid">
                                         <img src="{{env('absolute')}}/uspay.png" width="95%" >

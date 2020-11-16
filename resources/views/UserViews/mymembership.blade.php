@@ -25,6 +25,8 @@
                                             @else
                                             {{$user->profile->affiliate_sponsor }}
                                             @endif
+                                            
+                                        
 
                                         
                                         </h4> 
@@ -140,19 +142,62 @@
          
                 @else
                 
-            <h3>Thank you for choosing a plan, please make payment of {{$user->profile->membership_type}}$ to our account and confirm payment method  </h3>
-                      
+            <h5>Thank you for choosing a plan, please make payment of {{$user->profile->membership_type}}$ to our account and confirm payment method  </h5>
+            
+            
+                @if($FinalBalance >= 0 && $profile->placement_payment_type =='0' )
+                <hr>
+                You have available ballance in your wallet.
+                <br>Wallet Balance Available : {{$FinalBalance}}<br>
 
+                                        @if($FinalBalance  <= $user->profile->membership_type)
+                                        
+
+                                          <form action="{{env('absolute')}}/Placement/ConfirmPayment" enctype="multipart/form-data" method="post">
+                                                    @csrf                   
+                                                           <div class="form-group row">
+                                                                <label for="placement_payment_type" class="col-md-4 col-form-label"></label>
+
+                                                                <select hidden id="placement_payment_type"
+                                                                       type="text"
+                                                                       class="form-control{{ $errors->has('Type') ? ' is-invalid' : '' }}"
+                                                                       name="placement_payment_type"
+                                                                       autocomplete="title" autofocus>
+                                                                   <option value="WALLET">WALLET</option>
+                                                                    </select>
+                                                                    </div>
+
+
+                                                           <center>
+                                                                <button class="btn btn-primary ">Confirm Wallet Payment </button> </center>
+
+                                         </form>
+                                        
+                                        
+
+
+
+                                        @endif
+               
+                @endif
+                       <br>  <hr>
+                                            <br>
+               
+                
+                <br>
+                @if($profile->placement_payment_type =='0')
+                If you wish to choose another plan please press cancel and you will be able to select another plan.    <br>
             <a href="{{env('absolute')}}/PurchaseMembership/Clear" class="btn btn-danger">Cancel Order</a>
             <small> 
-            Please include your contact information in your profile to avoid any problems
+           
             </small>    
-            
+            @endif
  
-         
+          @if($profile->placement_payment_type =='0')
             <hr>
+           Please select the payment method you wish to complete the transaction.
             
-             @if($profile->placement_payment_type =='0')
+            
             <hr>
             <div class='row'>
 

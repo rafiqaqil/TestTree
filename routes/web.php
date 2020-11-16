@@ -173,7 +173,7 @@ use App\Http\Controllers\AdminMasterView;
 Route::get('/Audit/Users', [AdminMasterView::class , 'index']);
 Route::get('/Audit/View/{user}', [AdminMasterView::class , 'showUser']);
 Route::get('/Audit/View/{user}/SponsorTree', [AdminMasterView::class , 'ShowOneSponsorTree']);
-
+Route::get('/Audit/Inactive', [AdminMasterView::class , 'indexInactive']);
 
 
 use App\Http\Controllers\PublicViewController;

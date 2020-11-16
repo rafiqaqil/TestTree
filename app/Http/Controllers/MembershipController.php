@@ -4,6 +4,40 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
+
+
+/*
+ * 
+ * 
+ * 
+ * EDITING THIS FOLDER LIST OF CRTL + F TRICKS
+ * 
+ * EMAIL - MODULE
+ * 
+ * 
+ * 
+ * 
+ * 
+ * 
+ * 
+ * 
+ * 
+ * 
+ * 
+ * 
+ * 
+ * 
+ * 
+ * 
+ * 
+ * 
+ * 
+ * 
+ * 
+ * 
+ * 
+ * 
+ */
 class MembershipController extends Controller
 {
         public function __construct()
@@ -112,17 +146,19 @@ class MembershipController extends Controller
        
         
          //echo $temp['payment_type'];
-        
+         //
+         //
+        //EMAIL - MODULE
         if($temp['placement_payment_type'] == 'USDT'){
             //dd('Success');
-            \Illuminate\Support\Facades\Mail::raw('Plan Payment  : '.$user->username."-".$data['placement_payment_type']. ' -- '.$profile->membership_type.'  Phone :'. $user->phone."  email :".$user->email.'      USDT ACCOUNT :'.$profile->usdt_wallet , function ($message){
+            \Illuminate\Support\Facades\Mail::raw('Plan Payment  : '.$user->username."-    Name".$user->name."-".$data['placement_payment_type']. ' -- '.$profile->membership_type.'  Phone :'. $user->phone."  email :".$user->email.'      USDT ACCOUNT :'.$profile->usdt_wallet , function ($message){
             $message->to(env('NOTI_MAILBOX'))->subject("Plan Payment USDT");
             });
         }
         else
         {
              //dd('Success');
-            \Illuminate\Support\Facades\Mail::raw('Plan Payment  : '.$user->username."-".$data['placement_payment_type']. ' -- '.$profile->membership_type.'  Phone :'. $user->phone."  email :".$user->email.'      MERCHANTRADE ACCOUNT :'.$profile->merchantrade_acc, function ($message){
+            \Illuminate\Support\Facades\Mail::raw('Plan Payment  : '.$user->username."-    Name".$user->name."-".$data['placement_payment_type']. ' -- '.$profile->membership_type.'  Phone :'. $user->phone."  email :".$user->email.'      MERCHANTRADE ACCOUNT :'.$profile->merchantrade_acc, function ($message){
             $message->to(env('NOTI_MAILBOX'))->subject("Plan Payment MERCHANTRADE");
             });
             

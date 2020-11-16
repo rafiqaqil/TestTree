@@ -7,7 +7,9 @@ use Illuminate\Http\Request;
 class AdminMasterView extends Controller
 {
         
-    
+        
+        
+        
          public function __construct()
     {
         $this->middleware('auth');
@@ -21,7 +23,7 @@ class AdminMasterView extends Controller
           $user = auth()->user();
           
           
-       $alldataApproved = \App\Models\Profile::all()->where('id','>',6);//->where('affiliate_paid', '>=', 1);
+       $alldataApproved = \App\Models\Profile::all()->where('id','>',6)->where('affiliate_paid','>=',1);//->where('affiliate_paid', '>=', 1);
        
        //dd($alldataApproved);
        
@@ -30,7 +32,23 @@ class AdminMasterView extends Controller
            
         return view('audit.index',compact('alldata','user','alldataApproved'));      
     }
-        
+             public function indexInactive()
+    {
+         if ((auth()->user()->email_verified_at) == null) 
+            return redirect('/home');    
+            
+          $user = auth()->user();
+          
+          
+       $alldataApproved = \App\Models\Profile::all()->where('id','>',6)->where('affiliate_paid','<',1);//->where('affiliate_paid', '>=', 1);
+       
+       //dd($alldataApproved);
+       
+        $alldata = $alldataApproved;
+        //dd($alldata);
+           
+        return view('audit.indexInactive',compact('alldata','user','alldataApproved'));      
+    }
         public function showUser($userProfile)
     {
          if ((auth()->user()->email_verified_at) == null) 
@@ -72,6 +90,16 @@ class AdminMasterView extends Controller
                 
         return view('audit.showthisone',compact('Withdraw','alldata','user','alldataApproved','DM5_IDs','DM5_Bal','DM3_IDs','DM3_Bal','sponsorTotal','sponsored'));      
     }
+    
+    
+    
+    
+    
+
+    
+    
+    
+    
         public function ShowOneSponsorTree($userProfile)
       {
           

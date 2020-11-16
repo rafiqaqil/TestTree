@@ -336,6 +336,7 @@
                                   
                 
                     <td>Username: {{$d->to_username}}
+                        <br>Name: {{$d->name}}
                     <br>Phone: {{$d->phone}}
                     <br>Email: {{$d->email}}
                     

@@ -1,0 +1,6 @@
+NOTIFICATION EMAIL MODULES
+
+MembershipController -> On Plan Payment Confirmed  (Line 155)
+WidthdrawController -> On Create (Line 91)
+
+

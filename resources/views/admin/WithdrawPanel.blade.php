@@ -81,7 +81,8 @@
                                   
                 
                     <td> {{$d->Type}}
-                    <br>Name:{{$d->Name}}
+                    <br>Name:{{$d->name}}
+                    <br>Username:{{$d->username}}
                     <br>Contact :{{$d->Phone}}
                     @if($d->Type ='MERCHANTRADE')
                     <br>Mechantrade Account : {{$d->Merch}}
@@ -161,6 +162,7 @@
                    
          <tr>
               
+<<<<<<< Updated upstream
                     <td>{{$d->Type}}
                     <br>
                     {{$d->Name}}
@@ -168,6 +170,19 @@
                     {{$d->Phone}}
                     </td>
       
+=======
+                           <td> {{$d->Type}}
+                    <br>Name:{{$d->Name}}
+                    <br>Contact :{{$d->Phone}}
+                    @if($d->Type ='MERCHANTRADE')
+                    <br>Mechantrade Account : {{$d->Merch}}
+                    @else
+                    <br>USDT Wallet :  {{$d->USDT}}
+                    @endif
+                    
+                    </td>
+                    
+>>>>>>> Stashed changes
                     <td>{{$d->AMOUNT}}</td>
                     
                     <td>{{$d->updated_at}}</td>

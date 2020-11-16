@@ -14,7 +14,7 @@
             
             </div>
         </div>
-        <!-- DataTables Example -->
+        <!-- DataTables   -->
            <div class="row">
         <div class="col-lg-12 ">
         <div class="card mb-12">

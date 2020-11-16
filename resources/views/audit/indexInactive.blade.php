@@ -9,9 +9,10 @@
           <div class="card-header">
              
               <strong>Auditing Panel</strong>
-                        <a href='{{env("absoulte")}}/Audit/Inactive'>
-              <div class='btn btn-secondary'>
-                  Show Inactive Users
+              
+    <a href='{{env("absoulte")}}/Audit/Users'>
+              <div class='btn btn-success'>
+                  Show Active Users
               </div></a>
             </div>
             

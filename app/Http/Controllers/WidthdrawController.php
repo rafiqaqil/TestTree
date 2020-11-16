@@ -87,12 +87,12 @@ class WidthdrawController extends Controller
         //Notification to email listed on ENV
           
            if($data['Type'] == 'USDT' ){
-            \Illuminate\Support\Facades\Mail::raw('Withdraw Request : '.$user->username."- PLEASE PAY TO ".$data['Type']. ' ACCOUNT -- Phone :'. $user->phone."  email :".$user->email.'      USDT ACCOUNT :'.  $data['Merch'], function ($message){
+            \Illuminate\Support\Facades\Mail::raw('Withdraw Request : '.$user->username."- PLEASE PAY TO ".$data['Type']. ' ACCOUNT --'."- Name".$user->name.'     Phone :'. $user->phone."  email :".$user->email.'      USDT ACCOUNT :'.  $data['Merch'], function ($message){
             $message->to(env('NOTI_MAILBOX'))->subject("Withdraw Request to USDT");
             });
            }else
            {
-                \Illuminate\Support\Facades\Mail::raw('Withdraw Request : '.$user->username."- PLEASE PAY TO ".$data['Type']. ' ACCOUNT -- Phone :'. $user->phone."  email :".$user->email.'  Merchantrade ACCOUNT : ' .$data['Merch'], function ($message){
+                \Illuminate\Support\Facades\Mail::raw('Withdraw Request : '.$user->username."- PLEASE PAY TO ".$data['Type']. ' ACCOUNT --'."- Name".$user->name.' Phone :'. $user->phone."  email :".$user->email.'  Merchantrade ACCOUNT : ' .$data['Merch'], function ($message){
             $message->to(env('NOTI_MAILBOX'))->subject("Withdraw Request to Merchantrade");
             });
            }
@@ -185,12 +185,15 @@ class WidthdrawController extends Controller
           
            $tIN = \App\Models\transfer::all()->where('to_user_id',$user->id)->where('STATUS','==',1);
            
-          $tOUT = \Illuminate\Support\Facades\DB::table('transfers')
+           
+            $tOUT = \Illuminate\Support\Facades\DB::table('transfers')
                   // ->join('profiles','transfers.user_id','=','profiles.user_id')
-                  ->join('users','transfers.user_id','=','users.id')
-                  ->select('transfers.*','users.*')
+                  ->join('users','transfers.to_user_id','=','users.id')
+                  ->select('transfers.*','users.email','users.name','users.phone')->where('from_username',$user->username)
                    //->select('transfers.*','profiles.*','users.*')
                   ->get();
+            
+        
           
           
           //dd($tOUT);
@@ -212,7 +215,7 @@ class WidthdrawController extends Controller
         //
     }
 
-    /**
+    /**$widthdraw)
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request

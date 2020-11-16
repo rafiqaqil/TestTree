@@ -14,14 +14,26 @@ class AdminWithdrawController extends Controller
         $user = auth()->user();
         $profile = $user->profile()->first();
            //dd($profile);
-         $alldata = widthdraw::all()->where('STATUS','==',0);
+        //$alldata = widthdraw::all()->where('STATUS','==',0);
+         
+        //dd($alldata);
+        $alldata  = \Illuminate\Support\Facades\DB::table('widthdraws')->where('STATUS','=',0)
+                  // ->join('profiles','transfers.user_id','=','profiles.user_id')
+                  ->join('users','widthdraws.user_id','=','users.id')
+                  ->select('widthdraws.*','users.username','users.email','users.phone','users.name')
+                   //->select('transfers.*','profiles.*','users.*')
+                  ->get();
+        
+        //dd($alldata);
+         
+         
          $alldataApproved =  widthdraw::all()->where('STATUS','!=',0);
          
          $Negative =  widthdraw::all()->where('STATUS','==',100)->sum('AMOUNT');
          
          
           $TDM5 =  \App\Models\DM5tree::all()->sum('balance')*0.8;
-          $TDM3 =  \App\Models\DM3tree::all()->sum('balance')*0.9;
+          $TDM3 =  \App\Models\DM3tree::all()->sum('balance')*0.8;
           $TSPN = \App\Models\sponsor::all()->sum('balance');
          
           $TotalRecieved = \App\Models\Profile::where('membership_paid','1')->sum('membership_type');
