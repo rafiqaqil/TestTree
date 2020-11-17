@@ -21,22 +21,25 @@
                                             <br>
                                             
                                         @if($profile->payment_type !='0')
-                                        <h4>
+                                        <h5>
                                             We have notified our  Accounts Payable Manager of your payment.
-                                        <br>Please wait until until we confirm your payment, any inquiries can be made through email or calls with our administrators</h4>
+                                        <br>Please wait until until we confirm your payment, any inquiries can be made through email or calls with our administrators</h5>
                                         <hr>
-                                        <h4>Payment Option Chosen :{{$profile->payment_type}}</h4>
+                                        <h5>Payment Option Chosen :{{$profile->payment_type}}</h5>
                                             <center>
                                          @if($profile->payment_type =='MERCHANTRADE')
-                                         <h3>MERCHANTRADE ACCOUNT : <br>4080020107474101</h3>
+                                         <h5>MERCHANTRADE ACCOUNT : <br>4080020107474101</h5>
+                                         <br>
+                                         $10
                                          <img src="{{env('absolute')}}/MRpay.png" width="50%" align='center' >
                                              </center>
                                          @endif
                                          
                                            @if($profile->payment_type =='USDT')
                                            <center>
-                                          <h3>USDT ACCOUNT : <br>0x8b472d40b9be8fF8d502Fbe6891690435F1680D0</h3>
+                                          <h5>USDT ACCOUNT : <br>0x8b472d40b9be8fF8d502Fbe6891690435F1680D0</h5>
                                         <br>
+                                        10 USDT
                       
                                         <div class="container-fluid">
                                         <img src="{{env('absolute')}}/uspay.png" width="50%" align='center' >
@@ -80,7 +83,7 @@
                                             </div></div></div>
                                          
                                         
-                                         <div class="col-lg-6 pt-2" align="center">
+                                         <div class="col-6 pt-2" align="center">
                                 <div class="card shadow-lg border-0 rounded-lg mt-5">
                                     <div class="card-header"><h3 class="text-center font-weight-light my-4">Pay Using MERCHANTRADE
                          
@@ -91,7 +94,7 @@
                                         <br>
                                         <h3>MERCHANTRADE ACCOUNT : <br>4080020107474101</h3>
                                         <br>
-                                        <strong>$10</strong>
+                                        $10
                                   
                       
                                         <div class="container-fluid">
@@ -141,7 +144,7 @@
              </div> </div> </div>
         
         
-        <div class="col-lg-6 pt-2" align="center">
+        <div class="col-6 pt-2" align="center">
                                 <div class="card shadow-lg border-0 rounded-lg mt-5">
                                     <div class="card-header"><h3 class="text-center font-weight-light my-4">Pay Using USDT
                          
@@ -150,8 +153,7 @@
                                     <div class="card-body pl-4 ">
                                          <br>
                                         <h3>USDT ACCOUNT : <br>0x8b472d40b9be8fF8d502Fbe6891690435F1680D0</h3>
-                                        <br>
-                                        <strong>$10</strong>
+                                        <br>10
                       
                                         <div class="container-fluid">
                                         <img src="{{env('absolute')}}/uspay.png" width="95%" >

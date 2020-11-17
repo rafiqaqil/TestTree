@@ -335,7 +335,7 @@
                                          <br>
                                            ${{$user->profile->membership_type}}<br>
                                            <div class="container-fluid">
-                                             
+                                              <br>
                                          <img src="{{env('absolute')}}/MRpay.png" width="50%">
                                                  
                                          </div>
@@ -345,8 +345,9 @@
                                          @if($profile->placement_payment_type =='USDT')
                                          
                                           <h5>USDT ACCOUNT <br>0x8b472d40b9be8fF8d502Fbe6891690435F1680D0</h5>
-                                               <br>
-                                        ${{$user->profile->membership_type}}
+                                               <br> <br>
+                                        
+                                        {{$user->profile->membership_type*1.1}}
                                         <br>  <div class="container-fluid">
                       
                                        
