@@ -162,15 +162,7 @@
                    
          <tr>
               
-<<<<<<< Updated upstream
-                    <td>{{$d->Type}}
-                    <br>
-                    {{$d->Name}}
-                    <br>
-                    {{$d->Phone}}
-                    </td>
-      
-=======
+
                            <td> {{$d->Type}}
                     <br>Name:{{$d->Name}}
                     <br>Contact :{{$d->Phone}}
@@ -182,7 +174,6 @@
                     
                     </td>
                     
->>>>>>> Stashed changes
                     <td>{{$d->AMOUNT}}</td>
                     
                     <td>{{$d->updated_at}}</td>

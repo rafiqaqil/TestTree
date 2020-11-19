@@ -93,7 +93,7 @@
             <i class="fas fa-table"></i>
             Pending</div>
           <div class="card-body" align='left'>
-              Please allow 3 working days for us to credit your withdrawal
+              Please allow 3 working days for us to credit your withdrawal. The Account detail is taken from your profile. If the stated account is not correct please cancel the request immediately. Any errors in withdrawal will not be reversible.    
             <div class="table">
               <table class="table table-bordered" id=""  cellspacing="0">
                     <thead>
@@ -122,7 +122,25 @@
          <tr>
                                   
                 
-                    <td>{{$d->Type}}</td>
+                    <td>{{$d->Type}}
+                        <br>
+                        {{$d->Name}}
+                      <br>Account :
+                     @if($d->Type =='USDT')
+                   
+                        {{$d->USDT}}
+                        @else
+                        
+                        {{$d->Merch}}
+                        
+                        @endif
+                      <br>
+                     
+                      
+                      Phone :
+                    {{$d->Phone}}
+                    
+                    </td>
       
                     <td>{{$d->AMOUNT}}</td>
                       <td>{{$d->created_at}}</td>
@@ -191,7 +209,28 @@
                    
          <tr>
               
-                    <td>{{$d->Type}}</td>
+                             <td>{{$d->Type}}
+                        <br>
+                        {{$d->Name}}
+                      <br>Account :
+                     @if($d->Type =='USDT')
+                   
+                        {{$d->USDT}}
+                        @else
+                        
+                        {{$d->Merch}}
+                        
+                        @endif
+                      <br>
+                      
+                      
+                      Phone :
+                    {{$d->Phone}}
+                    
+                    </td>
+                    
+                    <br>
+                    </td>
       
                     <td>{{$d->AMOUNT}}</td>
                     

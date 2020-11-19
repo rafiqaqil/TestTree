@@ -150,7 +150,7 @@
                 You have available ballance in your wallet.
                 <br>Wallet Balance Available : {{$FinalBalance}}<br>
 
-                                        @if($FinalBalance  <= $user->profile->membership_type)
+                                        @if($FinalBalance  >= $user->profile->membership_type)
                                         
 
                                           <form action="{{env('absolute')}}/Placement/ConfirmPayment" enctype="multipart/form-data" method="post">
@@ -166,17 +166,9 @@
                                                                    <option value="WALLET">WALLET</option>
                                                                     </select>
                                                                     </div>
-
-
                                                            <center>
                                                                 <button class="btn btn-primary ">Confirm Wallet Payment </button> </center>
-
                                          </form>
-                                        
-                                        
-
-
-
                                         @endif
                
                 @endif
@@ -217,7 +209,7 @@
                                         ${{$user->profile->membership_type}}
                       
                                         <div class="container-fluid">
-                                        <img src="{{env('absolute')}}/mrpay.png" width="95%" >
+                                        <img class='img-fluid' src="{{env('absolute')}}/mrpay.png" width="95%" >
                                         </div>
                                        
                                         
@@ -273,10 +265,10 @@
                                          <br>
                                         <h5>USDT ACCOUNT : <br>0x8b472d40b9be8fF8d502Fbe6891690435F1680D0</h5>
                                         <br>
-                                        ${{$user->profile->membership_type}}
+                                        {{$user->profile->membership_type*1.1}} USDT
                       
                                         <div class="container-fluid">
-                                        <img src="{{env('absolute')}}/uspay.png" width="95%" >
+                                        <img class='img-fluid' src="{{env('absolute')}}/uspay.png" width="95%" >
                                         </div>
                                        
                                         
@@ -336,7 +328,7 @@
                                            ${{$user->profile->membership_type}}<br>
                                            <div class="container-fluid">
                                               <br>
-                                         <img src="{{env('absolute')}}/MRpay.png" width="50%">
+                                         <img class='img-fluid' src="{{env('absolute')}}/MRpay.png" width="50%">
                                                  
                                          </div>
                                       
@@ -347,11 +339,11 @@
                                           <h5>USDT ACCOUNT <br>0x8b472d40b9be8fF8d502Fbe6891690435F1680D0</h5>
                                                <br> <br>
                                         
-                                        {{$user->profile->membership_type*1.1}}
+                                        {{$user->profile->membership_type*1.1}} USDT
                                         <br>  <div class="container-fluid">
                       
                                        
-                                        <img src="{{env('absolute')}}/uspay.png" width="50%"  >
+                                        <img class='img-fluid' src="{{env('absolute')}}/uspay.png" width="50%"  >
                                         </div>
                                          @endif
                                         
