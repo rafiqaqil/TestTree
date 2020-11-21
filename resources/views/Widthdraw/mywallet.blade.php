@@ -19,6 +19,8 @@
                <div class="col-lg-12  pt-2 ">
              <div class="card-body  bg-dark rounded-lg ">
             <p style="color:greenyellow;font-size:25px">Available Balance : ${{$FinalBalance}}</p>
+            
+            <small style="color:white" >Note: You can get wallet credits from other users via transfers</small>
           </div>  </div>
               </div> 
 

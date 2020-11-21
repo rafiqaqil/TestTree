@@ -30,7 +30,7 @@
 
                                         
                                         </h4> 
-                                        <small>Please confirm the sponsor code from your sponsor to avoid any problems</small>                                        <small>Please confirm the code from your sponsor to avoid any problems</small>
+                                        <small>Please confirm the sponsor name/code from your sponsor to avoid any problems. Once plan has been purchased the it is not reversible</small>     
 
                                   
                                      
@@ -129,7 +129,7 @@
 
 <div class="columns">
   <ul class="price">
-    <li class="header">DM5-X5 Premium</li>
+    <li class="header">DM5-STRIKE 5 Platinum</li>
     <li class="grey">$ 1200</li>
      <li>Premium Access</li>
     <li>1 + 5 x DM5</li>
@@ -142,7 +142,12 @@
          
                 @else
                 
-            <h5>Thank you for choosing a plan, please make payment of {{$user->profile->membership_type}}$ to our account and confirm payment method  </h5>
+            <h5>Thank you for choosing a plan, please make payment of {{$user->profile->membership_type}} USD to our account and confirm payment method.
+            <br>
+            
+            <small>(Reminder! Payments amount differs when using different types of payment due to the currency exchange rate, USDT will be higher compared to Merchantrade)</small>
+            
+            </h5>
             
             
                 @if($FinalBalance >= 0 && $profile->placement_payment_type =='0' )
@@ -265,7 +270,7 @@
                                          <br>
                                         <h5>USDT ACCOUNT : <br>0x8b472d40b9be8fF8d502Fbe6891690435F1680D0</h5>
                                         <br>
-                                        {{$user->profile->membership_type*1.1}} USDT
+                                        {{$user->profile->membership_type*1.25}} USDT
                       
                                         <div class="container-fluid">
                                         <img class='img-fluid' src="{{env('absolute')}}/uspay.png" width="95%" >
@@ -315,6 +320,12 @@
                   <h5>
                                             We have notified our  Accounts Payable Manager of your payment.
                                         <br><br>Please wait until until we confirm your payment, any inquiries can be made through email or calls with our administrators
+                                        
+                                        Contact Information for your region:<br>
+                                        Malaysia : 
+                                        +6011-1513 2991
+                                        
+                                        
                                         <br>
                                         <center>
                                             <br>
@@ -339,7 +350,7 @@
                                           <h5>USDT ACCOUNT <br>0x8b472d40b9be8fF8d502Fbe6891690435F1680D0</h5>
                                                <br> <br>
                                         
-                                        {{$user->profile->membership_type*1.1}} USDT
+                                        {{$user->profile->membership_type*1.25}} USDT
                                         <br>  <div class="container-fluid">
                       
                                        
@@ -397,23 +408,31 @@
             @else
             
             @if($user->profile->affiliate_paid >= 1 )
-             <h3>Your payment have been recieved & (DM5) has been credited to your account  </h3>
+            
+             @if($user->profile->membership_type == 200 )
+             <h3>Your payment have been recieved & DM5 Premium has been credited to your account  </h3>
+             @else
+             <h3>Your payment have been recieved & DM5-STRIKE 5 Platinum has been credited to your account  </h3>
+             @endif
+             
             @else
              <h3>Your payment have been recieved & approved please allow some time for our server to apply your placements.</h3>
              @endif
              <br> Details : <br>
+             <!--
              @if($user->profile->membership_type == 200 )
               <div class="btn btn-info">Plan : 200 USD </div>
               @elseif($user->profile->membership_type == 1000 )
              <div class="btn btn-info">Plan : 1200 USD </div>
              @endif
+             
+             -->
               <div class="btn btn-success">Payment Successful </div>
                <div class="btn btn-success"> Sponsor : {{ $user->profile->affiliate_sponsor }} </div>
              
            
              
            @endif
-           
            <!--
                 <div class=" font-weight-bold">affiliate_type: {{ $user->profile->affiliate_type }}</div> 
            <div class=" font-weight-bold"> affiliate_paid: {{ $user->profile->affiliate_paid }}</div> 

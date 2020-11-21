@@ -32,7 +32,7 @@
           </div>  </div>
               
                <div class="col-lg-12 pt-2 ">
-             <div class="card-body  bg-warning rounded-lg ">
+             <div class="card-body  bg-war ning rounded-lg ">
             <p style="color:black;font-size:25px">Total Recieved Balance: ${{$TotalRecieved}}</p>
              <small style="color:black">Wang yang diterima daripada pelanggan </small>
           </div>  </div>
