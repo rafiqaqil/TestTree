@@ -409,6 +409,7 @@
             
             @if($user->profile->affiliate_paid >= 1 )
             
+            
              @if($user->profile->membership_type == 200 )
              <h3>Your payment have been recieved & DM5 Premium has been credited to your account  </h3>
              @else

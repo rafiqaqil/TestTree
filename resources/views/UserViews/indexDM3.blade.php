@@ -23,7 +23,7 @@
             
              
             <p style="color:greenyellow;font-size:50px" >${{$d->balance*0.8}}</p>
-             <small style="color:yellow;font-size:20px" >Redeem : ${{$d->balance*0.20}}</small><br>
+             <small style="color:yellow;font-size:20px" >Redeem : ${{$d->balance*0.10}}</small><br>
             
             
             <a href="{{env('absolute')}}/MyDM3/{{$d->id}}"><button class="btn btn-info">Show</button></a>
