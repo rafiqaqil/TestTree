@@ -56,7 +56,7 @@ class RegisterController extends Controller
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
              
-             'sponsor' => [ 'string','min:5', 'max:40', 'exists:App\Models\User,username', 'alpha_dash'],
+             'sponsor' => [ 'required','string','min:5', 'max:40', 'exists:App\Models\User,username', 'alpha_dash'],
         ]);
     }
 

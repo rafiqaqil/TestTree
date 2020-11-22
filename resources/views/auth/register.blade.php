@@ -28,7 +28,7 @@
                             <label for="name" class="col-md-4 col-form-label text-md-right">{{ __('username') }}</label>
 
                             <div class="col-md-6">
-                                <input id="username" type="text" class="form-control @error('username') is-invalid @enderror" name="username" value="{{ old('username') }}" required autocomplete="username" autofocus>
+                                <input id="username" type="text" class="form-control @error('username') is-invalid @enderror" name="username" value="{{ old('username') }}" required autocomplete="username" autofocus placeholder="">
 
                                 @error('username')
                                     <span class="invalid-feedback" role="alert">
@@ -40,8 +40,8 @@
                              <div class="form-group row">
                             <label for="name" class="col-md-4 col-form-label text-md-right">{{ __('Sponsor(Username)') }}</label>
 
-                            <div class="col-md-6">No Sponsor
-                                <input hidden id="sponsor" type="text" class="form-control @error('sponsor') is-invalid @enderror" name="sponsor" value="ADMIN_A"  autocomplete="sponsor" autofocus>
+                            <div class="col-md-6">
+                                <input id="sponsor" type="text" class="form-control @error('sponsor') is-invalid @enderror" name="sponsor" value=""  autocomplete="sponsor" autofocus placeholder="Sponsor is mandatory">
 
                                 @error('sponsor')
                                     <span class="invalid-feedback" role="alert">
