@@ -10,6 +10,8 @@
         <div class="card-body  rounded-lg ">
             
               <p style="color:green;font-size:50px" >Profit :  $ {{$Total}}</p>
+             
+             <!--
               <p style="color:blue;font-size:30px" >Reentry Balance :  $ {{$reentry}}</p>
               @if($reentry >= 200)
               @if($REENTRY_STATUS)
@@ -20,6 +22,8 @@
               <button class='btn btn-info'>Request Pending Please Make Sure you have paid 10$ </button>
               @endif
             @endif
+            
+            -->
             </div> </div> </div> </div>
     
      <div class="row">
@@ -36,6 +40,12 @@
             <small style="color:yellow;font-size:20px" >Reentry: ${{($d->balance*0.20)-(200*$d->RE_ENTRY_TIMES)}}</small><br>
           
             <a href="{{env('absolute')}}/MyDM5/{{$d->id}}"><button class="btn btn-info">Show</button></a>
+            
+            @if(($d->balance*0.20)-(200*$d->RE_ENTRY_TIMES) >= 200)
+              <a href="{{env('absolute')}}/BuyReentry/{{$d->id}}"><button class="btn btn-success">Purchase Reentry Fee (10 USD)</button></a>
+              @endif
+              
+              
           
             <?php $index =$index + 1; ?>  
                                     

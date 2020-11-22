@@ -30,12 +30,7 @@ class UserViews extends Controller
         $Mine = \App\Models\DM3tree::all()->where('user_id',$user->id);
         //dd($Mine);
         $Total =  \App\Models\DM3tree::all()->where('user_id',$user->id)->sum('balance')*0.8;
-        
-        $Redeem =  \App\Models\DM3tree::all()->where('user_id',$user->id)->sum('balance')*0.1;
-        $RedeemUsed = (float)$profile->D4+0;
-        dd($RedeemUsed);
-        //dd('USD ',$Total*.8);
-        return view('UserViews.indexDM3', compact('profile','user','Mine','Total','Redeem'));
+        return view('UserViews.indexDM3', compact('profile','user','Mine','Total'));
     }
      public function OneOfMyDM3($TheDM3)
     {
@@ -79,9 +74,12 @@ class UserViews extends Controller
          else
              $RENTRIES_DONE = 0;
          
-         //dd($RENTRIES_DONE*200);
-         $reentry =  \App\Models\DM5tree::all()->where('user_id',$user->id)->sum('balance')*0.2-($RENTRIES_DONE*200);
+         //CUMULATIVE DM5 REENTRY BALANCE IS NO LONGER APPLICABLE --> CHANGED TO INIDIVIDUAL DM5 NODE PERSONAL REENTRY
+         //$reentry =  \App\Models\DM5tree::all()->where('user_id',$user->id)->sum('balance')*0.2-($RENTRIES_DONE*200);
          
+         $reentry=0;
+         // 
+         //
          if($profile->D2 == null)
          $REENTRY_STATUS = 1;
          else

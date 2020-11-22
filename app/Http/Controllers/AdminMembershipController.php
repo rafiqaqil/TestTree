@@ -99,6 +99,7 @@ class AdminMembershipController extends Controller
                         $profile->membership_type = 0;
                         $profile->save();
                         
+                        
                     }
                 }
                 else{ 
@@ -108,6 +109,8 @@ class AdminMembershipController extends Controller
         $profile->save();
         //dd($profile);
                 }
+                
+                \Illuminate\Support\Facades\Mail::to($user->email)->send(new \App\Mail\AccountActivatedMail());
                 
         return redirect('/ShowNewUsers');
     }
@@ -266,6 +269,9 @@ class AdminMembershipController extends Controller
          self::UpdateDM5();
          self::UpdateDM3();
          self::UpdateSponsor();
+         
+         $user = User::find($profile->id);
+         \Illuminate\Support\Facades\Mail::to($user->email)->send(new \App\Mail\EDM5CreditedMail());
          }
            return redirect('/ManagePlacements');        
     }

@@ -20,6 +20,14 @@ Route::get('/', function () {
     return redirect('/login');
 });
 
+Route::get('/show/email', function () {
+    
+    //return new App\Mail\AccountActivatedMail();
+    return new App\Mail\EDM5CreditedMail();
+    return new App\Mail\NewUserWelcomeMail();
+});
+
+
 use App\Http\Controllers\ShopController;
 use App\Http\Controllers\DM3treeController;
 use App\Http\Controllers\DM5treeController;
@@ -144,6 +152,8 @@ Route::get('/adminAction/{id}/ActivateAccount', [AdminMembershipController::clas
 Route::get('/adminAction/{id}/CancelActivateAccount', [AdminMembershipController::class , 'CancelActivateAccountThisID']);
 Route::get('/adminAction/{profile}/CancelApprovePayment', [AdminMembershipController::class , 'CancelApprovePayment']);
 
+
+//REENTRY MANAGEMENT FOR EACH DM5 THE REENTRY BALANCE IS ALWAYS 20% OG THE BALANCE - (TIMES_REENTRY COLUMN * 200) --> USERS NEED TO MAKE AN ADDITIONAL 10USD TO ALLOW THE REENTRY PROCESS
 Route::get('/reentryMGT', [AdminMembershipController::class , 'reentryMGT']);
 Route::get('/adminAction/{user}/PlaceReentry', [AdminMembershipController::class , 'StoreReentry']);
 Route::get('/adminAction/{user}/CancelReentry', [AdminMembershipController::class , 'CancelReentry']);
@@ -151,6 +161,9 @@ Route::get('/adminAction/{user}/CancelReentry', [AdminMembershipController::clas
 
 use App\Http\Controllers\AdminWithdrawController;
 //Admin Withdrawal System
+//After Users create a withrawal request the admin may transfer to the users account and approve the request to reduce the total balance
+// The balance is calculated with transfers + dm3 balance 80% + dm5 80% - withdrawal with status confirmed that is 9
+// Withrawals are restricted to the balance >= 0 
 Route::get('/ManageWithdrawal', [AdminWithdrawController::class , 'index']);
 Route::get('/adminAction/{withdraw}/Credited', [AdminWithdrawController::class , 'Credited']);
 Route::get('/adminAction/{withdraw}/Cancel', [AdminWithdrawController::class , 'Cancel']);
@@ -161,6 +174,7 @@ Route::get('/adminAction/{withdraw}/Cancel', [AdminWithdrawController::class , '
 
 use App\Http\Controllers\MidnightEngine;
 //Midnight Calculator
+// This module Calculateds each tree and update the ballance based on thee formula by calling a fixed function 
 Route::get('/MDC/Update/Sponsor', [MidnightEngine::class , 'UpdateSponsor']);
 Route::get('/MDC/Update/DM5', [MidnightEngine::class , 'UpdateDM5']);
 Route::get('/MDC/Update/DM3', [MidnightEngine::class , 'UpdateDM3']);
@@ -170,6 +184,7 @@ Route::get('/MDC/SHOW/Credit4More', [MidnightEngine::class , 'ShowMidnightCredit
 
 
 use App\Http\Controllers\AdminMasterView;
+// This is basically a master views module for the administration to do an audit on users and their data.
 Route::get('/Audit/Users', [AdminMasterView::class , 'index']);
 Route::get('/Audit/View/{user}', [AdminMasterView::class , 'showUser']);
 Route::get('/Audit/View/{user}/SponsorTree', [AdminMasterView::class , 'ShowOneSponsorTree']);
@@ -177,8 +192,14 @@ Route::get('/Audit/Inactive', [AdminMasterView::class , 'indexInactive']);
 
 
 use App\Http\Controllers\PublicViewController;
+//This shows the systems information to a page for thew public to see 
 Route::get('/ShowLive', [PublicViewController::class , 'index']);
 
+use App\Http\Controllers\RedeemController;
 
+// DM3 10% Value of Balnce in Cumulative DM3 -> Withdraw Amount is recorded in $profile->D4 so the wallte balance will alway minus this colum in the user's profile table.  
+// IT WAS 20% BUT 10% were administration fees
+Route::get('/redeem', [RedeemController::class , 'index']);
+Route::get('/redeem/now', [RedeemController::class , 'create']);
 
 

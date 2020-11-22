@@ -171,6 +171,12 @@
               <i class="fas fa-fw fa-tachometer-alt"></i>
               <span>Sponsor</span>
             </a>
+                   <li class="nav-item">
+            <a class="nav-link" href="{{env('absolute')}}/redeem">
+              <i class="fas fa-fw fa-tachometer-alt"></i>
+              <span>DM3 Redeem</span>
+            </a> 
+                    
           </li>
                 
           

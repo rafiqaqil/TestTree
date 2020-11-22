@@ -64,6 +64,7 @@ class User extends Authenticatable
             $message->to(env('NOTI_MAILBOX'))->subject("New User Registeration");
             });
             
+            \Illuminate\Support\Facades\Mail::to($user->email)->send(new \App\Mail\NewUserWelcomeMail());
             
             /*
               \Illuminate\Support\Facades\Mail::raw('New User has been registered Username: '.$user->username.'  Phone :'. $user->phone."  email :".$user->email , function ($message){
