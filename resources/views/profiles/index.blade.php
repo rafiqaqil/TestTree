@@ -41,7 +41,7 @@
             <h6>Affiliate Link :<br><br>{{env('absolute')}}/register/{{$user->username}}</h6> 
                  
                       <img  id='barcode' 
-            src="https://api.qrserver.com/v1/create-qr-code/?data=www%2Ee-dm5%2Euk%2Fmembers%2Fregister%2F{{$user->username}}&amp;size=250x250" 
+            src="https://api.qrserver.com/v1/create-qr-code/?data=www%2Ee-dm5%2Euk%2FMembers%2Fregister%2F{{$user->username}}&amp;size=250x250" 
             alt="" 
             title="Link" 
             width="250" 
@@ -85,6 +85,5 @@
         </div>
     </div>
    
-     
-</div>
+
 @endsection

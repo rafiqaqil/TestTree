@@ -10,7 +10,7 @@
         <div class="card-body  rounded-lg ">
             
               <p style="color:green;font-size:50px" >Profit :  $ {{$Total}}</p>
-            </div> </div> </div> </div>
+            </div> </div> </div> </div> 
     
      <div class="row">
      <?php $index = 1; ?>                         

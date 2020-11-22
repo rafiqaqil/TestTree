@@ -32,8 +32,8 @@ class UserViews extends Controller
         $Total =  \App\Models\DM3tree::all()->where('user_id',$user->id)->sum('balance')*0.8;
         
         $Redeem =  \App\Models\DM3tree::all()->where('user_id',$user->id)->sum('balance')*0.1;
-        
-        
+        $RedeemUsed = (float)$profile->D4+0;
+        dd($RedeemUsed);
         //dd('USD ',$Total*.8);
         return view('UserViews.indexDM3', compact('profile','user','Mine','Total','Redeem'));
     }
