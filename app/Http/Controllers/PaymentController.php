@@ -22,14 +22,22 @@ class PaymentController extends Controller
                   //->join('profiles','transfers.user_id','=','profiles.user_id')
                  ->join('payments','payments.user_id','=','users.id')
                  ->join('profiles','profiles.user_id','=','users.id')
-                 ->select('payments.*','users.email','users.username','users.name','users.phone','profiles.national_id','profiles.country')
-                  
+                 ->select('payments.*','users.email','users.username','users.name','users.phone','profiles.national_id','profiles.country','profiles.merchantrade_acc','profiles.usdt_wallet')
+                  ->where('payments.STATUS','NEW')
+                  ->get();
+         
+         $alldataDone = \Illuminate\Support\Facades\DB::table('users')
+                  //->join('profiles','transfers.user_id','=','profiles.user_id')
+                 ->join('payments','payments.user_id','=','users.id')
+                 ->join('profiles','profiles.user_id','=','users.id')
+                 ->select('payments.*','users.email','users.username','users.name','users.phone','profiles.national_id','profiles.country','profiles.merchantrade_acc','profiles.usdt_wallet')
+                  ->where('payments.STATUS','!=','NEW')
                   ->get();
          
          
          //dd($redeem);
          
-         return view('admin.redeemMGT',compact('alldata'));       
+         return view('admin.redeemMGT',compact('alldata','alldataDone'));       
     
     }
 
