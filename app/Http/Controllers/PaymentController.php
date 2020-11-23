@@ -16,10 +16,20 @@ class PaymentController extends Controller
     {
       
          
-         $reentry= payment::all()
-         //dd($reentry);
+         $reentry= payment::all()->where('STATUS','NEW');
          
-         return view('admin.reentry',compact('reentry'));       
+         $alldata = \Illuminate\Support\Facades\DB::table('users')
+                  //->join('profiles','transfers.user_id','=','profiles.user_id')
+                 ->join('payments','payments.user_id','=','users.id')
+                 ->join('profiles','profiles.user_id','=','users.id')
+                 ->select('payments.*','users.email','users.username','users.name','users.phone','profiles.national_id','profiles.country')
+                  
+                  ->get();
+         
+         
+         //dd($redeem);
+         
+         return view('admin.redeemMGT',compact('alldata'));       
     
     }
 
@@ -28,20 +38,26 @@ class PaymentController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function COMPLETE_PAY($pay)
     {
-        //
+       
+        $data = payment::find($pay);
+        //dd($data);
+        $data->STATUS= 'COMPLETE';
+        $data->save();
+        
+        return redirect('/redeemMGT');
+       
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
+  
+    public function CANCEL_PAY($pay)
     {
-        //
+        $data = payment::find($pay);
+        //dd($data);  
+        $data->STATUS= 'CANCEL';
+        $data->save();
+         return redirect('/redeemMGT');
     }
 
     /**
