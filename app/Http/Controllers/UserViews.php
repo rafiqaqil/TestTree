@@ -74,7 +74,8 @@ class UserViews extends Controller
          else
              $RENTRIES_DONE = 0;
          
-         //CUMULATIVE DM5 REENTRY BALANCE IS NO LONGER APPLICABLE --> CHANGED TO INIDIVIDUAL DM5 NODE PERSONAL REENTRY
+         /*
+          * CUMULATIVE DM5 REENTRY BALANCE IS NO LONGER APPLICABLE --> CHANGED TO INIDIVIDUAL DM5 NODE PERSONAL REENTRY
          //$reentry =  \App\Models\DM5tree::all()->where('user_id',$user->id)->sum('balance')*0.2-($RENTRIES_DONE*200);
          
          $reentry=0;
@@ -94,9 +95,15 @@ class UserViews extends Controller
              }
              
          }
-         
+         */
+         $DM5requests = \App\Models\payment::where('DETAIL','REENTRY_DM5')->where('user_id',$user->id)->get();
+         if($DM5requests){
+         //dd($DM5requests); 
+         echo "OK";}
+         else{
+         $DM5requests = null;}
         //dd('USD ',$Total*.8);
-        return view('UserViews.indexDM5', compact('profile','user','Mine','Total','reentry','REENTRY_STATUS'));
+        return view('UserViews.indexDM5', compact('profile','user','Mine','Total','DM5requests'));
     }
     
     

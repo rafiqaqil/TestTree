@@ -7,6 +7,11 @@ use Illuminate\Http\Request;
 class ReentryController extends Controller
 {
     
+          public function __construct()
+    {
+        $this->middleware('auth');
+    }
+    
      public function create(\App\Models\DM5tree $DM5tree)
     {
         //dd($DM5tree);
@@ -16,7 +21,7 @@ class ReentryController extends Controller
         
         $budget = $DM5tree->balance*0.20 - ($DM5tree->RE_ENTRY_TIMES*200);
 
-        $budget=2000;
+        //$budget=2000;
 
         if($DM5tree->user_id == $user->id){  
              if($budget >= 200){return view('reentry.create', compact('profile','user','DM5_ID'));}

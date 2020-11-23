@@ -12,8 +12,20 @@ class PaymentController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    
+          public function __construct()
+    {
+        $this->middleware('auth');
+    }
+    
     public function redeemMGT()
     {
+        
+        //check if user is an admin
+         if(auth()->user()->id > 7){return redirect('/home');}
+        
+        
+        
       
          
          $reentry= payment::all()->where('STATUS','NEW');
@@ -50,7 +62,9 @@ class PaymentController extends Controller
      */
     public function COMPLETE_PAY($pay)
     {
-       
+       //check if user is an admin
+         if(auth()->user()->id > 7){return redirect('/home');}
+        
         
         
         
@@ -85,6 +99,10 @@ class PaymentController extends Controller
   
     public function CANCEL_PAY($pay)
     {
+        //check if user is an admin
+         if(auth()->user()->id > 7){return redirect('/home');}
+        
+         
         $data = payment::find($pay);
         //dd($data);  
         $data->STATUS= 'CANCEL';
@@ -176,7 +194,9 @@ class PaymentController extends Controller
     
         public function reentryMGT()
     {
-      
+      //check if user is an admin
+         if(auth()->user()->id > 7){return redirect('/home');}
+        
          
          $reentry= payment::all()->where('STATUS','NEW');
          
@@ -207,13 +227,27 @@ class PaymentController extends Controller
     
       public function PlaceReentry($pay)
     {
+          //check if user is an admin
+         if(auth()->user()->id > 7){return redirect('/home');}
+        
+         
         $data = payment::find($pay);
         
         
         $DM5 = \App\Models\DM5tree::find($data->INFO_ID);
          //dd($DM5); 
-        self::DM5addSilently($DM5->name.'-Re-'.($DM5->RE_ENTRY_TIMES+1),$DM5->user_id);
         
+        //check the budget is shoudl be 200 min to procees
+        $budget = $DM5->balance*0.20 - ($DM5->RE_ENTRY_TIMES*200);
+        if($budget < 200)// block mishaps
+        {
+            
+             $data->STATUS= 'CANCEL';
+        $data->save();
+         return redirect('/reentryMGT');
+        }
+
+        self::DM5addSilently($DM5->name.'-Re-'.($DM5->RE_ENTRY_TIMES+1),$DM5->user_id);
         $DM5->RE_ENTRY_TIMES = $DM5->RE_ENTRY_TIMES+1;
         $DM5->save();
         
@@ -225,6 +259,9 @@ class PaymentController extends Controller
   
     public function CancelReentry($pay)
     {
+        //check if user is an admin
+         if(auth()->user()->id > 7){return redirect('/home');}
+        
         $data = payment::find($pay);
         //dd($data);  
         $data->STATUS= 'CANCEL';

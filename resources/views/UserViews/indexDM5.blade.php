@@ -11,19 +11,7 @@
             
               <p style="color:green;font-size:50px" >Profit :  $ {{$Total}}</p>
              
-             <!--
-              <p style="color:blue;font-size:30px" >Reentry Balance :  $ {{$reentry}}</p>
-              @if($reentry >= 200)
-              @if($REENTRY_STATUS)
-              <a href="{{env('absolute')}}/MyDM5/Apply/Reentry">
-            <button class='btn btn-success'>Apply Reentry (fee 10$)</button>
-            </a>
-              @else
-              <button class='btn btn-info'>Request Pending Please Make Sure you have paid 10$ </button>
-              @endif
-            @endif
-            
-            -->
+           
             </div> </div> </div> </div>
     
      <div class="row">
@@ -84,8 +72,95 @@
            
             
      
+
+               <!-- DataTables Example -->
+           <div class="row">
+        <div class="col-lg-12 ">
+        <div class="card mb-12">
+          <div class="card-header" align="center">
+            <i class="fas fa-table"></i>
+            DM5 Reentry requests  History </div>
+          <div class="card-body">
+            <div class="table-responsive">
+              <table class="table table-bordered " id="dataTable"  cellspacing="0">
+                    <thead>
+                  <tr>
+                 
+                 <th>DM5 </th>
+                    <th>Payment Amount</th>
+      
+                  
+                      <th>Payment Method</th>
+                        <th>created_at</th>
+                      
+                      <th>Status</th>
+                     
+                  </tr>
+                </thead>
+             
+                <tbody>
+             
+        @foreach($DM5requests as $d)      
+                   
+         <tr>
+   <td>
+                {{$d->INFO_STR}}
+            </td>
+            <td>
+                {{$d->AMOUNT}}
+            </td>
+             <td>
+                  {{$d->TYPE}}
+                  @if($d->TYPE == 'USDT')
+                <br>{{$profile->usdt_wallet}}
+                @else
+                <br>{{$profile->merchantrade_acc}}
+                @endif
+            </td> 
+            <td>
+                {{$d->created_at}}
+            </td>
+                      
+            
+                       <td>
+                 <!-- {{$d->STATUS}} -->
+                 @if($d->STATUS == 'NEW')
+                       <div class='btn btn-warning'> Pending</div>
+                  @elseif($d->STATUS == 'COMPLETE')
+                  
+                  <div class='btn btn-success'> Complete</div>
+                  @else
+                  <div class='btn btn-danger'> Cancelled</div>
+                  
+                         @endif     
+                     </td>
+                    </tr>
+
+        @endforeach
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     </div>
    
      
-</div>
+
 @endsection
