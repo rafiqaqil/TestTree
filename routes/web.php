@@ -202,4 +202,6 @@ use App\Http\Controllers\RedeemController;
 Route::get('/redeem', [RedeemController::class , 'index']);
 Route::get('/redeem/now', [RedeemController::class , 'create']);
 
+Route::post('/Store/Redeem', [RedeemController::class , 'store']);
+
 

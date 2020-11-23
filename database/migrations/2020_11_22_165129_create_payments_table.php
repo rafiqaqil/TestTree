@@ -21,8 +21,10 @@ class CreatePaymentsTable extends Migration
             $table->string('STATUS')->default('NEW'); // 0 NEW -1 CANCEL 1 APPROVED
             $table->string('WAY'); // IN OR OUT
             
+            
+            $table->string('TYPE'); // IN OR OUT
             $table->string('DETAIL'); // IN OR OUT
-            $table->integer('INFO_INT')->default(-1);// IN OR OUT
+            $table->integer('INFO_ID')->default(0);// IN OR OUT
              $table->string('INFO_STR')->default('NONE');// IN OR OUT
             
             

@@ -25,12 +25,36 @@ class RedeemController extends Controller
                  return view('redeem.mywallet',compact('FinalBalance','profile','redeemed'));
            }
     
-    public function createRedeem()
+    public function create()
     {
-        $profile = $user->profile();
-        dd($profile);
         
-        
+          $user = auth()->user();   $profile = $user->profile()->first();
+
         return view('redeem.create', compact('profile','user'));
     }
+    
+    
+      public function store()
+    { $user = auth()->user();   $profile = $user->profile()->first();
+            $data = request()->validate([
+
+              'AMOUNT' => 'required|numeric',
+              'TYPE' => 'required',
+              
+        ]);
+         
+         dd($data);
+        
+        
+     $new = App\Models\payment::create([
+         
+                ]);
+     
+     dd($new);
+        
+        
+        return view('redeem.mywallet', compact('profile','user'));
+    }
+    
+       
 }
