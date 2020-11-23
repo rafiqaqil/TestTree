@@ -16,7 +16,8 @@
         "kalnoy/nestedset": "^5.0",
         "laravel/framework": "^8.0",
         "laravel/tinker": "^2.0",
-        "laravel/ui": "^3.0"
+        "laravel/ui": "^3.0",
+        "spatie/laravel-backup": "^6.12"
     },
     "require-dev": {
         "beyondcode/laravel-er-diagram-generator": "^1.5",

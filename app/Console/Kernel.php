@@ -21,6 +21,7 @@ class Kernel extends ConsoleKernel
         
         MidnightUpdatePool::class,
          calcAll::class,
+        
     ];
 
     /**
@@ -32,13 +33,14 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule)
     {
      
-        \App\Models\DM3tree::fixTree();
+        //\App\Models\DM3tree::fixTree();
         echo" Fix Tree DM3   ";
         
             $schedule->command('midnightupdatepool:now')->timezone('Asia/Kuala_Lumpur')->dailyAt('00:01');
             //
           $schedule->command('calcAll:now')->timezone('Asia/Kuala_Lumpur')->hourly();
-         
+        
+          
             
              //$schedule->command('   calcAll:now')->timezone('Asia/Kuala_Lumpur')->everyMinute();
          
