@@ -24,6 +24,7 @@ class PaymentController extends Controller
                  ->join('profiles','profiles.user_id','=','users.id')
                  ->select('payments.*','users.email','users.username','users.name','users.phone','profiles.national_id','profiles.country','profiles.merchantrade_acc','profiles.usdt_wallet')
                   ->where('payments.STATUS','NEW')
+                 ->where('payments.DETAIL','REDEEM_DM3')
                   ->get();
          
          $alldataDone = \Illuminate\Support\Facades\DB::table('users')
@@ -32,6 +33,7 @@ class PaymentController extends Controller
                  ->join('profiles','profiles.user_id','=','users.id')
                  ->select('payments.*','users.email','users.username','users.name','users.phone','profiles.national_id','profiles.country','profiles.merchantrade_acc','profiles.usdt_wallet')
                   ->where('payments.STATUS','!=','NEW')
+                 ->where('payments.DETAIL','REDEEM_DM3')
                   ->get();
          
          
@@ -49,7 +51,29 @@ class PaymentController extends Controller
     public function COMPLETE_PAY($pay)
     {
        
+        
+        
+        
         $data = payment::find($pay);
+       
+        
+        $user = \App\Models\User::find($data->user_id);
+        $TDM3 =  \App\Models\DM3tree::all()->where('user_id',$user->id)->sum('balance')*0.1;
+              
+            $balance = \App\Models\payment::where('user_id',$user->id)
+                    ->where('DETAIL','REDEEM_DM3')
+                    ->where('STATUS','!=','CANCEL')->sum('AMOUNT');
+        if(($TDM3 - ($balance+ $data['AMOUNT'])) < 0){
+             $data->STATUS= 'CANCEL';
+        $data->save();
+            dd("Warning Negative Amount DM3 Redee"
+                    . " Overflow. System Automatically Reject Redeem");   
+        }
+           
+                    
+                    
+        
+        
         //dd($data);
         $data->STATUS= 'COMPLETE';
         $data->save();

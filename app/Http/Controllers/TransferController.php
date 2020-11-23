@@ -84,13 +84,17 @@ class TransferController extends Controller
         
          $data = request()->validate([
 
-              'AMOUNT' => 'required|numeric',
+              'AMOUNT' => 'required|numeric|min:0',
               'to_username' => [ 'string','min:5', 'max:40', 'exists:App\Models\User,username', 'alpha_dash'],
               
         ]);
          
+         
+         
           $FinalBalance = $TDM5+ $TDM3 +$TSPN + $transfersIN - $transfersOUT- $Negative - $data['AMOUNT'];
          //dd($FinalBalance);
+          
+          
          
         //-------------------------------------------------------------------------
          if($FinalBalance >= 0)

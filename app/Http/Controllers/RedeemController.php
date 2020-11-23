@@ -55,7 +55,7 @@ class RedeemController extends Controller
     { $user = auth()->user();   $profile = $user->profile()->first();
             $data = request()->validate([
 
-              'AMOUNT' => 'required|numeric',
+              'AMOUNT' => 'required|numeric|min:0',
               'TYPE' => 'required',
               
         ]);

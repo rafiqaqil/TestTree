@@ -76,7 +76,7 @@
             <a href='{{env('absolute')}}/reentryMGT'><div class='btn btn-info'>DM5 Reentry </div> </a>    <hr>
 
                <p>Redeem DM3</p>
-            <a href='{{env('absolute')}}/redeemMGT'><div class='btn btn-info'>DM5 Reentry </div> </a>    <hr>
+            <a href='{{env('absolute')}}/redeemMGT'><div class='btn btn-info'>DM3 Redeem </div> </a>    <hr>
 
         </div>
     </div>
