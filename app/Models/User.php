@@ -75,7 +75,23 @@ class User extends Authenticatable
              */
         });
     }
+      public function payment()
+    {
+        return $this->hasMany(payment::class);
+    }
     
+    public function DM5()
+    {
+        return $this->hasMany(DM5tree::class);
+    }
+    public function DM3()
+    {
+        return $this->hasMany(DM3tree::class);
+    }
+    public function sponsor()
+    {
+        return $this->hasOne(sponsor::class);
+    }
     
       public function profile()
     {

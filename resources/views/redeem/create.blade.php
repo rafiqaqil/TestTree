@@ -13,7 +13,12 @@
                 </div>
                 
                          
+                @if($errors->any())
+                <div class="btn btn-danger">
+                <h4>{{$errors->first()}}</h4>
                 
+                </div>
+                @endif
                     <div class="form-group row">
                     <label for="Type" class="col-md-4 col-form-label">Select Preferred Payment Method</label>
 

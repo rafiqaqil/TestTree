@@ -18,8 +18,7 @@ class RedeemController extends Controller
            
        
           $TDM3 =  \App\Models\DM3tree::all()->where('user_id',$user->id)->sum('balance')*0.1;
-          
-       $redeemed = ($profile->D4 + 0);
+          $redeemed = ($profile->D4 + 0);
           $FinalBalance = $TDM3 - $redeemed;
          //dd($FinalBalance);
                  return view('redeem.mywallet',compact('FinalBalance','profile','redeemed'));
@@ -42,13 +41,25 @@ class RedeemController extends Controller
               'TYPE' => 'required',
               
         ]);
+              $TDM3 =  \App\Models\DM3tree::all()->where('user_id',$user->id)->sum('balance')*0.1;
+              $TDM3 = 100;
+            $balance = \App\Models\payment::where('user_id',$user->id)
+                    ->where('DETAIL','REDEEM_DM3')
+                    ->where('STATUS','!=','CANCELED')->sum('AMOUNT');;
+            
+            //dd($balance);
+            
+            if(($TDM3 - ($balance+ $data['AMOUNT'])) < 0)
+                return \Illuminate\Support\Facades\Redirect::back()->withErrors(['Balance is not enough. Your balance is '.($TDM3 - $balance)]);
          
-         dd($data);
+            $data['user_id']= $user->id;
+            $data['DETAIL']= "REDEEM_DM3";
+            $data['WAY']='OUT';
+            
+         //dd($data);
         
         
-     $new = App\Models\payment::create([
-         
-                ]);
+     $new =  \App\Models\payment::create($data);
      
      dd($new);
         

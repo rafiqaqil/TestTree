@@ -12,9 +12,15 @@ class PaymentController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function redeemMGT()
     {
-        //
+      
+         
+         $reentry= payment::all()
+         //dd($reentry);
+         
+         return view('admin.reentry',compact('reentry'));       
+    
     }
 
     /**

@@ -75,7 +75,9 @@
                <p>Handle payment & pemberian DM5 Reentry kepada user </p>
             <a href='{{env('absolute')}}/reentryMGT'><div class='btn btn-info'>DM5 Reentry </div> </a>    <hr>
 
-            
+               <p>Redeem DM3</p>
+            <a href='{{env('absolute')}}/redeemMGT'><div class='btn btn-info'>DM5 Reentry </div> </a>    <hr>
+
         </div>
     </div>
    

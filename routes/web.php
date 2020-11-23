@@ -204,4 +204,9 @@ Route::get('/redeem/now', [RedeemController::class , 'create']);
 
 Route::post('/Store/Redeem', [RedeemController::class , 'store']);
 
+//REENTRY MANAGEMENT FOR EACH DM5 THE REENTRY BALANCE IS ALWAYS 20% OG THE BALANCE - (TIMES_REENTRY COLUMN * 200) --> USERS NEED TO MAKE AN ADDITIONAL 10USD TO ALLOW THE REENTRY PROCESS
 
+use App\Http\Controllers\PaymentController;
+Route::get('/redeemMGT', [PaymentController::class , 'redeemMGT']);
+Route::get('/redeemMGT/{payment}/COMPLETE_PAY', [PaymentController::class , 'COMPLETE_PAY']);
+Route::get('/redeemMGT/{payment}/CANCEL_PAY', [PaymentController::class , 'CANCEL_PAY']);
