@@ -42,7 +42,7 @@
             <a href="{{env('absolute')}}/MyDM5/{{$d->id}}"><button class="btn btn-info">Show</button></a>
             
             @if(($d->balance*0.20)-(200*$d->RE_ENTRY_TIMES) >= 200)
-              <a href="{{env('absolute')}}/BuyReentry/{{$d->id}}"><button class="btn btn-success">Purchase Reentry Fee (10 USD)</button></a>
+              <a href="{{env('absolute')}}/create/reentryDM5/{{$d->id}}"><button class="btn btn-success">Purchase Reentry Fee (10 USD)</button></a>
               @endif
               
               

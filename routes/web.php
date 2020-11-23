@@ -153,10 +153,6 @@ Route::get('/adminAction/{id}/CancelActivateAccount', [AdminMembershipController
 Route::get('/adminAction/{profile}/CancelApprovePayment', [AdminMembershipController::class , 'CancelApprovePayment']);
 
 
-//REENTRY MANAGEMENT FOR EACH DM5 THE REENTRY BALANCE IS ALWAYS 20% OG THE BALANCE - (TIMES_REENTRY COLUMN * 200) --> USERS NEED TO MAKE AN ADDITIONAL 10USD TO ALLOW THE REENTRY PROCESS
-Route::get('/reentryMGT', [AdminMembershipController::class , 'reentryMGT']);
-Route::get('/adminAction/{user}/PlaceReentry', [AdminMembershipController::class , 'StoreReentry']);
-Route::get('/adminAction/{user}/CancelReentry', [AdminMembershipController::class , 'CancelReentry']);
 
 
 use App\Http\Controllers\AdminWithdrawController;
@@ -201,7 +197,6 @@ use App\Http\Controllers\RedeemController;
 // IT WAS 20% BUT 10% were administration fees
 Route::get('/redeem', [RedeemController::class , 'index']);
 Route::get('/redeem/now', [RedeemController::class , 'create']);
-
 Route::post('/Store/Redeem', [RedeemController::class , 'store']);
 
 //REENTRY MANAGEMENT FOR EACH DM5 THE REENTRY BALANCE IS ALWAYS 20% OG THE BALANCE - (TIMES_REENTRY COLUMN * 200) --> USERS NEED TO MAKE AN ADDITIONAL 10USD TO ALLOW THE REENTRY PROCESS
@@ -210,3 +205,15 @@ use App\Http\Controllers\PaymentController;
 Route::get('/redeemMGT', [PaymentController::class , 'redeemMGT']);
 Route::get('/redeemMGT/{payment}/COMPLETE_PAY', [PaymentController::class , 'COMPLETE_PAY']);
 Route::get('/redeemMGT/{payment}/CANCEL_PAY', [PaymentController::class , 'CANCEL_PAY']);
+
+
+use App\Http\Controllers\ReentryController;
+
+// DM5 Reentry Module 
+Route::get('/create/reentryDM5/{DM5tree}', [ReentryController::class , 'create']);
+Route::post('/Store/reentryDM5/{DM5tree}', [ReentryController::class , 'store']);
+
+//REENTRY MANAGEMENT FOR EACH DM5 THE REENTRY BALANCE IS ALWAYS 20% OG THE BALANCE - (TIMES_REENTRY COLUMN * 200) --> USERS NEED TO MAKE AN ADDITIONAL 10USD TO ALLOW THE REENTRY PROCESS
+Route::get('/reentryMGT', [PaymentController::class , 'reentryMGT']);
+Route::get('/reentryMGT/{payment}/PlaceReentry', [PaymentController::class , 'PlaceReentry']);
+Route::get('/reentryMGT/{payment}/CancelReentry', [PaymentController::class , 'CancelReentry']);

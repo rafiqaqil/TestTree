@@ -29,7 +29,9 @@ class AdminMembershipController extends Controller
          
          return view('admin.reentry',compact('reentry'));       
     }
-    
+    /*
+     * 
+     * OLD REENTRY METHOD USING CUMULATIVE NODES REENTRY BALANBCE DEPRECIATED 23 NOV 2020
       public function CancelReentry($id)
     {
           $user = User::find($id);
@@ -56,7 +58,7 @@ class AdminMembershipController extends Controller
          
          return redirect('/reentryMGT');  
     }
-    
+    */
   
         public function manageNewPlans()
     {
