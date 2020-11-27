@@ -9,7 +9,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>SB Admin 2 - Dashboard</title>
+    <title>e-DM5 Blast Live Stats</title>
 
     <!-- Custom fonts for this template-->
     <link href="sb2/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -59,8 +59,11 @@
                                     <div class="row no-gutters align-items-center">
                                         <div class="col mr-2">
                                             <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
-                                                Cumulative Earnings (Monthly)</div>
-                                            <div class="h5 mb-0 font-weight-bold text-gray-800">${{$TotalEarnings*($random/10)}}</div>
+                                                Cumulative Earnings</div>
+                                            <div class="h5 mb-0 font-weight-bold text-gray-800">${{
+                                             number_format (
+                                             $TotalEarnings*($random/20)
+                                             ,2)}}</div>
                                         </div>
                                         <div class="col-auto">
                                             <i class="fas fa-calendar fa-2x text-gray-300"></i>
@@ -78,7 +81,11 @@
                                         <div class="col mr-2">
                                             <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
                                                 Passive Distributed Earnings </div>
-                                            <div class="h5 mb-0 font-weight-bold text-gray-800">${{$TotalW*$random}}</div>
+                                            <div class="h5 mb-0 font-weight-bold text-gray-800">${{
+                                             number_format (
+                                             $TotalW*$random/3
+                                             ,2)
+                                             }}</div>
                                         </div>
                                         <div class="col-auto">
                                             <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
@@ -94,7 +101,7 @@
                                 <div class="card-body">
                                     <div class="row no-gutters align-items-center">
                                         <div class="col mr-2">
-                                            <div class="text-xs font-weight-bold text-info text-uppercase mb-1">e-DM5 Midnight Pooling (Malaysia) 
+                                            <div class="text-xs font-weight-bold text-info text-uppercase mb-1">e-DM5 Midnight Pooling (Today)
                                             </div>
                                             <div class="row no-gutters align-items-center">
                                                 <div class="col-auto">
@@ -118,7 +125,7 @@
                                     <div class="row no-gutters align-items-center">
                                         <div class="col mr-2">
                                             <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
-                                               Total Users Registered (Malaysia)</div>
+                                               Total Users Registered</div>
                                             <div class="h5 mb-0 font-weight-bold text-gray-800">{{ $dataToShow->max('id') }}</div>
                                         </div>
                                         <div class="col-auto">
@@ -316,21 +323,28 @@
                                               <tr>
                                                   <th>Name</th>
                                                   <th>Country</th>
+                                                  <th>Date</th>
                                               </tr>
                                             </thead>
                                             <tbody>    
                                     @foreach($dataToShow as $d)       
                                      <tr>
-                                        <td>{{$d->name}}</td>
+                                        <td>{{$d->username}}</td>
                                         <td>
                                             @if($d->country == null)
-                                            Malaysia
+                                            <img src='https://www.iqtutors.com.au/nkflags/rect/my.svg' height=30px width=45px > Malaysia 
+                                            
+                                           
+                                            @elseif($d->country == 'Malaysia')
+                                             <img src='https://www.iqtutors.com.au/nkflags/rect/my.svg' height=30px width=45px > Malaysia 
                                             @else
+                                           
                                             {{$d->country}}
                                             @endif
                                         
                                         
-                                        </td>                  
+                                        </td>  
+                                          <td>{{$d->created_at}}</td>
                                      </tr>
                                     @endforeach
                                             </tbody>
@@ -344,7 +358,59 @@
                         </div>
                     </div>
 
-                </div>
+              
+                <!-- /.container-fluid -->
+                
+                
+                
+                
+                     <!-- Approach -->
+                            <div class="card shadow mb-4">
+                                <div class="card-header py-3">
+                                    <h6 class="m-0 font-weight-bold text-primary">Top E-DM5 Sponsors</h6>
+                                </div>
+                                
+                               
+                                  
+                               
+                                      <div class="card-body">
+                                        <div class="table-responsive">
+                                          <table class="table table-bordered" id="dataTable"  cellspacing="0">
+                                            <thead>
+                                              <tr>
+                                                  <th>Name</th>
+                                                  <th>Group Sales</th>
+                                                   
+                                                  <th>Age</th>
+                                                   
+                                              </tr>
+                                            </thead>
+                                            <tbody>    
+                                    @foreach($topsponsor as $d)       
+                                     <tr>
+                                        <td>{{$d->name}}</td>
+                                        <td>{{$d->logs}}</td>
+                                      
+                                        <td>
+                                            {{ number_format (
+                                                        Carbon\Carbon::now()->diffInHours($d->created_at)/24 
+                                                ,1)
+                                            
+                                            }} Days
+                                        </td> 
+                                        
+                                     </tr>
+                                    @endforeach
+                                            </tbody>
+                                          </table>
+                                    </div></div>
+                              
+                                
+                                
+                            </div>
+
+
+               
                 <!-- /.container-fluid -->
 
             </div>
