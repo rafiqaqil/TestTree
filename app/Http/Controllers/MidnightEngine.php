@@ -71,8 +71,7 @@ class MidnightEngine extends Controller
     
            
         
-     
-        /*--------------------------------------------------------------------------------------------                                          
+       /*--------------------------------------------------------------------------------------------                                          
                                         8b           d8      88        ad888888b,  
                                         `8b         d8'    ,d88       d8"     "88  
                                          `8b       d8'   888888               a8P  
@@ -82,8 +81,12 @@ class MidnightEngine extends Controller
                                              `888'           88  888  d8"          
                                               `8'            88  888  88888888888
          * 
+         * UPDATE VERSION 29 NOV 2020
          * THERE ARE 5 COPIES OF THIS METHOD MAKE SURE ALL IS UPDATED AT ONCE 
          * AdminMembershipController.php
+         * MidnightUpdatePool.php
+         * MidnightEngine.php
+         * 
          * CONSOLE - COMMANDS - MIDNIGHT UPDATE
          * 
         ------------------------------------------------------------------------------------------------   
@@ -93,7 +96,7 @@ class MidnightEngine extends Controller
           $all = \App\Models\sponsor::all();
           
           foreach($all as $a)
-          {$groupsale = \App\Models\sponsor::descendantsAndSelf($a->id)->sum('affiliate_type');
+          {$groupsale = \App\Models\sponsor::descendantsAndSelf($a->id)->sum('affiliate_type') - $a->affiliate_type;
            $thisGuy = \App\Models\sponsor::descendantsAndSelf($a->id);
            $parentlevel = \App\Models\sponsor::withDepth()->find($a->id)->depth;
            $thisGuyFamily = \App\Models\sponsor::descendantsAndSelf($a->id)->count();
@@ -452,3 +455,4 @@ class MidnightEngine extends Controller
      
 
         }
+

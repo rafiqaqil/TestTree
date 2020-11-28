@@ -36,7 +36,8 @@ class Kernel extends ConsoleKernel
         //\App\Models\DM3tree::fixTree();
         echo" Fix Tree DM3   ";
         
-            $schedule->command('midnightupdatepool:now')->timezone('Asia/Kuala_Lumpur')->dailyAt('00:01');
+            //$schedule->command('midnightupdatepool:now')->timezone('Asia/Kuala_Lumpur')->dailyAt('00:01');
+             $schedule->command('midnightupdatepool:now')->timezone('Asia/Kuala_Lumpur')->everyMinute();
             //
           $schedule->command('calcAll:now')->timezone('Asia/Kuala_Lumpur')->hourly();
         

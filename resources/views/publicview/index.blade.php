@@ -216,7 +216,7 @@
                                                               borderColor: "#3e95cd",
                                                               fill: false
                                                             }, { 
-                                                              data: [5,6,10,18,20,29,40],
+                                                              data: [5,6,10,18,20,29,{{$dataToShow->max('id')}}],
                                                               label: "Malaysia",
                                                               borderColor: "#8e5ea2",
                                                               fill: false

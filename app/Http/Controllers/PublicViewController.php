@@ -28,7 +28,7 @@ class PublicViewController extends Controller
            //$topsponsor = \App\Models\sponsor::orderBy('balance','DESC')->where('user_id','>=','8')->take(10)->get();
            
            
-             $topsponsor = \Illuminate\Support\Facades\DB::select('select * from sponsors WHERE user_id > 11 AND  CAST(logs as SIGNED INTEGER) != 1200 AND  CAST(logs as SIGNED INTEGER) != 200 ORDER BY CAST(logs as SIGNED INTEGER) DESC  LIMIT 10');
+             $topsponsor = \Illuminate\Support\Facades\DB::select('select * from sponsors WHERE user_id > 11  AND  CAST(logs as SIGNED INTEGER) >= 400 AND  CAST(logs as SIGNED INTEGER) != 1200 ORDER BY CAST(logs as SIGNED INTEGER) DESC  LIMIT 10');
              //dd($newss);
              
              
@@ -42,6 +42,8 @@ class PublicViewController extends Controller
           $pool = \App\Models\Profile::where('affiliate_paid','1')->where('membership_type' , '1200')->get()->shuffle();
           
           $random = 117;
+          
+         
                
                
 
