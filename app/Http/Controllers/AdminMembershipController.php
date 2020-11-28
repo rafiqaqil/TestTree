@@ -63,7 +63,7 @@ class AdminMembershipController extends Controller
         public function manageNewPlans()
     {
          
-        $alldataApproved = Profile::all()->where('membership_paid',1);
+        $alldataApproved = Profile::orderBy('updated_at', 'desc')->get()->where('id','>',6)->where('membership_paid',1);
         //dd($alldataApproved);
            $user = auth()->user();
             $alldata = Profile::all()->where('membership_paid',0)->where('affiliate_paid',0)->where('placement_payment_type','=', 'USDT');
@@ -99,9 +99,7 @@ class AdminMembershipController extends Controller
           
                         $profile = Profile::find($id);
                         $profile->membership_type = 0;
-                        $profile->save();
-                        
-                        
+                        $profile->save(); 
                     }
                 }
                 else{ 
@@ -131,7 +129,7 @@ class AdminMembershipController extends Controller
      public function ListActivateAccount()
     {
          
-          $alldataApproved = Profile::all()->where('membership_type','>=', 0);
+          $alldataApproved = Profile::orderBy('updated_at', 'desc')->get()->where('id','>',6)->where('membership_type','==', 0);
         //dd($alldataApproved);
            $user = auth()->user();
            $alldata = Profile::all()->where('payment_type','=', 'USDT')->where('membership_type','<', 0);
