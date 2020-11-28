@@ -17,6 +17,7 @@
 
       function drawChart() {
         var data = new google.visualization.DataTable();
+        
         data.addColumn('string', 'Name');
         data.addColumn('string', 'Manager');
         data.addColumn('string', 'ToolTip');
@@ -27,14 +28,14 @@
           @foreach($chart as $c)
           @if($c->affiliate_type  < 1000)
           [{'v':'{{ $c->id }}', 'f':'{{ $c->name }}  <br> Balance: {{$c->balance}}\n\
-                            <br> Plan: {{$c->affiliate_type}}\n\
+                            <br> Plan: {{$c->affiliate_type}} <br> Group-Sale: {{$c->logs}}\n\
                            <br> \n\
                                <div style="color:red; font-style:italic">-</div>'},'{{ $c->parent_id }}', ''],
             @endif
                                
            @if($c->affiliate_type  >= 1000)
           [{'v':'{{ $c->id }}', 'f':'{{ $c->name }}  <br> Balance: {{$c->balance}}\n\
-                            <br> Plan: 1200\n\
+                            <br> Plan: 1200 <br> Group-Sale: {{$c->logs}}\n\
                            <br> \n\
                                <div style="color:red; font-style:italic">-</div>'},'{{ $c->parent_id }}', ''],
             @endif
@@ -42,11 +43,25 @@
           
           @endforeach
         ]);
+         
+         
+         var i;
+         for(i=2;i<{{$all-1}} ;i++){
+             console.log("Hey");
+             console.log(i);
+          data.setRowProperty(i, 'style','width:150px;height:60px;background-color:#00FF00');
+         } 
+        //
 
         // Create the chart.
         var chart = new google.visualization.OrgChart(document.getElementById('chart_div'));
         // Draw the chart, setting the allowHtml option to true for the tooltips.
-        chart.draw(data, {'allowHtml':true});
+        chart.draw(data, {'allowHtml':true,
+                            'allowCollapse':true,
+                             'size':'small',
+        
+        
+        });
       }
 </script>
 </body>

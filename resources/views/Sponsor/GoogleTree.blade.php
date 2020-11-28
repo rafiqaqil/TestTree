@@ -25,7 +25,8 @@
             
           @foreach($chart as $c)
           
-          [{'v':'{{ $c->id }}', 'f':'{{ $c->name }} <br> Plan: {{$c->affiliate_type}}\n\
+          [{'v':'{{ $c->id }}', 'f':'{{ $c->name }} <br> Plan: {{$c->affiliate_type}}  \n\
+\n\
                            <br> \n\
                                <div style="color:red; font-style:italic">-</div>'},'{{ $c->parent_id }}', ''],
      
