@@ -57,7 +57,8 @@ class calcAll extends Command
                                             `8b d8'          88        a8P'        
                                              `888'           88  888  d8"          
                                               `8'            88  888  88888888888
-         * 
+         * UPDATE VERSION 30 NOV 2020 Duplicates Remove All NOW REFERS TO CalcAll.php file for V12 
+         * /////////////////////////////////////////////////////////////////////////////////////////////
          * UPDATE VERSION 29 NOV 2020
          * THERE ARE 4 COPIES OF THIS METHOD MAKE SURE ALL IS UPDATED AT ONCE 
          * /Controllers
