@@ -47,7 +47,8 @@ class calcAll extends Command
     }
  
         
-        /*--------------------------------------------------------------------------------------------                                          
+             
+       /*--------------------------------------------------------------------------------------------                                          
                                         8b           d8      88        ad888888b,  
                                         `8b         d8'    ,d88       d8"     "88  
                                          `8b       d8'   888888               a8P  
@@ -56,6 +57,17 @@ class calcAll extends Command
                                             `8b d8'          88        a8P'        
                                              `888'           88  888  d8"          
                                               `8'            88  888  88888888888
+         * 
+         * UPDATE VERSION 29 NOV 2020
+         * THERE ARE 4 COPIES OF THIS METHOD MAKE SURE ALL IS UPDATED AT ONCE 
+         * /Controllers
+         * AdminMembershipController.php
+         * MidnightEngine.php
+         * /Console/Commands
+         * calcAll.php
+         * MidnightUpdatePool.php
+         * CONSOLE - COMMANDS - MIDNIGHT UPDATE
+         * 
         ------------------------------------------------------------------------------------------------   
         */
         
@@ -63,7 +75,7 @@ class calcAll extends Command
           $all = \App\Models\sponsor::all();
           
           foreach($all as $a)
-          {$groupsale = \App\Models\sponsor::descendantsAndSelf($a->id)->sum('affiliate_type');
+          {$groupsale = \App\Models\sponsor::descendantsAndSelf($a->id)->sum('affiliate_type') - $a->affiliate_type;
            $thisGuy = \App\Models\sponsor::descendantsAndSelf($a->id);
            $parentlevel = \App\Models\sponsor::withDepth()->find($a->id)->depth;
            $thisGuyFamily = \App\Models\sponsor::descendantsAndSelf($a->id)->count();
@@ -118,7 +130,7 @@ class calcAll extends Command
                    if($thisGuyFamily > 5 && $a->DM3_CREDITED == 0)
                    {
                      $a->DM3_CREDITED = 1;
-                     self::DM3addSilently($a->name."-DM5-",$a->user_id);
+                     self::DM3addSilently($a->name,$a->user_id);
                    }
             $a->save(); 
           }
@@ -183,9 +195,8 @@ class calcAll extends Command
              
             $Zchildren = \App\Models\DM5tree::descendantsOf($d->id)->count();
             echo "This Node has Children:". $Zchildren;
-            
-            $maxChildNow = 5;
-            if($TotalNodes >= 3905)
+              $maxChildNow = 5;
+            if($TotalNodes >= 3906)
              $maxChildNow = 1;
             if($Zchildren >= $maxChildNow){ echo "- FULL! ";}  
             else
@@ -317,6 +328,110 @@ class calcAll extends Command
         }}}//return redirect('/DM3');} 
 }
 
-        }
 
+
+
+  function DM5withDM3CREDITED($namaDia,$ownerID)
+    {   for ($xzz = 0; $xzz <= 0; $xzz++) {    
+        echo "Creating New node: ".$namaDia;
+        $TotalNodes = \App\Models\DM5tree::all()->count();
+         echo "<br>Tree Stats<br>Total Nodes: ".$TotalNodes;
+        $lastChildBorned = \App\Models\DM5tree::max('id');
+        echo "<hr>SKIPPING TO ID ".$lastChildBorned;
+        echo "<br>Last Child :".$lastChildBorned;
+        $Deepest = \App\Models\DM5tree::withDepth()->find($lastChildBorned);
+        echo " on Level ".$Deepest->depth . '<br>';
+        $parent = null;
+          if($Deepest->depth == 0){
+            $parent = \App\Models\DM5tree::find(1);
+          goto SkipAll; }
+        
+       $all = \App\Models\DM5tree::all();
+       // Calculate all max child on depth 
+        $maxOnLevel=[1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1];
+        $minOnLevel = [110,110,110,110,110,110,110,110,110,110,110,110,110,110,110,110,110,110,110,110,110,110,110,110,110,101,110,110,10,0,0,0,0,0,0,0,0,0];
+        foreach (range($Deepest->depth-1, $Deepest->depth) as $i)  
+                {
+        
+                 foreach($all as $d) {                    
+                   $ThisGuysDepth = \App\Models\DM5tree::withDepth()->find($d->id);
+                   
+                   
+                   if($ThisGuysDepth->depth == $i){
+                       $ThisGuysDescendants = \App\Models\DM5tree::descendantsOf($d->id)->count();
+                       echo "<br>His Depth ".$ThisGuysDepth->depth;
+                       echo "  His Children ".$ThisGuysDescendants;
+                       if($maxOnLevel[$i] < $ThisGuysDescendants)
+                        $maxOnLevel[$i] = $ThisGuysDescendants;
+                       
+                       if($minOnLevel[$i] > $ThisGuysDescendants)
+                        $minOnLevel[$i] = $ThisGuysDescendants;
+                       
+                       if($ThisGuysDescendants == 0){
+                       echo "Skipping loop for max child cacluaction";
+                       goto stopSearching;
+                   }
+                   }
+                 }
+                 
+        }
+        stopSearching:
+        echo "<br>";
+         foreach (range($Deepest->depth-1, $Deepest->depth) as $i){
+         echo 'Level '.$i."MAX = ".$maxOnLevel[$i];
+          echo 'Min = '.$minOnLevel[$i].'<br>';
+         }
+         echo '<br><hr><br>';
+        foreach($all as $d)
+        {
+            echo "<br>Checking Nodes: ".$d->id;
+             
+            $Zchildren = \App\Models\DM5tree::descendantsOf($d->id)->count();
+            echo "This Node has Children:". $Zchildren;
+              $maxChildNow = 5;
+            if($TotalNodes >= 3906)
+             $maxChildNow = 1;
+            if($Zchildren >= $maxChildNow){ echo "- FULL! ";}  
+            else
+            {         
+                    $level = \App\Models\DM5tree::withDepth()->find($d->id)->depth;
+                    echo "<br>Node is on Level : ".$level;
+                    if($level == 0)$parent = $d;
+                    
+                    $Zchildren= 0;
+                    $Zchildren = \App\Models\DM5tree::descendantsOf($d->id)->count();
+                    
+                    foreach (range($Deepest->depth-1, $Deepest->depth) as $ii)  
+                    if($level == $ii){
+                       if($Zchildren == $minOnLevel[$ii])
+                           $parent = $d;     
+                    }
+            }
+            if($parent == null)
+            echo "NOPE! ";
+            else
+                goto jumpOut;     
+        }
+        jumpOut:
+
+            if($parent == null)
+                dd("NO PARENTS WORHTY");
+            else
+            {SkipAll:
+        echo "Next Parent ",$parent->id;
+        $MemberBaru = ['name' => $namaDia,'user_id' => $ownerID,'balance' => 0,'logs' => '0','DM3_CREDITED' => '1'];
+        if($lastChildBorned%2 == 0){
+            echo" <br><br><br>Its Even";
+        $New = \App\Models\DM5tree::create($MemberBaru);
+        $parent->appendNode($New);
+        }
+        else{
+             echo" <br><br><br>Its Odd";  
+        $New = \App\Models\DM5tree::create($MemberBaru);
+        $New->prependToNode($parent)->save(); 
+        }}}}
+
+     
+
+        }
 

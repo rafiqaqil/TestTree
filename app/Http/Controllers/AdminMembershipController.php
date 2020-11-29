@@ -277,8 +277,7 @@ class AdminMembershipController extends Controller
     }
       
         
-        
-         /*--------------------------------------------------------------------------------------------                                          
+      /*--------------------------------------------------------------------------------------------                                          
                                         8b           d8      88        ad888888b,  
                                         `8b         d8'    ,d88       d8"     "88  
                                          `8b       d8'   888888               a8P  
@@ -289,15 +288,18 @@ class AdminMembershipController extends Controller
                                               `8'            88  888  88888888888
          * 
          * UPDATE VERSION 29 NOV 2020
-         * THERE ARE 5 COPIES OF THIS METHOD MAKE SURE ALL IS UPDATED AT ONCE 
+         * THERE ARE 4 COPIES OF THIS METHOD MAKE SURE ALL IS UPDATED AT ONCE 
+         * /Controllers
          * AdminMembershipController.php
-         * MidnightUpdatePool.php
          * MidnightEngine.php
-         * 
+         * /Console/Commands
+         * calcAll.php
+         * MidnightUpdatePool.php
          * CONSOLE - COMMANDS - MIDNIGHT UPDATE
          * 
         ------------------------------------------------------------------------------------------------   
         */
+        
         
          public function UpdateSponsor(){echo "Midnight Engine Update Sponsors V1.2 value <hr>";
           $all = \App\Models\sponsor::all();
