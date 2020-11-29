@@ -2,7 +2,7 @@
 <meta charset="UTF-8">
 
 <body>
-    <h1>Total Members {{ $all }}</h1>
+    <h1>Total Sponsors {{ $all-1 }}</h1>
     <h1>Levels {{ $levels->depth }}</h1>
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
        <div id="chart_div"></div>
@@ -26,11 +26,18 @@
         data.addRows([
             
           @foreach($chart as $c)
-          
+          @if($c->parent_id == 1)
           [{'v':'{{ $c->id }}', 'f':'{{ $c->name }} <br> Plan: {{$c->affiliate_type}}\n\
                            <br> \n\
+                               <div style="color:red; font-style:italic">-</div>'},'', ''],
+            
+            @else
+                      [{'v':'{{ $c->id }}', 'f':'{{ $c->name }} <br> Plan: {{$c->affiliate_type}}\n\
+                           <br> \n\
                                <div style="color:red; font-style:italic">-</div>'},'{{ $c->parent_id }}', ''],
-     
+            
+                
+                @endif
      
           
           
