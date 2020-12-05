@@ -9,7 +9,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>e-DM5 Blast Live Stats</title>
+    <title>> e-DM5 Blast Live Stats</title>
 
     <!-- Custom fonts for this template-->
     <link href="sb2/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -41,12 +41,10 @@
 
                     <!-- Page Heading -->
                     <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                        <h1 class="h3 mb-0 text-gray-800">e-DM5 Live Statistics
-                        
-                        
+                        <h1 class="h3 mb-0 text-gray-800"><strong>ADMINISTRATOR MASTER VIEW</strong> <br>e-DM5 Live Statistics
                         </h1>
-                        <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
-                                class="fas fa-back fa-sm text-white-50"></i> Home</a>
+                        <a href="{{env('absolute')}}/ControlPanel" class="d-none d-sm-inline-block btn btn-sm btn-warning shadow-sm"><i
+                                class="fas fa-back fa-sm text-white-50"></i> Return to Contol Panel</a>
                     </div>
 
                     <!-- Content Row -->
@@ -59,12 +57,23 @@
                                     <div class="row no-gutters align-items-center">
                                         <div class="col mr-2">
                                             <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
-                                                Cumulative Earnings</div>
+                                                Total DM5 Balance (80%) <br> (User Boleh Withdraw)</div>
                                             <div class="h5 mb-0 font-weight-bold text-gray-800">${{
                                              number_format (
-                                             $TotalEarnings*($random/20)
+                                             $reentry*4
+                                             ,2)}}</div>
+                                            
+                                            
+                                             <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                                                Total DM5 Reentry (20%)<br> </div>
+                                             <div class="h5 mb-0 font-weight-bold text-gray-800">${{
+                                             number_format (
+                                             $reentry
                                              ,2)}}</div>
                                         </div>
+                                        
+                                       
+                                    
                                         <div class="col-auto">
                                             <i class="fas fa-calendar fa-2x text-gray-300"></i>
                                         </div>
@@ -78,14 +87,29 @@
                             <div class="card border-left-success shadow h-100 py-2">
                                 <div class="card-body">
                                     <div class="row no-gutters align-items-center">
-                                        <div class="col mr-2">
-                                            <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
-                                                Passive Distributed Earnings </div>
+                                                <div class="col mr-2">
+                                            <div class="text-xs font-weight-bold text-danger text-uppercase mb-1">
+                                                Total DM3 Balance (80%) <br> (User Boleh Withdraw)</div>
                                             <div class="h5 mb-0 font-weight-bold text-gray-800">${{
                                              number_format (
-                                             $TotalW*$random/3
-                                             ,2)
-                                             }}</div>
+                                             $redeem*8
+                                             ,2)}}</div>
+                                            
+                                            
+                                             <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                                                Total DM3 Redeem (10%)<br> </div>
+                                             <div class="h5 mb-0 font-weight-bold text-gray-800">${{
+                                             number_format (
+                                             $redeem
+                                             ,2)}}</div>
+                                                    
+                                                    
+                                                      <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                                                System (10%)<br> </div>
+                                             <div class="h5 mb-0 font-weight-bold text-gray-800">${{
+                                             number_format (
+                                             $redeem
+                                             ,2)}}</div>
                                         </div>
                                         <div class="col-auto">
                                             <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
@@ -101,11 +125,11 @@
                                 <div class="card-body">
                                     <div class="row no-gutters align-items-center">
                                         <div class="col mr-2">
-                                            <div class="text-xs font-weight-bold text-info text-uppercase mb-1">e-DM5 Midnight Pooling (Today)
+                                            <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Nilai Bayaran kepada Sponsor 
                                             </div>
                                             <div class="row no-gutters align-items-center">
                                                 <div class="col-auto">
-                                                    <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">{{$pool->count()}}</div>
+                                                    <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">${{$sponsorPayable}}</div>
                                                 </div>
                                              
                                             </div>
@@ -139,7 +163,7 @@
 
                     <!-- Content Row -->
                     
-                     <!--
+                     
                      <div class="row">
 
                        
@@ -149,10 +173,10 @@
                                     <div class="row no-gutters align-items-center">
                                         <div class="col mr-2">
                                             <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
-                                                Cumulative EDM5 Reentry Points</div>
+                                               Total Membership payment received (Bayaran diterima daripada penguna)</div>
                                             <div class="h5 mb-0 font-weight-bold text-gray-800">${{
                                              number_format (
-                                              $reentry
+                                              $TotalEarnings
                                              ,2)}}</div>
                                         </div>
                                         <div class="col-auto">
@@ -170,12 +194,17 @@
                                     <div class="row no-gutters align-items-center">
                                         <div class="col mr-2">
                                             <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
-                                                Cumulative DM3 Redeem Points</div>
+                                                Total Withdraw Given (Pengeluaran Duit yang sudah diberi)</div>
                                             <div class="h5 mb-0 font-weight-bold text-gray-800">${{
                                              number_format (
-                                             $redeem
+                                             $TotalW
                                              ,2)
                                              }}</div>
+                                            
+                                           
+                                            
+                                            
+                                            
                                         </div>
                                         <div class="col-auto">
                                             <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
@@ -186,10 +215,68 @@
                         </div>
 
          
-                    </div> -->
+                    </div> 
 
                     <!-- Content Row -->
 
+                    
+                    
+                    <div class="row">
+
+                       
+                        <div class="col-xl-6 col-md-6 mb-4">
+                            <div class="card border-left-primary shadow h-100 py-2">
+                                <div class="card-body">
+                                    <div class="row no-gutters align-items-center">
+                                        <div class="col mr-2">
+                                            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                                               Balance SEMASA EDM-5 (MEMEBRSHIP PAYMENTS - WITHDRAW)</div>
+                                            <div class="h5 mb-0 font-weight-bold text-gray-800">${{
+                                             number_format (
+                                              $TotalEarnings - $TotalW
+                                             ,2)}}</div>
+                                        </div>
+                                        <div class="col-auto">
+                                            <i class="fas fa-calendar fa-2x text-gray-300"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                       
+                        <div class="col-xl-6 col-md-6 mb-4">
+                            <div class="card border-left-success shadow h-100 py-2">
+                                <div class="card-body">
+                                    <div class="row no-gutters align-items-center">
+                                        <div class="col mr-2">
+                                            <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
+                                                BALANCE SELEPAS PEMBERIAN PENUH (MEMBERSHIP PAYMENT - REENTRY - DM5 BALANCE - DM3 BALANCE - REDEEM BALANCE - Group sale) </div>
+                                            <div class="h5 mb-0 font-weight-bold text-gray-800">${{
+                                             number_format (
+                                             ($TotalEarnings)*0.9- $redeem*10 - $reentry*5 
+                                             ,2)
+                                             }}</div>
+                                            
+                                           
+                                            
+                                            
+                                            
+                                        </div>
+                                        <div class="col-auto">
+                                            <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+         
+                    </div> 
+
+                    <!-- Content Row -->
+                    
+                    
                     <div class="row">
 
                         <!-- Area Chart -->
@@ -214,7 +301,7 @@
                                         options: {
                                           title: {
                                             display: true,
-                                            text: 'e-DM5 Blast Revenue Distribution'
+                                            text: 'Size Network DM3, DM5 & Sponsor'
                                           }
                                         }
                                     });

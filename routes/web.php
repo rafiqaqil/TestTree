@@ -190,6 +190,8 @@ Route::get('/Audit/Inactive', [AdminMasterView::class , 'indexInactive']);
 use App\Http\Controllers\PublicViewController;
 //This shows the systems information to a page for thew public to see 
 Route::get('/ShowLive', [PublicViewController::class , 'index']);
+Route::get('/AdminFullView', [PublicViewController::class , 'AdminFullView']);
+
 
 use App\Http\Controllers\RedeemController;
 
@@ -217,3 +219,4 @@ Route::post('/Store/reentryDM5/{DM5tree}', [ReentryController::class , 'store'])
 Route::get('/reentryMGT', [PaymentController::class , 'reentryMGT']);
 Route::get('/reentryMGT/{payment}/PlaceReentry', [PaymentController::class , 'PlaceReentry']);
 Route::get('/reentryMGT/{payment}/CancelReentry', [PaymentController::class , 'CancelReentry']);
+
