@@ -22,9 +22,13 @@ class PublicViewController extends Controller
           
           $data3 = \App\Models\DM3tree::all();
           $data5 = \App\Models\DM5tree::all();
+          
+          $redeem = \App\Models\DM3tree::all()->sum('amount')*0.10;
+          $reentry = \App\Models\DM5tree::all()->sum('amount')*0.20;
           $data6 = \App\Models\sponsor::all();
           
-         /// dd($data6);
+         dd($redeem,$reentry);
+           
            //$topsponsor = \App\Models\sponsor::orderBy('balance','DESC')->where('user_id','>=','8')->take(10)->get();
            
            

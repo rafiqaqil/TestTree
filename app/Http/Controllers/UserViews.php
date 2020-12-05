@@ -99,7 +99,7 @@ class UserViews extends Controller
          $DM5requests = \App\Models\payment::where('DETAIL','REENTRY_DM5')->where('user_id',$user->id)->get();
          if($DM5requests){
          //dd($DM5requests); 
-         echo "OK";}
+         echo " ";}
          else{
          $DM5requests = null;}
         //dd('USD ',$Total*.8);
