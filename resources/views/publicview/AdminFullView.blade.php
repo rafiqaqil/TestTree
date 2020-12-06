@@ -89,7 +89,7 @@
                                     <div class="row no-gutters align-items-center">
                                                 <div class="col mr-2">
                                             <div class="text-xs font-weight-bold text-danger text-uppercase mb-1">
-                                                Total DM3 Balance (80%) <br> (User Boleh Withdraw)</div>
+                                             Total DM3 Balance (80%) <br> (User Boleh Withdraw)</div>
                                             <div class="h5 mb-0 font-weight-bold text-gray-800">${{
                                              number_format (
                                              $redeem*8
@@ -125,7 +125,7 @@
                                 <div class="card-body">
                                     <div class="row no-gutters align-items-center">
                                         <div class="col mr-2">
-                                            <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Nilai Bayaran kepada Sponsor 
+                                            <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Nilai Bayaran kepada Sponsor (10% 2% 2% 1% ) 
                                             </div>
                                             <div class="row no-gutters align-items-center">
                                                 <div class="col-auto">
@@ -133,6 +133,26 @@
                                                 </div>
                                              
                                             </div>
+                                            
+                                              <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Groupsale Total
+                                            </div>
+                                            <div class="row no-gutters align-items-center">
+                                                <div class="col-auto">
+                                                    <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">${{$groupsaleTotal}}</div>
+                                                </div>
+                                             
+                                            </div>
+                                            
+                                            <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Groupsale Estimated Payout (10%)
+                                            </div>
+                                            <div class="row no-gutters align-items-center">
+                                                <div class="col-auto">
+                                                    <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">${{$groupsaleTotal*0.1}}</div>
+                                                </div>
+                                             
+                                            </div>
+                                            
+                                            
                                         </div>
                                         <div class="col-auto">
                                             <i class="fas fa-clipboard-list fa-2x text-gray-300"></i>
@@ -254,7 +274,7 @@
                                                 BALANCE SELEPAS PEMBERIAN PENUH (MEMBERSHIP PAYMENT - REENTRY - DM5 BALANCE - DM3 BALANCE - REDEEM BALANCE - Group sale) </div>
                                             <div class="h5 mb-0 font-weight-bold text-gray-800">${{
                                              number_format (
-                                             ($TotalEarnings)*0.9- $redeem*10 - $reentry*5 
+                                             ($TotalEarnings)*1- $redeem*10 - $reentry*5 -($groupsaleTotal*0.1) 
                                              ,2)
                                              }}</div>
                                             
@@ -334,47 +354,43 @@
                         
                         
                         
-                        
-                        
-                        
-                        
-                        
-                         <div class="col-lg-6 col-lg-6">
+                          <!-- Area Chart -->
+                        <div class="col-lg-6 col-lg-6">
                             <div class="card shadow mb-4">
-                             <canvas id="line-chart" width="800" height="450"></canvas>
+                               <canvas id="pie-chart2" width="400" height="250"></canvas>
+
+                                
+                                <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
 
                                 <script>
-                                         new Chart(document.getElementById("line-chart"), {
-                                                        type: 'line',
-                                                        data: {
-                                                          labels: ['June 2020','July 2020','Aug 2020','Sept 2020','Oct 2020','Nov 2020','Dec 2020'],
-                                                          datasets: [{ 
-                                                              data: [5,20,40,60,80,150,200],
-                                                              label: "Vietnam",
-                                                              borderColor: "#3e95cd",
-                                                              fill: false
-                                                            }, { 
-                                                              data: [5,6,10,18,20,29,{{$dataToShow->max('id')}}],
-                                                              label: "Malaysia",
-                                                              borderColor: "#8e5ea2",
-                                                              fill: false
-                                                            }, { 
-                                                              data: [5,9,10,16,150,160,260],
-                                                              label: "Britain",
-                                                              borderColor: "#3cba9f",
-                                                              fill: false
-                                                            }
-                                                    
-                                                          ]
-                                                        },
-                                                        options: {
-                                                          title: {
-                                                            display: true,
-                                                            text: 'EDM5 Blast Users & Expected Growth '
-                                                          }
-                                                        }
-                                                      });
-
+                                                    new Chart(document.getElementById("pie-chart2"), {
+                                        type: 'pie',
+                                        data: {
+                                          labels: ["DM-3(80%)","DM-3 Redeem(10%)","DM-3 Redeem System (10%)", "DM-5(80%)", "DM-5 Reentry(20%)", "Sponsor Payout (10% 2% 2% 1%)","Groupsale Payout  10%", "System Administration" ],
+                                          datasets: [{
+                                            label: "Revenue Distribution",
+                                            backgroundColor: ["#3e95cf","#3e95cF","#3e95cF", "#8e5ea2", "#8e5eaf","#3cba9f","#00FFFF"],
+                                            data: [{{$redeem*9}},
+                                                {{$redeem}},
+                                                {{$redeem}},
+                                                {{$reentry*4}},
+                                                {{$reentry}},
+                                                {{$sponsorPayable}},
+                                                {{$groupsaleTotal*0.1}},
+                                                {{($TotalEarnings)*1- $redeem*10 - $reentry*5 - $groupsaleTotal*0.1}}
+                                                
+                                                
+                                                
+                                            ]
+                                          }]
+                                        },
+                                        options: {
+                                          title: {
+                                            display: true,
+                                            text: 'Revenue Distribution'
+                                          }
+                                        }
+                                    });
 
                                 </script>
                                 
@@ -400,7 +416,10 @@
                           
                             </div>
                         </div>
-
+                        
+                        
+                        
+                        
 
        
                     </div>

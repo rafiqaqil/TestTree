@@ -36,7 +36,7 @@ class AdminWithdrawController extends Controller
           $TDM3 =  \App\Models\DM3tree::all()->sum('balance')*0.8;
           $TSPN = \App\Models\sponsor::all()->sum('balance');
          
-          $TotalRecieved = \App\Models\Profile::where('membership_paid','1')->sum('membership_type');
+          $TotalRecieved = \App\Models\Profile::where('membership_paid','1')->where('id','>',11)->sum('membership_type');
           
           //dd($TotalRecieved);
           //dd($FinalBalance);

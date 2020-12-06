@@ -204,6 +204,12 @@
               <span>Users Panel</span></a>
           </li>
           
+          <li class="nav-item">
+            <a class="nav-link" href="{{env('absolute')}}/AdminFullView">
+              <i class="fas fa-fw fa-table"></i>
+              <span>Live Statistics</span></a>
+          </li>
+          
             <li class="nav-item">
             <a class="nav-link" href="{{env('absolute')}}/Audit/Users">
               <i class="fas fa-fw fa-table"></i>

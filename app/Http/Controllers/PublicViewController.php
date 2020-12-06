@@ -83,6 +83,7 @@ class PublicViewController extends Controller
           $reentry = \App\Models\DM5tree::all()->sum('balance')*0.20;
           $data6 = \App\Models\sponsor::all();
            $sponsorPayable = \App\Models\sponsor::all()->sum('balance');
+            $groupsaleTotal = \App\Models\sponsor::all()->sum('logs');
            //dd($sponsorPayable);
          //dd($data3->first(),$data3->count(),$data3->count(),$redeem,$reentry);
            
@@ -94,9 +95,10 @@ class PublicViewController extends Controller
              
              
           //dd($groupsale);
+          //11 SPECIAL USERS ARE NOT PAYING THE MEBERSHIP SO IT DOESNT COUNT
           $users = \App\Models\User::orderBy('created_at','desc')->take(10)->get('username');
-          $TotalEarnings = \App\Models\Profile::all()->sum('membership_type');
-          $TotalW = \App\Models\widthdraw::all()->sum('AMOUNT');
+          $TotalEarnings = \App\Models\Profile::all()->where('user_id','>',11)->where('membership_paid','1')->sum('membership_type');
+          $TotalW = \App\Models\widthdraw::all()->where('STATUS','==',100)->sum('AMOUNT');
           
          //dd("All Data To show is here, " ,$data3,$data5,$users,$dataToShow); 
                  
@@ -108,6 +110,6 @@ class PublicViewController extends Controller
                
                
 
-        return view('publicview.AdminFullView', compact('dataToShow','data3','data5','users','TotalEarnings','TotalW','pool','data6','random','topsponsor','redeem','reentry','sponsorPayable'));  
+        return view('publicview.AdminFullView', compact('dataToShow','data3','data5','users','TotalEarnings','TotalW','pool','data6','random','topsponsor','redeem','reentry','sponsorPayable','groupsaleTotal'));  
     }
 }
