@@ -165,6 +165,12 @@
               <span>DM5</span>
             </a>
           </li>
+           <li class="nav-item">
+            <a class="nav-link" href="{{env('absolute')}}/ShowMyM5Token">
+              <i class="fas fa-fw fa-tachometer-alt"></i>
+              <span>M5 Token</span>
+            </a>
+          </li>
            </li>
                 <li class="nav-item">
             <a class="nav-link" href="{{env('absolute')}}/ShowMySponsor">

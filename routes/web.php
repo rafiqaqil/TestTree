@@ -220,3 +220,12 @@ Route::get('/reentryMGT', [PaymentController::class , 'reentryMGT']);
 Route::get('/reentryMGT/{payment}/PlaceReentry', [PaymentController::class , 'PlaceReentry']);
 Route::get('/reentryMGT/{payment}/CancelReentry', [PaymentController::class , 'CancelReentry']);
 
+use App\Http\Controllers\M5TokenController;
+
+Route::get('/ShowMyM5Token', [M5TokenController::class , 'index']);
+
+
+
+
+
+

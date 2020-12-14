@@ -627,9 +627,6 @@
     <!-- Page level plugins -->
     <script src="sb2/vendor/chart.js/Chart.min.js"></script>
 
-    <!-- Page level custom scripts -->
-    <script src="sb2/js/demo/chart-area-demo.js"></script>
-    <script src="sb2/js/demo/chart-pie-demo.js"></script>
 
 </body>
 
