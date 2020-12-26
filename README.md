@@ -1,6 +1,6 @@
 <p align="center"><a href="https://laravel.com" target="_blank">
     
-    <img src="https://shop.e-dm5.uk/wp/wp-content/uploads/2020/12/LOGO.png" width="400"></a></p>
+    <img src="https://shop.e-dm5.uk/wp/wp-content/uploads/2020/12/LOGO.png" width="400"></img></p>
 
 <p align="center">
 
