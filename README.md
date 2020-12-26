@@ -1,6 +1,3 @@
-<p align="center"><a href="https://laravel.com" target="_blank">
-    
-    <img src="https://shop.e-dm5.uk/wp/wp-content/uploads/2020/12/LOGO.png" width="400"></img></p>
 
 <p align="center">
 
@@ -17,12 +14,14 @@ Hierarchical Tree Bases Bonus System
 
 --------------------------------------------------------------------------------
 
-## Setup Requirements
+## Addition System Setup Notes
 
 ### Laravel Scheculer 
 Midnight Pooling Credit every Midnight
-Calculate Balance all Trees every Hour
-
+Calculate Balance all Trees every Hour, cronZZ.log is where the log for errors will be if anything happends check there.
+#### CPANEL
+CRON Job must run task schedule:work
+/usr/local/bin/ea-php73 /home/edmuk/EDM5/artisan schedule:run >> /home/edmuk/EDM5/setup.cronZZ.log
 
 ### PHP Top-Layer System
 Public User -> Maintenance redirection
@@ -31,3 +30,11 @@ Can be set on the index.php on Public HTML
 
 Admin User -> Maintenance Override
 Using Session PHP Code AccessKey Will by pass if Statement on Public Maintenance Portal
+
+## Setup Daily Backup
+Using mysql dump command save databse to file in server 
+#### CPANEL
+CRON JOB 
+date=`date -I`; mysqldump -u edmuk_admin -pAmirul12 edmuk_2 >> /home/edmuk/backup/EDM5-Backup-$date.sql
+
+
