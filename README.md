@@ -30,6 +30,8 @@ Can be set on the index.php on Public HTML
 
 Admin User -> Maintenance Override
 Using Session PHP Code AccessKey Will by pass if Statement on Public Maintenance Portal
+ACCESS KEY is FIXED ON the php file if statement, maybe later can use the app key instead access from env. for more uniform setting control
+https://www.e-dm5.uk/Members/index.php?accessKey=6df845seda65f4ewr98vbg4s65d4fvc89ewr4gv65ew4rv4er65v48e9r4rv4er6v4e6r5v4e65r4v89e
 
 ## Setup Daily Backup
 Using mysql dump command save databse to file in server 
