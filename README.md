@@ -37,6 +37,11 @@ https://www.e-dm5.uk/Members/index.php?accessKey=6df845seda65f4ewr98vbg4s65d4fvc
 Using mysql dump command save databse to file in server 
 #### CPANEL
 CRON JOB 
+
+
 date=`date -I`; mysqldump -u edmuk_admin -pAmirul12 edmuk_2 >> /home/edmuk/backup/EDM5-Backup-$date.sql
+
+
+
 
 
